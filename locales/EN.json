@@ -1,0 +1,10 @@
+{
+  "main": {
+    "select_state": "Select your state",
+    "before_hospital": "Before hospital visit",
+    "during_hospital": "During hospital visit",
+    "after_hospital": "After hospital visit",
+    "search": "Search",
+    "select_provider": "Select insurance provider"
+  }
+}
