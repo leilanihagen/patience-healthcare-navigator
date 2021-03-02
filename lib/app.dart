@@ -11,7 +11,7 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Open Sans',
       ),
-      home: Home(),
+      home: AppBottomNavBarController(),
     );
   }
 }
