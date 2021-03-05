@@ -5,6 +5,9 @@ import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/localizations/localization.dart';
 import 'navigation_bar_controller.dart';
 
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 class App extends StatefulWidget {
   const App({Key key}) : super(key: key);
   static void setLocale(BuildContext context, Locale newLocale) {
@@ -36,7 +39,6 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(designSize: Size(1080, 1920), allowFontScaling: true);
     if (this._locale == null) {
       return Container(
         child: Center(
@@ -45,36 +47,40 @@ class _AppState extends State<App> {
         ),
       );
     } else {
-      return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              fontFamily: 'Open Sans'),
-          locale: _locale,
-          supportedLocales: [
-            Locale("en", "US"),
-            Locale("es", "MX"),
-            Locale("kr", "KR"),
-            Locale("vi", "VN")
-          ],
-          localizationsDelegates: [
-            Localization.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          localeResolutionCallback: (locale, supportedLocales) {
-            for (var supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode &&
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          home: AppBottomNavBarController());
+      return ScreenUtilInit(
+          designSize: Size(1080, 1920),
+          allowFontScaling: false,
+          builder: () => MaterialApp(
+              scaffoldMessengerKey: rootScaffoldMessengerKey,
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  fontFamily: 'Open Sans'),
+              locale: _locale,
+              supportedLocales: [
+                Locale("en", "US"),
+                Locale("es", "MX"),
+                Locale("kr", "KR"),
+                Locale("vi", "VN")
+              ],
+              localizationsDelegates: [
+                Localization.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              localeResolutionCallback: (locale, supportedLocales) {
+                for (var supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale.languageCode &&
+                      supportedLocale.countryCode == locale.countryCode) {
+                    return supportedLocale;
+                  }
+                }
+                return supportedLocales.first;
+              },
+              home: AppBottomNavBarController()));
     }
   }
 }

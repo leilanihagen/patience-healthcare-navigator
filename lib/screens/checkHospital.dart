@@ -7,6 +7,8 @@ import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../app.dart';
+
 class HospitalSearchPage extends StatefulWidget {
   HospitalSearchPage({Key key}) : super(key: key);
 
@@ -19,10 +21,10 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
   bool isLoading = false;
   HospitalPage _hospitalPage;
   openMap(String place) async {
-    String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${place.replaceAll(" ", "%20")}";
-    if (await canLaunch(googleUrl)) {
-      await launch(googleUrl);
+    Uri googleUrl = Uri.https(
+        'www.google.com', '/maps/search/', {'api': '1', 'query': place});
+    if (await canLaunch(googleUrl.toString())) {
+      await launch(googleUrl.toString());
     } else {
       throw 'Could not launch $googleUrl';
     }
@@ -35,7 +37,8 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
     await _determinePosition()
         .then((position) => http
                 .post(
-              'https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check',
+              Uri.https('us-west2-dscapp-301108.cloudfunctions.net',
+                  '/hospital_check'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },
@@ -59,7 +62,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
             }).catchError((onError) {
               throw (onError);
             }))
-        .catchError((onError) => showSnackBar(onError));
+        .catchError((onError) => throw (onError));
     setState(() {
       isLoading = false;
     });
@@ -68,11 +71,14 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
   _loadLastSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('checkHospital');
-    if (tmp.isNotEmpty) _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));
+    if (tmp.isNotEmpty)
+      setState(() {
+        _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));
+      });
   }
 
   showSnackBar(String content) {
-    _hospitalKey.currentState.showSnackBar(SnackBar(
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text(content),
     ));
   }
@@ -157,8 +163,8 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
   getStatus() {
     if (isLoading)
       return SizedBox(
-          width: 0.15.hp,
-          height: 0.15.hp,
+          width: 0.15.sh,
+          height: 0.15.sh,
           child: Padding(
             padding: EdgeInsets.all(20),
             child: CircularProgressIndicator(
@@ -259,8 +265,8 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
                         ],
                         color: getColor(),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: 0.25.hp,
-                    height: 0.25.hp,
+                    width: 0.25.sh,
+                    height: 0.25.sh,
                     child: getStatus()),
               ),
             ),
