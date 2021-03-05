@@ -1,0 +1,10 @@
+{
+  "main": {
+    "select_state": "Chọn tiểu bang của bạn",
+    "before_hospital": "Trước khi đến bệnh viện",
+    "during_hospital": "Trong khi ở bệnh viện",
+    "after_hospital": "Sau khi rời bệnh viện",
+    "search": "Tìm kiếm",
+    "select_provider": "Chọn bảo hiểm"
+  }
+}

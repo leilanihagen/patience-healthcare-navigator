@@ -11,7 +11,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.3
+  # Flutter localization
+  flutter_localizations:
+    sdk: flutter
+  focused_menu: ^1.0.2 
+  shared_preferences: ^0.5.12+4
+  cupertino_icons: ^1.0.0
+  geolocator:
+  dropdown_search:
+  reorderables: ^0.3.2
+  url_launcher:
+  http:
+  intro_slider: ^2.3.3
+  material_floating_search_bar: ^0.2.6
+  flutter_screenutil: 3.0.0-beta.1
+  csv:
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +34,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/fonts/  
+    - assets/fonts/
+    - assets/data/usStates.json
+    - assets/data/proceduresList.csv
+    - locales/EN.json
+    - locales/ES.json
+    - locales/KR.json
+    - locales/VI.json
 
   fonts:
     - family: Open Sans

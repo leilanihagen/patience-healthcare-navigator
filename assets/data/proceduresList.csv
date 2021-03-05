@@ -1,0 +1,291 @@
+Anesthesia for Procedures on the Head,100,222
+Anesthesia for Procedures on the Neck,300,352
+Anesthesia for Procedures on the Thorax,400,474
+Anesthesia for Intrathoracic Procedures,500,580
+Anesthesia for Procedures on the Spine and Spinal Cord,600,670
+Anesthesia for Procedures on the Upper Abdomen,700,797
+Anesthesia for Procedures on the Lower Abdomen,800,882
+Anesthesia for Procedures on the Perineum,902,952
+Anesthesia for Procedures on the Pelvis (Except Hip),1112,1173
+Anesthesia for Procedures on the Upper Leg (Except Knee),1200,1274
+Anesthesia for Procedures on the Knee and Popliteal Area,1320,1444
+Anesthesia for Procedures on the Lower Leg (Below Knee),1462,1522
+Anesthesia for Procedures on the Shoulder and Axilla,1610,1680
+Anesthesia for Procedures on the Upper Arm and Elbow,1710,1782
+"Anesthesia for Procedures on the Forearm, Wrist, and Hand",1810,1860
+Anesthesia for Radiological Procedures,1916,1936
+Anesthesia for Burn Excisions or Debridement Procedures,1951,1953
+Anesthesia for Obstetric Procedures,1958,1969
+Anesthesia for Other Procedures,1990,1999
+Fine Needle Aspiration Biopsy Procedures,10004,10021
+"Surgical Procedures on the Skin, Subcutaneous and Accessory Structures",10030,11646
+Surgical Procedures on the Nails,11719,11765
+Surgical Procedures on the Pilonidal Cyst,11770,11772
+Introduction or Removal Procedures on the Integumentary System,11900,11983
+Surgical Repair (Closure) Procedures on the Integumentary System,12001,16036
+Destruction Procedures on the Integumentary System,17000,17999
+Surgical Procedures on the Breast,19000,19499
+General Surgical Procedures on the Musculoskeletal System,20100,20999
+Surgical Procedures on the Head,21010,21499
+Surgical Procedures on the Neck (Soft Tissues) and Thorax,21501,21899
+Surgical Procedures on the Back and Flank,21920,21936
+Surgical Procedures on the Spine (Vertebral Column),22010,22899
+Surgical Procedures on the Abdomen,22900,22999
+Surgical Procedures on the Shoulder,23000,23929
+Surgical Procedures on the Humerus (Upper Arm) and Elbow,23930,24999
+Surgical Procedures on the Forearm and Wrist,25000,25999
+Surgical Procedures on the Hand and Fingers,26010,26989
+Surgical Procedures on the Pelvis and Hip Joint,26990,27299
+Surgical Procedures on the Femur (Thigh Region) and Knee Joint,27301,27599
+Surgical Procedures on the Leg (Tibia and Fibula) and Ankle Joint,27600,27899
+Surgical Procedures on the Foot and Toes,28001,28899
+Application of Casts and Strapping,29000,29799
+Endoscopy/Arthroscopy Procedures on the Musculoskeletal System,29800,29999
+Surgical Procedures on the Nose,30000,30999
+Surgical Procedures on the Accessory Sinuses,31000,31299
+Surgical Procedures on the Larynx,31300,31599
+Surgical Procedures on the Trachea and Bronchi,31600,31899
+Surgical Procedures on the Lungs and Pleura,32035,32999
+Surgical Procedures on the Heart and Pericardium,33016,33999
+Surgical Procedures on Arteries and Veins,34001,37799
+Surgical Procedures on the Spleen,38100,38200
+General Surgical Procedures on the Hemic and Lymphatic Systems,38204,38232
+Transplantation and Post-Transplantation Cellular Infusion Procedures on the Hemic and Lymphatic Systems,38240,38243
+Surgical Procedures on the Lymph Nodes and Lymphatic Channels,38300,38999
+Surgical Procedures on the Mediastinum,39000,39499
+Surgical Procedures on the Diaphragm,39501,39599
+Surgical Procedures on the Lips,40490,40799
+Surgical Procedures on the Vestibule of Mouth,40800,40899
+Surgical Procedures on the Tongue and Floor of Mouth,41000,41599
+Surgical Procedures on the Dentoalveolar Structures,41800,41899
+Surgical Procedures on the Palate and Uvula,42000,42299
+Surgical Procedures on the Salivary Gland and Ducts,42300,42699
+"Surgical Procedures on the Pharynx, Adenoids, and Tonsils",42700,42999
+Surgical Procedures on the Esophagus,43020,43499
+Surgical Procedures on the Stomach,43500,43999
+Surgical Procedures on the Intestines (Except Rectum),44005,44799
+Surgical Procedures on Meckel's Diverticulum and the Mesentery,44800,44899
+Surgical Procedures on the Appendix,44900,44979
+Surgical Procedures on the Colon and Rectum,45000,45999
+Surgical Procedures on the Anus,46020,46999
+Surgical Procedures on the Liver,47000,47399
+Surgical Procedures on the Biliary Tract,47400,47999
+Surgical Procedures on the Pancreas,48000,48999
+"Surgical Procedures on the Abdomen, Peritoneum, and Omentum",49000,49999
+Surgical Procedures on the Kidney,50010,50593
+Surgical Procedures on the Ureter,50600,50980
+Surgical Procedures on the Bladder,51020,52700
+Surgical Procedures on the Urethra,53000,53899
+Surgical Procedures on the Penis,54000,54450
+Surgical Procedures on the Testis,54500,54699
+Surgical Procedures on the Epididymis,54700,54901
+Surgical Procedures on the Tunica Vaginalis,55000,55060
+Surgical Procedures on the Scrotum,55100,55180
+Surgical Procedures on the Vas Deferens,55200,55400
+Surgical Procedures on the Spermatic Cord,55500,55559
+Surgical Procedures on the Seminal Vesicles,55600,55680
+Surgical Procedures on the Prostate,55700,55899
+Reproductive System Procedures,55920,55920
+Intersex Surgery,55970,55980
+"Surgical Procedures on the Vulva, Perineum and Introitus",56405,56821
+Surgical Procedures on the Vagina,57000,57426
+Surgical Procedures on the Cervix Uteri,57452,57800
+Surgical Procedures on the Corpus Uteri,58100,58674
+Surgical Procedures on the Oviduct/Ovary,58600,58770
+Surgical Procedures on the Ovary,58800,58960
+Surgical Procedures for In Vitro Fertilization,58970,58976
+Other Procedures on the Female Genital System,58999,58999
+Antepartum and Fetal Invasive Services for Maternity Care and Delivery,59000,59076
+Excision Procedures for Maternity Care and Delivery,59100,59160
+Introduction Procedures for Maternity Care and Delivery,59200,59200
+Repair Procedures for Maternity Care and Delivery,59300,59350
+"Vaginal Delivery, Antepartum and Postpartum Care Procedures",59400,59430
+Cesarean Delivery Procedures,59510,59525
+Delivery Procedures After Previous Cesarean Delivery,59610,59622
+Abortion Procedures,59812,59857
+Other Procedures for Maternity Care and Delivery,59866,59899
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Head and Neck,70010,70559
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Chest,71045,71555
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Spine and Pelvis,72020,72295
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Upper Extremities,73000,73225
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Lower Extremities,73501,73725
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Abdomen,74018,74190
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Gastrointestinal Tract,74210,74363
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Urinary Tract,74400,74485
+Gynecological and Obstetrical Diagnostic Radiology (Diagnostic Imaging) Procedures,74710,74775
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Heart,75557,75574
+Diagnostic Radiology (Diagnostic Imaging) Procedures of the Vascular System,75600,75989
+Other Diagnostic Radiology (Diagnostic Imaging) Related Procedures,76000,76499
+Diagnostic Ultrasound Procedures of the Head and Neck,76506,76536
+Diagnostic Ultrasound Procedures of the Chest,76604,76642
+Diagnostic Ultrasound Procedures of the Abdomen and Retroperitoneum,76700,76642
+Diagnostic Ultrasound Procedures of the Spinal Canal,76800,76800
+Diagnostic Ultrasound Procedures of the Pelvis,76801,76857
+Diagnostic Ultrasound Procedures of the Genitalia,76870,76873
+Diagnostic Ultrasound Procedures of the Extremities,76881,76886
+Ultrasonic Guidance Procedures,76932,76965
+Other Diagnostic Ultrasound Procedures,76975,76999
+Fluoroscopic Guidance,77001,77003
+Computed Tomography Guidance,77011,77014
+Magnetic Resonance Imaging Guidance,77021,77022
+"Breast, Mammography",77046,77067
+Bone/Joint Studies,77071,77086
+Clinical Treatment Planning (External and Internal Sources) for Radiation Treatment,77261,77299
+"Medical Radiation Physics, Dosimetry, Treatment Devices, and Special Services for Radiation Treatment",77295,77370
+Stereotactic Radiation Treatment Delivery,77371,77373
+Radiation Treatment Delivery,77385,77425
+Other Radiation Procedures,77399,77399
+Neutron Beam Treatment Delivery,77423,77423
+Radiation Treatment Management,77427,77499
+Proton Beam Radiation Treatment Delivery,77520,77525
+Radiation Hyperthermia Treatment,77600,77615
+Clinical Intracavitary Radiation Hyperthermia Treatment,77620,77620
+Clinical Brachytherapy Radiation Treatment,77750,77799
+Diagnostic Nuclear Medicine Procedures,78012,78999
+Therapeutic Nuclear Medicine Procedures,79005,79999
+Organ or Disease Oriented Panels,80047,80081
+Therapeutic Drug Assays,80143,80377
+Presumptive Drug Class Screening Procedures,80305,80307
+Definitive Drug Testing Procedures,80320,83992
+Evocative/Suppression Testing Procedures,80400,80439
+Clinical Pathology Consultations,80500,80502
+Urinalysis Procedures,81000,81099
+Molecular Pathology Procedures,81105,81479
+Genomic Sequencing Procedures and Other Molecular Multianalyte Assays,81410,81471
+Multianalyte Assays with Algorithmic Analyses,81490,81599
+Hematology and Coagulation Procedures,85002,85999
+Immunology Procedures,86000,86849
+Transfusion Medicine Procedures,86850,86999
+Microbiology Procedures,87003,87999
+Anatomic Pathology Procedures,88000,88099
+Cytopathology Procedures,88104,88199
+Cytogenetic Studies,88230,88299
+Surgical Pathology Procedures,88300,88399
+"In Vivo (eg, Transcutaneous) Laboratory Procedures",88720,88749
+Other Pathology and Laboratory Procedures,89049,89240
+Reproductive Medicine Procedures,89250,89398
+"Immune Globulins, Serum or Recombinant Products",90281,90399
+Immunization Administration for Vaccines/Toxoids,90460,90474
+"Vaccines, Toxoids",90476,90756
+Psychiatry Services and Procedures,90785,90899
+Biofeedback Services and Procedures,90901,90913
+Hemodialysis Procedures,90935,90940
+Miscellaneous Dialysis Services and Procedures,90945,90947
+End-Stage Renal Disease Services,90951,90970
+Other Dialysis Procedures,90989,90999
+Upper Gastrointestinal Motility Studies,91010,91022
+Gastroesophageal Reflux Test Studies,91030,91038
+Esophageal Balloon Distension Study and Breath Test,91040,91065
+"Gastrointestinal Imaging, Pressure Measurement and Manometric Studies",91110,91122
+Gastric Physiology Procedures,91132,91133
+Other Diagnostic Gastroenterology Procedures,91200,91299
+COVID-19 Vaccines/Toxoids,91300,91303
+Ophthalmology Services and Procedures,92002,92499
+Otolaryngologic and Binocular Microscopy Procedures,92502,92504
+Treatment of Auditory Processing Disorder,92507,92508
+"Nasopharyngoscopy, Nasal Study and Facial Nerve Study",92511,92516
+"Vestibular Function Tests, With Recording (eg, ENG)",92517,92549
+Otorhinolaryngologic Evaluation and Procedures,92520,92526
+"Vestibular Function Tests, Without Electrical Recording",92531,92534
+Audiologic Function Tests,92550,92653
+Evaluative and Therapeutic Otorhinolaryngologic Services,92597,92633
+Special Diagnostic Otorhinolaryngologic Procedures,92640,92640
+Other Otorhinolaryngological Service or Procedures,92700,92700
+Therapeutic Cardiovascular Services and Procedures,92920,92998
+Cardiography Procedures,93000,93050
+Cardiovascular Monitoring Services,93224,93278
+"Implantable, Insertable, and Wearable Cardiac Device Evaluations",93260,93298
+Echocardiography Procedures,93303,93356
+Cardiac Catheterization Procedures,93451,93592
+Intracardiac Electrophysiological Procedures/Studies,93600,93662
+Peripheral Arterial Disease Rehabilitation,93668,93668
+Non-invasive Physiologic Studies and Procedures,93701,93790
+Home and Outpatient International Normalized Ratio (INR) Monitoring Services,93792,93793
+Other Cardiovascular Procedures,93797,93799
+Non-Invasive Cerebrovascular Arterial Studies,93880,93895
+Non-Invasive Extremity Arterial Studies (Including Digits),93922,93931
+Non-Invasive Extremity Venous Studies (Including Digits),93970,93971
+Non-Invasive Visceral and Penile Vascular Studies,93975,93981
+Non-Invasive Extremity Arterial-Venous Studies,93985,93990
+Other Noninvasive Vascular Diagnostic Studies,93998,93998
+Ventilator Management,94002,94005
+Pulmonary Diagnostic Testing and Therapies,94010,94799
+Allergy Testing Procedures,95004,95070
+Ingestion Challenge Allergy and Clinical Immunology Testing Procedures,95076,95079
+Allergen Immunotherapy Services and Procedures,95115,95199
+Endocrinology Services,95249,95251
+Sleep Medicine Testing Procedures,95700,95811
+Special EEG Testing Procedures,95700,95967
+Routine Electroencephalography (EEG) Procedures,95812,95830
+Electrocorticography Procedures,95829,95836
+Range of Motion Testing,95851,95857
+Electromyography Procedures,95860,95887
+Ischemic Muscle Testing Procedures and Guidance Procedures for Chemodenervation,95873,95887
+Nerve Conduction Tests,95905,95913
+Autonomic Function Testing Procedures,95921,95943
+Evoked Potentials and Reflex Testing Procedures,95925,95943
+Intraoperative Neurophysiology Procedures,95940,95941
+Neurostimulators Analysis-Programming Procedures,95970,95984
+Other Neurology and Neuromuscular Procedures,95990,95999
+Motion Analysis Procedures,96000,96004
+Functional Brain Mapping,96020,96020
+Medical Genetics and Genetic Counseling Services,96040,96040
+Assessment of Aphasia and Cognitive Performance Testing,96105,96125
+Developmental and Behavioral Screening and Testing,96110,96127
+Psychological and Neuropsychological Testing,96116,96146
+Health Behavior Assessment and Intervention Procedures,96156,96171
+Hydration Infusion,96360,96361
+"Therapeutic, Prophylactic, and Diagnostic Injections and Infusions",96365,96379
+Chemotherapy Administration and Other Highly Complex Drug or Highly Complex Biologic Agent Administration,96401,96549
+Photodynamic Therapy Procedures,96567,96574
+Special Dermatological Procedures,96900,96999
+Physical Medicine and Rehabilitation Modalities,97010,97039
+Physical Medicine and Rehabilitation Therapeutic Procedures,97110,97546
+Physical Therapy Evaluations,97161,97164
+Occupational Therapy Evaluations,97165,79168
+Athletic Training Evaluations,97169,97172
+Active Wound Care Management,97597,97610
+Physical Medicine and Rehabilitation Tests and Measurements,97750,97755
+Orthotic Management and Training and Prosthetic Training,97760,97763
+Other Physical Medicine and Rehabilitation Service or Procedures,97799,97799
+Adaptive Behavior Assessment Procedures,97151,97152
+Adaptive Behavior Treatment Procedures,97153,97158
+Medical Nutrition Therapy Procedures,97802,97804
+Acupuncture Procedures,97810,97814
+Osteopathic Manipulative Treatment Procedures,98925,98929
+Chiropractic Manipulative Treatment Procedures,98940,98943
+Education and Training for Patient Self-Management,98960,98962
+Non-Face-to-Face Nonphysician Telephone Services,98966,98968
+Online Digital Assessment and Management Service by Qualified Nonphysician Health Care Professional,98970,98972
+Miscellaneous Medicine Services,99000,99091
+Qualifying Circumstances for Anesthesia,99100,99140
+Moderate (Conscious) Sedation,99151,99157
+Other Medicine Services and Procedures,99170,99199
+Home Health Procedures and Services,99500,99602
+Medication Therapy Management Services,99605,99607
+Non-Face-to-Face Evaluation and Management Services,99091,99474
+Office or Other Outpatient Services,99202,99215
+Hospital Observation Services,99217,99226
+Hospital Inpatient Services,99221,99237
+Consultation Services,99241,99255
+Emergency Department Services,99281,99288
+Critical Care Services,99291,99292
+Nursing Facility Services,99304,99318
+"Domiciliary, Rest Home (eg, Boarding Home), or Custodial Care Services",99324,99337
+"Domiciliary, Rest Home (eg, Assisted Living Facility), or Home Care Plan Oversight Services",99339,99340
+Home Services,99341,99350
+Prolonged Services,99354,99417
+Case Management Services,99366,99368
+Care Plan Oversight Services,99374,99380
+Preventive Medicine Services,99381,99429
+Care Management Evaluation and Management Services,99439,99491
+Special Evaluation and Management Services,99450,99458
+Newborn Care Services,99460,99463
+Delivery/Birthing Room Attendance and Resuscitation Services,99464,99465
+Inpatient Neonatal Intensive Care Services and Pediatric and Neonatal Critical Care Services,99466,99486
+Cognitive Assessment and Care Plan Services,99483,99486
+General Behavioral Health Integration Care Management,99484,99484
+Psychiatric Collaborative Care Management Services,99492,99494
+Transitional Care Evaluation and Management Services,99495,99496
+Advance Care Planning Evaluation and Management Services,99497,99498
+Other Evaluation and Management Services,99499,99499
