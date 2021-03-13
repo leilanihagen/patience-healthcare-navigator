@@ -65,6 +65,16 @@ class _ProfilePage extends State<ProfilePage> {
         onChanged: print,
         selectedItem: 'Gold 2000',
       ),
+      Text('Your plans deductible:'),
+      TextField(
+        decoration:
+            InputDecoration(hintText: 'Enter your plan\'s deductible amount'),
+      ),
+      Text('Deductible amount paid:'),
+      TextField(
+        decoration: InputDecoration(
+            hintText: 'Enter amount of your deductible you have paid'),
+      ),
     ])));
   }
 }
