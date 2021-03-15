@@ -19,7 +19,7 @@ class _ProfilePage extends State<ProfilePage> {
         child: Text(
           'Your Profile',
           textAlign: TextAlign.left,
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
         ),
         padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
       ),
@@ -28,7 +28,7 @@ class _ProfilePage extends State<ProfilePage> {
           'State of residence (USA):',
           textAlign: TextAlign.left,
         ),
-        padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       ),
       //   DropdownButton<String>(
       //     value: dropdownVal,
@@ -54,41 +54,53 @@ class _ProfilePage extends State<ProfilePage> {
             selectedItem: 'WA',
           ),
           padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
-      DropdownSearch<String>(
-        mode: Mode.MENU,
-        showSelectedItem: true,
-        items: ['Kaiser Permanente', 'Pacific Source'],
-        label: 'Insurance Provider',
-        hint: 'Select your insurance provider',
-        onChanged: print,
-        selectedItem: 'Kaiser Permanente',
-      ),
-      DropdownSearch<String>(
-        mode: Mode.MENU,
-        showSelectedItem: true,
-        items: [
-          'Gold 2000',
-          'Silver 3500',
-          'Silver 5000',
-          'Bronze 7000',
-          'Deductible Bronze',
-          'HSA Bronze'
-        ],
-        label: 'Insurance Plan',
-        hint: 'Select your insurance plan',
-        onChanged: print,
-        selectedItem: 'Gold 2000',
-      ),
-      Text('Your plans deductible:'),
-      TextField(
-        decoration:
-            InputDecoration(hintText: 'Enter your plan\'s deductible amount'),
-      ),
-      Text('Deductible amount paid:'),
-      TextField(
-        decoration: InputDecoration(
-            hintText: 'Enter amount of your deductible you have paid'),
-      ),
+      Padding(
+          child: DropdownSearch<String>(
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: ['Kaiser Permanente', 'Pacific Source'],
+            label: 'Insurance Provider',
+            hint: 'Select your insurance provider',
+            onChanged: print,
+            selectedItem: 'Kaiser Permanente',
+          ),
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
+      Padding(
+          child: DropdownSearch<String>(
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: [
+              'Gold 2000',
+              'Silver 3500',
+              'Silver 5000',
+              'Bronze 7000',
+              'Deductible Bronze',
+              'HSA Bronze'
+            ],
+            label: 'Insurance Plan',
+            hint: 'Select your insurance plan',
+            onChanged: print,
+            selectedItem: 'Gold 2000',
+          ),
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
+      Padding(
+          child: Text('Your plans deductible:'),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+      Padding(
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: 'Enter your plan\'s deductible amount'),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+      Padding(
+          child: Text('Deductible amount paid:'),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+      Padding(
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: 'Enter amount of your deductible you have paid'),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
     ])));
   }
 }
