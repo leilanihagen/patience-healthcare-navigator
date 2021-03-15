@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/painting/edge_insets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,9 +15,20 @@ class _ProfilePage extends State<ProfilePage> {
     return Scaffold(
         body: Center(
             child: Column(children: [
-      Text(
-        'State of residence (USA):',
-        textAlign: TextAlign.left,
+      Padding(
+        child: Text(
+          'Your Profile',
+          textAlign: TextAlign.left,
+          style: TextStyle(fontSize: 20),
+        ),
+        padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+      ),
+      Padding(
+        child: Text(
+          'State of residence (USA):',
+          textAlign: TextAlign.left,
+        ),
+        padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
       ),
       //   DropdownButton<String>(
       //     value: dropdownVal,
@@ -31,15 +43,17 @@ class _ProfilePage extends State<ProfilePage> {
       //       );
       //     }).toList(),
       // ])
-      DropdownSearch<String>(
-        mode: Mode.MENU,
-        showSelectedItem: true,
-        items: ['CA', 'WA', 'OR'],
-        label: 'State',
-        hint: 'Select state of residence',
-        onChanged: print,
-        selectedItem: 'WA',
-      ),
+      Padding(
+          child: DropdownSearch<String>(
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: ['CA', 'WA', 'OR'],
+            label: 'State',
+            hint: 'Select state of residence',
+            onChanged: print,
+            selectedItem: 'WA',
+          ),
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
       DropdownSearch<String>(
         mode: Mode.MENU,
         showSelectedItem: true,
