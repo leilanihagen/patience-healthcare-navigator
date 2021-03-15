@@ -17,18 +17,22 @@ class _ProfilePage extends State<ProfilePage> {
             child: Column(children: [
       Padding(
         child: Text(
-          'Your Profile',
+          'Your Information', // or 'Your Profile'
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
         ),
         padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
       ),
-      Padding(
-        child: Text(
-          'State of residence (USA):',
-          textAlign: TextAlign.left,
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          child: Text(
+            'State of residence (USA):',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
         ),
-        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       ),
       //   DropdownButton<String>(
       //     value: dropdownVal,
@@ -53,7 +57,18 @@ class _ProfilePage extends State<ProfilePage> {
             onChanged: print,
             selectedItem: 'WA',
           ),
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
+          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          child: Text(
+            'Insurance provider:',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+        ),
+      ),
       Padding(
           child: DropdownSearch<String>(
             mode: Mode.MENU,
@@ -64,7 +79,18 @@ class _ProfilePage extends State<ProfilePage> {
             onChanged: print,
             selectedItem: 'Kaiser Permanente',
           ),
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
+          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          child: Text(
+            'Insurance plan:',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+        ),
+      ),
       Padding(
           child: DropdownSearch<String>(
             mode: Mode.MENU,
@@ -82,19 +108,35 @@ class _ProfilePage extends State<ProfilePage> {
             onChanged: print,
             selectedItem: 'Gold 2000',
           ),
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
-      Padding(
-          child: Text('Your plans deductible:'),
-          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          child: Text(
+            'Your plans deductible:',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+        ),
+      ),
       Padding(
           child: TextField(
             decoration: InputDecoration(
                 hintText: 'Enter your plan\'s deductible amount'),
           ),
-          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
-      Padding(
-          child: Text('Deductible amount paid:'),
-          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+          padding: EdgeInsets.fromLTRB(20, 5, 20, 8)),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          child: Text(
+            'Amount of deductible you have paid so far:',
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15),
+          ),
+          padding: EdgeInsets.fromLTRB(20, 8, 20, 5),
+        ),
+      ),
       Padding(
           child: TextField(
             decoration: InputDecoration(
