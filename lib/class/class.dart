@@ -31,7 +31,6 @@ class ProceduresController {
 
   update() {
     var low = 0, upper = 0;
-    Set<String> a;
     var numSec = Set();
     var numG = Set();
     procedures.forEach((element) {
