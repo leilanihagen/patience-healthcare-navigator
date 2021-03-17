@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/painting/edge_insets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:hospital_stay_helper/class/sharePref.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -10,6 +11,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
+  // Dropdown default values:
+  String defaultState = 'CA';
+  String defaultProvider = 'Kaiser Permanente';
+  String defaultPlan = 'Gold 2000'; // this is a Kaiser plan^
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +60,12 @@ class _ProfilePage extends State<ProfilePage> {
             items: ['CA', 'WA', 'OR'],
             label: 'State',
             hint: 'Select state of residence',
-            onChanged: print,
-            selectedItem: 'WA',
+            onChanged: (String s) => {
+              // TO DO: Create an initialization where the default provider is
+              // saved if the user never changes this dropdown
+              MySharedPreferences.instance.setStringValue('user_provider', s),
+            },
+            selectedItem: defaultState,
           ),
           padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
       SizedBox(
@@ -76,7 +86,11 @@ class _ProfilePage extends State<ProfilePage> {
             items: ['Kaiser Permanente', 'Pacific Source'],
             label: 'Insurance Provider',
             hint: 'Select your insurance provider',
-            onChanged: print,
+            onChanged: (String s) => {
+              // TO DO: Create an initialization where the default provider is
+              // saved if the user never changes this dropdown
+              MySharedPreferences.instance.setStringValue('user_provider', s),
+            },
             selectedItem: 'Kaiser Permanente',
           ),
           padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
