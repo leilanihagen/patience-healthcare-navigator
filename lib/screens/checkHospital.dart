@@ -114,7 +114,6 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _hospitalPage = HospitalPage();
     _loadLastSaved();
@@ -212,7 +211,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
           .map((e) => Padding(
                 padding: EdgeInsets.all(5),
                 child: ListTile(
-                  onLongPress: () => openMap(e.name),
+                  onTap: () => openMap(e.name),
                   tileColor: Colors.white,
                   title: Text(e.name),
                   trailing: Text("${e.distance} mile",
