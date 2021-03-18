@@ -32,11 +32,17 @@ class _SearchPage extends State<SearchPage> {
   void initState() {
     super.initState();
     _loadSaved();
+    _loadProvider();
     _loadSearch();
-    _loadStates();
   }
 
-  void _loadSaved() async {
+  Future<void> _loadProvider() async {
+    String provider =
+        await MySharedPreferences.instance.getStringValue("user_provider");
+    if (provider != null) setState(() => controller.provider = provider);
+  }
+
+  Future<void> _loadSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('searchPage');
     if (tmp.isNotEmpty)
@@ -45,26 +51,18 @@ class _SearchPage extends State<SearchPage> {
       controller = ProceduresController();
   }
 
-  Future _loadSearch() async {
+  Future<void> _loadSearch() async {
     final data = await rootBundle.loadString('assets/data/proceduresList.csv');
     List<List<dynamic>> temp = CsvToListConverter().convert(data);
     searchList = List<Search>.from(temp.map((e) => Search.fromString(e)));
     items.addAll(searchList);
   }
 
-  Future _loadStates() async {
-    var tmp = await DefaultAssetBundle.of(context)
-        .loadString("assets/data/usStates.json");
-    setState(() {
-      usStates = json.decode(tmp);
-    });
+  Future _refresh() async {
+    await _loadProvider();
   }
 
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 3));
-  }
-
-  Future<void> search(Search s) async {
+  Future search(Search s) async {
     if (controller.checkExist(s)) return;
     Map<String, dynamic> tmp = {
       "name": "${s.name}",
@@ -328,7 +326,7 @@ class _SearchPage extends State<SearchPage> {
                           Divider(),
                           ListTile(
                               title: Text(
-                                "Provider: Kaiser",
+                                "Provider: ${controller.provider ?? "Empty provider"}",
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.bold),
                               ),
