@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
@@ -38,6 +36,18 @@ class SlideRightRoute extends PageRouteBuilder {
         );
 }
 
+Widget renderClickableSituationCard(
+    BuildContext context, pageBuilder, String situation) {
+  GestureDetector(
+      child: Card(child: ListTile(title: Text(situation))),
+      onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    pageBuilder()), //context, SlideRightRoute(page: BeforeStayPage())
+          ));
+}
+
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
 
@@ -49,13 +59,17 @@ class RootCategoriesPage extends StatelessWidget {
     return Column(children: <Widget>[
       Text(
         "Guidelines",
+        textAlign: TextAlign.left,
         style: TextStyle(
             fontSize: 30,
-            fontWeight: FontWeight.w300,
+            // fontWeight: FontWeight.w300,
             color: Colors.deepPurple),
       ),
       Text(
-          "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills."),
+        "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills.",
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 15),
+      ),
       //renderClickableSituationCard("I'm preparing for a hospital visit"),
       GestureDetector(
           child: Card(
@@ -65,8 +79,44 @@ class RootCategoriesPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        beforeStayPage), //context, SlideRightRoute(page: BeforeStayPage())
-              ))
+                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+              )),
+      GestureDetector(
+          child: Card(child: ListTile(title: Text("I'm at the hospital now"))),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+              )),
+      GestureDetector(
+          child: Card(
+              child: ListTile(title: Text("I recently visited the hospital"))),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+              )),
+      GestureDetector(
+          child: Card(
+              child: ListTile(title: Text("I've received a surprise bill"))),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+              )),
+      GestureDetector(
+          child: Card(
+              child:
+                  ListTile(title: Text("I don't have any health insurance"))),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+              )),
     ]);
   }
 }
@@ -107,15 +157,19 @@ class BeforeStayPage extends StatelessWidget {
                   "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
             ),
           ),
+          ElevatedButton(
+              child: Text("Back"),
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RootCategoriesPage()),
+                  )),
         ],
       ),
       onPanUpdate: (details) {
         if (details.delta.dy > 0) {
-          // User swiped left
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => rootCategoriesPage),
-          );
+          //  User swiped left
+          Navigator.pop(context);
         }
       },
     ));
@@ -127,6 +181,7 @@ class GuidelinesPage extends StatefulWidget {
   GuidelinesPage({Key key}) : super(key: key);
   GuidelinesPageState createState() => new GuidelinesPageState();
 }
+//************************ */
 
 // ***DEPRECATED***
 class GuidelinesPageState extends State<GuidelinesPage> {
@@ -165,6 +220,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
       "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
     ];
   }
+  //************************** */
 
   Widget renderNextBtn() {
     return Icon(
@@ -268,16 +324,6 @@ class GuidelinesPageState extends State<GuidelinesPage> {
       child: ListTile(title: Text(situation)),
       color: Colors.lightBlue,
     );
-  }
-
-  Widget renderClickableSituationCard(String situation) {
-    // GestureDetector(
-    //    onTap:
-    //    child:
-    Card(
-      child: ListTile(title: Text(situation)),
-    );
-    //);
   }
 
   @override
