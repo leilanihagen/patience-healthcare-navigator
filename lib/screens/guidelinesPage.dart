@@ -48,6 +48,30 @@ Widget renderClickableSituationCard(
           ));
 }
 
+Widget renderGuideline(
+    String title, String text, int guidelineNum, int linesShownCollapsed) {
+  return Padding(
+      child: ExpandablePanel(
+        header: Text(
+          "$guidelineNum. " + title,
+          style: TextStyle(fontSize: 19),
+        ),
+        collapsed: Text(
+          text,
+          style: TextStyle(fontSize: 16),
+          softWrap: true,
+          maxLines: linesShownCollapsed,
+          overflow: TextOverflow.ellipsis,
+        ),
+        expanded: Text(
+          text,
+          style: TextStyle(fontSize: 16),
+          softWrap: true,
+        ),
+      ),
+      padding: EdgeInsets.fromLTRB(10, 18, 10, 18));
+}
+
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
 
@@ -149,28 +173,12 @@ class BeforeStayPage extends StatelessWidget {
         body: GestureDetector(
       child: ListView(
         children: [
-          ExpandablePanel(
-            header: Text(
-              guidelinesTitles[0],
-              style: TextStyle(fontSize: 19),
-            ),
-            collapsed: Text(
-              guidelinesText[0],
-              style: TextStyle(fontSize: 16),
-              softWrap: true,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            expanded: Text(guidelinesText[0]),
-          ),
-          Card(
-            child: ListTile(
-              title: Text(
-                  "Make a list of services/procedures you expect to receive"),
-              subtitle: Text(
-                  "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
-            ),
-          ),
+          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
+          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
+          renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
+          renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
           ElevatedButton(
               child: Text("Back"),
               onPressed: () => Navigator.push(
