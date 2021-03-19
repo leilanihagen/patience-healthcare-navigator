@@ -148,19 +148,32 @@ class GuidelinesPageState extends State<GuidelinesPage> {
     return slides;
   }
 
+  Widget renderPreselectedSituationCard(String situation) {
+    return Card(
+      child: ListTile(title: Text(situation)),
+      color: Colors.lightBlue,
+    );
+  }
+
   Widget renderBeforeStayListView() {
     return ListView(
       children: [
-        Card(
-          child: ListTile(
-            title: Text(
-              "Make a detailed visit-plan with your provider.",
+        FocusedMenuHolder(
+            child: Card(
+              child: ListTile(
+                title: Text("Make a detailed visit-plan with your provider."),
+                subtitle: Text(
+                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+              ),
             ),
-            subtitle: Text(
-              "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
-            ),
-          ),
-        ),
+            onPressed: () {},
+            menuItems: <FocusedMenuItem>[
+              FocusedMenuItem(
+                title: Text(
+                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+                onPressed: () {},
+              )
+            ]),
         Card(
           child: ListTile(
             title: Text(
@@ -176,7 +189,14 @@ class GuidelinesPageState extends State<GuidelinesPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return renderBeforeStayListView();
+    return Column(children: <Widget>[
+      Padding(
+        child: renderPreselectedSituationCard(
+            "I'm preparing for a hospital visit"),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
+      ),
+      renderBeforeStayListView(),
+    ]);
 
     // return IntroSlider(
     //   isShowDotIndicator: true,
