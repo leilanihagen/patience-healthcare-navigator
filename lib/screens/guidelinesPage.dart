@@ -58,12 +58,15 @@ class RootCategoriesPage extends StatelessWidget {
           "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills."),
       //renderClickableSituationCard("I'm preparing for a hospital visit"),
       GestureDetector(
-        child: Card(
-            child: ListTile(title: Text("I'm preparing for a hospital visit"))),
-        onTap: Navigator.push(MaterialPageRoute(
-            builder: (context) =>
-                BeforeStayPage())), //context, SlideRightRoute(page: BeforeStayPage())
-      )
+          child: Card(
+              child:
+                  ListTile(title: Text("I'm preparing for a hospital visit"))),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        beforeStayPage), //context, SlideRightRoute(page: BeforeStayPage())
+              ))
     ]);
   }
 }
@@ -76,34 +79,46 @@ class BeforeStayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        FocusedMenuHolder(
-            child: Card(
-              child: ListTile(
-                title: Text("Make a detailed visit-plan with your provider."),
-                subtitle: Text(
-                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+    return Scaffold(
+        body: GestureDetector(
+      child: ListView(
+        children: [
+          FocusedMenuHolder(
+              child: Card(
+                child: ListTile(
+                  title: Text("Make a detailed visit-plan with your provider."),
+                  subtitle: Text(
+                      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+                ),
               ),
+              onPressed: () {},
+              menuItems: <FocusedMenuItem>[
+                FocusedMenuItem(
+                  title: Text(
+                      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+                  onPressed: () {},
+                )
+              ]),
+          Card(
+            child: ListTile(
+              title: Text(
+                  "Make a list of services/procedures you expect to receive"),
+              subtitle: Text(
+                  "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
             ),
-            onPressed: () {},
-            menuItems: <FocusedMenuItem>[
-              FocusedMenuItem(
-                title: Text(
-                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
-                onPressed: () {},
-              )
-            ]),
-        Card(
-          child: ListTile(
-            title: Text(
-                "Make a list of services/procedures you expect to receive"),
-            subtitle: Text(
-                "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
           ),
-        ),
-      ],
-    );
+        ],
+      ),
+      onPanUpdate: (details) {
+        if (details.delta.dy > 0) {
+          // User swiped left
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => rootCategoriesPage),
+          );
+        }
+      },
+    ));
   }
 }
 
