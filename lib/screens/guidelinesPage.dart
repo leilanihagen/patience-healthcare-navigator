@@ -17,6 +17,7 @@ class GuidelinesPage extends StatefulWidget {
 class GuidelinesPageState extends State<GuidelinesPage> {
   SharedPreferences prefs;
   List<String> title, body;
+  List<String> beforeStayTitles, beforeStayTexts;
 
   @override
   void initState() {
@@ -36,6 +37,18 @@ class GuidelinesPageState extends State<GuidelinesPage> {
       "the main reason is",
       "To avoid, we have to... because"
     ];
+    beforeStayTitles = [
+      "Make a detailed visit-plan with your provider.",
+      "Make a list of services/procedures you expect to receive",
+      "Make a list of all hospital staff you plan to receive treatment from",
+      "Call your insurance provider",
+      "Don’t rely on the online information from your insurance provider",
+      "Ask for a detailed price estimate of all planned procedures",
+    ];
+    beforeStayTexts = [
+      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
+      "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
+      ];
   }
 
   Widget renderNextBtn() {
@@ -79,6 +92,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
                     openWithTap: true,
                     onPressed: () {},
                     menuItems: [
+                      // ignore: missing_required_param
                       FocusedMenuItem(
                         title: Flexible(
                           child: Text(body[index]),
@@ -134,20 +148,32 @@ class GuidelinesPageState extends State<GuidelinesPage> {
     return slides;
   }
 
+  Widget renderBeforeStayListView() {
+    return ListView(
+      children: [
+        ListTile(
+          title: Text(beforeStayTitles[0]),
+          subtitle: Text(beforeStayTexts[0]),,
+          ),
+        
+      ],);
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return IntroSlider(
-      isShowDotIndicator: true,
-      slides: getSlide(),
-      // renderDoneBtn: this.renderDoneBtn(),
-      renderNextBtn: this.renderNextBtn(),
-      // renderSkipBtn: this.renderSkipBtn(),
-      colorSkipBtn: Colors.pinkAccent,
-      highlightColorSkipBtn: Colors.greenAccent,
-      colorDot: Colors.pinkAccent,
-      sizeDot: 10.0,
-      typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
-    );
+
+    // return IntroSlider(
+    //   isShowDotIndicator: true,
+    //   slides: getSlide(),
+    //   // renderDoneBtn: this.renderDoneBtn(),
+    //   renderNextBtn: this.renderNextBtn(),
+    //   // renderSkipBtn: this.renderSkipBtn(),
+    //   colorSkipBtn: Colors.pinkAccent,
+    //   highlightColorSkipBtn: Colors.greenAccent,
+    //   colorDot: Colors.pinkAccent,
+    //   sizeDot: 10.0,
+    //   typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
+    // );
   }
 }
