@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
@@ -9,11 +11,109 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
+}
+
+class RootCategoriesPage extends StatelessWidget {
+  RootCategoriesPage({this.context, this.beforeStayPage});
+
+  final BuildContext context;
+  final BeforeStayPage beforeStayPage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Text(
+        "Guidelines",
+        style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w300,
+            color: Colors.deepPurple),
+      ),
+      Text(
+          "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills."),
+      //renderClickableSituationCard("I'm preparing for a hospital visit"),
+      GestureDetector(
+        child: Card(
+            child: ListTile(title: Text("I'm preparing for a hospital visit"))),
+        onTap: Navigator.push(MaterialPageRoute(
+            builder: (context) =>
+                BeforeStayPage())), //context, SlideRightRoute(page: BeforeStayPage())
+      )
+    ]);
+  }
+}
+
+class BeforeStayPage extends StatelessWidget {
+  BeforeStayPage({this.context, this.rootCategoriesPage});
+
+  final BuildContext context;
+  final RootCategoriesPage rootCategoriesPage;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        FocusedMenuHolder(
+            child: Card(
+              child: ListTile(
+                title: Text("Make a detailed visit-plan with your provider."),
+                subtitle: Text(
+                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+              ),
+            ),
+            onPressed: () {},
+            menuItems: <FocusedMenuItem>[
+              FocusedMenuItem(
+                title: Text(
+                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
+                onPressed: () {},
+              )
+            ]),
+        Card(
+          child: ListTile(
+            title: Text(
+                "Make a list of services/procedures you expect to receive"),
+            subtitle: Text(
+                "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ***DEPRECATED***
 class GuidelinesPage extends StatefulWidget {
   GuidelinesPage({Key key}) : super(key: key);
   GuidelinesPageState createState() => new GuidelinesPageState();
 }
 
+// ***DEPRECATED***
 class GuidelinesPageState extends State<GuidelinesPage> {
   SharedPreferences prefs;
   List<String> title, body;
@@ -155,35 +255,14 @@ class GuidelinesPageState extends State<GuidelinesPage> {
     );
   }
 
-  Widget renderBeforeStayListView() {
-    return ListView(
-      children: [
-        FocusedMenuHolder(
-            child: Card(
-              child: ListTile(
-                title: Text("Make a detailed visit-plan with your provider."),
-                subtitle: Text(
-                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
-              ),
-            ),
-            onPressed: () {},
-            menuItems: <FocusedMenuItem>[
-              FocusedMenuItem(
-                title: Text(
-                    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
-                onPressed: () {},
-              )
-            ]),
-        Card(
-          child: ListTile(
-            title: Text(
-                "Make a list of services/procedures you expect to receive"),
-            subtitle: Text(
-                "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
-          ),
-        ),
-      ],
+  Widget renderClickableSituationCard(String situation) {
+    // GestureDetector(
+    //    onTap:
+    //    child:
+    Card(
+      child: ListTile(title: Text(situation)),
     );
+    //);
   }
 
   @override
@@ -195,7 +274,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
             "I'm preparing for a hospital visit"),
         padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
       ),
-      renderBeforeStayListView(),
+      BeforeStayPage(),
     ]);
 
     // return IntroSlider(
