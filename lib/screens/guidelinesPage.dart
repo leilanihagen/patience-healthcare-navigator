@@ -126,6 +126,22 @@ class BeforeStayPage extends StatelessWidget {
 
   final BuildContext context;
   final RootCategoriesPage rootCategoriesPage;
+  final List<String> guidelinesTitles = [
+    "Make a detailed visit-plan with your provider",
+    "Make a list of services/procedures you expect to receive",
+    "Make a list of all hospital staff you plan to receive treatment from",
+    "Call your insurance provider",
+    "Don’t rely on the online information from your insurance provider",
+    "Ask for a detailed price estimate of all planned procedures",
+  ];
+  final List<String> guidelinesText = [
+    "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
+    "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
+    "Ask your doctor or healthcare provider to help you write a list of all the hospital staff (doctors, surgeons, assistants, etc.) who you believe will be treating you during your stay. Keep this list; it will help you if you receive a surprise bill later on. ",
+    "Get your lists from guidelines 2 and 3 ready, then call your insurance provider. Tell them about each test, procedure and service you plan to receive and each hospital staff or doctor you plan to see. Ask them to tell you which services, procedures and hospital staff are in-network (covered by your insurance).",
+    "\“Studies have shown that more than half of provider directory information can be incorrect, including the phone number, address, whether the provider is taking patients and who’s considered in-network.\” It is strongly advised to always call your insurance provider before your visit and double check all of your questions with them.",
+    "Ask your insurance provider and the hospital administrators for a detailed price estimate of the procedure that you are planning to have.",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -133,22 +149,20 @@ class BeforeStayPage extends StatelessWidget {
         body: GestureDetector(
       child: ListView(
         children: [
-          FocusedMenuHolder(
-              child: Card(
-                child: ListTile(
-                  title: Text("Make a detailed visit-plan with your provider."),
-                  subtitle: Text(
-                      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
-                ),
-              ),
-              onPressed: () {},
-              menuItems: <FocusedMenuItem>[
-                FocusedMenuItem(
-                  title: Text(
-                      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn."),
-                  onPressed: () {},
-                )
-              ]),
+          ExpandablePanel(
+            header: Text(
+              guidelinesTitles[0],
+              style: TextStyle(fontSize: 19),
+            ),
+            collapsed: Text(
+              guidelinesText[0],
+              style: TextStyle(fontSize: 16),
+              softWrap: true,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            expanded: Text(guidelinesText[0]),
+          ),
           Card(
             child: ListTile(
               title: Text(
