@@ -48,7 +48,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
     beforeStayTexts = [
       "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
       "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
-    ];
+      ];
   }
 
   Widget renderNextBtn() {
@@ -151,32 +151,17 @@ class GuidelinesPageState extends State<GuidelinesPage> {
   Widget renderBeforeStayListView() {
     return ListView(
       children: [
-        Card(
-          child: ListTile(
-            title: Text(
-              "Make a detailed visit-plan with your provider.",
-            ),
-            subtitle: Text(
-              "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
-            ),
+        ListTile(
+          title: Text(beforeStayTitles[0]),
+          subtitle: Text(beforeStayTexts[0]),,
           ),
-        ),
-        Card(
-          child: ListTile(
-            title: Text(
-                "Make a list of services/procedures you expect to receive"),
-            subtitle: Text(
-                "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit."),
-          ),
-        ),
-      ],
-    );
+        
+      ],);
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return renderBeforeStayListView();
 
     // return IntroSlider(
     //   isShowDotIndicator: true,
