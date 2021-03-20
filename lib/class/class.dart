@@ -162,3 +162,7 @@ class HospitalPage {
     };
   }
 }
+
+class ProfilePage{
+  
+}

@@ -17,6 +17,7 @@ dependencies:
   focused_menu: ^1.0.2 
   shared_preferences: ^0.5.12+4
   cupertino_icons: ^1.0.0
+  expandable: ^5.0.1
   geolocator:
   dropdown_search:
   reorderables: ^0.3.2
