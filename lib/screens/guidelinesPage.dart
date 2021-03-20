@@ -111,7 +111,7 @@ class RootCategoriesPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                        DuringStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
               )),
       GestureDetector(
           child: Card(
@@ -120,7 +120,7 @@ class RootCategoriesPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                        AfterStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
               )),
       GestureDetector(
           child: Card(
@@ -146,7 +146,6 @@ class RootCategoriesPage extends StatelessWidget {
 }
 
 class BeforeStayPage extends StatelessWidget {
-  
   BeforeStayPage({this.context, this.rootCategoriesPage});
 
   final BuildContext context;
@@ -258,6 +257,52 @@ class DuringStayPage extends StatelessWidget {
   }
 }
 
+class AfterStayPage extends StatelessWidget {
+  AfterStayPage({this.context, this.rootCategoriesPage});
+
+  final BuildContext context;
+  final RootCategoriesPage rootCategoriesPage;
+  final List<String> guidelinesTitles = [
+    "Do not pay any portion of your bill until disputing it",
+    "Ask the hospital if they offer any financial assistance",
+  ];
+  final List<String> guidelinesText = [
+    "If you have received a large hospital bill, do not pay even a small part of a it until you have tried other methods of handling the bill first. You may be able to write a simple letter from you or your provider to stop collections agencies from contacting you.",
+    "Some hospitals, including all non-profit facilities, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs.",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: GestureDetector(
+      child: ListView(
+        children: [
+          Card(
+            child: ListTile(
+              title: Text("I'm preparing for a hospital visit"),
+            ),
+            color: Colors.lightBlue[100],
+          ),
+          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
+          ElevatedButton(
+              child: Text("Back"),
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RootCategoriesPage()),
+                  )),
+        ],
+      ),
+      onPanUpdate: (details) {
+        if (details.delta.dy > 0) {
+          //  User swiped left
+          Navigator.pop(context);
+        }
+      },
+    ));
+  }
+}
 
 // ***DEPRECATED***
 class GuidelinesPage extends StatefulWidget {
