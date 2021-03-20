@@ -54,18 +54,18 @@ Widget renderGuideline(
       child: ExpandablePanel(
         header: Text(
           "$guidelineNum. " + title,
-          style: TextStyle(fontSize: 19),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
         collapsed: Text(
           text,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 17),
           softWrap: true,
           maxLines: linesShownCollapsed,
           overflow: TextOverflow.ellipsis,
         ),
         expanded: Text(
           text,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 17),
           softWrap: true,
         ),
       ),
@@ -146,6 +146,7 @@ class RootCategoriesPage extends StatelessWidget {
 }
 
 class BeforeStayPage extends StatelessWidget {
+  
   BeforeStayPage({this.context, this.rootCategoriesPage});
 
   final BuildContext context;
@@ -173,6 +174,12 @@ class BeforeStayPage extends StatelessWidget {
         body: GestureDetector(
       child: ListView(
         children: [
+          Card(
+            child: ListTile(
+              title: Text("I'm preparing for a hospital visit"),
+            ),
+            color: Colors.lightBlue[100],
+          ),
           renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
           renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
           renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
@@ -197,6 +204,60 @@ class BeforeStayPage extends StatelessWidget {
     ));
   }
 }
+
+class DuringStayPage extends StatelessWidget {
+  DuringStayPage({this.context, this.rootCategoriesPage});
+
+  final BuildContext context;
+  final RootCategoriesPage rootCategoriesPage;
+  final List<String> guidelinesTitles = [
+    "Ask if you will be treated by in-network physicians/providers",
+    "Do not pay any portion of a large bill if you do not fully understand the charges",
+    "Make a list of every hospital staff member who treats you during your visit",
+    "Take detailed notes of everything you learn during your visit",
+  ];
+  final List<String> guidelinesText = [
+    "When you arrive to check-in for your appointment, ask the receptionist to double check that all of the providers you will be seeing during your visit are in-network with your insurance.",
+    "If you are asked to pay any amount for your treatment while you are at the hospital, ask to see an itemized bill describing each of your charges in detail. Never pay any amount until you fully understand each charge. The best option is to until after you leave the hospital before you pay any amount toward your bill or bills. This is because you may be able to negotiate or dispute the bill by writing a simple letter before you pay.",
+    "Write down the names of every hospital staff member who treats you during your visit.",
+    "Take detailed notes of any information that you learn from your healthcare providers during your hospital stay, such as if a certain doctor is in-network or out-of network, medical advice given to you by a nurse or a doctor, over the counter treatments you may try, etc. This will not only help you avoid surprise bills, it will also help you manage your health.",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: GestureDetector(
+      child: ListView(
+        children: [
+          Card(
+            child: ListTile(
+              title: Text("I'm preparing for a hospital visit"),
+            ),
+            color: Colors.lightBlue[100],
+          ),
+          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
+          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
+          ElevatedButton(
+              child: Text("Back"),
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RootCategoriesPage()),
+                  )),
+        ],
+      ),
+      onPanUpdate: (details) {
+        if (details.delta.dy > 0) {
+          //  User swiped left
+          Navigator.pop(context);
+        }
+      },
+    ));
+  }
+}
+
 
 // ***DEPRECATED***
 class GuidelinesPage extends StatefulWidget {
