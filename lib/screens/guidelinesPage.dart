@@ -304,6 +304,72 @@ class AfterStayPage extends StatelessWidget {
   }
 }
 
+class ReceivedBillPage extends StatelessWidget {
+  ReceivedBillPage({this.context, this.rootCategoriesPage});
+
+  final BuildContext context;
+  final RootCategoriesPage rootCategoriesPage;
+  final List<String> guidelinesTitles = [
+    "Write a letter to the hospital disputing the bill"
+  ];
+  final List<String> guidelinesText = [
+//     "Write a letter to your hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.
+
+// Elements to include in your letter:
+// (a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined. Ask for the hospital\’s entire price list, which you are entitled to under 42 U.S.C.A. § 300gg-18(e) (you should state this).
+
+// (b) Ask that they provide you with a copy of your medical treatment record in order to explain each charge.
+
+// (c) If there are any Adjustments or Discounts stated on your bill, ask them to \“provide numerical detail\” on how these adjustments or discounts were arrived at including price negotiations with your insurance company.\” (https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik)
+
+// (d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).
+
+// (e) State that you will pay the requested amount after the hospital provides you with the requested information.
+
+// (f) Finally, state that you are disputing your bill and that you wish to have the record of your bill marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed.
+
+// Source: https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik
+
+// A resource that provides a template letter to send to a hospital (we recommend adding more points to this letter from the above mentioned points): https://brokenhealthcare.org/dispute-every-hospital-bill/  "
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: GestureDetector(
+      child: ListView(
+        children: [
+          Card(
+            child: ListTile(
+              title: Text("I'm preparing for a hospital visit"),
+            ),
+            color: Colors.lightBlue[100],
+          ),
+          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
+          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
+          renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
+          renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
+          ElevatedButton(
+              child: Text("Back"),
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RootCategoriesPage()),
+                  )),
+        ],
+      ),
+      onPanUpdate: (details) {
+        if (details.delta.dy > 0) {
+          //  User swiped left
+          Navigator.pop(context);
+        }
+      },
+    ));
+  }
+}
+
 // ***DEPRECATED***
 class GuidelinesPage extends StatefulWidget {
   GuidelinesPage({Key key}) : super(key: key);
