@@ -20,7 +20,8 @@ class SearchPage extends StatefulWidget {
   _SearchPage createState() => _SearchPage();
 }
 
-class _SearchPage extends State<SearchPage> {
+class _SearchPage extends State<SearchPage>
+    with AutomaticKeepAliveClientMixin<SearchPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final FloatingSearchBarController searchController =
       FloatingSearchBarController();
@@ -512,4 +513,7 @@ class _SearchPage extends State<SearchPage> {
             ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -14,7 +14,8 @@ class GuidelinesPage extends StatefulWidget {
   GuidelinesPageState createState() => new GuidelinesPageState();
 }
 
-class GuidelinesPageState extends State<GuidelinesPage> {
+class GuidelinesPageState extends State<GuidelinesPage>
+    with AutomaticKeepAliveClientMixin<GuidelinesPage> {
   SharedPreferences prefs;
   List<String> title, body;
 
@@ -150,4 +151,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
       typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

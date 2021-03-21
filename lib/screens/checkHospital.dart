@@ -16,7 +16,8 @@ class HospitalSearchPage extends StatefulWidget {
   _ChekcHospitalPage createState() => _ChekcHospitalPage();
 }
 
-class _ChekcHospitalPage extends State<HospitalSearchPage> {
+class _ChekcHospitalPage extends State<HospitalSearchPage>
+    with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false;
   HospitalPage _hospitalPage;
@@ -273,4 +274,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
           ],
         )));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
