@@ -161,3 +161,7 @@ class HospitalPage {
     };
   }
 }
+
+class ProfilePage{
+  
+}
