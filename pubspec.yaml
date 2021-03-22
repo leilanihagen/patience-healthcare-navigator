@@ -1,5 +1,5 @@
 name: hospital_stay_helper
-description: A new Flutter project.
+description: A project help patient navigate hospitay and avoid unexpected medical bill.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 

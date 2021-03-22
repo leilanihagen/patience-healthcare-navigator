@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/painting/edge_insets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 
@@ -23,12 +22,13 @@ class _ProfilePage extends State<ProfilePage>
   double userDeductible;
   double userDeductibleReduction;
 
+
   _loadSave() async {
     userState = await MySharedPreferences.instance.getStringValue('user_state');
     userProvider =
         await MySharedPreferences.instance.getStringValue('user_provider');
     userPlan = await MySharedPreferences.instance.getStringValue('user_plan');
-
+    setState(() {});
     // Implement later:
     // userDeductible =
     //     await MySharedPreferences.instance.getStringValue('user_deductible');
@@ -92,7 +92,7 @@ class _ProfilePage extends State<ProfilePage>
               // saved if the user never changes this dropdown
               MySharedPreferences.instance.setStringValue('user_state', s),
             },
-            selectedItem: null,
+            selectedItem: userState,
           ),
           padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
       // SizedBox(
@@ -118,7 +118,7 @@ class _ProfilePage extends State<ProfilePage>
               // saved if the user never changes this dropdown
               MySharedPreferences.instance.setStringValue('user_provider', s),
             },
-            selectedItem: null,
+            selectedItem: userProvider,
           ),
           padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
       // SizedBox(
@@ -151,7 +151,7 @@ class _ProfilePage extends State<ProfilePage>
               // saved if the user never changes this dropdown
               MySharedPreferences.instance.setStringValue('user_plan', s),
             },
-            selectedItem: null,
+            selectedItem: userPlan,
           ),
           padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
       // SizedBox(
@@ -174,6 +174,7 @@ class _ProfilePage extends State<ProfilePage>
           child: TextField(
             decoration:
                 InputDecoration(hintText: 'Your plan\'s deductible amount'),
+            keyboardType: TextInputType.number,
             // onChanged: (String s) => {
             //       MySharedPreferences.instance
             //           .setStringValue('user_deductible', s),

@@ -55,12 +55,12 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               label: 'Your Profile',
             ),
             BottomNavigationBarItem(
-              icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
-              label: 'Search Services',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
               label: 'Find In-Network Hospitals',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+              label: 'Search Services',
             ),
           ]);
 
