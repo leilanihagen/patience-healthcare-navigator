@@ -378,8 +378,8 @@ class GuidelinesPage extends StatefulWidget {
 }
 //************************ */
 
-// ***DEPRECATED***
-class GuidelinesPageState extends State<GuidelinesPage> {
+class GuidelinesPageState extends State<GuidelinesPage>
+    with AutomaticKeepAliveClientMixin<GuidelinesPage> {
   SharedPreferences prefs;
   List<String> title, body;
   List<String> beforeStayTitles, beforeStayTexts;
@@ -546,4 +546,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
     //   typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
     // );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

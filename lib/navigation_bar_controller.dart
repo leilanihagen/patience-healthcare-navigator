@@ -12,21 +12,35 @@ class AppBottomNavBarController extends StatefulWidget {
 
 // (Below) re-implementing the state of AppBottomNavBarController
 class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
-  final List<Widget> pages = [
-    GuidelinesPage(key: PageStorageKey('guidelines')),
-    ProfilePage(key: PageStorageKey('yourprofile')),
-    HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
-    SearchPage(key: PageStorageKey('searchservices')),
-  ];
+  List<Widget> pages;
+  PageController _pageController;
+  int _selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 0;
+    pages = [
+      GuidelinesPage(key: PageStorageKey('guidelines')),
+      ProfilePage(key: PageStorageKey('yourprofile')),
+      SearchPage(key: PageStorageKey('searchservices')),
+      HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+    ];
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
 
-  final PageStorageBucket bucket = PageStorageBucket();
-  int _selectedIndex = 0;
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   Widget _bottomNavBar(int selectedIndex) => BottomNavigationBar(
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
-          onTap: (int index) =>
-              setState(() => _selectedIndex = index), // rebuild this widget
+          onTap: (int index) => setState(() {
+                _selectedIndex = index;
+                _pageController.jumpToPage(index);
+              }), // rebuild this widget
           currentIndex: selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -54,9 +68,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
-      body: PageStorage(
-        child: pages[_selectedIndex], // listitem
-        bucket: bucket,
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: pages,
       ),
     );
   }

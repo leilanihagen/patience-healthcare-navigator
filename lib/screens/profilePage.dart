@@ -9,7 +9,8 @@ class ProfilePage extends StatefulWidget {
   _ProfilePage createState() => _ProfilePage();
 }
 
-class _ProfilePage extends State<ProfilePage> {
+class _ProfilePage extends State<ProfilePage>
+    with AutomaticKeepAliveClientMixin<ProfilePage> {
   // Dropdown default values:
   // String userState = 'CA';
   // String userProvider = 'Kaiser Permanente';
@@ -203,4 +204,7 @@ class _ProfilePage extends State<ProfilePage> {
           padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
     ]))));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
