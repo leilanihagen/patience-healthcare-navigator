@@ -437,7 +437,7 @@ class GuidelinesPageState extends State<GuidelinesPage> {
       Slide(
           maxLineTitle: 2,
           backgroundColor: Colors.deepPurple[600],
-          title: getTranslated(context, 'before_hospital'),
+          title: "Before Hospital",
           styleTitle: TextStyle(
               color: Color(0xff3da4ab),
               fontSize: 30.0,

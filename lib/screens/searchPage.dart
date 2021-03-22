@@ -9,6 +9,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../app.dart';
 import '../class/class.dart';
@@ -31,11 +32,17 @@ class _SearchPage extends State<SearchPage> {
   void initState() {
     super.initState();
     _loadSaved();
+    _loadProvider();
     _loadSearch();
-    _loadStates();
   }
 
-  void _loadSaved() async {
+  Future<void> _loadProvider() async {
+    String provider =
+        await MySharedPreferences.instance.getStringValue("user_provider");
+    if (provider != null) setState(() => controller.provider = provider);
+  }
+
+  Future<void> _loadSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('searchPage');
     if (tmp.isNotEmpty)
@@ -44,47 +51,39 @@ class _SearchPage extends State<SearchPage> {
       controller = ProceduresController();
   }
 
-  Future _loadSearch() async {
+  Future<void> _loadSearch() async {
     final data = await rootBundle.loadString('assets/data/proceduresList.csv');
     List<List<dynamic>> temp = CsvToListConverter().convert(data);
     searchList = List<Search>.from(temp.map((e) => Search.fromString(e)));
     items.addAll(searchList);
   }
 
-  Future _loadStates() async {
-    var tmp = await DefaultAssetBundle.of(context)
-        .loadString("assets/data/usStates.json");
-    setState(() {
-      usStates = json.decode(tmp);
-    });
+  Future _refresh() async {
+    await _loadProvider();
   }
 
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 3));
-  }
-
-  Future<void> search(Search s) async {
+  Future search(Search s) async {
     if (controller.checkExist(s)) return;
     Map<String, dynamic> tmp = {
       "name": "${s.name}",
-      "section": "Surgery",
-      "group": "something",
       "lower_cpt": s.lowerCpt,
       "upper_cpt": s.upperCpt,
-      "lower_price": 123,
-      "upper_price": 456,
-      "code_url": "https://9gag.com/",
-      "price_url": "https://9gag.com/"
     };
-    Procedure p;
-    Future.delayed(Duration(seconds: 5), () {
-      p = Procedure.fromJson(tmp);
+    http.Response response = await http.post(
+        Uri.https('us-west2-dscapp-301108.cloudfunctions.net', '/search'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'lower_cpt': s.lowerCpt}));
+    if (response.statusCode == 200) {
+      tmp.addAll(jsonDecode(response.body));
+      Procedure p = Procedure.fromJson(tmp);
       setState(() {
         controller.add(p);
         controller.update();
       });
       saveState();
-    });
+    }
   }
 
   void saveState() async {
@@ -109,10 +108,10 @@ class _SearchPage extends State<SearchPage> {
   }
 
   void filterSearchResults(String query) {
-    List<Search> dummySearchList = List<Search>();
+    List<Search> dummySearchList = [];
     dummySearchList.addAll(searchList);
     if (query.isNotEmpty) {
-      List<Search> dummyListData = List<Search>();
+      List<Search> dummyListData = [];
       dummySearchList.forEach((item) {
         if (item.name.toLowerCase().contains(query.toLowerCase()))
           dummyListData.add(item);
@@ -128,148 +127,6 @@ class _SearchPage extends State<SearchPage> {
         items.addAll(searchList);
       });
   }
-
-  // Widget buildItem(BuildContext context, Procedure p, int index,
-  //     AnimatedListBuildType buildType) {
-  //   return Dismissible(
-  //       key: PageStorageKey<String>(p.name),
-  //       background: stackBehindDismiss(),
-  //       onDismissed: (direction) {
-  //         Procedure item = p;
-  //         deleteItem(index);
-  //         _scaffoldKey.currentState.showSnackBar(SnackBar(
-  //           content: Text('${item.name} is deleted'),
-  //           action: SnackBarAction(
-  //             label: 'Undo',
-  //             onPressed: () {
-  //               undoDeletion(index, item);
-  //             },
-  //           ),
-  //         ));
-  //       },
-  //       child: Padding(
-  //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //           child: ClipRRect(
-  //               borderRadius: BorderRadius.circular(15),
-  //               child: Container(
-  //                 color: Colors.white,
-  //                 child: ExpansionTile(
-  //                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
-  //                   subtitle: RichText(
-  //                     text: TextSpan(
-  //                         style: TextStyle(
-  //                             fontSize: 14,
-  //                             color: Colors.black,
-  //                             decoration: TextDecoration.underline),
-  //                         children: [
-  //                           TextSpan(text: 'CPT code: '),
-  //                           TextSpan(
-  //                               text: "${p.lowerCpt} - ${p.upperCpt}",
-  //                               style: TextStyle(fontWeight: FontWeight.bold))
-  //                         ]),
-  //                   ),
-  //                   title: Text("${p.name}"),
-  //                   childrenPadding:
-  //                       EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-  //                   expandedAlignment: p.lowerPrice == null
-  //                       ? Alignment.center
-  //                       : Alignment.bottomLeft,
-  //                   maintainState: false,
-  //                   children: [
-  //                     RichText(
-  //                       text: TextSpan(
-  //                           style: TextStyle(
-  //                             fontSize: 18,
-  //                             color: Colors.black,
-  //                           ),
-  //                           children: [
-  //                             TextSpan(text: 'Price range: '),
-  //                             TextSpan(
-  //                                 text: "\$${p.lowerPrice} - \$${p.upperPrice}",
-  //                                 style: TextStyle(fontWeight: FontWeight.bold))
-  //                           ]),
-  //                     ),
-  //                     Divider(),
-  //                     RichText(
-  //                       text: TextSpan(
-  //                           style: TextStyle(
-  //                             fontSize: 18,
-  //                             color: Colors.black,
-  //                           ),
-  //                           children: [
-  //                             TextSpan(
-  //                                 text: '• Section: ',
-  //                                 style: TextStyle(color: Colors.green)),
-  //                             TextSpan(
-  //                                 text: " ${p.section}",
-  //                                 style: TextStyle(fontStyle: FontStyle.italic))
-  //                           ]),
-  //                     ),
-  //                     RichText(
-  //                       text: TextSpan(
-  //                           style: TextStyle(
-  //                             fontSize: 18,
-  //                             color: Colors.black,
-  //                           ),
-  //                           children: [
-  //                             TextSpan(
-  //                                 text: '• Group: ',
-  //                                 style: TextStyle(color: Colors.redAccent)),
-  //                             TextSpan(
-  //                                 text: " ${p.group}",
-  //                                 style: TextStyle(fontStyle: FontStyle.italic))
-  //                           ]),
-  //                     ),
-  //                     Divider(),
-  //                     Row(
-  //                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                       children: [
-  //                         RichText(
-  //                           text: TextSpan(
-  //                               style: TextStyle(
-  //                                   fontSize: 14,
-  //                                   color: Colors.blue,
-  //                                   decoration: TextDecoration.underline),
-  //                               children: [
-  //                                 TextSpan(
-  //                                   text: "CPT code detail",
-  //                                   recognizer: TapGestureRecognizer()
-  //                                     ..onTap = () async {
-  //                                       var url = p.codeUrl;
-  //                                       if (await canLaunch(url)) {
-  //                                         await launch(url);
-  //                                       } else
-  //                                         throw 'Could not launch $url';
-  //                                     },
-  //                                 )
-  //                               ]),
-  //                         ),
-  //                         RichText(
-  //                           text: TextSpan(
-  //                               style: TextStyle(
-  //                                   fontSize: 14,
-  //                                   color: Colors.blue,
-  //                                   decoration: TextDecoration.underline),
-  //                               children: [
-  //                                 TextSpan(
-  //                                   text: "Procedure price detail",
-  //                                   recognizer: TapGestureRecognizer()
-  //                                     ..onTap = () async {
-  //                                       var url = p.priceUrl;
-  //                                       if (await canLaunch(url)) {
-  //                                         await launch(url);
-  //                                       } else
-  //                                         throw 'Could not launch $url';
-  //                                     },
-  //                                 )
-  //                               ]),
-  //                         ),
-  //                       ],
-  //                     )
-  //                   ],
-  //                 ),
-  //               ))));
-  // }
 
   List<Widget> _buildList() {
     return List<Widget>.generate(
@@ -434,6 +291,7 @@ class _SearchPage extends State<SearchPage> {
         maxChildSize: 0.5,
         builder: (context, scrollController) {
           return Stack(
+            clipBehavior: Clip.none,
             children: <Widget>[
               Container(
                   decoration: BoxDecoration(
@@ -468,7 +326,7 @@ class _SearchPage extends State<SearchPage> {
                           Divider(),
                           ListTile(
                               title: Text(
-                                "Provider: Kaiser",
+                                "Provider: ${controller.provider ?? "Empty provider"}",
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.bold),
                               ),

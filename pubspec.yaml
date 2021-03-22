@@ -1,5 +1,5 @@
 name: hospital_stay_helper
-description: A new Flutter project.
+description: A project help patient navigate hospitay and avoid unexpected medical bill.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -14,18 +14,17 @@ dependencies:
   # Flutter localization
   flutter_localizations:
     sdk: flutter
-  focused_menu: ^1.0.2 
-  shared_preferences: ^0.5.12+4
-  cupertino_icons: ^1.0.0
-  expandable: ^5.0.1
+  focused_menu: 
+  shared_preferences: 
+  cupertino_icons: 
   geolocator:
   dropdown_search:
-  reorderables: ^0.3.2
+  reorderables: 
   url_launcher:
   http:
-  intro_slider: ^2.3.3
-  material_floating_search_bar: ^0.2.6
-  flutter_screenutil: ^4.0.3+2
+  intro_slider: 
+  material_floating_search_bar: 
+  flutter_screenutil: 
   csv:
 
 dev_dependencies:

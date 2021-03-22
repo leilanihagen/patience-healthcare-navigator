@@ -15,8 +15,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   final List<Widget> pages = [
     GuidelinesPage(key: PageStorageKey('guidelines')),
     ProfilePage(key: PageStorageKey('yourprofile')),
-    SearchPage(key: PageStorageKey('searchservices')),
     HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+    SearchPage(key: PageStorageKey('searchservices')),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -41,12 +41,12 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               label: 'Your Profile',
             ),
             BottomNavigationBarItem(
-              icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
-              label: 'Search Services',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
               label: 'Find In-Network Hospitals',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+              label: 'Search Services',
             ),
           ]);
 

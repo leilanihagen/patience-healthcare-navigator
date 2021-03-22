@@ -34,35 +34,42 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
     setState(() {
       isLoading = true;
     });
-    await _determinePosition()
-        .then((position) => http
-                .post(
-              Uri.https('us-west2-dscapp-301108.cloudfunctions.net',
-                  '/hospital_check'),
-              headers: <String, String>{
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode({
-                'lat': position.latitude,
-                'lng': position.longitude,
-                'provider': "Kaiser"
-              }),
-            )
-                .then((response) {
-              if (response.statusCode == 200) {
-                setState(() {
-                  _hospitalPage =
-                      HospitalPage.fromJson(jsonDecode(response.body));
-                });
-                MySharedPreferences.instance
-                    .setStringValue('checkHospital', response.body);
-              } else {
-                throw ("Error");
-              }
-            }).catchError((onError) {
-              throw (onError);
-            }))
-        .catchError((onError) => throw (onError));
+    String provider =
+        await MySharedPreferences.instance.getStringValue('user_provider');
+    if (provider != null)
+      await _determinePosition()
+          .then((position) => http
+                  .post(
+                Uri.https('us-west2-dscapp-301108.cloudfunctions.net',
+                    '/hospital_check'),
+                headers: <String, String>{
+                  'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: jsonEncode({
+                  'lat': position.latitude,
+                  'lng': position.longitude,
+                  'provider': provider
+                }),
+              )
+                  .then((response) {
+                if (response.statusCode == 200) {
+                  setState(() {
+                    _hospitalPage =
+                        HospitalPage.fromJson(jsonDecode(response.body));
+                  });
+                  MySharedPreferences.instance
+                      .setStringValue('checkHospital', response.body);
+                } else {
+                  throw ("Error");
+                }
+              }).catchError((onError) {
+                throw (onError);
+              }))
+          .catchError((onError) => throw (onError));
+    else
+      rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+        content: Text("You haven't select a provider"),
+      ));
     setState(() {
       isLoading = false;
     });
@@ -114,7 +121,6 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _hospitalPage = HospitalPage();
     _loadLastSaved();
@@ -212,7 +218,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage> {
           .map((e) => Padding(
                 padding: EdgeInsets.all(5),
                 child: ListTile(
-                  onLongPress: () => openMap(e.name),
+                  onTap: () => openMap(e.name),
                   tileColor: Colors.white,
                   title: Text(e.name),
                   trailing: Text("${e.distance} mile",
