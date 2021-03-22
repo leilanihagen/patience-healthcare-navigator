@@ -24,7 +24,8 @@ dependencies:
   http:
   intro_slider: 
   material_floating_search_bar: 
-  flutter_screenutil: 
+  flutter_screenutil:
+  expandable:
   csv:
 
 dev_dependencies:

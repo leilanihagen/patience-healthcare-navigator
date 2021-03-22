@@ -22,8 +22,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     pages = [
       GuidelinesPage(key: PageStorageKey('guidelines')),
       ProfilePage(key: PageStorageKey('yourprofile')),
-      SearchPage(key: PageStorageKey('searchservices')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+      SearchPage(key: PageStorageKey('searchservices')),
     ];
     _pageController = PageController(initialPage: _selectedIndex);
   }

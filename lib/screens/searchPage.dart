@@ -399,7 +399,7 @@ class _SearchPage extends State<SearchPage>
       physics: const BouncingScrollPhysics(),
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
-      maxWidth: isPortrait ? 600 : 500,
+      width: 500,
       // debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         filterSearchResults(query);

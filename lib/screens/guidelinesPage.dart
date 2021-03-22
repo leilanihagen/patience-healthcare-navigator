@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
-import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -524,14 +522,18 @@ class GuidelinesPageState extends State<GuidelinesPage>
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(children: <Widget>[
-      Padding(
-        child: renderPreselectedSituationCard(
-            "I'm preparing for a hospital visit"),
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          Padding(
+            child: renderPreselectedSituationCard(
+                "I'm preparing for a hospital visit"),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
+          ),
+          BeforeStayPage(),
+        ]),
       ),
-      BeforeStayPage(),
-    ]);
+    );
 
     // return IntroSlider(
     //   isShowDotIndicator: true,
