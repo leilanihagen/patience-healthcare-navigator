@@ -6,6 +6,7 @@ import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:expandable/expandable.dart';
 
 import '../app.dart';
 
@@ -41,8 +42,8 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
       await _determinePosition()
           .then((position) => http
                   .post(
-                Uri.http('us-west2-dscapp-301108.cloudfunctions.net',
-                    '/hospital_check'),
+                Uri.parse(
+                    "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
                 headers: <String, String>{
                   'Content-Type': 'application/json; charset=UTF-8',
                 },
@@ -257,33 +258,40 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                     fontWeight: FontWeight.w800,
                     color: Colors.white)),
             padding: EdgeInsets.fromLTRB(2, 40, 2, 0)),
-        Padding(
-            child: Card(
-              color: Colors.white,
-              child: Padding(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\n",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        Text(
-                          "If you're at a hospital now, click the square to check if it is in-network.",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                      ]),
-                  padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-            ),
-            padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+        // Padding(
+        //     child: Card(
+        //       color: Colors.white,
+        //       child: Padding(
+        //           child: Flexible(
+        //             flex: 5,
+        //             child: Text(
+        //               "View + verify nearby in-network hospitals, based on your insurance provider.",
+        //               style: TextStyle(fontSize: 16),
+        //             ),
+
+        //             // ExpandablePanel(
+        //             //   expanded: Text(
+        //             //       "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\nIf you're at a hospital now, click the square to check if it is in-network.",
+        //             //       softWrap: true,
+        //             //       style: TextStyle(
+        //             //           fontSize: 16,
+        //             //           fontWeight: FontWeight.w500,
+        //             //           color: Colors.black)),
+        //             //   collapsed: Text(
+        //             //     "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\nIf you're at a hospital now, click the square to check if it is in-network.",
+        //             //     softWrap: true,
+        //             //     maxLines: 1,
+        //             //     overflow: TextOverflow.ellipsis,
+        //             //     style: TextStyle(
+        //             //         fontSize: 16,
+        //             //         fontWeight: FontWeight.w500,
+        //             //         color: Colors.black),
+        //             //   ),
+        //             // )
+        //           ),
+        //           padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+        //     ),
+        //     padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
       ],
     );
   }
@@ -298,10 +306,10 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            getPageIntroduction(),
-            Flexible(flex: 1, fit: FlexFit.tight, child: getHeader()),
+            Flexible(flex: 2, child: getPageIntroduction(), fit: FlexFit.tight),
+            Flexible(flex: 3, fit: FlexFit.tight, child: getHeader()),
             Flexible(
-              flex: 1,
+              flex: 3,
               child: GestureDetector(
                 onTap: () => isLoading ? null : submit(),
                 child: Container(
@@ -320,7 +328,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                     child: getStatus()),
               ),
             ),
-            Flexible(child: getTop3(), flex: 1)
+            Flexible(child: getTop3(), flex: 4)
           ],
         )));
   }
