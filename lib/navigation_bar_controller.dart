@@ -4,6 +4,8 @@ import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
 
+import 'screens/guidelinesPage.dart';
+
 class AppBottomNavBarController extends StatefulWidget {
   @override
   _AppBottomNavBarControllerState createState() =>
@@ -20,7 +22,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     super.initState();
     _selectedIndex = 0;
     pages = [
-      GuidelinesPage(key: PageStorageKey('guidelines')),
+      RootCategoriesPage(),
       ProfilePage(key: PageStorageKey('yourprofile')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
       SearchPage(key: PageStorageKey('searchservices')),

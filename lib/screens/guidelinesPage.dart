@@ -79,68 +79,73 @@ class RootCategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Text(
-        "Guidelines",
-        textAlign: TextAlign.left,
-        style: TextStyle(
-            fontSize: 30,
-            // fontWeight: FontWeight.w300,
-            color: Colors.deepPurple),
-      ),
-      Text(
-        "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills.",
-        textAlign: TextAlign.left,
-        style: TextStyle(fontSize: 15),
-      ),
-      //renderClickableSituationCard("I'm preparing for a hospital visit"),
-      GestureDetector(
-          child: Card(
-              child:
-                  ListTile(title: Text("I'm preparing for a hospital visit"))),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-              )),
-      GestureDetector(
-          child: Card(child: ListTile(title: Text("I'm at the hospital now"))),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DuringStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-              )),
-      GestureDetector(
-          child: Card(
-              child: ListTile(title: Text("I recently visited the hospital"))),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        AfterStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-              )),
-      GestureDetector(
-          child: Card(
-              child: ListTile(title: Text("I've received a surprise bill"))),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-              )),
-      GestureDetector(
-          child: Card(
-              child:
-                  ListTile(title: Text("I don't have any health insurance"))),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-              )),
-    ]);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Guidelines",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontSize: 30,
+              // fontWeight: FontWeight.w300,
+              color: Colors.deepPurple),
+        ),
+        Text(
+          "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills.",
+          textAlign: TextAlign.left,
+          style: TextStyle(fontSize: 15),
+        ),
+        //renderClickableSituationCard("I'm preparing for a hospital visit"),
+        GestureDetector(
+            child: Card(
+                child: ListTile(
+                    title: Text("I'm preparing for a hospital visit"))),
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                )),
+        GestureDetector(
+            child:
+                Card(child: ListTile(title: Text("I'm at the hospital now"))),
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          DuringStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                )),
+        GestureDetector(
+            child: Card(
+                child:
+                    ListTile(title: Text("I recently visited the hospital"))),
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AfterStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                )),
+        GestureDetector(
+            child: Card(
+                child: ListTile(title: Text("I've received a surprise bill"))),
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                )),
+        GestureDetector(
+            child: Card(
+                child:
+                    ListTile(title: Text("I don't have any health insurance"))),
+            onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
+                )),
+      ],
+    );
   }
 }
 
@@ -185,12 +190,7 @@ class BeforeStayPage extends StatelessWidget {
           renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
           renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
           ElevatedButton(
-              child: Text("Back"),
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RootCategoriesPage()),
-                  )),
+              child: Text("Back"), onPressed: () => Navigator.pop(context)),
         ],
       ),
       onPanUpdate: (details) {
@@ -238,12 +238,7 @@ class DuringStayPage extends StatelessWidget {
           renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
           renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
           ElevatedButton(
-              child: Text("Back"),
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RootCategoriesPage()),
-                  )),
+              child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
       ),
       onPanUpdate: (details) {
@@ -285,12 +280,7 @@ class AfterStayPage extends StatelessWidget {
           renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
           renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
           ElevatedButton(
-              child: Text("Back"),
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RootCategoriesPage()),
-                  )),
+              child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
       ),
       onPanUpdate: (details) {
@@ -351,12 +341,7 @@ class ReceivedBillPage extends StatelessWidget {
           renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
           renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
           ElevatedButton(
-              child: Text("Back"),
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RootCategoriesPage()),
-                  )),
+              child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
       ),
       onPanUpdate: (details) {
