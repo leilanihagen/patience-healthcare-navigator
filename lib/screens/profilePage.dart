@@ -62,7 +62,7 @@ class _ProfilePage extends State<ProfilePage>
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "Some basic information about you that will be used to help provide you with personalized tips and information about how to navigate your hospital stay.",
+                            "Your data is used to provide you with personalized tips and info to navigate your hospital stay, like finding in-network hospitals on the Find In-Network Hospital page.",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 16,
