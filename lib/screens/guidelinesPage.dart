@@ -105,15 +105,18 @@ class RootCategoriesPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.deepPurple[600],
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "Guidelines",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white),
+            Padding(
+              child: Text(
+                "Guidelines",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white),
+              ),
+              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             ),
             Padding(
                 child: Card(
@@ -139,9 +142,9 @@ class RootCategoriesPage extends StatelessWidget {
                                   color: Colors.black),
                             ),
                           ]),
-                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15)),
+                      padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
                 ),
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+                padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
             //renderClickableSituationCard("I'm preparing for a hospital visit"),
             renderClickableSituationCard(context, BeforeStayPage(),
                 "I'm preparing for a hospital visit"),

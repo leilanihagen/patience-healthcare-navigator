@@ -281,9 +281,9 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                               color: Colors.black),
                         ),
                       ]),
-                  padding: EdgeInsets.fromLTRB(20, 15, 20, 15)),
+                  padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
             ),
-            padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+            padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
       ],
     );
   }
