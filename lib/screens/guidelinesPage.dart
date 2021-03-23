@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
@@ -7,6 +8,7 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
 // Not using yet:
@@ -34,6 +36,23 @@ class SlideRightRoute extends PageRouteBuilder {
             child: child,
           ),
         );
+}
+
+RichText renderClickableLinkPassage(String text, String urlText, String url) {
+  return RichText(
+      text: TextSpan(children: [
+    TextSpan(text: text, style: TextStyle(color: Colors.black)),
+    TextSpan(
+        text: urlText,
+        recognizer: TapGestureRecognizer()
+          ..onTap = () async {
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          })
+  ]));
 }
 
 Widget renderClickableSituationCard(
@@ -114,6 +133,31 @@ Widget renderGuideline(
   );
 }
 
+// Duplicate that accepts Text() widget:
+// Widget renderGuidelineRichText(
+//     String title, RichText text, int guidelineNum, int linesShownCollapsed) {
+//   return Container(
+//     color: Colors.white,
+//     child: Padding(
+//         child: ExpandablePanel(
+//           // theme: ThemeData(backgroundColor: Colors.white),
+//           header: Text(
+//             "$guidelineNum. " + title,
+//             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+//           ),
+//           collapsed: Padding(
+//             child: Text(
+//               text: text,
+//             ),
+//             padding: EdgeInsets.fromLTRB(4, 12, 4, 4),
+//           ),
+//           expanded:
+//               Padding(child: text, padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+//         ),
+//         padding: EdgeInsets.fromLTRB(8, 15, 8, 15)),
+//   );
+// }
+
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
 
@@ -174,6 +218,8 @@ class RootCategoriesPage extends StatelessWidget {
                 context, AfterStayPage(), "I recently visited the hospital"),
             renderClickableSituationCard(context, ReceivedBillPage(),
                 "I've received a surprise medical bill"),
+            renderClickableSituationCard(context, TermsPage(),
+                "I want to learn healthcare terms and definitions"),
           ],
         ));
   }
@@ -372,6 +418,100 @@ class ReceivedBillPage extends StatelessWidget {
                   3),
               ElevatedButton(
                   child: Text("Back"), onPressed: () => Navigator.pop(context))
+            ],
+          ),
+          onPanUpdate: (details) {
+            if (details.delta.dy > 0) {
+              //  User swiped left
+              Navigator.pop(context);
+            }
+          },
+        ));
+  }
+}
+
+class TermsPage extends StatelessWidget {
+  TermsPage({this.context, this.rootCategoriesPage});
+
+  final BuildContext context;
+  final RootCategoriesPage rootCategoriesPage;
+  final List<String> guidelinesTitles = [
+    "Provider",
+    "Service",
+    "Covered Service",
+    "In-network provider",
+    "Out-of-network provider",
+    "Provider Network",
+    "Deductible"
+  ];
+  final List<String> subGuidelinesText = [
+    ("\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy." +
+        " \n\nSource: " +
+        "https://www.verywellhealth.com/what-is-a-provider-1738759"),
+    ("A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for."),
+    ("\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services." +
+        " \n\nSource: " +
+        "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+    ("\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer." +
+        " \n\nSource: " +
+        "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+    ("\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible." +
+        " \n\nSource: " +
+        "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+    ("\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”" +
+        " \n\nSource: " +
+        "https://www.verywellhealth.com/what-is-a-provider-1738759"),
+    ("The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs." +
+        " \n\nSource: " +
+        "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+    // renderClickableLinkPassage(
+    //   "\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy.",
+    //   " Source",
+    //   "https://www.verywellhealth.com/what-is-a-provider-1738759",
+    // ),
+    // RichText(
+    //     text: TextSpan(
+    //         text:
+    //             "A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for.")),
+    // renderClickableLinkPassage(
+    //     "\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services.",
+    //     " Source",
+    //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+    // renderClickableLinkPassage(
+    //     "\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer.",
+    //     " Source",
+    //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+    // renderClickableLinkPassage(
+    //     "\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible.",
+    //     " Source",
+    //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+    // renderClickableLinkPassage(
+    //     "\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”",
+    //     " Source",
+    //     "https://www.verywellhealth.com/what-is-a-provider-1738759"),
+    // renderClickableLinkPassage(
+    //     "The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs.",
+    //     " Source",
+    //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
+        body: GestureDetector(
+          child: ListView(
+            children: [
+              renderSituationBox("learn healthcare terms and definitions"),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 2),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 2),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 2),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 2),
+              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 2),
+              ElevatedButton(
+                  child: Text("Back"), onPressed: () => Navigator.pop(context)),
             ],
           ),
           onPanUpdate: (details) {
