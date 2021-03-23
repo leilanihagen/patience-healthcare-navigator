@@ -22,7 +22,6 @@ class _ProfilePage extends State<ProfilePage>
   double userDeductible;
   double userDeductibleReduction;
 
-
   _loadSave() async {
     userState = await MySharedPreferences.instance.getStringValue('user_state');
     userProvider =
@@ -196,6 +195,7 @@ class _ProfilePage extends State<ProfilePage>
           child: TextField(
             decoration: InputDecoration(
                 hintText: 'Amount of your deductible you have paid'),
+            keyboardType: TextInputType.number,
             // onChanged: (String s) => {
             //   MySharedPreferences.instance
             //       .setStringValue('user_deductible_reduction', s),
