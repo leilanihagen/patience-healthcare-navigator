@@ -48,6 +48,7 @@ class _ProfilePage extends State<ProfilePage>
         body: Center(
             child: SingleChildScrollView(
                 child: Column(children: [
+          Padding(padding: EdgeInsets.all(20)),
           Text(
             "Your Information",
             textAlign: TextAlign.left,

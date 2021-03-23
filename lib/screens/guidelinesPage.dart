@@ -168,59 +168,61 @@ class RootCategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.deepPurple[600],
-        body: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              child: Text(
-                "Guidelines",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white),
-              ),
-              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            ),
-            Padding(
-                child: Card(
-                  color: Colors.white,
-                  child: Padding(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                            ),
-                            Text(
-                              "Start by choosing a category below that best fits your situation.",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                            ),
-                          ]),
-                      padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+        body: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                child: Text(
+                  "Guidelines",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
-                padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
-            //renderClickableSituationCard("I'm preparing for a hospital visit"),
-            renderClickableSituationCard(context, BeforeStayPage(),
-                "I'm preparing for a hospital visit"),
-            renderClickableSituationCard(
-                context, DuringStayPage(), "I'm at the hospital now"),
-            renderClickableSituationCard(
-                context, AfterStayPage(), "I recently visited the hospital"),
-            renderClickableSituationCard(context, ReceivedBillPage(),
-                "I've received a surprise medical bill"),
-            renderClickableSituationCard(context, TermsPage(),
-                "I want to learn healthcare terms and definitions"),
-          ],
+                padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              ),
+              Padding(
+                  child: Card(
+                    color: Colors.white,
+                    child: Padding(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                "Start by choosing a category below that best fits your situation.",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ]),
+                        padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+                  ),
+                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+              //renderClickableSituationCard("I'm preparing for a hospital visit"),
+              renderClickableSituationCard(context, BeforeStayPage(),
+                  "I'm preparing for a hospital visit"),
+              renderClickableSituationCard(
+                  context, DuringStayPage(), "I'm at the hospital now"),
+              renderClickableSituationCard(
+                  context, AfterStayPage(), "I recently visited the hospital"),
+              renderClickableSituationCard(context, ReceivedBillPage(),
+                  "I've received a surprise medical bill"),
+              renderClickableSituationCard(context, TermsPage(),
+                  "I want to learn healthcare terms and definitions"),
+            ],
+          ),
         ));
   }
 }

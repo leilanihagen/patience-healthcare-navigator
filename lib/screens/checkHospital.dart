@@ -187,19 +187,22 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.check_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status)
+          Text(_hospitalPage.status, textAlign: TextAlign.center)
         ]);
         break;
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.clear_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status)
+          Text(_hospitalPage.status, textAlign: TextAlign.center)
         ]);
         break;
       case 3:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.error_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status)
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+          )
         ]);
         break;
       default:
@@ -306,8 +309,12 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Flexible(flex: 2, child: getPageIntroduction(), fit: FlexFit.tight),
-            Flexible(flex: 3, fit: FlexFit.tight, child: getHeader()),
+            Flexible(
+                flex: 3,
+                child: _hospitalPage.name == null
+                    ? getHeader()
+                    : getPageIntroduction(),
+                fit: FlexFit.tight),
             Flexible(
               flex: 3,
               child: GestureDetector(
@@ -328,7 +335,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                     child: getStatus()),
               ),
             ),
-            Flexible(child: getTop3(), flex: 4)
+            Flexible(child: getTop3(), flex: 3)
           ],
         )));
   }
