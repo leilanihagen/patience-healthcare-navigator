@@ -41,7 +41,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
       await _determinePosition()
           .then((position) => http
                   .post(
-                Uri.https('us-west2-dscapp-301108.cloudfunctions.net',
+                Uri.http('us-west2-dscapp-301108.cloudfunctions.net',
                     '/hospital_check'),
                 headers: <String, String>{
                   'Content-Type': 'application/json; charset=UTF-8',
@@ -246,6 +246,48 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
     ]);
   }
 
+  getPageIntroduction() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+            child: Text("Find In-Network Hospital",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white)),
+            padding: EdgeInsets.fromLTRB(2, 40, 2, 0)),
+        Padding(
+            child: Card(
+              color: Colors.white,
+              child: Padding(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\n",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          "If you're at a hospital now, click the square to check if it is in-network.",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        ),
+                      ]),
+                  padding: EdgeInsets.fromLTRB(20, 15, 20, 15)),
+            ),
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,6 +298,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            getPageIntroduction(),
             Flexible(flex: 1, fit: FlexFit.tight, child: getHeader()),
             Flexible(
               flex: 1,
