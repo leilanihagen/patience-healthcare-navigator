@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
 
 // Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
+// Not using yet:
 class SlideRightRoute extends PageRouteBuilder {
   final Widget page;
   SlideRightRoute({this.page})
@@ -37,14 +38,32 @@ class SlideRightRoute extends PageRouteBuilder {
 
 Widget renderClickableSituationCard(
     BuildContext context, pageBuilder, String situation) {
-  GestureDetector(
-      child: Card(child: ListTile(title: Text(situation))),
-      onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
+  return GestureDetector(
+    child: Padding(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.pinkAccent,
+            onPrimary: Colors.white,
+          ),
+          child: ListTile(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60)),
+              title: Text(
+                situation,
+                style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              )),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) =>
-                    pageBuilder()), //context, SlideRightRoute(page: BeforeStayPage())
-          ));
+                    pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
+              )),
+        ),
+        padding: EdgeInsets.fromLTRB(7, 8, 7, 8)),
+  );
 }
 
 Widget renderGuideline(
@@ -55,18 +74,22 @@ Widget renderGuideline(
           "$guidelineNum. " + title,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
-        collapsed: Text(
-          text,
-          style: TextStyle(fontSize: 17),
-          softWrap: true,
-          maxLines: linesShownCollapsed,
-          overflow: TextOverflow.ellipsis,
-        ),
-        expanded: Text(
-          text,
-          style: TextStyle(fontSize: 17),
-          softWrap: true,
-        ),
+        collapsed: Padding(
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 17),
+              softWrap: true,
+              maxLines: linesShownCollapsed,
+              overflow: TextOverflow.ellipsis,
+            ),
+            padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+        expanded: Padding(
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 17),
+              softWrap: true,
+            ),
+            padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
       ),
       padding: EdgeInsets.fromLTRB(10, 18, 10, 18));
 }
@@ -79,73 +102,57 @@ class RootCategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          "Guidelines",
-          textAlign: TextAlign.left,
-          style: TextStyle(
-              fontSize: 30,
-              // fontWeight: FontWeight.w300,
-              color: Colors.deepPurple),
-        ),
-        Text(
-          "Learn about things you can do before, during and after your hospital visit to help avoid surprise medical bills.",
-          textAlign: TextAlign.left,
-          style: TextStyle(fontSize: 15),
-        ),
-        //renderClickableSituationCard("I'm preparing for a hospital visit"),
-        GestureDetector(
-            child: Card(
-                child: ListTile(
-                    title: Text("I'm preparing for a hospital visit"))),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-                )),
-        GestureDetector(
-            child:
-                Card(child: ListTile(title: Text("I'm at the hospital now"))),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          DuringStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-                )),
-        GestureDetector(
-            child: Card(
-                child:
-                    ListTile(title: Text("I recently visited the hospital"))),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AfterStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-                )),
-        GestureDetector(
-            child: Card(
-                child: ListTile(title: Text("I've received a surprise bill"))),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-                )),
-        GestureDetector(
-            child: Card(
-                child:
-                    ListTile(title: Text("I don't have any health insurance"))),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          BeforeStayPage()), //context, SlideRightRoute(page: BeforeStayPage())
-                )),
-      ],
-    );
+    return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Guidelines",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white),
+            ),
+            Padding(
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            Text(
+                              "Start by choosing a category below that best fits your situation.",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                          ]),
+                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15)),
+                ),
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+            //renderClickableSituationCard("I'm preparing for a hospital visit"),
+            renderClickableSituationCard(context, BeforeStayPage(),
+                "I'm preparing for a hospital visit"),
+            renderClickableSituationCard(
+                context, DuringStayPage(), "I'm at the hospital now"),
+            renderClickableSituationCard(
+                context, AfterStayPage(), "I recently visited the hospital"),
+            renderClickableSituationCard(context, ReceivedBillPage(),
+                "I've received a surprise medical bill"),
+          ],
+        ));
   }
 }
 
@@ -162,7 +169,7 @@ class BeforeStayPage extends StatelessWidget {
     "Don’t rely on the online information from your insurance provider",
     "Ask for a detailed price estimate of all planned procedures",
   ];
-  final List<String> guidelinesText = [
+  final List<String> subGuidelinesText = [
     "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
     "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
     "Ask your doctor or healthcare provider to help you write a list of all the hospital staff (doctors, surgeons, assistants, etc.) who you believe will be treating you during your stay. Keep this list; it will help you if you receive a surprise bill later on. ",
@@ -183,12 +190,12 @@ class BeforeStayPage extends StatelessWidget {
             ),
             color: Colors.lightBlue[100],
           ),
-          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
-          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
-          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
-          renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
-          renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
+          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
+          renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
+          renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 1),
+          renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
           ElevatedButton(
               child: Text("Back"), onPressed: () => Navigator.pop(context)),
         ],
@@ -214,7 +221,7 @@ class DuringStayPage extends StatelessWidget {
     "Make a list of every hospital staff member who treats you during your visit",
     "Take detailed notes of everything you learn during your visit",
   ];
-  final List<String> guidelinesText = [
+  final List<String> subGuidelinesText = [
     "When you arrive to check-in for your appointment, ask the receptionist to double check that all of the providers you will be seeing during your visit are in-network with your insurance.",
     "If you are asked to pay any amount for your treatment while you are at the hospital, ask to see an itemized bill describing each of your charges in detail. Never pay any amount until you fully understand each charge. The best option is to until after you leave the hospital before you pay any amount toward your bill or bills. This is because you may be able to negotiate or dispute the bill by writing a simple letter before you pay.",
     "Write down the names of every hospital staff member who treats you during your visit.",
@@ -229,14 +236,14 @@ class DuringStayPage extends StatelessWidget {
         children: [
           Card(
             child: ListTile(
-              title: Text("I'm preparing for a hospital visit"),
+              title: Text("I'm at the hospital now"),
             ),
             color: Colors.lightBlue[100],
           ),
-          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
-          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
-          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
+          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
+          renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
           ElevatedButton(
               child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
@@ -260,7 +267,7 @@ class AfterStayPage extends StatelessWidget {
     "Do not pay any portion of your bill until disputing it",
     "Ask the hospital if they offer any financial assistance",
   ];
-  final List<String> guidelinesText = [
+  final List<String> subGuidelinesText = [
     "If you have received a large hospital bill, do not pay even a small part of a it until you have tried other methods of handling the bill first. You may be able to write a simple letter from you or your provider to stop collections agencies from contacting you.",
     "Some hospitals, including all non-profit facilities, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs.",
   ];
@@ -273,12 +280,12 @@ class AfterStayPage extends StatelessWidget {
         children: [
           Card(
             child: ListTile(
-              title: Text("I'm preparing for a hospital visit"),
+              title: Text("I recently visited the hospital"),
             ),
             color: Colors.lightBlue[100],
           ),
-          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
+          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
           ElevatedButton(
               child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
@@ -301,25 +308,30 @@ class ReceivedBillPage extends StatelessWidget {
   final List<String> guidelinesTitles = [
     "Write a letter to the hospital disputing the bill"
   ];
-  final List<String> guidelinesText = [
-//     "Write a letter to your hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.
-
-// Elements to include in your letter:
-// (a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined. Ask for the hospital\’s entire price list, which you are entitled to under 42 U.S.C.A. § 300gg-18(e) (you should state this).
-
-// (b) Ask that they provide you with a copy of your medical treatment record in order to explain each charge.
-
-// (c) If there are any Adjustments or Discounts stated on your bill, ask them to \“provide numerical detail\” on how these adjustments or discounts were arrived at including price negotiations with your insurance company.\” (https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik)
-
-// (d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).
-
-// (e) State that you will pay the requested amount after the hospital provides you with the requested information.
-
-// (f) Finally, state that you are disputing your bill and that you wish to have the record of your bill marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed.
-
-// Source: https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik
-
-// A resource that provides a template letter to send to a hospital (we recommend adding more points to this letter from the above mentioned points): https://brokenhealthcare.org/dispute-every-hospital-bill/  "
+  final String titleText = "Write a letter to the hospital disputing the bill";
+  final String introduction = '''
+  Write a letter to your hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.
+  \nElements to include in your letter:
+  ''';
+  final List<String> subGuidelinesText = [
+    '''
+  (a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined. Ask for the hospital’s entire price list, which you are entitled to under 42 U.S.C.A. § 300gg-18(e) (you should state this). 
+  ''',
+    '''
+  (b) Ask that they provide you with a copy of your medical treatment record in order to explain each charge.
+  ''',
+    '''
+  (c) If there are any Adjustments or Discounts stated on your bill, ask them to “provide numerical detail” on how these adjustments or discounts were arrived at including price negotiations with your insurance company.”
+  ''',
+    '''
+  (d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).
+  ''',
+    '''
+  (e) State that you will pay the requested amount after the hospital provides you with the requested information.
+  ''',
+    '''
+  (f) Finally, state that you are disputing your bill and that you wish to have the record of your bill marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed.
+  '''
   ];
 
   @override
@@ -330,16 +342,27 @@ class ReceivedBillPage extends StatelessWidget {
         children: [
           Card(
             child: ListTile(
-              title: Text("I'm preparing for a hospital visit"),
+              title: Text("I've received a surprise medical bill"),
             ),
             color: Colors.lightBlue[100],
           ),
-          renderGuideline(guidelinesTitles[0], guidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], guidelinesText[1], 2, 1),
-          renderGuideline(guidelinesTitles[2], guidelinesText[2], 3, 1),
-          renderGuideline(guidelinesTitles[3], guidelinesText[3], 4, 1),
-          renderGuideline(guidelinesTitles[4], guidelinesText[4], 5, 1),
-          renderGuideline(guidelinesTitles[5], guidelinesText[5], 6, 1),
+          renderGuideline(
+              titleText,
+              (introduction +
+                  "\n" +
+                  subGuidelinesText[0] +
+                  "\n" +
+                  subGuidelinesText[1] +
+                  "\n" +
+                  subGuidelinesText[2] +
+                  "\n" +
+                  subGuidelinesText[3] +
+                  "\n" +
+                  subGuidelinesText[4] +
+                  "\n" +
+                  subGuidelinesText[5]),
+              1,
+              3),
           ElevatedButton(
               child: Text("Back"), onPressed: () => Navigator.pop(context))
         ],
@@ -508,6 +531,7 @@ class GuidelinesPageState extends State<GuidelinesPage>
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Colors.deepPurple[600],
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Padding(
