@@ -66,32 +66,52 @@ Widget renderClickableSituationCard(
   );
 }
 
+Widget renderSituationBox(String text) {
+  return Padding(
+    child: Card(
+      child: ListTile(
+        title: Text(text,
+            style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: Colors.white)),
+      ),
+      color: Colors.pinkAccent,
+    ),
+    padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
+  );
+}
+
 Widget renderGuideline(
     String title, String text, int guidelineNum, int linesShownCollapsed) {
-  return Padding(
-      child: ExpandablePanel(
-        header: Text(
-          "$guidelineNum. " + title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+  return Container(
+    color: Colors.white,
+    child: Padding(
+        child: ExpandablePanel(
+          // theme: ThemeData(backgroundColor: Colors.white),
+          header: Text(
+            "$guidelineNum. " + title,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          ),
+          collapsed: Padding(
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 17),
+                softWrap: true,
+                maxLines: linesShownCollapsed,
+                overflow: TextOverflow.ellipsis,
+              ),
+              padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+          expanded: Padding(
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 17),
+                softWrap: true,
+              ),
+              padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
         ),
-        collapsed: Padding(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 17),
-              softWrap: true,
-              maxLines: linesShownCollapsed,
-              overflow: TextOverflow.ellipsis,
-            ),
-            padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
-        expanded: Padding(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 17),
-              softWrap: true,
-            ),
-            padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
-      ),
-      padding: EdgeInsets.fromLTRB(10, 18, 10, 18));
+        padding: EdgeInsets.fromLTRB(8, 15, 8, 15)),
+  );
 }
 
 class RootCategoriesPage extends StatelessWidget {
@@ -184,32 +204,28 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
         body: GestureDetector(
-      child: ListView(
-        children: [
-          Card(
-            child: ListTile(
-              title: Text("I'm preparing for a hospital visit"),
-            ),
-            color: Colors.lightBlue[100],
+          child: ListView(
+            children: [
+              renderSituationBox("I'm preparing for a hospital visit"),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 1),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
+              ElevatedButton(
+                  child: Text("Back"), onPressed: () => Navigator.pop(context)),
+            ],
           ),
-          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
-          renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
-          renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
-          renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 1),
-          renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
-          ElevatedButton(
-              child: Text("Back"), onPressed: () => Navigator.pop(context)),
-        ],
-      ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+          onPanUpdate: (details) {
+            if (details.delta.dy > 0) {
+              //  User swiped left
+              Navigator.pop(context);
+            }
+          },
+        ));
   }
 }
 
@@ -234,30 +250,26 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
         body: GestureDetector(
-      child: ListView(
-        children: [
-          Card(
-            child: ListTile(
-              title: Text("I'm at the hospital now"),
-            ),
-            color: Colors.lightBlue[100],
+          child: ListView(
+            children: [
+              renderSituationBox("I'm at the hospital now"),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
+              ElevatedButton(
+                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+            ],
           ),
-          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
-          renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
-          renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
-          ElevatedButton(
-              child: Text("Back"), onPressed: () => Navigator.pop(context))
-        ],
-      ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+          onPanUpdate: (details) {
+            if (details.delta.dy > 0) {
+              //  User swiped left
+              Navigator.pop(context);
+            }
+          },
+        ));
   }
 }
 
@@ -278,28 +290,24 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
         body: GestureDetector(
-      child: ListView(
-        children: [
-          Card(
-            child: ListTile(
-              title: Text("I recently visited the hospital"),
-            ),
-            color: Colors.lightBlue[100],
+          child: ListView(
+            children: [
+              renderSituationBox("I recently visited the hospital"),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+              ElevatedButton(
+                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+            ],
           ),
-          renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-          renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
-          ElevatedButton(
-              child: Text("Back"), onPressed: () => Navigator.pop(context))
-        ],
-      ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+          onPanUpdate: (details) {
+            if (details.delta.dy > 0) {
+              //  User swiped left
+              Navigator.pop(context);
+            }
+          },
+        ));
   }
 }
 
@@ -340,43 +348,39 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.deepPurple[600],
         body: GestureDetector(
-      child: ListView(
-        children: [
-          Card(
-            child: ListTile(
-              title: Text("I've received a surprise medical bill"),
-            ),
-            color: Colors.lightBlue[100],
+          child: ListView(
+            children: [
+              renderSituationBox("I've received a surprise medical bill"),
+              renderGuideline(
+                  titleText,
+                  (introduction +
+                      "\n" +
+                      subGuidelinesText[0] +
+                      "\n" +
+                      subGuidelinesText[1] +
+                      "\n" +
+                      subGuidelinesText[2] +
+                      "\n" +
+                      subGuidelinesText[3] +
+                      "\n" +
+                      subGuidelinesText[4] +
+                      "\n" +
+                      subGuidelinesText[5]),
+                  1,
+                  3),
+              ElevatedButton(
+                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+            ],
           ),
-          renderGuideline(
-              titleText,
-              (introduction +
-                  "\n" +
-                  subGuidelinesText[0] +
-                  "\n" +
-                  subGuidelinesText[1] +
-                  "\n" +
-                  subGuidelinesText[2] +
-                  "\n" +
-                  subGuidelinesText[3] +
-                  "\n" +
-                  subGuidelinesText[4] +
-                  "\n" +
-                  subGuidelinesText[5]),
-              1,
-              3),
-          ElevatedButton(
-              child: Text("Back"), onPressed: () => Navigator.pop(context))
-        ],
-      ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+          onPanUpdate: (details) {
+            if (details.delta.dy > 0) {
+              //  User swiped left
+              Navigator.pop(context);
+            }
+          },
+        ));
   }
 }
 
