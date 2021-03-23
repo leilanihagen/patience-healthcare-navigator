@@ -502,7 +502,8 @@ class TermsPage extends StatelessWidget {
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox("learn healthcare terms and definitions"),
+              renderSituationBox(
+                  "I want to learn healthcare terms and definitions"),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 2),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 2),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
