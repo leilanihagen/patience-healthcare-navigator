@@ -57,7 +57,8 @@ RichText renderClickableLinkPassage(String text, String urlText, String url) {
 
 Widget renderClickableSituationCard(
     BuildContext context, pageBuilder, String situation) {
-  return GestureDetector(
+  return Hero(
+    tag: situation,
     child: Padding(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -86,18 +87,21 @@ Widget renderClickableSituationCard(
 }
 
 Widget renderSituationBox(String text) {
-  return Padding(
-    child: Card(
-      child: ListTile(
-        title: Text(text,
-            style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                color: Colors.white)),
+  return Hero(
+    tag: text,
+    child: Padding(
+      child: Card(
+        child: ListTile(
+          title: Text(text,
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white)),
+        ),
+        color: Colors.pinkAccent,
       ),
-      color: Colors.pinkAccent,
+      padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
     ),
-    padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
   );
 }
 
