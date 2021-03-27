@@ -350,11 +350,11 @@ class AfterStayPage extends StatelessWidget {
   final RootCategoriesPage rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Do not pay any portion of your bill until disputing it",
-    "Ask the hospital if they offer any financial assistance",
+    "Ask the hospital if they offer financial assistance/aid or charity care",
   ];
   final List<String> subGuidelinesText = [
-    "If you have received a large hospital bill, do not pay even a small part of a it until you have tried other methods of handling the bill first. You may be able to write a simple letter from you or your provider to stop collections agencies from contacting you.",
-    "Some hospitals, including all non-profit facilities, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs.",
+    "If you have received a large hospital bill, do not pay even a small part of it until you have tried other methods of handling the bill first. You may be able to write a simple letter from you or your provider to stop collections agencies from contacting you.",
+    "Some hospitals, including all non-profit facilities, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs to help you pay off your bill.",
   ];
 
   @override
@@ -365,8 +365,8 @@ class AfterStayPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox("I recently visited the hospital"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 3),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 3),
               ElevatedButton(
                   child: Text("Back"), onPressed: () => Navigator.pop(context))
             ],
