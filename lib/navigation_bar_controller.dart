@@ -21,7 +21,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   String purpleTheme = "#AB92F4";
   String lightPinkTheme = "#FDEBF1";
   String darkPinkTheme = "#ED558C";
-  String blueTheme = "#54D0EB";
+  String blueTheme = "#44B5CD";
   String darkGreenTheme = "#758C20";
   String lightGreenTheme = "#A1BF36";
 
@@ -45,8 +45,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   }
 
   Widget _bottomNavBar(int selectedIndex) => BottomNavigationBar(
-          selectedItemColor: Colors.blue,
+          selectedItemColor: HexColor(blueTheme),
           unselectedItemColor: Colors.grey,
+          backgroundColor: HexColor(lightPinkTheme),
           onTap: (int index) => setState(() {
                 _selectedIndex = index;
                 _pageController.jumpToPage(index);

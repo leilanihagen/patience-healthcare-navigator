@@ -19,7 +19,8 @@ dependencies:
   cupertino_icons: 
   geolocator:
   dropdown_search:
-  reorderables: 
+  reorderables:
+  hexcolor:
   url_launcher:
   http:
   intro_slider: 
