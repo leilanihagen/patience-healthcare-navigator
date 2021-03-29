@@ -335,7 +335,17 @@ class TermsPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 2),
               renderGuideline(guidelinesTitles[8], subGuidelinesText[8], 9, 2),
               ElevatedButton(
-                child: Text("Back"),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -404,7 +414,17 @@ class BeforeStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 1),
               ElevatedButton(
-                child: Text("Back"),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -469,7 +489,17 @@ class DuringStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
               ElevatedButton(
-                child: Text("Back"),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -519,7 +549,17 @@ class AfterStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 4),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 4),
               ElevatedButton(
-                child: Text("Back"),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -601,10 +641,17 @@ class ReceivedBillPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
               renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
               ElevatedButton(
-                child: Text(
-                  "Back",
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                ),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -677,7 +724,17 @@ class CollectionsPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 2),
               renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 2),
               ElevatedButton(
-                child: Text("Back"),
+                child: ListTile(
+                    leading: Icon(Icons.arrow_back_ios_rounded,
+                        color: Colors.white, size: 27),
+                    title: Padding(
+                      child: Text(
+                        "Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900, color: Colors.white),
+                      ),
+                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                    )),
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
