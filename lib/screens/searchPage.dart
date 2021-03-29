@@ -2,6 +2,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -29,6 +30,14 @@ class _SearchPage extends State<SearchPage>
   Map usStates;
   List<Search> searchList;
   List<Search> items = [];
+
+  String purpleTheme = "#AB92F4";
+  String lightPinkTheme = "#FDEBF1";
+  String darkPinkTheme = "#ED558C";
+  String blueTheme = "#54D0EB";
+  String darkGreenTheme = "#758C20";
+  String lightGreenTheme = "#A1BF36";
+
   @override
   void initState() {
     super.initState();
@@ -464,7 +473,7 @@ class _SearchPage extends State<SearchPage>
           SliverAppBar(
             floating: true,
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.pinkAccent,
+            backgroundColor: HexColor(darkPinkTheme),
             expandedHeight: 60,
           ),
           ReorderableSliverList(
@@ -501,7 +510,7 @@ class _SearchPage extends State<SearchPage>
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.deepPurple[600],
+      // backgroundColor: Colors.deepPurple[600],
       body: controller == null
           ? Container()
           : Stack(

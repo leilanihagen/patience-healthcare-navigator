@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
-
 import 'screens/guidelinesPage.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
@@ -17,6 +17,14 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   List<Widget> pages;
   PageController _pageController;
   int _selectedIndex;
+
+  String purpleTheme = "#AB92F4";
+  String lightPinkTheme = "#FDEBF1";
+  String darkPinkTheme = "#ED558C";
+  String blueTheme = "#54D0EB";
+  String darkGreenTheme = "#758C20";
+  String lightGreenTheme = "#A1BF36";
+
   @override
   void initState() {
     super.initState();
@@ -53,7 +61,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               label: 'Guidelines',
             ),
             BottomNavigationBarItem(
-              icon: Icon(IconData(59162, fontFamily: 'MaterialIcons')),
+              icon: Icon(
+                IconData(59162, fontFamily: 'MaterialIcons'),
+              ),
               label: 'Your Profile',
             ),
             BottomNavigationBarItem(

@@ -303,7 +303,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
   Widget build(BuildContext context) {
     return Scaffold(
         key: _hospitalKey,
-        backgroundColor: Colors.deepPurple[600],
+        // backgroundColor: Colors.deepPurple[600],
         body: Center(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
