@@ -58,7 +58,7 @@ RichText renderClickableLinkPassage(String text, String urlText, String url) {
 }
 
 Widget renderClickableSituationCard(
-    BuildContext context, pageBuilder, String situation) {
+    BuildContext context, pageBuilder, String situation, Icon icon) {
   return Hero(
     tag: situation,
     child: Padding(
@@ -70,6 +70,7 @@ Widget renderClickableSituationCard(
           child: ListTile(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60)),
+              leading: icon,
               title: Text(
                 situation,
                 style: TextStyle(
@@ -88,23 +89,25 @@ Widget renderClickableSituationCard(
   );
 }
 
-Widget renderSituationBox(String text) {
+Widget renderSituationBox(String text, Icon icon) {
   return Hero(
-    tag: text,
-    child: Padding(
-      child: Card(
-        child: ListTile(
-          title: Text(text,
-              style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white)),
-        ),
-        color: HexColor(darkPinkTheme),
-      ),
-      padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
-    ),
-  );
+      tag: text,
+      child: Padding(
+          child: Card(
+            color: HexColor(darkPinkTheme),
+            child: ListTile(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60)),
+                leading: icon,
+                title: Text(
+                  text,
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                )),
+          ),
+          padding: EdgeInsets.fromLTRB(7, 8, 7, 8)));
 }
 
 Widget renderGuideline(
@@ -116,17 +119,19 @@ Widget renderGuideline(
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
-          collapsed: Padding(
-              child: Text(
-                text,
-                style: TextStyle(fontSize: 17),
-                softWrap: true,
-                maxLines: linesShownCollapsed,
-                overflow: TextOverflow.ellipsis,
-              ),
-              padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+          collapsed: (linesShownCollapsed == 0)
+              ? null
+              : Padding(
+                  child: Text(
+                    text,
+                    style: TextStyle(fontSize: 17),
+                    softWrap: true,
+                    maxLines: linesShownCollapsed,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
           expanded: Padding(
               child: Text(
                 text,
@@ -216,18 +221,40 @@ class RootCategoriesPage extends StatelessWidget {
               ),
               padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
           //renderClickableSituationCard("I'm preparing for a hospital visit"),
-          renderClickableSituationCard(context, TermsPage(),
-              "I want to learn healthcare terms and definitions"),
           renderClickableSituationCard(
-              context, BeforeStayPage(), "I'm preparing for a hospital visit"),
+              context,
+              TermsPage(),
+              "I want to learn healthcare terms and definitions",
+              Icon(Icons.menu_book_rounded,
+                  color: HexColor(blueTheme), size: 33)),
           renderClickableSituationCard(
-              context, DuringStayPage(), "I'm at the hospital now"),
+              context,
+              BeforeStayPage(),
+              "I'm preparing for a hospital visit",
+              Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
           renderClickableSituationCard(
-              context, AfterStayPage(), "I recently visited the hospital"),
-          renderClickableSituationCard(context, ReceivedBillPage(),
-              "I've received a surprise medical bill"),
-          renderClickableSituationCard(context, CollectionsPage(),
-              "My medical bill/debt has been sent to a collections agency"),
+              context,
+              DuringStayPage(),
+              "I'm at the hospital now",
+              Icon(Icons.sick_rounded, color: HexColor(blueTheme), size: 33)),
+          renderClickableSituationCard(
+              context,
+              AfterStayPage(),
+              "I recently visited the hospital",
+              Icon(Icons.medical_services_rounded,
+                  color: HexColor(blueTheme), size: 33)),
+          renderClickableSituationCard(
+              context,
+              ReceivedBillPage(),
+              "I've received a surprise medical bill",
+              Icon(Icons.attach_money_rounded,
+                  color: HexColor(blueTheme), size: 37)),
+          renderClickableSituationCard(
+              context,
+              CollectionsPage(),
+              "My medical bill/debt has been sent to a collections agency",
+              Icon(Icons.priority_high_rounded,
+                  color: HexColor(blueTheme), size: 33)),
         ],
       ),
     ));
@@ -240,7 +267,7 @@ class TermsPage extends StatelessWidget {
   final String purpleTheme = "#AB92F4";
   final String lightPinkTheme = "#FDEBF1";
   String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#54D0EB";
+  final String blueTheme = "#44B5CD";
   final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
 
@@ -324,16 +351,18 @@ class TermsPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox(
-                  "I want to learn healthcare terms and definitions"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 2),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 2),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
-              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 2),
-              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 2),
-              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 2),
-              renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 2),
-              renderGuideline(guidelinesTitles[8], subGuidelinesText[8], 9, 2),
+                  "I want to learn healthcare terms and definitions",
+                  Icon(Icons.menu_book_rounded,
+                      color: HexColor(blueTheme), size: 33)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
+              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
+              renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 0),
+              renderGuideline(guidelinesTitles[8], subGuidelinesText[8], 9, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
@@ -404,15 +433,16 @@ class BeforeStayPage extends StatelessWidget {
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox("I'm preparing for a hospital visit"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
-              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 1),
-              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
-              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
-              renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 1),
+              renderSituationBox("I'm preparing for a hospital visit",
+                  Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
+              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
+              renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
@@ -480,14 +510,17 @@ class DuringStayPage extends StatelessWidget {
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox("I'm at the hospital now"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 1),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 1),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 1),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 1),
-              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 1),
-              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
-              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
+              renderSituationBox(
+                  "I'm at the hospital now",
+                  Icon(Icons.sick_rounded,
+                      color: HexColor(blueTheme), size: 33)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
+              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
@@ -545,9 +578,12 @@ class AfterStayPage extends StatelessWidget {
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox("I recently visited the hospital"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 4),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 4),
+              renderSituationBox(
+                  "I recently visited the hospital",
+                  Icon(Icons.medical_services_rounded,
+                      color: HexColor(blueTheme), size: 33)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
@@ -635,11 +671,14 @@ class ReceivedBillPage extends StatelessWidget {
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox("I've received a surprise medical bill"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 2),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 2),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
+              renderSituationBox(
+                  "I've received a surprise medical bill",
+                  Icon(Icons.attach_money_rounded,
+                      color: HexColor(blueTheme), size: 37)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
@@ -716,13 +755,15 @@ class CollectionsPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox(
-                  "My medical bill/debt has been sent to a collections agency"),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 2),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 2),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
-              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 2),
-              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 2),
+                  "My medical bill/debt has been sent to a collections agency",
+                  Icon(Icons.priority_high_rounded,
+                      color: HexColor(blueTheme), size: 33)),
+              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
+              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
+              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
+              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
