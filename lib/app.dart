@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/localizations/localization.dart';
 import 'navigation_bar_controller.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -20,6 +21,13 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  String purpleTheme = "#AB92F4";
+  String lightPinkTheme = "#FDEBF1";
+  String darkPinkTheme = "#ED558C";
+  String blueTheme = "#54D0EB";
+  String darkGreenTheme = "#758C20";
+  String lightGreenTheme = "#A1BF36";
+
   Locale _locale;
   setLocale(Locale locale) {
     setState(() {
@@ -55,7 +63,8 @@ class _AppState extends State<App> {
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: ThemeData(
-                  primarySwatch: Colors.blue,
+                  // primarySwatch: Colors.blue,
+                  scaffoldBackgroundColor: HexColor(purpleTheme),
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                   fontFamily: 'Open Sans'),
               locale: _locale,

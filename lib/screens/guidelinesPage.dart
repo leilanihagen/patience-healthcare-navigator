@@ -4,11 +4,13 @@ import 'package:flutter/gestures.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
+import 'package:hospital_stay_helper/main.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 // Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
 // Not using yet:
@@ -62,7 +64,7 @@ Widget renderClickableSituationCard(
     child: Padding(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.pinkAccent,
+            primary: HexColor(darkPinkTheme),
             onPrimary: Colors.white,
           ),
           child: ListTile(
@@ -98,7 +100,7 @@ Widget renderSituationBox(String text) {
                   fontWeight: FontWeight.w600,
                   color: Colors.white)),
         ),
-        color: Colors.pinkAccent,
+        color: HexColor(darkPinkTheme),
       ),
       padding: EdgeInsets.fromLTRB(5, 30, 5, 20),
     ),
@@ -171,70 +173,76 @@ class RootCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
         body: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                child: Text(
-                  "Guidelines",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
-                ),
-                padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-              ),
-              Padding(
-                  child: Card(
-                    color: Colors.white,
-                    child: Padding(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                              Text(
-                                "Start by choosing a category below that best fits your situation.",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                            ]),
-                        padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-                  ),
-                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
-              //renderClickableSituationCard("I'm preparing for a hospital visit"),
-              renderClickableSituationCard(context, TermsPage(),
-                  "I want to learn healthcare terms and definitions"),
-              renderClickableSituationCard(context, BeforeStayPage(),
-                  "I'm preparing for a hospital visit"),
-              renderClickableSituationCard(
-                  context, DuringStayPage(), "I'm at the hospital now"),
-              renderClickableSituationCard(
-                  context, AfterStayPage(), "I recently visited the hospital"),
-              renderClickableSituationCard(context, ReceivedBillPage(),
-                  "I've received a surprise medical bill"),
-              renderClickableSituationCard(context, CollectionsPage(),
-                  "My medical bill/debt has been sent to a collections agency"),
-            ],
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            child: Text(
+              "Guidelines",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white),
+            ),
+            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
           ),
-        ));
+          Padding(
+              child: Card(
+                color: Colors.white,
+                child: Padding(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            "Start by choosing a category below that best fits your situation.",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                        ]),
+                    padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+              ),
+              padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+          //renderClickableSituationCard("I'm preparing for a hospital visit"),
+          renderClickableSituationCard(context, TermsPage(),
+              "I want to learn healthcare terms and definitions"),
+          renderClickableSituationCard(
+              context, BeforeStayPage(), "I'm preparing for a hospital visit"),
+          renderClickableSituationCard(
+              context, DuringStayPage(), "I'm at the hospital now"),
+          renderClickableSituationCard(
+              context, AfterStayPage(), "I recently visited the hospital"),
+          renderClickableSituationCard(context, ReceivedBillPage(),
+              "I've received a surprise medical bill"),
+          renderClickableSituationCard(context, CollectionsPage(),
+              "My medical bill/debt has been sent to a collections agency"),
+        ],
+      ),
+    ));
   }
 }
 
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
+
+  final String purpleTheme = "#AB92F4";
+  final String lightPinkTheme = "#FDEBF1";
+  String darkPinkTheme = "#ED558C";
+  final String blueTheme = "#54D0EB";
+  final String darkGreenTheme = "#758C20";
+  final String lightGreenTheme = "#A1BF36";
 
   final BuildContext context;
   final RootCategoriesPage rootCategoriesPage;
@@ -311,7 +319,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -327,7 +335,19 @@ class TermsPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 2),
               renderGuideline(guidelinesTitles[8], subGuidelinesText[8], 9, 2),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context)),
+                child: Text("Back"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
           onPanUpdate: (details) {
@@ -370,7 +390,7 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -384,7 +404,19 @@ class BeforeStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 1),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context)),
+                child: Text("Back"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
           onPanUpdate: (details) {
@@ -424,7 +456,7 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -437,7 +469,19 @@ class DuringStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 1),
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 1),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+                child: Text("Back"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              )
             ],
           ),
           onPanUpdate: (details) {
@@ -467,7 +511,7 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -475,7 +519,19 @@ class AfterStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 4),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 4),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+                child: Text("Back"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              )
             ],
           ),
           onPanUpdate: (details) {
@@ -535,7 +591,7 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -545,7 +601,22 @@ class ReceivedBillPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 2),
               renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 2),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context))
+                child: Text(
+                  "Back",
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              )
             ],
           ),
           onPanUpdate: (details) {
@@ -593,7 +664,7 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple[600],
+        backgroundColor: HexColor(purpleTheme),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -606,7 +677,19 @@ class CollectionsPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 2),
               renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 2),
               ElevatedButton(
-                  child: Text("Back"), onPressed: () => Navigator.pop(context)),
+                child: Text("Back"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return HexColor(blueTheme);
+                      return HexColor(
+                          blueTheme); // Use the component's default.
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
           onPanUpdate: (details) {
@@ -762,23 +845,23 @@ class GuidelinesPageState extends State<GuidelinesPage>
     return slides;
   }
 
-  Widget renderPreselectedSituationCard(String situation) {
-    return Card(
-      child: ListTile(title: Text(situation)),
-      color: Colors.lightBlue,
-    );
-  }
+  // Widget renderPreselectedSituationCard(String situation) {
+  //   return Card(
+  //     child: ListTile(title: Text(situation)),
+  //     color: Colors.lightBlue,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.deepPurple[600],
+      // backgroundColor: Colors.deepPurple[600],
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Padding(
-            child: renderPreselectedSituationCard(
-                "I'm preparing for a hospital visit"),
+            // child: renderPreselectedSituationCard(
+            //     "I'm preparing for a hospital visit"),
             padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
           ),
           BeforeStayPage(),
