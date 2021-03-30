@@ -31,7 +31,7 @@ Or run this in command
 flutter run
 ```
 
-To run in release mode (make app smoother than running on debug mode), run the following command instead
+To compile in release mode (make app run smoother than debug mode), run the following command instead
 
 ```bash
 flutter run --release
