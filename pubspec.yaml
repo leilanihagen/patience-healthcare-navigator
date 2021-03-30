@@ -14,7 +14,6 @@ dependencies:
   # Flutter localization
   flutter_localizations:
     sdk: flutter
-  focused_menu: 
   shared_preferences: 
   cupertino_icons: 
   geolocator:

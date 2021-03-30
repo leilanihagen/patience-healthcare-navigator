@@ -444,9 +444,19 @@ class _SearchPage extends State<SearchPage>
                         return Container(
                           height: 200.h,
                           child: ListTile(
+                            selectedTileColor: Colors.grey,
+                            trailing: Icon(
+                              Icons.add_circle_outline_rounded,
+                              color: Colors.pinkAccent,
+                            ),
                             title: Text(items[index].name),
                             onTap: () {
                               search(items[index]);
+                              rootScaffoldMessengerKey.currentState
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    'Adding ${items[index].name} to the list'),
+                              ));
                               searchController.clear();
                             },
                           ),
