@@ -39,7 +39,7 @@ flutter run --release
 
 ## Side-notes
 
-This project hasn't been tested on IOS, so there is no further instruction for running on IOS device, we don't know any possible error while you run on IOS. We will target this platform in the future.
+This project hasn't been tested on IOS, so there is no further instruction for running on IOS device, we don't know any possible error if you run on IOS. We will target this platform in the future.
 
 ## Important notes
 
