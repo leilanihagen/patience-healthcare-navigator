@@ -338,7 +338,6 @@ class TermsPage extends StatelessWidget {
     "Source (medmutual.com article)",
     "Source (insights.ibx.com article)",
     "Source (insights.ibx.com article)",
-    "", // #8 placeholder
     "Source (verywellhealth.com article)",
   ];
 
@@ -350,40 +349,8 @@ class TermsPage extends StatelessWidget {
     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx",
     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/",
     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/",
-    "", // #8 placeholder
     "https://www.verywellhealth.com/what-is-a-provider-1738759",
   ];
-
-  //   // renderClickableLinkPassage(
-  //   //   "\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy.",
-  //   //   " Source",
-  //   //   "https://www.verywellhealth.com/what-is-a-provider-1738759",
-  //   // ),
-  //   // RichText(
-  //   //     text: TextSpan(
-  //   //         text:
-  //   //             "A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for.")),
-  //   // renderClickableLinkPassage(
-  //   //     "\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services.",
-  //   //     " Source",
-  //   //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
-  //   // renderClickableLinkPassage(
-  //   //     "\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer.",
-  //   //     " Source",
-  //   //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-  //   // renderClickableLinkPassage(
-  //   //     "\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible.",
-  //   //     " Source",
-  //   //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-  //   // renderClickableLinkPassage(
-  //   //     "\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”",
-  //   //     " Source",
-  //   //     "https://www.verywellhealth.com/what-is-a-provider-1738759"),
-  //   // renderClickableLinkPassage(
-  //   //     "The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs.",
-  //   //     " Source",
-  //   //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -451,8 +418,8 @@ class TermsPage extends StatelessWidget {
               renderGuidelineHyperlink(
                   guidelinesTitles[8],
                   subGuidelinesText[8],
-                  hyperlinkHintsText[8],
-                  hyperlinks[8],
+                  hyperlinkHintsText[7],
+                  hyperlinks[7],
                   9,
                   0),
               ElevatedButton(
@@ -594,6 +561,8 @@ class DuringStayPage extends StatelessWidget {
     "Many hospitals have adopted the practice of asking patients to pay out the full amount of their insurance plan’s deductible as payment toward a bill before the patient receives care or before the patient has access to the final bill. You should never agree to pay out your deductible until your insurance company tells you how much your bill will be and/or the hospital gives you your fully itemized bill.\n\nTo learn more about this practice used by hospitals, please read the following article: https://www.verywellhealth.com/paying-deductible-before-receiving-care-4159403",
     "Unfortunately, many hospital receptionists or billing departments will not know specific policies of your insurance provider, or even how much various services/procedures will cost. Please see guideline number 2 in this section.",
   ];
+
+  String 
 
   @override
   Widget build(BuildContext context) {
