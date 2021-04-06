@@ -201,6 +201,30 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
   );
 }
 
+Widget renderGuidelineCustomWidgetText(
+    String title, Widget text, int guidelineNum, int linesShownCollapsed) {
+  return Container(
+    color: Colors.white,
+    child: Padding(
+        child: ExpandablePanel(
+          // theme: ThemeData(backgroundColor: Colors.white),
+          header: Text(
+            "$guidelineNum. " + title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          collapsed: (linesShownCollapsed == 0)
+              ? null
+              : Padding(
+                  child: text,
+                  padding: EdgeInsets.fromLTRB(4, 12, 4, 4),
+                ),
+          expanded:
+              Padding(child: text, padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+        ),
+        padding: EdgeInsets.fromLTRB(8, 15, 8, 15)),
+  );
+}
+
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
 
@@ -709,8 +733,47 @@ class ReceivedBillPage extends StatelessWidget {
     "When you receive an unjustly large bill, it is a common reaction to want to run from it, avoid talking to the hospital, and simply not pay. However, there are many things that can be done to dispute your bill, negotiate a lower price, receive financial assistance, and pay off your bill over a longer period of time.",
     "All hospitals who receive Medicaid funding are required to provide charity care and financial assistance programs. Apply for this financial aid, even if you don’t think you will qualify, because it shows the hospital that you are trying to find ways to pay and work with them.\n\nAsk for your account to be placed on hold while your application is being processed. This is common practice, but make sure you ask that this is done just in case.",
     "Ask the hospital if you can enroll in a payment plan. This will allow you to pay off your bill in small amounts over an extended period of time. If you do this and you try your best to pay small amounts toward your bill whenever you can, after a while you may be able to renegotiate the amount of your bill. Explain that you are concerned you will not be able to pay the current amount, and that a smaller amount would be more manageable for your situation.\n\nA medical billing expert we spoke with about this situation and assures patients that negotiating bills is common practice for hospitals, and some hospitals may be even more willing to give patients renegotiations at the end of the year, when they want to close billing accounts in preparation for the new year.",
-    "Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed.\n\nSource: https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik\n\nA resource that provides a template letter to send to a hospital (we recommend adding more points to this letter from the above mentioned points): https://brokenhealthcare.org/dispute-every-hospital-bill/",
+    // "Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed.",
   ];
+
+  final List<String> hyperlinkHintsText = [
+    "Source (YouTube Video by DerekVanSchaik)",
+    "A template letter (brokenhealthcare.org article) (We recommend adding more from the above mentioned points.)",
+  ];
+
+  final List<String> hyperlinks = [
+    "https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik",
+    "https://brokenhealthcare.org/dispute-every-hospital-bill/",
+  ];
+
+  final Column text =
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    Text(
+      ("Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed." +
+          "\n"),
+      style: TextStyle(fontSize: 17),
+    ),
+    InkWell(
+        child: Text(
+          "Source (YouTube Video by DerekVanSchaik)\n\n",
+          style: TextStyle(
+              fontSize: 17,
+              color: HexColor("#758C20"),
+              decoration: TextDecoration.underline),
+        ),
+        onTap: () => launch(
+            "https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik")),
+    InkWell(
+        child: Text(
+          "A template letter (brokenhealthcare.org article) (We recommend adding more from the above mentioned points.)",
+          style: TextStyle(
+              fontSize: 17,
+              color: HexColor("#758C20"),
+              decoration: TextDecoration.underline),
+        ),
+        onTap: () =>
+            launch("https://brokenhealthcare.org/dispute-every-hospital-bill/"))
+  ]);
 
   // final String introduction = '''
   // Write a letter to your hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.
@@ -751,7 +814,7 @@ class ReceivedBillPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+              renderGuidelineCustomWidgetText(guidelinesTitles[3], text, 4, 0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
