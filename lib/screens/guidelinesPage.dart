@@ -144,30 +144,62 @@ Widget renderGuideline(
   );
 }
 
-// Duplicate that accepts Text() widget:
-// Widget renderGuidelineRichText(
-//     String title, RichText text, int guidelineNum, int linesShownCollapsed) {
-//   return Container(
-//     color: Colors.white,
-//     child: Padding(
-//         child: ExpandablePanel(
-//           // theme: ThemeData(backgroundColor: Colors.white),
-//           header: Text(
-//             "$guidelineNum. " + title,
-//             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-//           ),
-//           collapsed: Padding(
-//             child: Text(
-//               text: text,
-//             ),
-//             padding: EdgeInsets.fromLTRB(4, 12, 4, 4),
-//           ),
-//           expanded:
-//               Padding(child: text, padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
-//         ),
-//         padding: EdgeInsets.fromLTRB(8, 15, 8, 15)),
-//   );
-// }
+Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
+    String hyperlink, int guidelineNum, int linesShownCollapsed) {
+  return Container(
+    color: Colors.white,
+    child: Padding(
+        child: ExpandablePanel(
+          // theme: ThemeData(backgroundColor: Colors.white),
+          header: Text(
+            "$guidelineNum. " + title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          collapsed: (linesShownCollapsed == 0)
+              ? null
+              : Padding(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          (text + "\n"),
+                          style: TextStyle(fontSize: 17),
+                        ),
+                        InkWell(
+                            child: Text(
+                              hyperlinkText,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: HexColor("#758C20"),
+                                  decoration: TextDecoration.underline),
+                            ),
+                            onTap: () => launch(hyperlink))
+                      ]),
+                  padding: EdgeInsets.fromLTRB(4, 12, 4, 4),
+                ),
+          expanded: Padding(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      (text + "\n"),
+                      style: TextStyle(fontSize: 17),
+                    ),
+                    InkWell(
+                        child: Text(
+                          hyperlinkText,
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: HexColor("#758C20"),
+                              decoration: TextDecoration.underline),
+                        ),
+                        onTap: () => launch(hyperlink))
+                  ]),
+              padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
+        ),
+        padding: EdgeInsets.fromLTRB(8, 15, 8, 15)),
+  );
+}
 
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
@@ -264,11 +296,11 @@ class RootCategoriesPage extends StatelessWidget {
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
 
-  final String purpleTheme = "#AB92F4";
+  final String purpleTheme = "#66558E";
   final String lightPinkTheme = "#FDEBF1";
-  String darkPinkTheme = "#ED558C";
+  final String darkPinkTheme = "#ED558C";
   final String blueTheme = "#44B5CD";
-  final String darkGreenTheme = "#758C20";
+  // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
 
   final BuildContext context;
@@ -286,62 +318,72 @@ class TermsPage extends StatelessWidget {
     "Provider Network",
   ];
   final List<String> subGuidelinesText = [
-    ("\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy." +
-        " \n\nSource: " +
-        "https://www.verywellhealth.com/what-is-a-provider-1738759"),
-    ("The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs." +
-        " \n\nSource: " +
-        "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
-    ("A flat rate fee that you pay each time you utilize certain healthcare services that are covered by your insurance. “For example, if you hurt your back and go see your doctor, or you need a refill of your child's asthma medicine, the amount you pay for that visit or medicine is your copay.” Each time you use healthcare services with a copay, the copay covers a certain portion of their cost and the other portion is paid by your insurance company. Copays do not usually count as payments toward your deductible but check with your insurance plan to learn how this works with your plan." +
-        " \n\nSource: " +
-        "https://www.cigna.com/individuals-families/understanding-insurance/copays-deductibles-coinsurance"),
-    ("\“Coinsurance is your share of the costs of a health care service.\” \“You start paying coinsurance after you've paid your plan's deductible.\”\“How it works: You’ve paid \$1,500 in health care expenses and met your deductible. When you go to the doctor, instead of paying all costs, you and your plan share the cost. For example, your plan pays 70 percent. The 30 percent you pay is your coinsurance.\”" +
-        " \n\nSource: " +
-        "https://www.cigna.com/individuals-families/understanding-insurance/copays-deductibles-coinsurance"),
-    // ("A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for."),
-    ("\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services." +
-        " \n\nSource: " +
-        "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
-    ("\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer." +
-        " \n\nSource: " +
-        "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-    ("\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible." +
-        " \n\nSource: " +
-        "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-    ("A medical bill that a patient receives that is larger than expected or that will cause financial stress to the patient. More specifically, most “surprise bills” occur when a patient receives care from a provider that is out-of-network with their insurance or receives a type of treatment or test that is not a covered service under their insurance plan."),
-    ("\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”" +
-        " \n\nSource: " +
-        "https://www.verywellhealth.com/what-is-a-provider-1738759"),
-    // renderClickableLinkPassage(
-    //   "\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy.",
-    //   " Source",
-    //   "https://www.verywellhealth.com/what-is-a-provider-1738759",
-    // ),
-    // RichText(
-    //     text: TextSpan(
-    //         text:
-    //             "A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for.")),
-    // renderClickableLinkPassage(
-    //     "\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services.",
-    //     " Source",
-    //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
-    // renderClickableLinkPassage(
-    //     "\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer.",
-    //     " Source",
-    //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-    // renderClickableLinkPassage(
-    //     "\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible.",
-    //     " Source",
-    //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
-    // renderClickableLinkPassage(
-    //     "\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”",
-    //     " Source",
-    //     "https://www.verywellhealth.com/what-is-a-provider-1738759"),
-    // renderClickableLinkPassage(
-    //     "The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs.",
-    //     " Source",
-    //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+    "\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy.",
+    "The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs.",
+    "A flat rate fee that you pay each time you utilize certain healthcare services that are covered by your insurance. “For example, if you hurt your back and go see your doctor, or you need a refill of your child's asthma medicine, the amount you pay for that visit or medicine is your copay.” Each time you use healthcare services with a copay, the copay covers a certain portion of their cost and the other portion is paid by your insurance company. Copays do not usually count as payments toward your deductible but check with your insurance plan to learn how this works with your plan.",
+    "\“Coinsurance is your share of the costs of a health care service.\” \“You start paying coinsurance after you've paid your plan's deductible.\”\“How it works: You’ve paid \$1,500 in health care expenses and met your deductible. When you go to the doctor, instead of paying all costs, you and your plan share the cost. For example, your plan pays 70 percent. The 30 percent you pay is your coinsurance.\”",
+    "\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services.",
+    "\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer.",
+    "\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible.",
+    // number 8, no source (use non-hyperlink guidline):
+    "A medical bill that a patient receives that is larger than expected or that will cause financial stress to the patient. More specifically, most “surprise bills” occur when a patient receives care from a provider that is out-of-network with their insurance or receives a type of treatment or test that is not a covered service under their insurance plan.",
+    "\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”",
   ];
+
+  final List<String> hyperlinkHintsText = [
+    "Source (verywellhealth.com article)",
+    "Source (medmutual.com article)",
+    "Source (cigna.com article)",
+    "Source (cigna.com article)",
+    "Source (medmutual.com article)",
+    "Source (insights.ibx.com article)",
+    "Source (insights.ibx.com article)",
+    "", // #8 placeholder
+    "Source (verywellhealth.com article)",
+  ];
+
+  final List<String> hyperlinks = [
+    "https://www.verywellhealth.com/what-is-a-provider-1738759",
+    "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx",
+    "https://www.cigna.com/individuals-families/understanding-insurance/copays-deductibles-coinsurance",
+    "https://www.cigna.com/individuals-families/understanding-insurance/copays-deductibles-coinsurance",
+    "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx",
+    "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/",
+    "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/",
+    "", // #8 placeholder
+    "https://www.verywellhealth.com/what-is-a-provider-1738759",
+  ];
+
+  //   // renderClickableLinkPassage(
+  //   //   "\“A healthcare provider is a person or company that provides a healthcare service to you. In other words, your healthcare provider takes care of you.\” \“Provider\” is a very broad term and can refer to your primary care doctor, a physician at an emergency room, the hospital itself, and even your pharmacy.",
+  //   //   " Source",
+  //   //   "https://www.verywellhealth.com/what-is-a-provider-1738759",
+  //   // ),
+  //   // RichText(
+  //   //     text: TextSpan(
+  //   //         text:
+  //   //             "A service, as defined in our app, is any healthcare-related product (such as a bandage, a drug, etc.) or service (an appointment with a specialist, a health treatment or therapy, an x-ray, etc.) that a hospital can charge you or your insurance company for.")),
+  //   // renderClickableLinkPassage(
+  //   //     "\“A healthcare provider’s service or medical supplies covered by your health plan. Benefits will be given for these services based on your plan.\” This means that your insurance has agreed to pay part of the cost for these services.",
+  //   //     " Source",
+  //   //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+  //   // renderClickableLinkPassage(
+  //   //     "\“-a health care provider that has a contract with your health insurance plan to provide health care services to its plan members at a pre-negotiated rate. Because of this relationship, you pay a lower cost-sharing when you receive services from an in-network doctor.” It is advised that you receive care only from in-network providers whenever possible because this will greatly reduce the cost of healthcare for you as the patient/consumer.",
+  //   //     " Source",
+  //   //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+  //   // renderClickableLinkPassage(
+  //   //     "\“-a health care provider who does not have a contract with your health insurance plan. If you use an out-of-network provider, health care services could cost more since the provider doesn’t have a pre-negotiated rate with your health plan.\” Out of network bills can be extremely costly, and should be avoided whenever possible.",
+  //   //     " Source",
+  //   //     "https://insights.ibx.com/understanding-the-difference-between-in-network-and-out-of-network/"),
+  //   // renderClickableLinkPassage(
+  //   //     "\“Most health plans have provider networks. These networks are groups of providers that have agreed to provide services to the health plan’s members at a discounted rate and that have met the quality standards required by your insurer. Your health plan prefers that you use its in-network providers rather than using out-of-network providers.\”",
+  //   //     " Source",
+  //   //     "https://www.verywellhealth.com/what-is-a-provider-1738759"),
+  //   // renderClickableLinkPassage(
+  //   //     "The amount you pay for your healthcare services before your health insurer pays. Deductibles are based on your benefit period (typically a year at a time). \nExample: If your plan has a \$2,000 annual deductible, you will be expected to pay the first \$2,000 toward your healthcare services. After you reach \$2,000, your health insurer will cover the rest of the costs.",
+  //   //     " Source",
+  //   //     "https://www.medmutual.com/For-Individuals-and-Families/Health-Insurance-Education/Glossary-of-Terms.aspx"),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -354,15 +396,65 @@ class TermsPage extends StatelessWidget {
                   "I want to learn healthcare terms and definitions",
                   Icon(Icons.menu_book_rounded,
                       color: HexColor(blueTheme), size: 33)),
-              renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
-              renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
-              renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
-              renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
-              renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
-              renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
+              // renderGuidelineRichText(
+              //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[0],
+                  subGuidelinesText[0],
+                  hyperlinkHintsText[0],
+                  hyperlinks[0],
+                  1,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[1],
+                  subGuidelinesText[1],
+                  hyperlinkHintsText[1],
+                  hyperlinks[1],
+                  2,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[2],
+                  subGuidelinesText[2],
+                  hyperlinkHintsText[2],
+                  hyperlinks[2],
+                  3,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[3],
+                  subGuidelinesText[3],
+                  hyperlinkHintsText[3],
+                  hyperlinks[3],
+                  4,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[4],
+                  subGuidelinesText[4],
+                  hyperlinkHintsText[4],
+                  hyperlinks[4],
+                  5,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[5],
+                  subGuidelinesText[5],
+                  hyperlinkHintsText[5],
+                  hyperlinks[5],
+                  6,
+                  0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[6],
+                  subGuidelinesText[6],
+                  hyperlinkHintsText[6],
+                  hyperlinks[6],
+                  7,
+                  0),
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 0),
-              renderGuideline(guidelinesTitles[8], subGuidelinesText[8], 9, 0),
+              renderGuidelineHyperlink(
+                  guidelinesTitles[8],
+                  subGuidelinesText[8],
+                  hyperlinkHintsText[8],
+                  hyperlinks[8],
+                  9,
+                  0),
               ElevatedButton(
                 child: ListTile(
                     leading: Icon(Icons.arrow_back_ios_rounded,
