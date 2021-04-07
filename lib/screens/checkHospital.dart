@@ -311,9 +311,9 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           children: [
             Flexible(
                 flex: 3,
-                child: _hospitalPage.name != null
-                    ? getHeader()
-                    : getPageIntroduction(),
+                child: _hospitalPage.name == null || _hospitalPage.name.isEmpty
+                    ? getPageIntroduction()
+                    : getHeader(),
                 fit: FlexFit.tight),
             Flexible(
               flex: 3,

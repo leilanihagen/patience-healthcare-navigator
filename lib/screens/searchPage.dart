@@ -139,24 +139,26 @@ class _SearchPage extends State<SearchPage>
   }
 
   List<Widget> _buildList() {
+    deleteSearch(index) {
+      Procedure item = controller.procedures.elementAt(index);
+      deleteItem(index);
+      rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+        content: Text('${item.name} is deleted'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            undoDeletion(index, item);
+          },
+        ),
+      ));
+    }
+
     return List<Widget>.generate(
         controller.procedures.length,
         (int index) => Dismissible(
             key: PageStorageKey<String>(controller.procedures[index].name),
             background: stackBehindDismiss(),
-            onDismissed: (direction) {
-              Procedure item = controller.procedures.elementAt(index);
-              deleteItem(index);
-              rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-                content: Text('${item.name} is deleted'),
-                action: SnackBarAction(
-                  label: 'Undo',
-                  onPressed: () {
-                    undoDeletion(index, item);
-                  },
-                ),
-              ));
-            },
+            onDismissed: (direction) => deleteSearch(index),
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ClipRRect(
@@ -165,20 +167,28 @@ class _SearchPage extends State<SearchPage>
                       color: Colors.white,
                       child: ExpansionTile(
                         expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                        subtitle: RichText(
-                          text: TextSpan(
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  decoration: TextDecoration.underline),
-                              children: [
-                                TextSpan(text: 'CPT code: '),
-                                TextSpan(
-                                    text:
-                                        "${controller.procedures[index].lowerCpt} - ${controller.procedures[index].upperCpt}",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold))
-                              ]),
+                        subtitle: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.underline),
+                                  children: [
+                                    TextSpan(text: 'CPT code: '),
+                                    TextSpan(
+                                        text:
+                                            "${controller.procedures[index].lowerCpt} - ${controller.procedures[index].upperCpt}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                  ]),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () => deleteSearch(index))
+                          ],
                         ),
                         title: Text("${controller.procedures[index].name}"),
                         childrenPadding:
@@ -298,7 +308,7 @@ class _SearchPage extends State<SearchPage>
       return DraggableScrollableSheet(
         initialChildSize: 0.1,
         minChildSize: 0.03,
-        maxChildSize: 0.5,
+        maxChildSize: 0.9,
         builder: (context, scrollController) {
           return Stack(
             clipBehavior: Clip.none,
@@ -384,7 +394,7 @@ class _SearchPage extends State<SearchPage>
                             ],
                           ),
                           Container(
-                            height: 200,
+                            height: 800,
                           )
                         ],
                       ))),
