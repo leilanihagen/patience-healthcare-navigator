@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:focused_menu/focused_menu.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -1091,87 +1089,87 @@ class GuidelinesPageState extends State<GuidelinesPage>
     );
   }
 
-  List<Slide> getSlide() {
-    List<Slide> slides = [
-      Slide(
-          maxLineTitle: 2,
-          backgroundColor: Colors.deepPurple[600],
-          title: "Before Hospital",
-          styleTitle: TextStyle(
-              color: Color(0xff3da4ab),
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold),
-          centerWidget: ListView.builder(
-            shrinkWrap: true,
-            itemCount: title.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-                  child: FocusedMenuHolder(
-                    child: ListTile(
-                      tileColor: Colors.white,
-                      title: Text("Tip number ${title[index]}"),
-                    ),
-                    blurSize: 5.0,
-                    openWithTap: true,
-                    onPressed: () {},
-                    menuItems: [
-                      // ignore: missing_required_param
-                      FocusedMenuItem(
-                        title: Flexible(
-                          child: Text(body[index]),
-                        ),
-                      )
-                    ],
-                  ));
-            },
-          )),
-      Slide(
-          maxLineTitle: 2,
-          backgroundColor: Colors.deepPurple[600],
-          title: getTranslated(context, 'during_hospital'),
-          styleTitle: TextStyle(
-              color: Color(0xff3da4ab),
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold),
-          centerWidget: ListView.builder(
-            shrinkWrap: true,
-            itemCount: title.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-                  child: ListTile(
-                    tileColor: Colors.white,
-                    title: Text("Tip number ${title[index]}"),
-                  ));
-            },
-          )),
-      Slide(
-          maxLineTitle: 2,
-          backgroundColor: Colors.deepPurple[600],
-          title: getTranslated(context, 'after_hospital'),
-          styleTitle: TextStyle(
-              color: Color(0xff3da4ab),
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold),
-          centerWidget: ListView.builder(
-            shrinkWrap: true,
-            itemCount: title.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-                  child: ListTile(
-                    tileColor: Colors.white,
-                    title: Text("Tip number ${title[index]}"),
-                  ));
-            },
-          ))
-    ];
-    return slides;
-  }
+  // List<Slide> getSlide() {
+  //   List<Slide> slides = [
+  //     Slide(
+  //         maxLineTitle: 2,
+  //         backgroundColor: Colors.deepPurple[600],
+  //         title: "Before Hospital",
+  //         styleTitle: TextStyle(
+  //             color: Color(0xff3da4ab),
+  //             fontSize: 30.0,
+  //             fontWeight: FontWeight.bold),
+  //         centerWidget: ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: title.length,
+  //           itemBuilder: (BuildContext context, int index) {
+  //             return Padding(
+  //                 padding:
+  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+  //                 child: FocusedMenuHolder(
+  //                   child: ListTile(
+  //                     tileColor: Colors.white,
+  //                     title: Text("Tip number ${title[index]}"),
+  //                   ),
+  //                   blurSize: 5.0,
+  //                   openWithTap: true,
+  //                   onPressed: () {},
+  //                   menuItems: [
+  //                     // ignore: missing_required_param
+  //                     FocusedMenuItem(
+  //                       title: Flexible(
+  //                         child: Text(body[index]),
+  //                       ),
+  //                     )
+  //                   ],
+  //                 ));
+  //           },
+  //         )),
+  //     Slide(
+  //         maxLineTitle: 2,
+  //         backgroundColor: Colors.deepPurple[600],
+  //         title: getTranslated(context, 'during_hospital'),
+  //         styleTitle: TextStyle(
+  //             color: Color(0xff3da4ab),
+  //             fontSize: 30.0,
+  //             fontWeight: FontWeight.bold),
+  //         centerWidget: ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: title.length,
+  //           itemBuilder: (BuildContext context, int index) {
+  //             return Padding(
+  //                 padding:
+  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+  //                 child: ListTile(
+  //                   tileColor: Colors.white,
+  //                   title: Text("Tip number ${title[index]}"),
+  //                 ));
+  //           },
+  //         )),
+  //     Slide(
+  //         maxLineTitle: 2,
+  //         backgroundColor: Colors.deepPurple[600],
+  //         title: getTranslated(context, 'after_hospital'),
+  //         styleTitle: TextStyle(
+  //             color: Color(0xff3da4ab),
+  //             fontSize: 30.0,
+  //             fontWeight: FontWeight.bold),
+  //         centerWidget: ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: title.length,
+  //           itemBuilder: (BuildContext context, int index) {
+  //             return Padding(
+  //                 padding:
+  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+  //                 child: ListTile(
+  //                   tileColor: Colors.white,
+  //                   title: Text("Tip number ${title[index]}"),
+  //                 ));
+  //           },
+  //         ))
+  //   ];
+  //   return slides;
+  // }
 
   // Widget renderPreselectedSituationCard(String situation) {
   //   return Card(
