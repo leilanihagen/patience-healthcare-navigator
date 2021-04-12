@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app.dart';
 
-String purpleTheme = "#66558E";
+String purpleTheme = "#AB92F4";
 String lightPinkTheme = "#FDEBF1";
 String darkPinkTheme = "#ED558C";
 String blueTheme = "#54D0EB";

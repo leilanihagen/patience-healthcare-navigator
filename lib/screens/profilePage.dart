@@ -49,12 +49,12 @@ class _ProfilePage extends State<ProfilePage>
             child: SingleChildScrollView(
                 child: Column(children: [
       Padding(padding: EdgeInsets.all(20)),
-      // Text(
-      //   "Your Information",
-      //   textAlign: TextAlign.left,
-      //   style: TextStyle(
-      //       fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
-      // ),
+      Text(
+        "Your Information",
+        textAlign: TextAlign.left,
+        style: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
+      ),
       Padding(
           child: Card(
             color: Colors.white,
