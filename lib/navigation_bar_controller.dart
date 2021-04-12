@@ -18,7 +18,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   PageController _pageController;
   int _selectedIndex;
 
-  String purpleTheme = "#AB92F4";
+  String purpleTheme = "#66558E";
   String lightPinkTheme = "#FDEBF1";
   String darkPinkTheme = "#ED558C";
   String blueTheme = "#44B5CD";
@@ -77,9 +77,30 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             ),
           ]);
 
+  List<String> _pageTitles = [
+    'Guidelines',
+    'Your Profile',
+    'Find In-Network Hospitals',
+    'Search Medical Services',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: HexColor(blueTheme),
+        leading: IconButton(
+          icon: Icon(IconData(59162, fontFamily: 'MaterialIcons')),
+          onPressed: () => setState(() {
+            _selectedIndex = 1;
+            _pageController.jumpToPage(1);
+          }),
+        ),
+        title: Text(
+          _pageTitles[_selectedIndex],
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+        ),
+      ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(
         controller: _pageController,

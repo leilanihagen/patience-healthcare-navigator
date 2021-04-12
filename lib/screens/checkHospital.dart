@@ -254,13 +254,13 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-            child: Text("Find In-Network Hospital",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white)),
-            padding: EdgeInsets.fromLTRB(2, 40, 2, 0)),
+        // Padding(
+        //     child: Text("Find In-Network Hospital",
+        //         style: TextStyle(
+        //             fontSize: 30,
+        //             fontWeight: FontWeight.w800,
+        //             color: Colors.white)),
+        //     padding: EdgeInsets.fromLTRB(2, 40, 2, 0)),
         // Padding(
         //     child: Card(
         //       color: Colors.white,
