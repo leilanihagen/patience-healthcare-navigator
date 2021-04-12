@@ -52,19 +52,19 @@ The goal of this app is to empower any person with a simple set of knowledge and
 
 To accomplish the above goals, we have implemented the following features:
 
-### Guidelines
+#### Guidelines
 
 The user navigates and through our guidelines depending on their situation (i.e. "I'm in the hospital now," "I recently visited the hospital," etc.) and is presented with organized and concise information about things they can do before, during and after hospital stays to avoid surprise bills and manage their healthcare. We are working on adding video summaries to each of our guidelines pages for ease of use and accessibility.
 
-### Search Services
+#### Search Services
 
 This feature provides price estimates and medical service details to the user. The user can utilize this both to prepare for upcoming hospital visits by looking at service/procedure price estimates, or to help in emergency/unplanned visit situations when the patient is in the hospital and needs to make a decision about whether to receive a service/procedure. We are working on providing specific service information based on the user's state of residence.
 
-### Find In-Network Hospitals
+#### Find In-Network Hospitals
 
 This feature allows the user both to locate in-network hospitals near them, and determine whether a hospital they are currently at is in-network or not. This is helpful both in emergency/unplanned visit situations as well as planning for a visit, and helps avoid surprise bills by helping the user avoid expensive out-of-network care. We plan to also develop a feature that allows searching for a specific hospital by name and verifying if it is in-network or out-of-network.
 
-### Visit Timelines and Summaries (in development)
+#### Visit Timelines and Summaries (in development)
 
 We are working on developing a timeline-based note-taking feature that will allow patients or their family members/caretakers to take detailed, timestamped notes during and after hospital visits in order to track, manage and more effectively dispute surprise bills.
 
