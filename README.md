@@ -62,7 +62,7 @@ This feature provides price estimates and medical service details to the user. T
 
 #### Find In-Network Hospitals
 
-This feature allows the user both to locate in-network hospitals near them, and determine whether a hospital they are currently at is in-network or not. This is helpful both in emergency/unplanned visit situations as well as planning for a visit, and helps avoid surprise bills by helping the user avoid expensive out-of-network care. We plan to also develop a feature that allows searching for a specific hospital by name and verifying if it is in-network or out-of-network.
+This feature allows the user both to locate in-network hospitals near them, and determine whether a hospital they are currently at is in-network or not. This is helpful both in emergency/unplanned visit situations as well as planning for a visit, and helps avoid surprise bills by helping the user avoid expensive out-of-network care. We plan to also develop a feature that allows searching for a specific hospital by name and verifying if it is in-network or out-of-network. IMPORTANT: To use this feature, location services must be turned ON
 
 #### Visit Timelines and Summaries (in development)
 
