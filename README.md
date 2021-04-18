@@ -7,10 +7,19 @@ A tool that help patients navigate their healthcare, specifically their hospital
 This flutter app using Flutter 2.0.3, Dart 2.12.2.
 To clone the app, use this command line
 
-Please clone the visitOrientation branch to experience our latest updates and working app version.
+Please clone the visitOrientation branch to experience our latest updates and working app version:
+
+Using https:
 
 ```bash
-git clone https://github.com/leilanihagen/hospital-stay-helper.git
+git clone -b visitOrientation https://github.com/leilanihagen/hospital-stay-helper.git
+cd hospital-stay-helper
+```
+
+Using ssh:
+
+```bash
+git clone -b visitOrientation git@github.com:leilanihagen/hospital-stay-helper.git
 cd hospital-stay-helper
 ```
 
