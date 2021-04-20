@@ -162,6 +162,4 @@ class HospitalPage {
   }
 }
 
-class ProfilePage{
-  
-}
+class ProfilePage {}
