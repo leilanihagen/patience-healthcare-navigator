@@ -13,31 +13,31 @@ import 'package:hexcolor/hexcolor.dart';
 
 // Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823
 // Not using yet:
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-  SlideRightRoute({this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: Offset.zero,
-            ).animate(animation),
-            child: child,
-          ),
-        );
-}
+// class SlideRightRoute extends PageRouteBuilder {
+//   final Widget page;
+//   SlideRightRoute({this.page})
+//       : super(
+//           pageBuilder: (
+//             BuildContext context,
+//             Animation<double> animation,
+//             Animation<double> secondaryAnimation,
+//           ) =>
+//               page,
+//           transitionsBuilder: (
+//             BuildContext context,
+//             Animation<double> animation,
+//             Animation<double> secondaryAnimation,
+//             Widget child,
+//           ) =>
+//               SlideTransition(
+//             position: Tween<Offset>(
+//               begin: const Offset(-1, 0),
+//               end: Offset.zero,
+//             ).animate(animation),
+//             child: child,
+//           ),
+//         );
+// }
 
 RichText renderClickableLinkPassage(String text, String urlText, String url) {
   return RichText(

@@ -4,7 +4,9 @@ import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
+import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
+import 'screens/visitsTimelinePage.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
   @override
@@ -31,9 +33,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     _selectedIndex = 0;
     pages = [
       RootCategoriesPage(),
-      ProfilePage(key: PageStorageKey('yourprofile')),
+      VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
       SearchPage(key: PageStorageKey('searchservices')),
+      ProfilePage(key: PageStorageKey('yourprofile')),
     ];
     _pageController = PageController(initialPage: _selectedIndex);
   }
@@ -63,9 +66,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                IconData(59162, fontFamily: 'MaterialIcons'),
+                IconData(0xe661, fontFamily: 'MaterialIcons'),
               ),
-              label: 'Your Profile',
+              label: 'Visits Timeline',
             ),
             BottomNavigationBarItem(
               icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
@@ -79,7 +82,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   List<String> _pageTitles = [
     'Guidelines',
-    'Your Profile',
+    'Visits Timeline',
     'Find In-Network Hospitals',
     'Search Medical Services',
   ];
@@ -93,7 +96,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           icon: Icon(IconData(59162, fontFamily: 'MaterialIcons')),
           onPressed: () => setState(() {
             _selectedIndex = 1;
-            _pageController.jumpToPage(1);
+            _pageController.jumpToPage(4);
           }),
         ),
         title: Text(
