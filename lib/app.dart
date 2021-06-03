@@ -57,7 +57,6 @@ class _AppState extends State<App> {
     } else {
       return ScreenUtilInit(
           designSize: Size(1080, 1920),
-          allowFontScaling: false,
           builder: () => MaterialApp(
               scaffoldMessengerKey: rootScaffoldMessengerKey,
               debugShowCheckedModeBanner: false,
