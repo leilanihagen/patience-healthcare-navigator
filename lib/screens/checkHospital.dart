@@ -128,7 +128,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    // _loadLastSaved();
+    _loadLastSaved();
   }
 
   getColor() {
@@ -233,8 +233,6 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                   trailing: Wrap(
                     alignment: WrapAlignment.center,
                     spacing: 5,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    // mainAxisSize: MainAxisSize.min,
                     children: [
                       Text("${e.distance} mile",
                           style:
@@ -268,47 +266,28 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
   }
 
   getPageIntroduction() {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      runSpacing: 10,
+      alignment: WrapAlignment.spaceAround,
       children: [
-        Padding(
-            child: Text("Find In-Network Hospital",
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ERIcon(),
+            Text("Emergency services available",
                 style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white)),
-            padding: EdgeInsets.fromLTRB(2, 40, 2, 0)),
-        Padding(
-            child: Card(
-              color: Colors.white,
-              child: Padding(
-                  child: Text(
-                    "View + verify nearby in-network hospitals, based on your insurance provider.",
-                    style: TextStyle(fontSize: 16),
-                  ),
-
-                  // ExpandablePanel(
-                  //   expanded: Text(
-                  //       "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\nIf you're at a hospital now, click the square to check if it is in-network.",
-                  //       softWrap: true,
-                  //       style: TextStyle(
-                  //           fontSize: 16,
-                  //           fontWeight: FontWeight.w500,
-                  //           color: Colors.black)),
-                  //   collapsed: Text(
-                  //     "View nearby in-network hospitals, based on your insurance provider setting in Your Profile.\nIf you're at a hospital now, click the square to check if it is in-network.",
-                  //     softWrap: true,
-                  //     maxLines: 1,
-                  //     overflow: TextOverflow.ellipsis,
-                  //     style: TextStyle(
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w500,
-                  //         color: Colors.black),
-                  //   ),
-                  // )
-                  padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-            ),
-            padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+                    color: Colors.white, fontWeight: FontWeight.w600)),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            URIcon(),
+            Text("Urgent care services available",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
+          ],
+        )
       ],
     );
   }

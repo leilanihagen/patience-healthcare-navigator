@@ -12,8 +12,8 @@ class ERIcon extends StatelessWidget {
             color: Colors.redAccent,
             borderRadius: BorderRadius.circular(4.0),
           ),
-          height: 40.0,
-          width: 40.0,
+          height: 35.0,
+          width: 35.0,
           child: Center(
             child: Text(
               "E",
@@ -36,8 +36,8 @@ class URIcon extends StatelessWidget {
             color: Colors.blueAccent,
             borderRadius: BorderRadius.circular(4.0),
           ),
-          height: 40.0,
-          width: 40.0,
+          height: 35.0,
+          width: 35.0,
           child: Center(
             child: Text(
               "U",
