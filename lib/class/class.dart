@@ -122,13 +122,23 @@ class Procedure {
 }
 
 class Top3 {
-  String name;
+  String name, street;
   double distance;
+  bool er, ur;
   Top3(this.name, this.distance);
   Top3.fromJson(Map<String, dynamic> json)
       : distance = json['distance'],
-        name = json['name'];
-  Map toJson() => {'name': name, 'distance': distance};
+        name = json['name'],
+        street = json['street'],
+        er = json['ER'],
+        ur = json['UR'];
+  Map toJson() => {
+        'name': name,
+        'street': street,
+        'distance': distance,
+        'ER': er,
+        'UR': ur
+      };
 }
 
 class HospitalPage {
@@ -162,6 +172,4 @@ class HospitalPage {
   }
 }
 
-class ProfilePage{
-  
-}
+class ProfilePage {}
