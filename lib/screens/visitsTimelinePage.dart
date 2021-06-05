@@ -46,7 +46,7 @@ class VisitsTimelinePage extends StatelessWidget {
                             margin: EdgeInsets.all(7.0),
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                border: Border.all(),
+                                // border: Border.all(),
                                 borderRadius: BorderRadius.circular(8.0)),
                             height: 32.0,
                             width: 120.0,
@@ -69,7 +69,7 @@ class VisitsTimelinePage extends StatelessWidget {
                             height: 200, // TODO: make dynamic
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                border: Border.all(),
+                                // border: Border.all(),
                                 borderRadius: BorderRadius.circular(20.0)),
                             child: Column(
                               // Title and note body will be contained within this:
@@ -92,7 +92,7 @@ class VisitsTimelinePage extends StatelessWidget {
                                     Container(
                                         padding: EdgeInsets.all(8.0),
                                         decoration: BoxDecoration(
-                                          border: Border.all(),
+                                          // border: Border.all(),
                                           borderRadius:
                                               BorderRadius.circular(20.0),
                                         ),
@@ -125,7 +125,7 @@ class VisitsTimelinePage extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Icon(
                         Icons.more_horiz,
-                        color: Colors.black,
+                        color: Colors.white,
                         size: 35,
                       ),
                     ),
