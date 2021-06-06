@@ -24,8 +24,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   final String lightGreenTheme = "#A1BF36";
 
   int visitsCount = 3;
-  List<String> visitsDates = ['Today', '03/04/2019', '02/28/2020'];
-  List<String> visitsTimes = ['NOW', '3:26 PM', '12:39 PM'];
+  List<String> visitsDates = ['Today', '03/04/2020', '02/28/2019'];
   List<String> visitsPatients = ['Sally', 'Sally', 'Sally'];
   // List<dynamic> notesTitles = [];
 
@@ -44,6 +43,17 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     ['Arrived at x hospital and blah b;ah b', 'Seen by Dr. Strange jdehf[ oei'],
     ['This happened'],
   ];
+  List<List<String>> notesTimes = [
+    ['NOW', '3:26 PM'],
+    ['11:28 AM', '12:39 PM'],
+    ['6:09 PM'],
+  ];
+  List<List<String>> notesDates = [
+    ['Today', 'Today'],
+    ['03/04/2020', '03/05/2020'],
+    ['02/28/2019'],
+  ];
+
   List<dynamic> decodedTitles = [
     ['', ''],
     ['', '']
@@ -71,6 +81,16 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     // Call when date TapEditBox pressed:
     setState(() {
       visitsDates[visitIndex] = data;
+    });
+  }
+
+  void createVisit() {
+    setState(() {
+      visitsCount++;
+      visitsDates.add('');
+      visitsPatients.add('');
+      notesTitles.add([]);
+      notesBodies.add([]);
     });
   }
 
@@ -198,14 +218,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                     RichText(
                                                         text: TextSpan(
                                                       text:
-                                                          '${visitsTimes[index]}',
+                                                          '${notesTimes[index][0]}',
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     )),
                                                     RichText(
                                                         text: TextSpan(
                                                       text:
-                                                          '${visitsDates[index]}',
+                                                          '${notesDates[index][0]}',
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     )),
