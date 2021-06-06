@@ -14,10 +14,10 @@ class HospitalSearchPage extends StatefulWidget {
   HospitalSearchPage({Key key}) : super(key: key);
 
   @override
-  _ChekcHospitalPage createState() => _ChekcHospitalPage();
+  _CheckHospitalPage createState() => _CheckHospitalPage();
 }
 
-class _ChekcHospitalPage extends State<HospitalSearchPage>
+class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false;

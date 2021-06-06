@@ -1,19 +1,59 @@
+import 'dart:convert';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
+import '../class/sharePref.dart';
 
-class VisitsTimelinePage extends StatelessWidget {
-  VisitsTimelinePage({Key key}) : super(key: key); // ?
+class VisitsTimelinePage extends StatefulWidget {
+  VisitsTimelinePage({Key key}) : super(key: key);
 
+  @override
+  _VisitsTimelinePageState createState() => _VisitsTimelinePageState();
+}
+
+class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   final String purpleTheme = "#66558E";
   final String lightPinkTheme = "#FDEBF1";
   final String darkPinkTheme = "#ED558C";
   final String blueTheme = "#44B5CD";
   // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
+
+  // Note data storage + encoding testing:
+  List<List<String>> notesTitles = [
+    ['Checked in at Legacy', 'Saw Nurse Kathy R.'],
+    [
+      'Taken in ambulance to peacehelth',
+      'Arrived at ER',
+      'Seen by doctor Cylde R.'
+    ]
+  ];
+  List<dynamic> decodedTitles = [
+    ['', ''],
+    ['', '']
+  ];
+
+  void storeTestNoteData() {
+    MySharedPreferences.instance
+        .setStringValue('test_note_titles', jsonEncode(notesTitles));
+  }
+
+  void readTestNoteData() async {
+    MySharedPreferences.instance
+        .getStringValue('test_note_titles')
+        .then((String res) {
+      decodedTitles = jsonDecode(res);
+    });
+  }
+
+  void performStoreReadTest() {
+    storeTestNoteData();
+    readTestNoteData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +62,21 @@ class VisitsTimelinePage extends StatelessWidget {
         body: Column(
           // Render each visit:
           children: [
+            // TEMP TEST: button to load notes:
+            ElevatedButton(
+                onPressed: performStoreReadTest,
+                child: Text('Press to store data')),
+            Container(
+              color: Colors.white,
+              height: 50,
+              width: 400,
+              child: Column(
+                children: [
+                  Text(decodedTitles[0][0]),
+                  Text(decodedTitles[0][1]),
+                ],
+              ),
+            ),
             GestureDetector(
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => VisitDetailPage())),
@@ -51,11 +106,23 @@ class VisitsTimelinePage extends StatelessWidget {
                             height: 32.0,
                             width: 120.0,
 
-                            //Text:
+                            // Text:
                             child: Text(
                               "Today",
                               textAlign: TextAlign.center,
-                            ))
+                            )),
+                        // Patient name:
+                        Container(
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.all(5.0),
+                          margin: EdgeInsets.all(7.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              // border: Border.all(),
+                              borderRadius: BorderRadius.circular(8.0)),
+                          height: 32.0,
+                          width: 120.0,
+                        ),
                       ],
                     ),
 

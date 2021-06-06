@@ -16,7 +16,7 @@ class VisitDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: HexColor(lightGreenTheme),
         body: Column(
           children: [
             // Add media buttons:
