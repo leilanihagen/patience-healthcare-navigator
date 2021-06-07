@@ -90,7 +90,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       appBar: AppBar(
         backgroundColor: HexColor(blueTheme),
         leading: IconButton(
-          icon: Icon(IconData(59162, fontFamily: 'MaterialIcons')),
+          icon: Icon(const IconData(59162, fontFamily: 'MaterialIcons')),
           onPressed: () => setState(() {
             _selectedIndex = 1;
             _pageController.jumpToPage(1);
