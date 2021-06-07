@@ -149,7 +149,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                           createNewNote: createNote))),
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                alignment: Alignment.topCenter,
                 decoration: BoxDecoration(
                     color: HexColor(lightGreenTheme),
                     borderRadius: BorderRadius.circular(5.0),
@@ -160,7 +159,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                           blurRadius: 7,
                           offset: Offset(0, 3))
                     ]),
-                height: 310,
+                // height: 310,
                 child: Column(
                   children: [
                     // Visit info line:
@@ -171,6 +170,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             visit: visits[index],
                             dataType: 'date',
                             inputData: visits[index].date,
+                            defaultText: 'Visit date',
                             isEditingVisit: true,
                             updateFunction: updateVisitData),
                         // Container(
@@ -195,6 +195,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             visit: visits[index],
                             dataType: 'patientName',
                             inputData: visits[index].patientName,
+                            defaultText: "Enter name",
                             isEditingVisit: true,
                             updateFunction: updateVisitData),
                         // Container(
@@ -254,14 +255,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             child: RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        // (visits[index]
-                                                        //                 .notes ==
-                                                        //             null ||
-                                                        //         visits[index]
-                                                        //             .notes
-                                                        //             .isEmpty)
-                                                        //     ? ''
-                                                        //     :
                                                         ('${visits[index].notes[0].title}'),
                                                     style: Theme.of(context)
                                                         .textTheme

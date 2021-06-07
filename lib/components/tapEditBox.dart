@@ -4,7 +4,7 @@ import 'package:hospital_stay_helper/class/visit.dart';
 
 class TapEditBox extends StatefulWidget {
   Visit visit;
-  String dataType, inputData;
+  String dataType, inputData, defaultText;
   bool isEditingVisit;
   final Function updateFunction;
   int noteIndex;
@@ -15,6 +15,7 @@ class TapEditBox extends StatefulWidget {
       this.inputData,
       this.isEditingVisit,
       this.updateFunction,
+      this.defaultText,
       Key key,
       this.noteIndex})
       : super(key: key);
@@ -26,10 +27,13 @@ class TapEditBox extends StatefulWidget {
 class _TapEditBoxState extends State<TapEditBox> {
   TextEditingController _editingController;
   bool _isEditing = false;
-
+  // String default_text;
   @override
   void initState() {
     super.initState();
+    // if (widget.dataType == 'date') default_text = "Date created";
+    // if (widget.dataType == 'patientName') default_text = "Patient name";
+
     _editingController = TextEditingController(text: widget.inputData);
   }
 
@@ -85,7 +89,9 @@ class _TapEditBoxState extends State<TapEditBox> {
               width: 120.0,
               child: RichText(
                 text: TextSpan(
-                    text: widget.inputData,
+                    text: widget.inputData.isEmpty
+                        ? widget.defaultText
+                        : widget.inputData,
                     style: TextStyle(color: Colors.black)),
                 textAlign: TextAlign.center,
               )));

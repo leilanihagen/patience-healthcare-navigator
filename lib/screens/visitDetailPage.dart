@@ -32,57 +32,55 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               margin:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               padding: const EdgeInsets.all(20.0),
-              height: 200, // TODO: make dynamic
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20.0)),
               // Title and note body:
-              child: Column(
+              child: Wrap(
                 children: [
                   // Title line:
-                  Row(
-                    children: [
-                      // Note title:
-                      TapEditBox(
-                        visit: widget.visit,
-                        inputData: widget.visit.notes[index].title,
-                        dataType: 'title',
-                        isEditingVisit: false,
-                        updateFunction: widget.updateNoteFunction,
-                        noteIndex: index,
-                      ),
-                      // Expanded(
-                      //     // TODO: Replace placeholder:
-                      //     child: RichText(
-                      //         text: TextSpan(
-                      //             text: '${widget.visit.notes[index].title}',
-                      //             style:
-                      //                 Theme.of(context).textTheme.headline6))),
 
-                      // Note date/time:
-                      Container(
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Column(
-                            children: [
-                              // TODO: Replace placeholders:
-                              RichText(
-                                  text: TextSpan(
-                                text: '${widget.visit.notes[index].time}',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                              RichText(
-                                  text: TextSpan(
-                                text: '${widget.visit.notes[index].date}',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                            ],
-                          ))
-                    ],
-                  )
+                  // Note title:
+                  TapEditBox(
+                    visit: widget.visit,
+                    inputData: widget.visit.notes[index].title,
+                    dataType: 'title',
+                    defaultText: "Enter title",
+                    isEditingVisit: false,
+                    updateFunction: widget.updateNoteFunction,
+                    noteIndex: index,
+                  ),
+                  // Expanded(
+                  //     // TODO: Replace placeholder:
+                  //     child: RichText(
+                  //         text: TextSpan(
+                  //             text: '${widget.visit.notes[index].title}',
+                  //             style:
+                  //                 Theme.of(context).textTheme.headline6))),
+
+                  // Note date/time:
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: Column(
+                      children: [
+                        // TODO: Replace placeholders:
+                        RichText(
+                            text: TextSpan(
+                          text: '${widget.visit.notes[index].time}',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                        RichText(
+                            text: TextSpan(
+                          text: '${widget.visit.notes[index].date}',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                      ],
+                    ),
+                  ),
                 ],
               ));
         });
