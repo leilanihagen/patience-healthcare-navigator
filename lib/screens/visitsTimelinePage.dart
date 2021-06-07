@@ -4,6 +4,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hospital_stay_helper/components/tapEditBox.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 import '../class/sharePref.dart';
@@ -91,6 +92,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
       visitsPatients.add('');
       notesTitles.add([]);
       notesBodies.add([]);
+      notesTimes.add([]);
+      notesDates.add([]);
     });
   }
 
@@ -122,22 +125,23 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     Row(
                       children: [
                         // Date:
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.all(5.0),
-                            margin: EdgeInsets.all(7.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                // border: Border.all(),
-                                borderRadius: BorderRadius.circular(8.0)),
-                            height: 32.0,
-                            width: 120.0,
+                        TapEditBox(),
+                        // Container(
+                        //     alignment: Alignment.centerLeft,
+                        //     padding: EdgeInsets.all(5.0),
+                        //     margin: EdgeInsets.all(7.0),
+                        //     decoration: BoxDecoration(
+                        //         color: Colors.white,
+                        //         // border: Border.all(),
+                        //         borderRadius: BorderRadius.circular(8.0)),
+                        //     height: 32.0,
+                        //     width: 120.0,
 
-                            // Date text:
-                            child: Text(
-                              '${visitsDates[index]}',
-                              textAlign: TextAlign.center,
-                            )),
+                        //     // Date text:
+                        //     child: Text(
+                        //       '${visitsDates[index]}',
+                        //       textAlign: TextAlign.center,
+                        //     )),
                         // Patient name:
                         Container(
                             alignment: Alignment.centerRight,
@@ -282,6 +286,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: HexColor(blueTheme),
           child: Icon(Icons.add),
+          onPressed: createVisit,
         ),
         body: getVisits());
   }
