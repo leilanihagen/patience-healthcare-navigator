@@ -47,7 +47,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         visit: widget.visit,
                         inputData: widget.visit.notes[index].title,
                         dataType: 'title',
+                        isEditingVisit: false,
                         updateFunction: widget.updateNoteFunction,
+                        noteIndex: index,
                       ),
                       // Expanded(
                       //     // TODO: Replace placeholder:

@@ -171,6 +171,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             visit: visits[index],
                             dataType: 'date',
                             inputData: visits[index].date,
+                            isEditingVisit: true,
                             updateFunction: updateVisitData),
                         // Container(
                         //     alignment: Alignment.centerLeft,
@@ -194,6 +195,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             visit: visits[index],
                             dataType: 'patientName',
                             inputData: visits[index].patientName,
+                            isEditingVisit: true,
                             updateFunction: updateVisitData),
                         // Container(
                         //     alignment: Alignment.centerRight,

@@ -4,10 +4,19 @@ import 'package:hospital_stay_helper/class/visit.dart';
 
 class TapEditBox extends StatefulWidget {
   Visit visit;
-  String inputData, dataType;
+  String dataType, inputData;
+  bool isEditingVisit;
   final Function updateFunction;
+  int noteIndex;
+
   TapEditBox(
-      {Key key, this.visit, this.inputData, this.dataType, this.updateFunction})
+      {this.visit,
+      this.dataType,
+      this.inputData,
+      this.isEditingVisit,
+      this.updateFunction,
+      Key key,
+      this.noteIndex})
       : super(key: key);
 
   @override
@@ -46,11 +55,14 @@ class _TapEditBoxState extends State<TapEditBox> {
             onSubmitted: (newText) {
               setState(() {
                 widget.inputData = newText;
-                widget.updateFunction(
-                    widget.visit,
-                    widget.dataType,
-                    widget
-                        .inputData); // TODO: Add editing visit/note flag and pass noteIndex
+                if (widget.isEditingVisit) {
+                  widget.updateFunction(
+                      widget.visit, widget.dataType, widget.inputData);
+                } else {
+                  widget.updateFunction(widget.visit, widget.noteIndex,
+                      widget.dataType, widget.inputData);
+                }
+                // TODO: Add editing visit/note flag and pass noteIndex
                 _isEditing = false;
               });
             },
