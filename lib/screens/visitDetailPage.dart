@@ -2,12 +2,15 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/tapEditBox.dart';
 import 'package:hospital_stay_helper/main.dart';
 
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
-  final Function createNewNote;
-  VisitDetailPage({Key key, this.visit, this.createNewNote}) : super(key: key);
+  final Function createNewNote, updateNoteFunction;
+  VisitDetailPage(
+      {Key key, this.visit, this.createNewNote, this.updateNoteFunction})
+      : super(key: key);
 
   @override
   _VisitDetailPageState createState() => _VisitDetailPageState();
@@ -40,13 +43,19 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   Row(
                     children: [
                       // Note title:
-                      Expanded(
-                          // TODO: Replace placeholder:
-                          child: RichText(
-                              text: TextSpan(
-                                  text: '${widget.visit.notes[index].title}',
-                                  style:
-                                      Theme.of(context).textTheme.headline6))),
+                      TapEditBox(
+                        visit: widget.visit,
+                        inputData: widget.visit.notes[index].title,
+                        dataType: 'title',
+                        updateFunction: widget.updateNoteFunction,
+                      ),
+                      // Expanded(
+                      //     // TODO: Replace placeholder:
+                      //     child: RichText(
+                      //         text: TextSpan(
+                      //             text: '${widget.visit.notes[index].title}',
+                      //             style:
+                      //                 Theme.of(context).textTheme.headline6))),
 
                       // Note date/time:
                       Container(
@@ -123,9 +132,30 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               ],
             ),
 
-            Expanded(
-                child:
-                    getNotes()), // Use Expanded to take up remaining space on screen
+            Expanded(child: getNotes()),
+            ElevatedButton(
+              child: ListTile(
+                  leading: Icon(Icons.arrow_back_ios_rounded,
+                      color: Colors.white, size: 27),
+                  title: Padding(
+                    child: Text(
+                      "Back",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900, color: Colors.white),
+                    ),
+                    padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                  )),
+              onPressed: () => Navigator.pop(context),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed))
+                      return HexColor(blueTheme);
+                    return HexColor(blueTheme); // Use the component's default.
+                  },
+                ),
+              ),
+            ), // Use Expanded to take up remaining space on screen
           ],
         ));
   }

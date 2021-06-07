@@ -56,18 +56,70 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     // visits.add(myTestVisit);
   }
 
+  void updateVisit() async {
+    await MySharedPreferences.instance
+        .setStringValue('visits', jsonEncode(visits));
+  }
+
   void createVisit() {
     setState(() {
       visits.add(Visit(notes: [VisitNote()]));
-      MySharedPreferences.instance.setStringValue('visits', jsonEncode(visits));
     });
+    updateVisit();
   }
 
   void createNote(Visit visit) {
     setState(() {
       visit.notes.add(VisitNote());
-      MySharedPreferences.instance.setStringValue('visits', jsonEncode(visits));
     });
+    updateVisit();
+  }
+
+  void updateVisitData(Visit visit, String type, String data) {
+    setState(() {
+      switch (type) {
+        case 'date':
+          {
+            visit.date = data;
+          }
+          break;
+        case 'patientName':
+          {
+            visit.patientName = data;
+          }
+          break;
+      }
+    });
+    updateVisit();
+  }
+
+  // update note here, pass to detailpage:
+  void updateNoteData(Visit visit, int noteIndex, String type, String data) {
+    setState(() {
+      switch (type) {
+        case 'title':
+          {
+            visit.notes[noteIndex].title = data;
+          }
+          break;
+        case 'time':
+          {
+            visit.notes[noteIndex].time = data;
+          }
+          break;
+        case 'date':
+          {
+            visit.notes[noteIndex].date = data;
+          }
+          break;
+        case 'body':
+          {
+            visit.notes[noteIndex].body = data;
+          }
+          break;
+      }
+    });
+    updateVisit();
   }
 
   _loadSaved() async {
@@ -92,6 +144,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   MaterialPageRoute(
                       builder: (context) => VisitDetailPage(
                           key: PageStorageKey('visitdetailpage'),
+                          updateNoteFunction: updateNoteData,
                           visit: visits[index],
                           createNewNote: createNote))),
               child: Container(
@@ -114,7 +167,11 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     Row(
                       children: [
                         // Date:
-                        TapEditBox(),
+                        TapEditBox(
+                            visit: visits[index],
+                            dataType: 'date',
+                            inputData: visits[index].date,
+                            updateFunction: updateVisitData),
                         // Container(
                         //     alignment: Alignment.centerLeft,
                         //     padding: EdgeInsets.all(5.0),
@@ -131,23 +188,29 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                         //       '${visitsDates[index]}',
                         //       textAlign: TextAlign.center,
                         //     )),
-                        // Patient name:
-                        Container(
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.all(5.0),
-                            margin: EdgeInsets.all(7.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                // border: Border.all(),
-                                borderRadius: BorderRadius.circular(8.0)),
-                            height: 32.0,
-                            width: 120.0,
 
-                            // Patient text:
-                            child: Text(
-                              '${visits[index].patientName}',
-                              textAlign: TextAlign.center,
-                            )),
+                        // Patient name:
+                        TapEditBox(
+                            visit: visits[index],
+                            dataType: 'patientName',
+                            inputData: visits[index].patientName,
+                            updateFunction: updateVisitData),
+                        // Container(
+                        //     alignment: Alignment.centerRight,
+                        //     padding: EdgeInsets.all(5.0),
+                        //     margin: EdgeInsets.all(7.0),
+                        //     decoration: BoxDecoration(
+                        //         color: Colors.white,
+                        //         // border: Border.all(),
+                        //         borderRadius: BorderRadius.circular(8.0)),
+                        //     height: 32.0,
+                        //     width: 120.0,
+
+                        //     // Patient text:
+                        //     child: Text(
+                        //       '${visits[index].patientName}',
+                        //       textAlign: TextAlign.center,
+                        //     )),
                       ],
                     ),
 

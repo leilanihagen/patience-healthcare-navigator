@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/main.dart';
 
+// DEPRECATED
+
 class TapEditNote extends StatefulWidget {
   @override
   _TapEditNoteState createState() => _TapEditNoteState();

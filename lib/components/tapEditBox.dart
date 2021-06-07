@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hospital_stay_helper/class/visit.dart';
 
 class TapEditBox extends StatefulWidget {
-  TapEditBox({Key key}) : super(key: key);
+  Visit visit;
+  String inputData, dataType;
+  final Function updateFunction;
+  TapEditBox(
+      {Key key, this.visit, this.inputData, this.dataType, this.updateFunction})
+      : super(key: key);
 
   @override
   _TapEditBoxState createState() => _TapEditBoxState();
@@ -11,12 +17,11 @@ class TapEditBox extends StatefulWidget {
 class _TapEditBoxState extends State<TapEditBox> {
   TextEditingController _editingController;
   bool _isEditing = false;
-  String inputData = 'haha';
 
   @override
   void initState() {
     super.initState();
-    _editingController = TextEditingController(text: inputData);
+    _editingController = TextEditingController(text: widget.inputData);
   }
 
   @override
@@ -40,7 +45,12 @@ class _TapEditBoxState extends State<TapEditBox> {
           child: TextField(
             onSubmitted: (newText) {
               setState(() {
-                inputData = newText;
+                widget.inputData = newText;
+                widget.updateFunction(
+                    widget.visit,
+                    widget.dataType,
+                    widget
+                        .inputData); // TODO: Add editing visit/note flag and pass noteIndex
                 _isEditing = false;
               });
             },
@@ -63,7 +73,8 @@ class _TapEditBoxState extends State<TapEditBox> {
               width: 120.0,
               child: RichText(
                 text: TextSpan(
-                    text: inputData, style: TextStyle(color: Colors.black)),
+                    text: widget.inputData,
+                    style: TextStyle(color: Colors.black)),
                 textAlign: TextAlign.center,
               )));
     }
