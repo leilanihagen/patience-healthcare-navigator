@@ -4,12 +4,16 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/main.dart';
 
-class VisitDetailPage extends StatelessWidget {
+class VisitDetailPage extends StatefulWidget {
   final Visit visit;
   final Function createNewNote;
-  VisitDetailPage({Key key, this.visit, this.createNewNote})
-      : super(key: key); // ?
+  VisitDetailPage({Key key, this.visit, this.createNewNote}) : super(key: key);
 
+  @override
+  _VisitDetailPageState createState() => _VisitDetailPageState();
+}
+
+class _VisitDetailPageState extends State<VisitDetailPage> {
   final String purpleTheme = "#66558E";
   final String lightPinkTheme = "#FDEBF1";
   final String darkPinkTheme = "#ED558C";
@@ -19,7 +23,7 @@ class VisitDetailPage extends StatelessWidget {
 
   getNotes() {
     return ListView.builder(
-        itemCount: visit.notes.length,
+        itemCount: widget.visit.notes.length,
         itemBuilder: (context, index) {
           return Container(
               margin:
@@ -40,7 +44,7 @@ class VisitDetailPage extends StatelessWidget {
                           // TODO: Replace placeholder:
                           child: RichText(
                               text: TextSpan(
-                                  text: '${visit.notes[index].title}',
+                                  text: '${widget.visit.notes[index].title}',
                                   style:
                                       Theme.of(context).textTheme.headline6))),
 
@@ -56,12 +60,12 @@ class VisitDetailPage extends StatelessWidget {
                               // TODO: Replace placeholders:
                               RichText(
                                   text: TextSpan(
-                                text: '${visit.notes[index].time}',
+                                text: '${widget.visit.notes[index].time}',
                                 style: TextStyle(color: Colors.black),
                               )),
                               RichText(
                                   text: TextSpan(
-                                text: '${visit.notes[index].date}',
+                                text: '${widget.visit.notes[index].date}',
                                 style: TextStyle(color: Colors.black),
                               )),
                             ],
@@ -81,8 +85,10 @@ class VisitDetailPage extends StatelessWidget {
           backgroundColor: HexColor(purpleTheme),
           child: Icon(Icons.add),
           onPressed: () {
-            createNewNote(visit);
-            print("NOTE COUNT: " + '${visit.notes.length}');
+            setState(() {
+              widget.createNewNote(widget.visit);
+            });
+            print("NOTE COUNT: " + '${widget.visit.notes.length}');
           },
         ),
         body: Column(
@@ -93,8 +99,10 @@ class VisitDetailPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      createNewNote(visit);
-                      print("NOTE COUNT: " + '${visit.notes.length}');
+                      setState(() {
+                        widget.createNewNote(widget.visit);
+                      });
+                      print("NOTE COUNT: " + '${widget.visit.notes.length}');
                     },
                     style: ElevatedButton.styleFrom(
                         primary: HexColor(purpleTheme)),

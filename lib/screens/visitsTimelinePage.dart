@@ -29,41 +29,56 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   @override
   void initState() {
-    VisitNote myTestNote1 = VisitNote.fromJson({
-      'title': "Checked in at Legacy",
-      'time': "NOW",
-      'date': "Today",
-      'body': "Detail about this happended",
-    });
-    List<Map<String, dynamic>> myTestNotes = [
-      {
-        'title': "Checked in at Legacy",
-        'time': "NOW",
-        'date': "Today",
-        'body': "Detail about this happended",
-      }
-    ];
-
-    Visit myTestVisit = Visit.fromJson({
-      'date': 'Today',
-      'patientName': 'Sally',
-      'notes': myTestNotes,
-    });
-
-    visits.add(myTestVisit);
+    _loadSaved();
     super.initState();
+
+    // VisitNote myTestNote1 = VisitNote.fromJson({
+    //   'title': "Checked in at Legacy",
+    //   'time': "NOW",
+    //   'date': "Today",
+    //   'body': "Detail about this happended",
+    // });
+    // List<Map<String, dynamic>> myTestNotes = [
+    //   {
+    //     'title': "Checked in at Legacy",
+    //     'time': "NOW",
+    //     'date': "Today",
+    //     'body': "Detail about this happended",
+    //   }
+    // ];
+
+    // Visit myTestVisit = Visit.fromJson({
+    //   'date': 'Today',
+    //   'patientName': 'Sally',
+    //   'notes': myTestNotes,
+    // });
+
+    // visits.add(myTestVisit);
   }
 
   void createVisit() {
     setState(() {
       visits.add(Visit(notes: [VisitNote()]));
+      MySharedPreferences.instance.setStringValue('visits', jsonEncode(visits));
     });
   }
 
   void createNote(Visit visit) {
     setState(() {
       visit.notes.add(VisitNote());
+      MySharedPreferences.instance.setStringValue('visits', jsonEncode(visits));
     });
+  }
+
+  _loadSaved() async {
+    String _savedVisits =
+        await MySharedPreferences.instance.getStringValue('visits');
+    if (_savedVisits.isNotEmpty) {
+      Iterable tmp = jsonDecode(_savedVisits);
+      setState(() {
+        visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
+      });
+    }
   }
 
   getVisits() {

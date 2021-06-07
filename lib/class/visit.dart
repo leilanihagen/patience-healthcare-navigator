@@ -15,8 +15,8 @@ class Visit {
         (e) => VisitNote.fromJson(e))); // cannot pass visitnote obj in here
   }
 
-  Map toJson() {
-    List<Map> notesJson =
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> notesJson =
         notes == null ? null : notes.map((e) => e.toJson()).toList();
     return {
       'date': date,
@@ -42,5 +42,6 @@ class VisitNote {
     body = object['body'];
   }
 
-  Map toJson() => {"title": title, "time": time, "date": date, "body": body};
+  Map<String, dynamic> toJson() =>
+      {"title": title, "time": time, "date": date, "body": body};
 }
