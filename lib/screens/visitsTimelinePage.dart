@@ -4,6 +4,8 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/class/visitNote.dart';
 import 'package:hospital_stay_helper/components/tapEditBox.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
@@ -24,76 +26,40 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
 
-  int visitsCount = 3;
-  List<String> visitsDates = ['Today', '03/04/2020', '02/28/2019'];
-  List<String> visitsPatients = ['Sally', 'Sally', 'Sally'];
-  // List<dynamic> notesTitles = [];
+  int visitsCount = 1;
 
-  // TEST: Note data storage + encoding testing:
-  List<List<String>> notesTitles = [
-    ['Checked in at Legacy', 'Saw Nurse Kathy R.', 'haha'],
-    [
-      'Taken in ambulance to peacehelth',
-      'Arrived at ER',
-      'Seen by doctor Cylde R.'
-    ],
-    ['This hapened'],
-  ];
-  List<List<String>> notesBodies = [
-    ['Detail about this happended', 'more detail then this happened'],
-    ['Arrived at x hospital and blah b;ah b', 'Seen by Dr. Strange jdehf[ oei'],
-    ['This happened'],
-  ];
-  List<List<String>> notesTimes = [
-    ['NOW', '3:26 PM'],
-    ['11:28 AM', '12:39 PM'],
-    ['6:09 PM'],
-  ];
-  List<List<String>> notesDates = [
-    ['Today', 'Today'],
-    ['03/04/2020', '03/05/2020'],
-    ['02/28/2019'],
-  ];
+  List<Visit> visits = [];
 
-  List<dynamic> decodedTitles = [
-    ['', ''],
-    ['', '']
-  ];
-
-  void storeTestNoteData() {
-    MySharedPreferences.instance
-        .setStringValue('test_note_titles', jsonEncode(notesTitles));
-  }
-
-  void readTestNoteData() async {
-    MySharedPreferences.instance
-        .getStringValue('test_note_titles')
-        .then((String res) {
-      decodedTitles = jsonDecode(res);
+  @override
+  void initState() {
+    VisitNote myTestNote1 = VisitNote.fromJson({
+      'title': "Checked in at Legacy",
+      'time': "NOW",
+      'date': "Today",
+      'body': "Detail about this happended",
     });
-  }
+    List<Map<String, dynamic>> myTestNotes = [
+      {
+        'title': "Checked in at Legacy",
+        'time': "NOW",
+        'date': "Today",
+        'body': "Detail about this happended",
+      }
+    ];
 
-  void performStoreReadTest() {
-    storeTestNoteData();
-    readTestNoteData();
-  }
-
-  void updateDate(int visitIndex, String data) {
-    // Call when date TapEditBox pressed:
-    setState(() {
-      visitsDates[visitIndex] = data;
+    Visit myTestVisit = Visit.fromJson({
+      'date': 'Today',
+      'patientName': 'Sally',
+      'notes': myTestNotes,
     });
+
+    visits.add(myTestVisit);
+    super.initState();
   }
 
   void createVisit() {
     setState(() {
-      visitsCount++;
-      visitsDates.add('');
-      visitsPatients.add('');
-      notesTitles.add([]);
-      notesBodies.add([]);
-      notesTimes.add([]);
-      notesDates.add([]);
+      visits.add(Visit());
     });
   }
 
@@ -156,7 +122,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
                             // Patient text:
                             child: Text(
-                              '${visitsPatients[index]}',
+                              '${visits[index].patientName}',
                               textAlign: TextAlign.center,
                             )),
                       ],
@@ -200,7 +166,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             child: RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        '${notesTitles[index][0]}',
+                                                        '${visits[index].notes[0].title}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline6))),
@@ -222,14 +188,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                     RichText(
                                                         text: TextSpan(
                                                       text:
-                                                          '${notesTimes[index][0]}',
+                                                          '${visits[index].notes[0].time}',
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     )),
                                                     RichText(
                                                         text: TextSpan(
                                                       text:
-                                                          '${notesDates[index][0]}',
+                                                          '${visits[index].notes[0].date}',
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     )),
@@ -254,7 +220,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       // Note text:
                                       child: RichText(
                                         text: TextSpan(
-                                            text: '${notesBodies[index][0]}',
+                                            text:
+                                                '${visits[index].notes[0].body}',
                                             style:
                                                 TextStyle(color: Colors.black)),
                                       )),

@@ -1,5 +1,3 @@
-import 'package:hospital_stay_helper/class/visitNote.dart';
-
 class Visit {
   String date, patientName;
   List<VisitNote> notes;
@@ -13,8 +11,8 @@ class Visit {
     date = object['date'];
     patientName = object['patientName'];
     Iterable notesObjects = object['notes'];
-    notes =
-        List<VisitNote>.from(notesObjects.map((e) => VisitNote.fromJson(e)));
+    notes = List<VisitNote>.from(notesObjects.map(
+        (e) => VisitNote.fromJson(e))); // cannot pass visitnote obj in here
   }
 
   Map toJson() {
@@ -26,4 +24,23 @@ class Visit {
       'notes': notesJson,
     };
   }
+}
+
+class VisitNote {
+  String title, time, date, body;
+
+  VisitNote({
+    this.title = "",
+    this.time = "",
+    this.date = "",
+    this.body = "",
+  });
+  VisitNote.fromJson(Map<String, dynamic> object) {
+    title = object['title'];
+    time = object['time'];
+    date = object['date'];
+    body = object['body'];
+  }
+
+  Map toJson() => {"title": title, "time": time, "date": date, "body": body};
 }
