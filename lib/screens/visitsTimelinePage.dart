@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
-import 'package:hospital_stay_helper/class/visitNote.dart';
 import 'package:hospital_stay_helper/components/tapEditBox.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
@@ -25,8 +24,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   final String blueTheme = "#44B5CD";
   // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
-
-  int visitsCount = 1;
 
   List<Visit> visits = [];
 
@@ -59,19 +56,30 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   void createVisit() {
     setState(() {
-      visits.add(Visit());
+      visits.add(Visit(notes: [VisitNote()]));
+    });
+  }
+
+  void createNote(Visit visit) {
+    setState(() {
+      visit.notes.add(VisitNote());
     });
   }
 
   getVisits() {
-    return GestureDetector(
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VisitDetailPage())),
-        child: ListView.builder(
-            itemCount: visitsCount,
-            itemBuilder: (context, index) {
-              // Visit:
-              return Container(
+    return ListView.builder(
+        itemCount: visits.length,
+        itemBuilder: (context, index) {
+          // Visit:
+          return GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => VisitDetailPage(
+                          key: PageStorageKey('visitdetailpage'),
+                          visit: visits[index],
+                          createNewNote: createNote))),
+              child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                 alignment: Alignment.topCenter,
                 decoration: BoxDecoration(
@@ -166,7 +174,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             child: RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        '${visits[index].notes[0].title}',
+                                                        // (visits[index]
+                                                        //                 .notes ==
+                                                        //             null ||
+                                                        //         visits[index]
+                                                        //             .notes
+                                                        //             .isEmpty)
+                                                        //     ? ''
+                                                        //     :
+                                                        ('${visits[index].notes[0].title}'),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline6))),
@@ -242,8 +258,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     ),
                   ],
                 ),
-              );
-            }));
+              ));
+        });
   }
 
   @override
@@ -253,7 +269,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: HexColor(blueTheme),
           child: Icon(Icons.add),
-          onPressed: createVisit,
+          onPressed: () {
+            createVisit();
+          },
         ),
         body: getVisits());
   }
