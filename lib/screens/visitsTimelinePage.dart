@@ -144,6 +144,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   MaterialPageRoute(
                       builder: (context) => VisitDetailPage(
                           key: PageStorageKey('visitdetailpage'),
+                          updateVisitFunction: updateVisitData,
                           updateNoteFunction: updateNoteData,
                           visit: visits[index],
                           createNewNote: createNote))),
@@ -292,7 +293,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                           color: Colors.black),
                                                     )),
                                                   ],
-                                                )))
+                                                ))),
                                       ],
                                     )),
 

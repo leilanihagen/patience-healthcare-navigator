@@ -7,9 +7,13 @@ import 'package:hospital_stay_helper/main.dart';
 
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
-  final Function createNewNote, updateNoteFunction;
+  final Function createNewNote, updateVisitFunction, updateNoteFunction;
   VisitDetailPage(
-      {Key key, this.visit, this.createNewNote, this.updateNoteFunction})
+      {Key key,
+      this.visit,
+      this.createNewNote,
+      this.updateVisitFunction,
+      this.updateNoteFunction})
       : super(key: key);
 
   @override
@@ -102,6 +106,60 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         ),
         body: Column(
           children: [
+            // Visit date and patientName line:
+            Padding(
+              padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 5.0),
+              child: RichText(
+                  text: TextSpan(
+                      text: "${widget.visit.date}'s Visit",
+                      style: Theme.of(context)
+                          .textTheme
+                          .apply(
+                            bodyColor: Colors.white,
+                            displayColor: Colors.white,
+                          )
+                          .headline4)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Visit date:
+                TapEditBox(
+                  visit: widget.visit,
+                  dataType: 'date',
+                  inputData: widget.visit.date,
+                  defaultText: 'Visit date',
+                  isEditingVisit: true,
+                  updateFunction: widget.updateVisitFunction,
+                  boxDecoration: BoxDecoration(
+                      color: Colors.white,
+                      // border: Border.all(),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  height: 32.0,
+                  width: 120.0,
+                ),
+                // Visit patientName
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: TapEditBox(
+                    visit: widget.visit,
+                    dataType: 'patientName',
+                    inputData: widget.visit.patientName,
+                    defaultText: "Patient's name",
+                    isEditingVisit: true,
+                    updateFunction: widget.updateVisitFunction,
+                    boxDecoration: BoxDecoration(
+                        color: Colors.white,
+                        // border: Border.all(),
+                        borderRadius: BorderRadius.circular(8.0)),
+                    height: 32.0,
+                    width: 140.0,
+                  ),
+                ),
+              ],
+            ),
+
+            // Add media buttons:
             // TODO (after first release): Enable Add media buttons:
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
