@@ -174,7 +174,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             setState(() {
               widget.createNewNote(widget.visit);
             });
-            print("NOTE COUNT: " + '${widget.visit.notes.length}');
+            // print("NOTE COUNT: " + '${widget.visit.notes.length}');
           },
         ),
         body: Column(
@@ -183,7 +183,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 10.0),
               child: RichText(
                   text: TextSpan(
-                      text: "${widget.visit.date}'s Visit",
+                      text: widget.visit.date.isEmpty
+                          ? "New Visit"
+                          : "${widget.visit.date}'s Visit",
                       style: TextStyle(
                           fontSize: 34, fontWeight: FontWeight.w700))),
             ),
