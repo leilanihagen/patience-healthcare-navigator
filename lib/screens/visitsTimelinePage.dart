@@ -164,40 +164,43 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   children: [
                     // Visit info line:
                     Row(
+                      // This makes child alignment work (patientName):
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Date:
                         TapEditBox(
-                            visit: visits[index],
-                            dataType: 'date',
-                            inputData: visits[index].date,
-                            defaultText: 'Visit date',
-                            isEditingVisit: true,
-                            updateFunction: updateVisitData),
-                        // Container(
-                        //     alignment: Alignment.centerLeft,
-                        //     padding: EdgeInsets.all(5.0),
-                        //     margin: EdgeInsets.all(7.0),
-                        //     decoration: BoxDecoration(
-                        //         color: Colors.white,
-                        //         // border: Border.all(),
-                        //         borderRadius: BorderRadius.circular(8.0)),
-                        //     height: 32.0,
-                        //     width: 120.0,
-
-                        //     // Date text:
-                        //     child: Text(
-                        //       '${visitsDates[index]}',
-                        //       textAlign: TextAlign.center,
-                        //     )),
+                          visit: visits[index],
+                          dataType: 'date',
+                          inputData: visits[index].date,
+                          defaultText: 'Visit date',
+                          isEditingVisit: true,
+                          updateFunction: updateVisitData,
+                          boxDecoration: BoxDecoration(
+                              color: Colors.white,
+                              // border: Border.all(),
+                              borderRadius: BorderRadius.circular(8.0)),
+                          height: 32.0,
+                          width: 120.0,
+                        ),
 
                         // Patient name:
-                        TapEditBox(
+                        Container(
+                          alignment: Alignment.topRight,
+                          child: TapEditBox(
                             visit: visits[index],
                             dataType: 'patientName',
                             inputData: visits[index].patientName,
                             defaultText: "Enter name",
                             isEditingVisit: true,
-                            updateFunction: updateVisitData),
+                            updateFunction: updateVisitData,
+                            boxDecoration: BoxDecoration(
+                                color: Colors.white,
+                                // border: Border.all(),
+                                borderRadius: BorderRadius.circular(8.0)),
+                            height: 32.0,
+                            width: 140.0,
+                          ),
+                        ),
                         // Container(
                         //     alignment: Alignment.centerRight,
                         //     padding: EdgeInsets.all(5.0),
