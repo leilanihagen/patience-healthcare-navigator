@@ -34,8 +34,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         itemBuilder: (context, index) {
           return Container(
               margin:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              padding: const EdgeInsets.all(20.0),
+                  const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20.0)),
@@ -43,19 +44,42 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               child: Wrap(
                 children: [
                   // Title line:
-
-                  // Note title:
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TapEditBox(
-                        visit: widget.visit,
-                        inputData: widget.visit.notes[index].title,
-                        dataType: 'title',
-                        defaultText: "Enter title",
-                        isEditingVisit: false,
-                        updateFunction: widget.updateNoteFunction,
-                        noteIndex: index,
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: Wrap(
+                          children: [
+                            TapEditBox(
+                              visit: widget.visit,
+                              inputData: widget.visit.notes[index].title,
+                              dataType: 'title',
+                              defaultText: "Untitled note",
+                              isEditingVisit: false,
+                              updateFunction: widget.updateNoteFunction,
+                              boxDecoration: BoxDecoration(
+                                  color: Colors.white,
+                                  // border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .apply(
+                                    bodyColor: Colors.black,
+                                    displayColor: Colors.black,
+                                  )
+                                  .headline6,
+                              noteIndex: index,
+                              // TODO: make height dynamic (grow with textwrap)
+                              height: 80.0,
+                              width: 200.0,
+                              margin: 2.0,
+                              padding: 2.0,
+                              shouldWrap: true,
+                              textAlign: TextAlign.left,
+                            )
+                          ],
+                        ),
                       ),
                       // Expanded(
                       //     // TODO: Replace placeholder:
@@ -68,7 +92,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       // Note date/time:
                       Container(
                         alignment: Alignment.topRight,
-                        padding: EdgeInsets.all(2.0),
                         decoration: BoxDecoration(
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(20.0),
@@ -90,7 +113,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                   borderRadius: BorderRadius.circular(8.0)),
                               height: 26.0,
                               width: 100.0,
-                              margin: 1.0,
+                              // margin: 1.0,
                               padding: 3.0,
                             ),
                             TapEditBox(
@@ -107,14 +130,34 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                   borderRadius: BorderRadius.circular(8.0)),
                               height: 26.0,
                               width: 100.0,
-                              margin: 1.0,
+                              // margin: 1.0,
                               padding: 3.0,
                             ),
                           ],
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  // Note body:
+                  TapEditBox(
+                    visit: widget.visit,
+                    dataType: 'body',
+                    inputData: widget.visit.notes[index].body,
+                    defaultText: 'Enter a description for this note...',
+                    isEditingVisit: false,
+                    updateFunction: widget.updateNoteFunction,
+                    noteIndex: index,
+                    boxDecoration: BoxDecoration(
+                        color: Colors.white,
+                        // border: Border.all(),
+                        borderRadius: BorderRadius.circular(8.0)),
+                    height: 100.0,
+                    width: 400.0,
+                    margin: 1.0,
+                    padding: 3.0,
+                    textAlign: TextAlign.left,
+                    shouldWrap: true,
+                  ),
                 ],
               ));
         });
@@ -136,20 +179,15 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         ),
         body: Column(
           children: [
-            // Visit date and patientName line:
             Padding(
-              padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 5.0),
+              padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 10.0),
               child: RichText(
                   text: TextSpan(
                       text: "${widget.visit.date}'s Visit",
-                      style: Theme.of(context)
-                          .textTheme
-                          .apply(
-                            bodyColor: Colors.white,
-                            displayColor: Colors.white,
-                          )
-                          .headline4)),
+                      style: TextStyle(
+                          fontSize: 34, fontWeight: FontWeight.w700))),
             ),
+            // Visit date and patientName line:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -199,7 +237,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       setState(() {
                         widget.createNewNote(widget.visit);
                       });
-                      print("NOTE COUNT: " + '${widget.visit.notes.length}');
+                      // print("NOTE COUNT: " + '${widget.visit.notes.length}');
                     },
                     style: ElevatedButton.styleFrom(
                         primary: HexColor(purpleTheme)),

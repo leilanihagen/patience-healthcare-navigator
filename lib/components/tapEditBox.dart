@@ -5,10 +5,11 @@ import 'package:hospital_stay_helper/class/visit.dart';
 class TapEditBox extends StatefulWidget {
   Visit visit;
   String dataType, inputData, defaultText;
-  bool isEditingVisit;
+  bool isEditingVisit, shouldWrap;
   final Function updateFunction;
   final BoxDecoration boxDecoration;
   final TextStyle textStyle;
+  final TextAlign textAlign;
   double height, width, margin, padding;
   int noteIndex;
 
@@ -20,11 +21,13 @@ class TapEditBox extends StatefulWidget {
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
-      this.textStyle = const TextStyle(color: Colors.black, fontSize: 16),
+      this.textStyle = const TextStyle(color: Colors.black, fontSize: 17),
       this.height,
       this.width,
       this.margin = 7.0,
       this.padding = 5.0,
+      this.shouldWrap = false,
+      this.textAlign = TextAlign.center,
       Key key,
       this.noteIndex})
       : super(key: key);
@@ -101,7 +104,8 @@ class _TapEditBoxState extends State<TapEditBox> {
                       : widget.inputData,
                   style: widget.textStyle,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: widget.textAlign,
+                softWrap: widget.shouldWrap,
               )));
     }
   }
