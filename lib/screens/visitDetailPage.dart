@@ -28,6 +28,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
 
+  updatVisitDate(Visit visit, String dataType, String inputData) {
+    setState(() {
+      widget.visit.date = inputData;
+      // widget.updateVisitFunction(visit, dataType, inputData);
+    });
+    widget.updateVisitFunction(visit, dataType, inputData);
+  }
+
   getNotes() {
     return ListView.builder(
         itemCount: widget.visit.notes.length,
@@ -122,7 +130,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                               inputData: widget.visit.notes[index].date,
                               defaultText: 'Visit date',
                               isEditingVisit: false,
-                              updateFunction: widget.updateNoteFunction,
+                              updateFunction: updatVisitDate,
                               noteIndex: index,
                               boxDecoration: BoxDecoration(
                                   color: Colors.white,

@@ -169,55 +169,77 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Date:
-                        TapEditBox(
-                          visit: visits[index],
-                          dataType: 'date',
-                          inputData: visits[index].date,
-                          defaultText: 'Visit date',
-                          isEditingVisit: true,
-                          updateFunction: updateVisitData,
-                          boxDecoration: BoxDecoration(
-                              color: Colors.white,
-                              // border: Border.all(),
-                              borderRadius: BorderRadius.circular(8.0)),
-                          height: 32.0,
-                          width: 120.0,
-                        ),
-
-                        // Patient name:
+                        // TapEditBox(
+                        //   visit: visits[index],
+                        //   dataType: 'date',
+                        //   inputData: visits[index].date,
+                        //   defaultText: 'Visit date',
+                        //   isEditingVisit: true,
+                        //   updateFunction: updateVisitData,
+                        //   boxDecoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       // border: Border.all(),
+                        //       borderRadius: BorderRadius.circular(8.0)),
+                        //   height: 32.0,
+                        //   width: 120.0,
+                        // ),
                         Container(
-                          alignment: Alignment.topRight,
-                          child: TapEditBox(
-                            visit: visits[index],
-                            dataType: 'patientName',
-                            inputData: visits[index].patientName,
-                            defaultText: "Enter name",
-                            isEditingVisit: true,
-                            updateFunction: updateVisitData,
-                            boxDecoration: BoxDecoration(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.all(5.0),
+                            margin: EdgeInsets.all(7.0),
+                            decoration: BoxDecoration(
                                 color: Colors.white,
                                 // border: Border.all(),
                                 borderRadius: BorderRadius.circular(8.0)),
                             height: 32.0,
-                            width: 140.0,
-                          ),
-                        ),
-                        // Container(
-                        //     alignment: Alignment.centerRight,
-                        //     padding: EdgeInsets.all(5.0),
-                        //     margin: EdgeInsets.all(7.0),
-                        //     decoration: BoxDecoration(
-                        //         color: Colors.white,
-                        //         // border: Border.all(),
-                        //         borderRadius: BorderRadius.circular(8.0)),
-                        //     height: 32.0,
-                        //     width: 120.0,
+                            width: 120.0,
 
-                        //     // Patient text:
-                        //     child: Text(
-                        //       '${visits[index].patientName}',
-                        //       textAlign: TextAlign.center,
-                        //     )),
+                            // Patient text:
+                            child: RichText(
+                              text: TextSpan(
+                                  text: '${visits[index].date}',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17)),
+                              textAlign: TextAlign.center,
+                            )),
+
+                        // Patient name:
+                        // Container(
+                        //   alignment: Alignment.topRight,
+                        // child: TapEditBox(
+                        //   visit: visits[index],
+                        //   dataType: 'patientName',
+                        //   inputData: visits[index].patientName,
+                        //   defaultText: "Enter name",
+                        //   isEditingVisit: true,
+                        //   updateFunction: updateVisitData,
+                        //   boxDecoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       // border: Border.all(),
+                        //       borderRadius: BorderRadius.circular(8.0)),
+                        //   height: 32.0,
+                        //   width: 140.0,
+                        // ),
+                        // ),
+                        Container(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.all(5.0),
+                            margin: EdgeInsets.all(7.0),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                // border: Border.all(),
+                                borderRadius: BorderRadius.circular(8.0)),
+                            height: 32.0,
+                            width: 120.0,
+
+                            // Patient text:
+                            child: RichText(
+                              text: TextSpan(
+                                  text: '${visits[index].patientName}',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17)),
+                              textAlign: TextAlign.center,
+                            )),
                       ],
                     ),
 
