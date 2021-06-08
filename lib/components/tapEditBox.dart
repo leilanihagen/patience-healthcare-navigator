@@ -8,7 +8,8 @@ class TapEditBox extends StatefulWidget {
   bool isEditingVisit;
   final Function updateFunction;
   final BoxDecoration boxDecoration;
-  double height, width;
+  final TextStyle textStyle;
+  double height, width, margin, padding;
   int noteIndex;
 
   TapEditBox(
@@ -19,8 +20,11 @@ class TapEditBox extends StatefulWidget {
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
+      this.textStyle = const TextStyle(color: Colors.black, fontSize: 16),
       this.height,
       this.width,
+      this.margin = 7.0,
+      this.padding = 5.0,
       Key key,
       this.noteIndex})
       : super(key: key);
@@ -53,11 +57,12 @@ class _TapEditBoxState extends State<TapEditBox> {
     if (_isEditing) {
       return Container(
           padding: EdgeInsets.all(5.0),
-          margin: EdgeInsets.all(7.0),
+          margin: EdgeInsets.all(widget.margin),
           decoration: widget.boxDecoration,
           height: widget.height,
           width: widget.width,
           child: TextField(
+            style: widget.textStyle,
             onSubmitted: (newText) {
               setState(() {
                 widget.inputData = newText;
@@ -91,10 +96,11 @@ class _TapEditBoxState extends State<TapEditBox> {
               width: widget.width,
               child: RichText(
                 text: TextSpan(
-                    text: widget.inputData.isEmpty
-                        ? widget.defaultText
-                        : widget.inputData,
-                    style: TextStyle(color: Colors.black)),
+                  text: widget.inputData.isEmpty
+                      ? widget.defaultText
+                      : widget.inputData,
+                  style: widget.textStyle,
+                ),
                 textAlign: TextAlign.center,
               )));
     }
