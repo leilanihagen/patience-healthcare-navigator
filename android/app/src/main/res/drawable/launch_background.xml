@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Modify this file to customize your launch splash screen -->
-<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="@color/launch"/>
+    </item>
+
+    <!-- You can insert your own image assets here -->
+    <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+        <ImageView
+        android:gravity="center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/launch_image"/>
+        <TextView android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Patience"/>
+    </LinearLayout>
+</layer-list>
+    <!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
           android:orientation="vertical"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
@@ -14,23 +37,6 @@
           <TextView android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Patience"/>
-</LinearLayout> -->
+    </LinearLayout> -->
 
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <color android:color="@color/launch"/>
-    </item>
-
-    <!-- You can insert your own image assets here -->
-    <LinearLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent">
-        <!-- <ImageView
-        android:gravity="center"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@mipmap/launch_image"/> -->
-    </LinearLayout>
-</layer-list>

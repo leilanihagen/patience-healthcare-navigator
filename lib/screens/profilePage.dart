@@ -43,6 +43,7 @@ class _ProfilePage extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         // backgroundColor: Colors.deepPurple[600],
         body: Center(

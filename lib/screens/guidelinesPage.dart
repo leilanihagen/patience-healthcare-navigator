@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
-import 'package:intro_slider/slide_object.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -869,138 +867,6 @@ class ReceivedBillPage extends StatelessWidget {
   }
 }
 
-// class _CollectionsVideo extends StatefulWidget {
-//   @override
-//   _CollectionsVideoState createState() => _CollectionsVideoState();
-// }
-
-// class _CollectionsVideoState extends State<_CollectionsVideo> {
-//   VideoPlayerController _controller;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = VideoPlayerController.asset(
-//         'assets/videos/bill-sent-to-collections.mov');
-
-//     _controller.addListener(() {
-//       setState(() {});
-//     });
-//     _controller.setLooping(true);
-//     _controller.initialize().then((_) => setState(() {}));
-//     _controller.play();
-//   }
-
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Column(
-//         children: <Widget>[
-//           Container(
-//             padding: const EdgeInsets.only(top: 20.0),
-//           ),
-//           const Text('With assets mp4'),
-//           Container(
-//             padding: const EdgeInsets.all(20),
-//             child: AspectRatio(
-//               aspectRatio: _controller.value.aspectRatio,
-//               child: Stack(
-//                 alignment: Alignment.bottomCenter,
-//                 children: <Widget>[
-//                   VideoPlayer(_controller),
-//                   _ControlsOverlay(controller: _controller),
-//                   VideoProgressIndicator(_controller, allowScrubbing: true),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class _ControlsOverlay extends StatelessWidget {
-//   const _ControlsOverlay({Key ? key, required this.controller}: super(key: key));
-
-//   static const _examplePlaybackRates = [
-//     0.25,
-//     0.5,
-//     1.0,
-//     1.5,
-//     2.0,
-//     3.0,
-//     5.0,
-//     10.0,
-//   ];
-
-//   final VideoPlayerController controller;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: <Widget>[
-//         AnimatedSwitcher(
-//           duration: Duration(milliseconds: 50),
-//           reverseDuration: Duration(milliseconds: 200),
-//           child: controller.value.isPlaying
-//               ? SizedBox.shrink()
-//               : Container(
-//                   color: Colors.black26,
-//                   child: Center(
-//                     child: Icon(
-//                       Icons.play_arrow,
-//                       color: Colors.white,
-//                       size: 100.0,
-//                     ),
-//                   ),
-//                 ),
-//         ),
-//         GestureDetector(
-//           onTap: () {
-//             controller.value.isPlaying ? controller.pause() : controller.play();
-//           },
-//         ),
-//         Align(
-//           alignment: Alignment.topRight,
-//           child: PopupMenuButton<double>(
-//             initialValue: controller.value.playbackSpeed,
-//             tooltip: 'Playback speed',
-//             onSelected: (speed) {
-//               controller.setPlaybackSpeed(speed);
-//             },
-//             itemBuilder: (context) {
-//               return [
-//                 for (final speed in _examplePlaybackRates)
-//                   PopupMenuItem(
-//                     value: speed,
-//                     child: Text('${speed}x'),
-//                   )
-//               ];
-//             },
-//             child: Padding(
-//               padding: const EdgeInsets.symmetric(
-//                 // Using less vertical padding as the text is also longer
-//                 // horizontally, so it feels like it would need more spacing
-//                 // horizontally (matching the aspect ratio of the video).
-//                 vertical: 12,
-//                 horizontal: 16,
-//               ),
-//               child: Text('${controller.value.playbackSpeed}x'),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 class CollectionsPage extends StatelessWidget {
   CollectionsPage({this.context, this.rootCategoriesPage});
 
@@ -1180,186 +1046,145 @@ class CollectionsPage extends StatelessWidget {
 }
 
 // ***DEPRECATED***
-class GuidelinesPage extends StatefulWidget {
-  GuidelinesPage({Key key}) : super(key: key);
-  GuidelinesPageState createState() => new GuidelinesPageState();
-}
-//************************ */
+// class GuidelinesPage extends StatefulWidget {
+//   GuidelinesPage({Key key}) : super(key: key);
+//   GuidelinesPageState createState() => new GuidelinesPageState();
+// }
+// //************************ */
 
-class GuidelinesPageState extends State<GuidelinesPage>
-    with AutomaticKeepAliveClientMixin<GuidelinesPage> {
-  SharedPreferences prefs;
-  List<String> title, body;
-  List<String> beforeStayTitles, beforeStayTexts;
+// class GuidelinesPageState extends State<GuidelinesPage>
+//     with AutomaticKeepAliveClientMixin<GuidelinesPage> {
+//   SharedPreferences prefs;
+//   // List<String> title, body;
+//   // List<String> beforeStayTitles, beforeStayTexts;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // Check if user has already read this, and skip to next page
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     // Check if user has already read this, and skip to next page
+//   }
+//   //************************** */
+//   // List<Slide> getSlide() {
+//   //   List<Slide> slides = [
+//   //     Slide(
+//   //         maxLineTitle: 2,
+//   //         backgroundColor: Colors.deepPurple[600],
+//   //         title: "Before Hospital",
+//   //         styleTitle: TextStyle(
+//   //             color: Color(0xff3da4ab),
+//   //             fontSize: 30.0,
+//   //             fontWeight: FontWeight.bold),
+//   //         centerWidget: ListView.builder(
+//   //           shrinkWrap: true,
+//   //           itemCount: title.length,
+//   //           itemBuilder: (BuildContext context, int index) {
+//   //             return Padding(
+//   //                 padding:
+//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+//   //                 child: FocusedMenuHolder(
+//   //                   child: ListTile(
+//   //                     tileColor: Colors.white,
+//   //                     title: Text("Tip number ${title[index]}"),
+//   //                   ),
+//   //                   blurSize: 5.0,
+//   //                   openWithTap: true,
+//   //                   onPressed: () {},
+//   //                   menuItems: [
+//   //                     // ignore: missing_required_param
+//   //                     FocusedMenuItem(
+//   //                       title: Flexible(
+//   //                         child: Text(body[index]),
+//   //                       ),
+//   //                     )
+//   //                   ],
+//   //                 ));
+//   //           },
+//   //         )),
+//   //     Slide(
+//   //         maxLineTitle: 2,
+//   //         backgroundColor: Colors.deepPurple[600],
+//   //         title: getTranslated(context, 'during_hospital'),
+//   //         styleTitle: TextStyle(
+//   //             color: Color(0xff3da4ab),
+//   //             fontSize: 30.0,
+//   //             fontWeight: FontWeight.bold),
+//   //         centerWidget: ListView.builder(
+//   //           shrinkWrap: true,
+//   //           itemCount: title.length,
+//   //           itemBuilder: (BuildContext context, int index) {
+//   //             return Padding(
+//   //                 padding:
+//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+//   //                 child: ListTile(
+//   //                   tileColor: Colors.white,
+//   //                   title: Text("Tip number ${title[index]}"),
+//   //                 ));
+//   //           },
+//   //         )),
+//   //     Slide(
+//   //         maxLineTitle: 2,
+//   //         backgroundColor: Colors.deepPurple[600],
+//   //         title: getTranslated(context, 'after_hospital'),
+//   //         styleTitle: TextStyle(
+//   //             color: Color(0xff3da4ab),
+//   //             fontSize: 30.0,
+//   //             fontWeight: FontWeight.bold),
+//   //         centerWidget: ListView.builder(
+//   //           shrinkWrap: true,
+//   //           itemCount: title.length,
+//   //           itemBuilder: (BuildContext context, int index) {
+//   //             return Padding(
+//   //                 padding:
+//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+//   //                 child: ListTile(
+//   //                   tileColor: Colors.white,
+//   //                   title: Text("Tip number ${title[index]}"),
+//   //                 ));
+//   //           },
+//   //         ))
+//   //   ];
+//   //   return slides;
+//   // }
 
-    title = [
-      "follow this step",
-      "this step is important",
-      "this step is optional",
-      "Keep in mind that"
-    ];
-    body = [
-      "Explain thisss",
-      "This is why",
-      "the main reason is",
-      "To avoid, we have to... because"
-    ];
-    beforeStayTitles = [
-      "Make a detailed visit-plan with your provider.",
-      "Make a list of services/procedures you expect to receive",
-      "Make a list of all hospital staff you plan to receive treatment from",
-      "Call your insurance provider",
-      "Don’t rely on the online information from your insurance provider",
-      "Ask for a detailed price estimate of all planned procedures",
-    ];
-    beforeStayTexts = [
-      "If you know you have a hospital visit coming up, talk to your doctor or healthcare provider about your upcoming hospital visit. Discuss the guidelines 2, 3 and 4 with your provider and take detailed notes of any information you learn.",
-      "Work with your doctor or healthcare provider to make a list of all services, procedures, and health products (casts, blood vials, etc.) you expect to receive during your visit.",
-    ];
-  }
-  //************************** */
+//   // Widget renderPreselectedSituationCard(String situation) {
+//   //   return Card(
+//   //     child: ListTile(title: Text(situation)),
+//   //     color: Colors.lightBlue,
+//   //   );
+//   // }
 
-  Widget renderNextBtn() {
-    return Icon(
-      Icons.navigate_next,
-      color: Colors.pinkAccent,
-      size: 35.0,
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     return Scaffold(
+//       // backgroundColor: Colors.deepPurple[600],
+//       body: SingleChildScrollView(
+//         child: Column(children: <Widget>[
+//           Padding(
+//             // child: renderPreselectedSituationCard(
+//             //     "I'm preparing for a hospital visit"),
+//             padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
+//           ),
+//           BeforeStayPage(),
+//         ]),
+//       ),
+//     );
 
-  Widget renderDoneBtn() {
-    return Icon(
-      Icons.done,
-      color: Colors.pinkAccent,
-    );
-  }
+//     // return IntroSlider(
+//     //   isShowDotIndicator: true,
+//     //   slides: getSlide(),
+//     //   // renderDoneBtn: this.renderDoneBtn(),
+//     //   renderNextBtn: this.renderNextBtn(),
+//     //   // renderSkipBtn: this.renderSkipBtn(),
+//     //   colorSkipBtn: Colors.pinkAccent,
+//     //   highlightColorSkipBtn: Colors.greenAccent,
+//     //   colorDot: Colors.pinkAccent,
+//     //   sizeDot: 10.0,
+//     //   typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
+//     // );
+//   }
 
-  // List<Slide> getSlide() {
-  //   List<Slide> slides = [
-  //     Slide(
-  //         maxLineTitle: 2,
-  //         backgroundColor: Colors.deepPurple[600],
-  //         title: "Before Hospital",
-  //         styleTitle: TextStyle(
-  //             color: Color(0xff3da4ab),
-  //             fontSize: 30.0,
-  //             fontWeight: FontWeight.bold),
-  //         centerWidget: ListView.builder(
-  //           shrinkWrap: true,
-  //           itemCount: title.length,
-  //           itemBuilder: (BuildContext context, int index) {
-  //             return Padding(
-  //                 padding:
-  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-  //                 child: FocusedMenuHolder(
-  //                   child: ListTile(
-  //                     tileColor: Colors.white,
-  //                     title: Text("Tip number ${title[index]}"),
-  //                   ),
-  //                   blurSize: 5.0,
-  //                   openWithTap: true,
-  //                   onPressed: () {},
-  //                   menuItems: [
-  //                     // ignore: missing_required_param
-  //                     FocusedMenuItem(
-  //                       title: Flexible(
-  //                         child: Text(body[index]),
-  //                       ),
-  //                     )
-  //                   ],
-  //                 ));
-  //           },
-  //         )),
-  //     Slide(
-  //         maxLineTitle: 2,
-  //         backgroundColor: Colors.deepPurple[600],
-  //         title: getTranslated(context, 'during_hospital'),
-  //         styleTitle: TextStyle(
-  //             color: Color(0xff3da4ab),
-  //             fontSize: 30.0,
-  //             fontWeight: FontWeight.bold),
-  //         centerWidget: ListView.builder(
-  //           shrinkWrap: true,
-  //           itemCount: title.length,
-  //           itemBuilder: (BuildContext context, int index) {
-  //             return Padding(
-  //                 padding:
-  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-  //                 child: ListTile(
-  //                   tileColor: Colors.white,
-  //                   title: Text("Tip number ${title[index]}"),
-  //                 ));
-  //           },
-  //         )),
-  //     Slide(
-  //         maxLineTitle: 2,
-  //         backgroundColor: Colors.deepPurple[600],
-  //         title: getTranslated(context, 'after_hospital'),
-  //         styleTitle: TextStyle(
-  //             color: Color(0xff3da4ab),
-  //             fontSize: 30.0,
-  //             fontWeight: FontWeight.bold),
-  //         centerWidget: ListView.builder(
-  //           shrinkWrap: true,
-  //           itemCount: title.length,
-  //           itemBuilder: (BuildContext context, int index) {
-  //             return Padding(
-  //                 padding:
-  //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-  //                 child: ListTile(
-  //                   tileColor: Colors.white,
-  //                   title: Text("Tip number ${title[index]}"),
-  //                 ));
-  //           },
-  //         ))
-  //   ];
-  //   return slides;
-  // }
-
-  // Widget renderPreselectedSituationCard(String situation) {
-  //   return Card(
-  //     child: ListTile(title: Text(situation)),
-  //     color: Colors.lightBlue,
-  //   );
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      // backgroundColor: Colors.deepPurple[600],
-      body: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          Padding(
-            // child: renderPreselectedSituationCard(
-            //     "I'm preparing for a hospital visit"),
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
-          ),
-          BeforeStayPage(),
-        ]),
-      ),
-    );
-
-    // return IntroSlider(
-    //   isShowDotIndicator: true,
-    //   slides: getSlide(),
-    //   // renderDoneBtn: this.renderDoneBtn(),
-    //   renderNextBtn: this.renderNextBtn(),
-    //   // renderSkipBtn: this.renderSkipBtn(),
-    //   colorSkipBtn: Colors.pinkAccent,
-    //   highlightColorSkipBtn: Colors.greenAccent,
-    //   colorDot: Colors.pinkAccent,
-    //   sizeDot: 10.0,
-    //   typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
-    // );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-}
+//   @override
+//   bool get wantKeepAlive => true;
+// }
