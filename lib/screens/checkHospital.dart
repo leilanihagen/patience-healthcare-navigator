@@ -16,14 +16,13 @@ class HospitalSearchPage extends StatefulWidget {
   _CheckHospitalPage createState() => _CheckHospitalPage();
 }
 
-
 showError(error) {
   rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
     content: Text(error),
   ));
 }
 
-class _ChekcHospitalPage extends State<HospitalSearchPage>
+class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false, ur = true, er = true;
@@ -283,11 +282,11 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
               const ERIcon(),
               const Text("Emergency services",
                   style: TextStyle(fontWeight: FontWeight.w600)),
-              Switch.adaptive(
-                  value: er,
-                  onChanged: (value) => setState(() {
-                        er = value;
-                      }))
+              // Switch.adaptive(
+              //     value: er,
+              //     onChanged: (value) => setState(() {
+              //           er = value;
+              //         }))
             ],
           ),
         ),
@@ -304,11 +303,11 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
               const URIcon(),
               const Text("Urgent care services",
                   style: TextStyle(fontWeight: FontWeight.w600)),
-              Switch.adaptive(
-                  value: ur,
-                  onChanged: (value) => setState(() {
-                        ur = value;
-                      })),
+              // Switch.adaptive(
+              //     value: ur,
+              //     onChanged: (value) => setState(() {
+              //           ur = value;
+              //         })),
             ],
           ),
         )
