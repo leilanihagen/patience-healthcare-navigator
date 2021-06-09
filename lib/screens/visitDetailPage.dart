@@ -125,7 +125,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                               visit: widget.visit,
                               dataType: 'time',
                               inputData: widget.visit.notes[index].time,
-                              defaultText: 'Visit time',
+                              defaultText: 'Event time',
                               isEditingVisit: false,
                               updateFunction: widget.updateNoteFunction,
                               noteIndex: index,
@@ -142,7 +142,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                               visit: widget.visit,
                               dataType: 'date',
                               inputData: widget.visit.notes[index].date,
-                              defaultText: 'Visit date',
+                              defaultText: 'Event date',
                               isEditingVisit: false,
                               updateFunction: widget.updateNoteFunction,
                               noteIndex: index,
@@ -212,7 +212,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 10.0),
+                  padding: const EdgeInsets.fromLTRB(6.0, 25.0, 2.0, 10.0),
                   child: RichText(
                       text: TextSpan(
                           text: widget.visit.date.isEmpty
@@ -318,7 +318,17 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               ],
             ),
 
-            Expanded(child: getNotes()),
+            Expanded(
+                child: Column(
+              children: [
+                Expanded(
+                  child: getNotes(),
+                ),
+                Container(
+                  height: 10,
+                )
+              ],
+            )),
             ElevatedButton(
               child: ListTile(
                   leading: Icon(Icons.arrow_back_ios_rounded,

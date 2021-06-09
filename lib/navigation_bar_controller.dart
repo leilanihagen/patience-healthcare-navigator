@@ -66,7 +66,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                IconData(0xe661, fontFamily: 'MaterialIcons'),
+                Icons.event_note,
               ),
               label: 'Visits Timeline',
             ),
