@@ -7,13 +7,19 @@ import 'package:hospital_stay_helper/main.dart';
 
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
-  final Function createNewNote, updateVisitFunction, updateNoteFunction;
+  final int visitIndex;
+  final Function createNewNote,
+      updateVisitFunction,
+      updateNoteFunction,
+      deleteVisit;
   VisitDetailPage(
       {Key key,
       this.visit,
+      this.visitIndex,
       this.createNewNote,
       this.updateVisitFunction,
-      this.updateNoteFunction})
+      this.updateNoteFunction,
+      this.deleteVisit})
       : super(key: key);
 
   @override
@@ -48,7 +54,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.0)),
+                  borderRadius: BorderRadius.circular(20.0),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3))
+                  ]),
               // Title and note body:
               child: Wrap(
                 children: [
@@ -159,7 +172,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     boxDecoration: BoxDecoration(
                         color: Colors.white,
                         // border: Border.all(),
-                        borderRadius: BorderRadius.circular(8.0)),
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          // BoxShadow(
+                          //     color: Colors.grey.withOpacity(0.5),
+                          //     spreadRadius: 5,
+                          //     blurRadius: 7,
+                          //     offset: Offset(0, 3))
+                        ]),
                     height: 100.0,
                     width: 400.0,
                     margin: 1.0,
@@ -188,37 +208,69 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 10.0),
-              child: RichText(
-                  text: TextSpan(
-                      text: widget.visit.date.isEmpty
-                          ? "New Visit"
-                          : "${widget.visit.date}'s Visit",
-                      style: TextStyle(
-                          fontSize: 34, fontWeight: FontWeight.w700))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2.0, 25.0, 2.0, 10.0),
+                  child: RichText(
+                      text: TextSpan(
+                          text: widget.visit.date.isEmpty
+                              ? "New Visit"
+                              : "${widget.visit.date}'s Visit",
+                          style: TextStyle(
+                              fontSize: 34, fontWeight: FontWeight.w700))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.red[600]),
+                      // Icon(Icons.add),
+                      child: Icon(Icons.delete),
+                      onPressed: () {
+                        widget.deleteVisit(widget.visitIndex);
+                        Navigator.pop(context);
+                      }),
+                )
+              ],
             ),
             // Visit date and patientName line:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Visit date:
-                TapEditBox(
-                  visit: widget.visit,
-                  dataType: 'date',
-                  inputData: widget.visit.date,
-                  defaultText: 'Visit date',
-                  isEditingVisit: true,
-                  updateFunction: updatVisitDate,
-                  boxDecoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  height: 32.0,
-                  width: 120.0,
+                Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 6,
+                        blurRadius: 6,
+                        offset: Offset(0, 3))
+                  ]),
+                  child: TapEditBox(
+                    visit: widget.visit,
+                    dataType: 'date',
+                    inputData: widget.visit.date,
+                    defaultText: 'Visit date',
+                    isEditingVisit: true,
+                    updateFunction: updatVisitDate,
+                    boxDecoration: BoxDecoration(
+                        color: Colors.white,
+                        // border: Border.all(),
+                        borderRadius: BorderRadius.circular(8.0)),
+                    height: 32.0,
+                    width: 120.0,
+                  ),
                 ),
                 // Visit patientName
                 Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 6,
+                        blurRadius: 6,
+                        offset: Offset(0, 3))
+                  ]),
                   alignment: Alignment.centerRight,
                   child: TapEditBox(
                     visit: widget.visit,
@@ -244,20 +296,17 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.createNewNote(widget.visit);
-                      });
-                      // print("NOTE COUNT: " + '${widget.visit.notes.length}');
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: HexColor(purpleTheme)),
-                    child: Row(
-                      children: [
-                        // Icon(Icons.add),
-                        Icon(Icons.note_add),
-                      ],
-                    ))
+                  onPressed: () {
+                    setState(() {
+                      widget.createNewNote(widget.visit);
+                    });
+                    // print("NOTE COUNT: " + '${widget.visit.notes.length}');
+                  },
+                  style:
+                      ElevatedButton.styleFrom(primary: HexColor(purpleTheme)),
+                  // Icon(Icons.add),
+                  child: Icon(Icons.note_add),
+                )
                 //     IconButton(
                 //         icon: Icon(Icons.camera_alt),
                 //         color: Colors.white,
