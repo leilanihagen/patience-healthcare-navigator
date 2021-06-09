@@ -75,6 +75,35 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     updateVisit();
   }
 
+  getPageDescription() {
+    return Padding(
+        child: Card(
+          color: Colors.white,
+          child: Padding(
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Text(
+                  "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit and add notes to your visits.\n",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+                Text(
+                  'Tap "+"" to create a new visit. Tap your visit to edit and add notes.',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+              ]),
+              padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+        ),
+        padding: EdgeInsets.fromLTRB(0, 12, 0, 12));
+  }
+
   void updateVisitData(Visit visit, String type, String data) {
     setState(() {
       switch (type) {
@@ -372,6 +401,11 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
             createVisit();
           },
         ),
-        body: getVisits());
+        body: Column(
+          children: [
+            getPageDescription(),
+            Expanded(child: getVisits()),
+          ],
+        ));
   }
 }

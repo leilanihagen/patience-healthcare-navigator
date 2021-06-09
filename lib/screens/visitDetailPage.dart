@@ -30,10 +30,11 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
 
   updatVisitDate(Visit visit, String dataType, String inputData) {
     setState(() {
-      widget.visit.date = inputData;
-      // widget.updateVisitFunction(visit, dataType, inputData);
+      // widget.visit.date = inputData;
     });
     widget.updateVisitFunction(visit, dataType, inputData);
+
+    // widget.updateVisitFunction(visit, dataType, inputData);
   }
 
   getNotes() {
@@ -130,7 +131,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                               inputData: widget.visit.notes[index].date,
                               defaultText: 'Visit date',
                               isEditingVisit: false,
-                              updateFunction: updatVisitDate,
+                              updateFunction: widget.updateNoteFunction,
                               noteIndex: index,
                               boxDecoration: BoxDecoration(
                                   color: Colors.white,
@@ -208,7 +209,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   inputData: widget.visit.date,
                   defaultText: 'Visit date',
                   isEditingVisit: true,
-                  updateFunction: widget.updateVisitFunction,
+                  updateFunction: updatVisitDate,
                   boxDecoration: BoxDecoration(
                       color: Colors.white,
                       // border: Border.all(),
