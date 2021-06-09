@@ -13,8 +13,9 @@ class HospitalSearchPage extends StatefulWidget {
   HospitalSearchPage({Key key}) : super(key: key);
 
   @override
-  _ChekcHospitalPage createState() => _ChekcHospitalPage();
+  _CheckHospitalPage createState() => _CheckHospitalPage();
 }
+
 
 showError(error) {
   rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(

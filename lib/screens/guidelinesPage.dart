@@ -59,28 +59,37 @@ Widget renderClickableSituationCard(
   return Hero(
     tag: situation,
     child: Padding(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: HexColor(darkPinkTheme),
-            onPrimary: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 4,
+                blurRadius: 6,
+                offset: Offset(0, 3))
+          ]),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: HexColor(darkPinkTheme),
+              onPrimary: Colors.white,
+            ),
+            child: ListTile(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60)),
+                leading: icon,
+                title: Text(
+                  situation,
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                )),
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
+                )),
           ),
-          child: ListTile(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(60)),
-              leading: icon,
-              title: Text(
-                situation,
-                style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              )),
-          onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
-              )),
         ),
         padding: EdgeInsets.fromLTRB(7, 8, 7, 8)),
   );
@@ -90,19 +99,28 @@ Widget renderSituationBox(String text, Icon icon) {
   return Hero(
       tag: text,
       child: Padding(
-          child: Card(
-            color: HexColor(darkPinkTheme),
-            child: ListTile(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60)),
-                leading: icon,
-                title: Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                )),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 4,
+                  blurRadius: 6,
+                  offset: Offset(0, 3))
+            ]),
+            child: Card(
+              color: HexColor(darkPinkTheme),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60)),
+                  leading: icon,
+                  title: Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  )),
+            ),
           ),
           padding: EdgeInsets.fromLTRB(7, 8, 7, 8)));
 }
