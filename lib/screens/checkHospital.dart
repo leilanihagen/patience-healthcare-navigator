@@ -272,22 +272,25 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   getPageIntroduction() {
     return Wrap(
-      runSpacing: 10,
       alignment: WrapAlignment.spaceAround,
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(5),
+          //   color: Colors.white,
+          // ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const ERIcon(),
+              const Text("=",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Emergency services",
-                  style: TextStyle(fontWeight: FontWeight.w600)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
               // Switch.adaptive(
               //     value: er,
               //     onChanged: (value) => setState(() {
@@ -299,16 +302,20 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         Container(
           margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(5),
+          //   color: Colors.white,
+          // ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const URIcon(),
+              const Text("=",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Urgent care services",
-                  style: TextStyle(fontWeight: FontWeight.w600)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
               // Switch.adaptive(
               //     value: ur,
               //     onChanged: (value) => setState(() {
