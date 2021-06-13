@@ -27,6 +27,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   String darkGreenTheme = "#758C20";
   String lightGreenTheme = "#A1BF36";
 
+  bool profileSelected = false;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +55,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           backgroundColor: HexColor(lightPinkTheme),
           onTap: (int index) => setState(() {
                 _selectedIndex = index;
+                profileSelected = false;
                 _pageController.jumpToPage(index);
               }), // rebuild this widget
           currentIndex: selectedIndex,
@@ -87,6 +90,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Search Medical Services',
   ];
 
+  String profileTitle = 'Your Profile';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,14 +100,19 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         leading: IconButton(
           icon: Icon(const IconData(59162, fontFamily: 'MaterialIcons')),
           onPressed: () => setState(() {
-            _selectedIndex = 1;
+            profileSelected = true;
             _pageController.jumpToPage(4);
           }),
         ),
-        title: Text(
-          _pageTitles[_selectedIndex],
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-        ),
+        title: profileSelected
+            ? Text(
+                profileTitle,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+              )
+            : Text(
+                _pageTitles[_selectedIndex],
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+              ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(

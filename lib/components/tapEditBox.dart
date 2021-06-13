@@ -55,6 +55,8 @@ class _TapEditBoxState extends State<TapEditBox> {
     super.dispose();
   }
 
+  // Need to get input data to display even when typing
+
   @override
   Widget build(BuildContext context) {
     if (_isEditing) {
@@ -64,9 +66,10 @@ class _TapEditBoxState extends State<TapEditBox> {
           decoration: widget.boxDecoration,
           height: widget.height,
           width: widget.width,
-          child: TextField(
+          child: TextFormField(
+            initialValue: widget.inputData,
             style: widget.textStyle,
-            onSubmitted: (newText) {
+            onSaved: (newText) {
               setState(() {
                 widget.inputData = newText;
                 if (widget.isEditingVisit) {
