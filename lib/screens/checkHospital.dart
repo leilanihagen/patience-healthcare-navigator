@@ -184,7 +184,13 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           ));
     switch (_hospitalPage.check) {
       case 0:
-        return Icon(Icons.location_on_rounded, size: 80);
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on_rounded, size: 80),
+            Text("Press to check Hospital", textAlign: TextAlign.center)
+          ],
+        );
         break;
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -338,6 +344,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                             blurRadius: 7,
                           ),
                         ],
+                        border: Border.all(),
                         color: getColor(),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     width: 0.2.sh,
