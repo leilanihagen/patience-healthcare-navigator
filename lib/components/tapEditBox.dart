@@ -105,7 +105,7 @@ class _TapEditBoxState extends State<TapEditBox> {
                 text: TextSpan(
                   text: widget.inputData.isEmpty
                       ? widget.defaultText
-                      : widget.inputData,
+                      : widget.inputData, 
                   style: widget.textStyle,
                 ),
                 textAlign: widget.textAlign,
