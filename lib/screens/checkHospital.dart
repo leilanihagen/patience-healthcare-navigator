@@ -134,7 +134,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     if (isLoading) return Colors.grey;
     switch (_hospitalPage.check) {
       case 0:
-        return Colors.white;
+        return Colors.blue;
         break;
       case 1:
         return Colors.greenAccent;
@@ -146,24 +146,24 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Colors.yellow;
         break;
       default:
-        return Colors.white;
+        return Colors.blue;
     }
   }
 
   getShadow() {
-    if (isLoading) return Colors.grey.withOpacity(0.5);
+    if (isLoading) return Colors.grey.withOpacity(0.2);
     switch (_hospitalPage.check) {
       case 0:
-        return Colors.grey.withOpacity(0.5);
+        return Colors.blue.withOpacity(0.2);
         break;
       case 1:
-        return Colors.greenAccent.withOpacity(0.5);
+        return Colors.greenAccent.withOpacity(0.2);
         break;
       case 2:
-        return Colors.redAccent.withOpacity(0.5);
+        return Colors.redAccent.withOpacity(0.2);
         break;
       case 3:
-        return Colors.yellowAccent.withOpacity(0.5);
+        return Colors.yellowAccent.withOpacity(0.2);
         break;
       default:
         return Colors.white.withOpacity(0.5);
@@ -187,7 +187,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on_rounded, size: 80),
+            Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
             Text("Press to check Hospital", textAlign: TextAlign.center)
           ],
         );
@@ -346,12 +346,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: getShadow(),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                          ),
+                              color: getShadow(),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3)),
                         ],
-                        border: Border.all(),
+                        border: Border.all(width: 0.5),
                         color: getColor(),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     width: 0.2.sh,

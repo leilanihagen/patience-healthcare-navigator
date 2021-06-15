@@ -26,6 +26,7 @@ dependencies:
   flutter_screenutil: 5.0.0+2
   expandable: 5.0.1
   csv: 5.0.0
+  badges: 2.0.1
 
 dev_dependencies:
   flutter_test:
