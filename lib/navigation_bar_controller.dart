@@ -111,8 +111,13 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         leading: IconButton(
           color: profileSelected ? HexColor(blueTheme) : Colors.grey,
           icon: Badge(
+            // badgeColor: Colors.white,
             showBadge: !haveOpenProfile,
-            badgeContent: Text("1"),
+            badgeContent: Text(
+              "1",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
             child: ClipOval(
               child: Container(
                 padding: EdgeInsets.all(5),

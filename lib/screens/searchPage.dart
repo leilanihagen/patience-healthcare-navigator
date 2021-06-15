@@ -581,7 +581,7 @@ class _SearchPage extends State<SearchPage>
                   const Padding(
                     padding: const EdgeInsets.only(top: 4.0),
                     child: const Text(
-                        '''Thank you for your interest in our app Patience - a Health Care Navigator. This feature is not finished yet, as the devs team is constantly working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us.'''),
+                        '''Thank you for your interest in our app Patience - a Health Care Navigator. This feature is not finished yet, as the devs team is constantly working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (6-15-2021)'''),
                   ),
                 ],
               ),

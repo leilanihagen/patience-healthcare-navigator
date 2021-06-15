@@ -127,7 +127,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    _loadLastSaved();
+    // _loadLastSaved();
   }
 
   getColor() {
@@ -137,13 +137,13 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Colors.blue;
         break;
       case 1:
-        return Colors.greenAccent;
+        return Colors.green;
         break;
       case 2:
         return Colors.redAccent;
         break;
       case 3:
-        return Colors.yellow;
+        return Colors.yellow[800];
         break;
       default:
         return Colors.blue;
@@ -188,20 +188,33 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
-            Text("Press to check Hospital", textAlign: TextAlign.center)
+            Text(
+              "Press to check Hospital",
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            )
           ],
         );
         break;
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.check_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status, textAlign: TextAlign.center)
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          )
         ]);
         break;
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.clear_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status, textAlign: TextAlign.center)
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          )
         ]);
         break;
       case 3:
@@ -210,6 +223,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           )
         ]);
         break;
