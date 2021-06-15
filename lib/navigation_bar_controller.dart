@@ -1,5 +1,8 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
@@ -28,7 +31,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   String lightGreenTheme = "#A1BF36";
 
   bool profileSelected = false;
-
+  bool haveOpenProfile = false;
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,14 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       ProfilePage(key: PageStorageKey('yourprofile')),
     ];
     _pageController = PageController(initialPage: _selectedIndex);
+    profileSelect();
+  }
+
+  profileSelect() async {
+    var temp = await MySharedPreferences.instance.getBoolValue("selectProfile");
+    setState(() {
+      haveOpenProfile = temp;
+    });
   }
 
   @override
@@ -90,7 +101,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Search Medical Services',
   ];
 
-  String profileTitle = 'Your Profile';
+  String profileTitle = 'User Settings';
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +109,22 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       appBar: AppBar(
         backgroundColor: HexColor(blueTheme),
         leading: IconButton(
-          icon: Icon(const IconData(59162, fontFamily: 'MaterialIcons')),
+          color: profileSelected ? HexColor(blueTheme) : Colors.grey,
+          icon: Badge(
+            showBadge: !haveOpenProfile,
+            badgeContent: Text("1"),
+            child: ClipOval(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                color: Colors.white,
+                child: Icon(
+                  Icons.settings,
+                ),
+              ),
+            ),
+          ),
           onPressed: () => setState(() {
-            profileSelected = true;
+            profileSelected = haveOpenProfile = true;
             _pageController.jumpToPage(4);
           }),
         ),
