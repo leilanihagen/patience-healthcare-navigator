@@ -137,7 +137,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           ),
           onPressed: () => setState(() {
             profileSelected = haveOpenProfile = true;
-            _pageController.jumpToPage(4);
+            _pageController.jumpToPage(5);
           }),
         ),
         title: profileSelected
