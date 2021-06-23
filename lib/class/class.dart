@@ -172,4 +172,13 @@ class HospitalPage {
   }
 }
 
+class SearchResult {
+  String name, address;
+  SearchResult(this.name, this.address);
+  SearchResult.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    address = json['street'];
+  }
+}
+
 class ProfilePage {}
