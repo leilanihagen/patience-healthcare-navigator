@@ -398,6 +398,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   _showResult() {
     if (listSearch.isNotEmpty)
       return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           itemCount: listSearch.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
@@ -426,13 +427,13 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         transitionCurve: Curves.easeInOut,
         physics: const BouncingScrollPhysics(),
         actions: [
-          FloatingSearchBarAction.back(),
-          FloatingSearchBarAction.searchToClear(
-            showIfClosed: false,
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: Icon(Icons.search),
           ),
+          FloatingSearchBarAction.back(),
         ],
         onSubmitted: (String keyword) {
-          print(keyword);
           _searchHospital(keyword);
         },
         builder: (context, transition) {
