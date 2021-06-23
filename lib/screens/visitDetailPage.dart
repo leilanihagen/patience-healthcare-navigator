@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/tapEditBox.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 
 class VisitDetailPage extends StatefulWidget {
@@ -334,11 +335,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   leading: Icon(Icons.arrow_back_ios_rounded,
                       color: Colors.white, size: 27),
                   title: Padding(
-                    child: Text(
-                      "Back",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900, color: Colors.white),
-                    ),
+                    child: Styles.backButton,
                     padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                   )),
               onPressed: () => Navigator.pop(context),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -67,10 +68,7 @@ class _ProfilePage extends State<ProfilePage>
                           Text(
                             "Your setting is used to provide you with personalized tips and info to navigate your hospital stay, like finding in-network hospitals on the Find In-Network Hospital page.",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                            style: Styles.instruction,
                           ),
                         ],
                       ),
@@ -121,7 +119,7 @@ class _ProfilePage extends State<ProfilePage>
                             },
                             selectedItem: userState,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -148,7 +146,7 @@ class _ProfilePage extends State<ProfilePage>
                             },
                             selectedItem: userProvider,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -182,7 +180,7 @@ class _ProfilePage extends State<ProfilePage>
                             },
                             selectedItem: userPlan,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(

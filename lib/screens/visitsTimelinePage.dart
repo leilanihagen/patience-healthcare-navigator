@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/tapEditBox.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 import '../class/sharePref.dart';
@@ -99,18 +100,12 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                 Text(
                   "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                  style: Styles.instruction,
                 ),
                 Text(
                   'Tap "+"" to create a new visit. Tap your visit to edit and add notes.',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                  style: Styles.instruction,
                 ),
               ]),
               padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
@@ -246,8 +241,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   text: visits[index].date.isEmpty
                                       ? "Visit date"
                                       : '${visits[index].date}',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17)),
+                                  style: Styles.articleBody),
                               textAlign: TextAlign.center,
                             )),
 
@@ -287,8 +281,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   text: visits[index].patientName.isEmpty
                                       ? "Patient's name"
                                       : '${visits[index].patientName}',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17)),
+                                  style: Styles.articleBody),
                               textAlign: TextAlign.center,
                             )),
                       ],
@@ -373,9 +366,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                                 .isEmpty
                                                             ? "Visit time"
                                                             : '${visits[index].notes[0].time}',
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 17),
+                                                        style:
+                                                            Styles.articleBody,
                                                       )),
                                                     ),
                                                     Container(
@@ -395,9 +387,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                                 .isEmpty
                                                             ? "Visit date"
                                                             : '${visits[index].notes[0].date}',
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 17),
+                                                        style:
+                                                            Styles.articleBody,
                                                       )),
                                                     ),
                                                   ],
@@ -427,9 +418,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                     .isEmpty
                                                 ? 'Enter a description for this note...'
                                                 : '${visits[index].notes[0].body}',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17)),
+                                            style: Styles.articleBody),
                                       )),
                                 ),
                               ],
