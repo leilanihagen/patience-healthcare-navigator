@@ -70,7 +70,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: HexColor(darkPinkTheme),
+              primary: Styles.darkPinkTheme,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -106,7 +106,7 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: HexColor(darkPinkTheme),
+              color: Styles.darkPinkTheme,
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -281,36 +281,35 @@ class RootCategoriesPage extends StatelessWidget {
               context,
               TermsPage(),
               "I want to learn healthcare terms and definitions",
-              Icon(Icons.menu_book_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.menu_book_rounded, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               BeforeStayPage(),
               "I'm preparing for a hospital visit",
-              Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               DuringStayPage(),
               "I'm at the hospital now",
-              Icon(Icons.sick_rounded, color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               AfterStayPage(),
               "I recently visited the hospital",
               Icon(Icons.medical_services_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+                  color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               ReceivedBillPage(),
               "I've received a surprise medical bill",
               Icon(Icons.attach_money_rounded,
-                  color: HexColor(blueTheme), size: 37)),
+                  color: Styles.blueTheme, size: 37)),
           renderClickableSituationCard(
               context,
               CollectionsPage(),
               "My medical bill/debt has been sent to a collections agency",
               Icon(Icons.priority_high_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+                  color: Styles.blueTheme, size: 33)),
         ],
       ),
     ));
@@ -319,14 +318,6 @@ class RootCategoriesPage extends StatelessWidget {
 
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
-
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
-
   final BuildContext context;
   final RootCategoriesPage rootCategoriesPage;
   final List<String> guidelinesTitles = [
@@ -379,14 +370,14 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I want to learn healthcare terms and definitions",
                   Icon(Icons.menu_book_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               // renderGuidelineRichText(
               //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuidelineHyperlink(
@@ -459,9 +450,8 @@ class TermsPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -508,12 +498,12 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox("I'm preparing for a hospital visit",
-                  Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
+                  Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -535,9 +525,8 @@ class BeforeStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -589,14 +578,12 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox(
-                  "I'm at the hospital now",
-                  Icon(Icons.sick_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+              renderSituationBox("I'm at the hospital now",
+                  Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -623,9 +610,8 @@ class DuringStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -659,14 +645,14 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I recently visited the hospital",
                   Icon(Icons.medical_services_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               ElevatedButton(
@@ -682,9 +668,8 @@ class AfterStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -781,14 +766,14 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I've received a surprise medical bill",
                   Icon(Icons.attach_money_rounded,
-                      color: HexColor(blueTheme), size: 37)),
+                      color: Styles.blueTheme, size: 37)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -807,9 +792,8 @@ class ReceivedBillPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -914,14 +898,14 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "My medical bill/debt has been sent to a collections agency",
                   Icon(Icons.priority_high_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               renderGuidelineHyperlink(
                   guidelinesTitles[0],
                   subGuidelinesText[0],
@@ -969,9 +953,8 @@ class CollectionsPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),

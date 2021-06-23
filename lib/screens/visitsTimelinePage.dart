@@ -19,13 +19,6 @@ class VisitsTimelinePage extends StatefulWidget {
 }
 
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
-
   List<Visit> visits = [];
 
   @override
@@ -191,7 +184,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                 decoration: BoxDecoration(
-                    color: HexColor(lightGreenTheme),
+                    color: Styles.lightGreenTheme,
                     borderRadius: BorderRadius.circular(5.0),
                     boxShadow: [
                       BoxShadow(
@@ -444,9 +437,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: HexColor(blueTheme),
+          backgroundColor: Styles.blueTheme,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();

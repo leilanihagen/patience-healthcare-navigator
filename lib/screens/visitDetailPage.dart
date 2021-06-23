@@ -28,13 +28,6 @@ class VisitDetailPage extends StatefulWidget {
 }
 
 class _VisitDetailPageState extends State<VisitDetailPage> {
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
-
   updatVisitDate(Visit visit, String dataType, String inputData) {
     setState(() {
       // widget.visit.date = inputData;
@@ -196,9 +189,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(lightGreenTheme),
+        backgroundColor: Styles.lightGreenTheme,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: HexColor(purpleTheme),
+          backgroundColor: Styles.purpleTheme,
           child: Icon(Icons.add),
           onPressed: () {
             setState(() {
@@ -303,8 +296,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     });
                     // print("NOTE COUNT: " + '${widget.visit.notes.length}');
                   },
-                  style:
-                      ElevatedButton.styleFrom(primary: HexColor(purpleTheme)),
+                  style: ElevatedButton.styleFrom(primary: Styles.purpleTheme),
                   // Icon(Icons.add),
                   child: Icon(Icons.note_add),
                 )
@@ -343,8 +335,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed))
-                      return HexColor(blueTheme);
-                    return HexColor(blueTheme); // Use the component's default.
+                      return Styles.blueTheme;
+                    return Styles.blueTheme; // Use the component's default.
                   },
                 ),
               ),

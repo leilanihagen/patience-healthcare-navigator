@@ -5,10 +5,10 @@ import 'package:hexcolor/hexcolor.dart';
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
   static const String lightPinkTheme = "#FDEBF1";
-  static const String darkPinkTheme = "#ED558C";
+  static HexColor darkPinkTheme = HexColor("#ED558C");
   static HexColor blueTheme = HexColor("#44B5CD");
   // static const String darkGreenTheme = "#758C20";
-  static const String lightGreenTheme = "#A1BF36";
+  static HexColor lightGreenTheme = HexColor("#A1BF36");
   static HexColor darkGreenTheme = HexColor("#758C20");
 
   static const articleHeading1 =

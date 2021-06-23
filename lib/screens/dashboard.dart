@@ -39,7 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
       // height: .45.sh,
       // width: 400,
       decoration: BoxDecoration(
-          color: HexColor(Styles.lightGreenTheme),
+          color: Styles.lightGreenTheme,
           borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: [
