@@ -74,7 +74,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           currentIndex: selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
+              icon: Icon(Icons.home),
               label: 'Dashboard',
             ),
             BottomNavigationBarItem(
