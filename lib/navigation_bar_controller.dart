@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
+import 'package:hospital_stay_helper/screens/dashboard.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
@@ -37,6 +38,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     super.initState();
     _selectedIndex = 0;
     pages = [
+      DashboardPage(key: PageStorageKey('dashboard')),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
@@ -72,6 +74,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           currentIndex: selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(IconData(
                 62421,
                 fontFamily: 'MaterialIcons',
@@ -95,6 +101,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           ]);
 
   List<String> _pageTitles = [
+    'Dashboard',
     'Guidelines',
     'Visits Timeline',
     'Find In-Network Hospitals',
@@ -130,7 +137,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           ),
           onPressed: () => setState(() {
             profileSelected = haveOpenProfile = true;
-            _pageController.jumpToPage(4);
+            _pageController.jumpToPage(5);
           }),
         ),
         title: profileSelected
