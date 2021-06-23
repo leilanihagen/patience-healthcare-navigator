@@ -72,17 +72,17 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   void deleteVisit(int visitIndex) {
     setState(() {
-      listKey.currentState.removeItem(
-          visitIndex, (_, animation) => note(context, visitIndex, animation),
-          duration: const Duration(milliseconds: 200));
       visits.removeAt(visitIndex);
+      listKey.currentState.removeItem(visitIndex,
+          (_, animation) => visitWidget(context, visitIndex, animation),
+          duration: const Duration(milliseconds: 200));
     });
     updateVisit();
   }
 
   void createNote(Visit visit) {
     setState(() {
-      visit.notes.add(VisitNote());
+      visit.notes.insert(0, VisitNote());
     });
     updateVisit();
   }
@@ -181,7 +181,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     }
   }
 
-  Widget note(BuildContext context, int index, animation) {
+  Widget visitWidget(BuildContext context, int index, animation) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(-1, 0),
@@ -192,13 +192,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => VisitDetailPage(
-                      key: PageStorageKey('visitdetailpage'),
-                      visitIndex: index,
-                      updateVisitFunction: updateVisitData,
-                      updateNoteFunction: updateNoteData,
-                      deleteVisit: deleteVisit,
-                      visit: visits[index],
-                      createNewNote: createNote))),
+                        key: PageStorageKey('visitdetailpage'),
+                        visitIndex: index,
+                        updateVisitFunction: updateVisitData,
+                        updateNoteFunction: updateNoteData,
+                        deleteVisit: deleteVisit,
+                        visit: visits[index],
+                        createNewNote: createNote,
+                        deleteNoteFunction: deleteNote,
+                      ))),
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             decoration: BoxDecoration(
@@ -468,7 +470,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         initialItemCount: visits.length,
         itemBuilder: (context, index, animation) {
           // Visit:
-          return note(context, index, animation);
+          return visitWidget(context, index, animation);
         });
   }
 
