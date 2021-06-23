@@ -28,7 +28,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false, ur = true, er = true, isSearching = false;
   HospitalPage _hospitalPage;
-  List<String> listSearch = [];
+  List<SearchResult> listSearch = [];
   openMap(String name, String street) async {
     Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
         {'api': '1', 'query': name + ' ' + street});
@@ -58,7 +58,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         if (response.statusCode == 200)
           setState(() {
             Iterable tmp = jsonDecode(response.body)['body'];
-            listSearch = List<String>.from(tmp);
+            listSearch = List<SearchResult>.from(
+                tmp.map((e) => SearchResult.fromJson(e)));
           });
       } else
         showError("You haven't selected a provider");
@@ -397,26 +398,36 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   _showResult() {
     if (listSearch.isNotEmpty)
-      return ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: listSearch.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Container(
-              child: ListTile(
-                title: Text(listSearch[index]),
-                trailing: Icon(
-                  Icons.check,
-                  color: Colors.green,
-                ),
-              ),
-            );
-          });
-    else
-      return Container(
-        child: ListTile(
-          title: Text("The hospital is out-of-network or cannot be found"),
-        ),
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "The below hospitals are in your network:",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: Colors.green[800]),
+            ),
+          ),
+          ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: listSearch.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: ListTile(
+                      title: Text(listSearch[index].name),
+                      subtitle: Text(listSearch[index].address),
+                      trailing: Icon(
+                        Icons.check,
+                        color: Colors.green[800],
+                      ),
+                      onTap: () => openMap(
+                          listSearch[index].name, listSearch[index].address)),
+                );
+              }),
+        ],
       );
   }
 
