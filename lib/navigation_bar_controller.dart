@@ -1,10 +1,15 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
+import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
+import 'screens/visitsTimelinePage.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
   @override
@@ -25,17 +30,28 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   String darkGreenTheme = "#758C20";
   String lightGreenTheme = "#A1BF36";
 
+  bool profileSelected = false;
+  bool haveOpenProfile = false;
   @override
   void initState() {
     super.initState();
     _selectedIndex = 0;
     pages = [
       RootCategoriesPage(),
-      ProfilePage(key: PageStorageKey('yourprofile')),
+      VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
       SearchPage(key: PageStorageKey('searchservices')),
+      ProfilePage(key: PageStorageKey('yourprofile')),
     ];
     _pageController = PageController(initialPage: _selectedIndex);
+    profileSelect();
+  }
+
+  profileSelect() async {
+    var temp = await MySharedPreferences.instance.getBoolValue("selectProfile");
+    setState(() {
+      haveOpenProfile = temp;
+    });
   }
 
   @override
@@ -50,6 +66,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           backgroundColor: HexColor(lightPinkTheme),
           onTap: (int index) => setState(() {
                 _selectedIndex = index;
+                profileSelected = false;
                 _pageController.jumpToPage(index);
               }), // rebuild this widget
           currentIndex: selectedIndex,
@@ -63,9 +80,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                IconData(59162, fontFamily: 'MaterialIcons'),
+                Icons.event_note,
               ),
-              label: 'Your Profile',
+              label: 'Visits Timeline',
             ),
             BottomNavigationBarItem(
               icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
@@ -79,10 +96,12 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   List<String> _pageTitles = [
     'Guidelines',
-    'Your Profile',
+    'Visits Timeline',
     'Find In-Network Hospitals',
     'Search Medical Services',
   ];
+
+  String profileTitle = 'User Settings';
 
   @override
   Widget build(BuildContext context) {
@@ -90,16 +109,39 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       appBar: AppBar(
         backgroundColor: HexColor(blueTheme),
         leading: IconButton(
-          icon: Icon(IconData(59162, fontFamily: 'MaterialIcons')),
+          color: profileSelected ? HexColor(blueTheme) : Colors.grey,
+          icon: Badge(
+            // badgeColor: Colors.white,
+            showBadge: !haveOpenProfile,
+            badgeContent: Text(
+              "1",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
+            child: ClipOval(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                color: Colors.white,
+                child: Icon(
+                  Icons.settings,
+                ),
+              ),
+            ),
+          ),
           onPressed: () => setState(() {
-            _selectedIndex = 1;
-            _pageController.jumpToPage(1);
+            profileSelected = haveOpenProfile = true;
+            _pageController.jumpToPage(4);
           }),
         ),
-        title: Text(
-          _pageTitles[_selectedIndex],
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
-        ),
+        title: profileSelected
+            ? Text(
+                profileTitle,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+              )
+            : Text(
+                _pageTitles[_selectedIndex],
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+              ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(

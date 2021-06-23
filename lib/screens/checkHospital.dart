@@ -7,14 +7,13 @@ import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/widgets/textIcon.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
   HospitalSearchPage({Key key}) : super(key: key);
 
   @override
-  _ChekcHospitalPage createState() => _ChekcHospitalPage();
+  _CheckHospitalPage createState() => _CheckHospitalPage();
 }
 
 showError(error) {
@@ -23,10 +22,10 @@ showError(error) {
   ));
 }
 
-class _ChekcHospitalPage extends State<HospitalSearchPage>
+class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false;
+  bool isLoading = false, ur = true, er = true;
   HospitalPage _hospitalPage;
   openMap(String name, String street) async {
     Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
@@ -128,43 +127,43 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    _loadLastSaved();
+    // _loadLastSaved();
   }
 
   getColor() {
     if (isLoading) return Colors.grey;
     switch (_hospitalPage.check) {
       case 0:
-        return Colors.white;
+        return Colors.blue;
         break;
       case 1:
-        return Colors.greenAccent;
+        return Colors.green;
         break;
       case 2:
         return Colors.redAccent;
         break;
       case 3:
-        return Colors.yellow;
+        return Colors.yellow[800];
         break;
       default:
-        return Colors.white;
+        return Colors.blue;
     }
   }
 
   getShadow() {
-    if (isLoading) return Colors.grey.withOpacity(0.5);
+    if (isLoading) return Colors.grey.withOpacity(0.2);
     switch (_hospitalPage.check) {
       case 0:
-        return Colors.grey.withOpacity(0.5);
+        return Colors.blue.withOpacity(0.2);
         break;
       case 1:
-        return Colors.greenAccent.withOpacity(0.5);
+        return Colors.greenAccent.withOpacity(0.2);
         break;
       case 2:
-        return Colors.redAccent.withOpacity(0.5);
+        return Colors.redAccent.withOpacity(0.2);
         break;
       case 3:
-        return Colors.yellowAccent.withOpacity(0.5);
+        return Colors.yellowAccent.withOpacity(0.2);
         break;
       default:
         return Colors.white.withOpacity(0.5);
@@ -185,18 +184,37 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           ));
     switch (_hospitalPage.check) {
       case 0:
-        return Icon(Icons.location_on_rounded, size: 80);
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
+            Text(
+              "Press to check Hospital",
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            )
+          ],
+        );
         break;
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.check_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status, textAlign: TextAlign.center)
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          )
         ]);
         break;
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.clear_rounded, size: 80, color: Colors.white),
-          Text(_hospitalPage.status, textAlign: TextAlign.center)
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          )
         ]);
         break;
       case 3:
@@ -205,6 +223,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           )
         ]);
         break;
@@ -267,26 +286,57 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
 
   getPageIntroduction() {
     return Wrap(
-      runSpacing: 10,
       alignment: WrapAlignment.spaceAround,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ERIcon(),
-            Text("Emergency services available",
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600)),
-          ],
+        Container(
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(5),
+          //   color: Colors.white,
+          // ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const ERIcon(),
+              const Text("=",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
+              const Text("Emergency services",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
+              // Switch.adaptive(
+              //     value: er,
+              //     onChanged: (value) => setState(() {
+              //           er = value;
+              //         }))
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            URIcon(),
-            Text("Urgent care services available",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
-          ],
+        Container(
+          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(5),
+          //   color: Colors.white,
+          // ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const URIcon(),
+              const Text("=",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
+              const Text("Urgent care services",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.white)),
+              // Switch.adaptive(
+              //     value: ur,
+              //     onChanged: (value) => setState(() {
+              //           ur = value;
+              //         })),
+            ],
+          ),
         )
       ],
     );
@@ -294,6 +344,7 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         key: _hospitalKey,
         // backgroundColor: Colors.deepPurple[600],
@@ -309,11 +360,12 @@ class _ChekcHospitalPage extends State<HospitalSearchPage>
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: getShadow(),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                          ),
+                              color: getShadow(),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3)),
                         ],
+                        border: Border.all(width: 0.5),
                         color: getColor(),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     width: 0.2.sh,

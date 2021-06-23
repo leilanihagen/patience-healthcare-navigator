@@ -1,9 +1,9 @@
 name: hospital_stay_helper
 description: A project help patient navigate hospitay and avoid unexpected medical bill.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 0.0.1+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -15,17 +15,18 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   shared_preferences: 2.0.6
-  cupertino_icons: 
+  cupertino_icons:
   geolocator: 7.0.3
   dropdown_search: 0.6.1
   reorderables: 0.4.1
   hexcolor: 2.0.3
   url_launcher: 6.0.6
-  http: 0.13.3 
+  http: 0.13.3
   material_floating_search_bar: 0.3.4
   flutter_screenutil: 5.0.0+2
   expandable: 5.0.1
   csv: 5.0.0
+  badges: 2.0.1
 
 dev_dependencies:
   flutter_test:

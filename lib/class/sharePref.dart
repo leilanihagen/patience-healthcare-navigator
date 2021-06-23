@@ -16,6 +16,33 @@ class MySharedPreferences {
     return myPrefs.getString(key) ?? "";
   }
 
+  setBoolValue(String key, bool value) async {
+    SharedPreferences myPrefs = await SharedPreferences.getInstance();
+    myPrefs.setBool(key, value);
+  }
+
+  Future<bool> getBoolValue(String key) async {
+    SharedPreferences myPrefs = await SharedPreferences.getInstance();
+    return myPrefs.getBool(key) ?? false;
+  }
+
+  setStringListValue(String key, List value) async {
+    SharedPreferences myPrefs = await SharedPreferences.getInstance();
+    myPrefs.setStringList(key, value);
+  }
+
+  appendStringListValue(String key, String value) async {
+    SharedPreferences myPrefs = await SharedPreferences.getInstance();
+    List list = myPrefs.getStringList(key);
+    list.add(value);
+    myPrefs.setStringList(key, list);
+  }
+
+  Future<String> getStringListValue(String key) async {
+    SharedPreferences myPrefs = await SharedPreferences.getInstance();
+    return myPrefs.getStringList(key) ?? "";
+  }
+
   Future<bool> containsKey(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
     return myPrefs.containsKey(key);
