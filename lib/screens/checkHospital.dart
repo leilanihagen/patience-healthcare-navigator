@@ -433,8 +433,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   _buildSearchHospital() {
     return FloatingSearchBar(
-        hint: 'Check for a specific hospital',
-        // scrollPadding: const EdgeInsets.only(top: 16, bottom: 20),
+        hint: 'Search for a specific hospital',
         transitionCurve: Curves.easeInOut,
         physics: const BouncingScrollPhysics(),
         actions: [
