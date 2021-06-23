@@ -6,6 +6,7 @@ import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/widgets/textIcon.dart';
 import 'package:http/http.dart' as http;
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
@@ -25,8 +26,9 @@ showError(error) {
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false, ur = true, er = true;
+  bool isLoading = false, ur = true, er = true, isSearching = false;
   HospitalPage _hospitalPage;
+  List<SearchResult> listSearch = [];
   openMap(String name, String street) async {
     Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
         {'api': '1', 'query': name + ' ' + street});
@@ -35,6 +37,58 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     } else {
       throw 'Could not launch $googleUrl';
     }
+  }
+
+  _searchHospital(String keyword) async {
+    setState(() {
+      isSearching = true;
+    });
+    String provider =
+        await MySharedPreferences.instance.getStringValue('user_provider');
+    try {
+      if (provider.isNotEmpty) {
+        http.Response response = await http.post(
+          Uri.parse(
+              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_search"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({'keyword': keyword, 'provider': provider}),
+        );
+        if (response.statusCode == 200)
+          setState(() {
+            Iterable tmp = jsonDecode(response.body)['body'];
+            listSearch = List<SearchResult>.from(
+                tmp.map((e) => SearchResult.fromJson(e)));
+          });
+      } else
+        showError("You haven't selected a provider");
+    } catch (e) {
+      showError(e);
+    }
+    setState(() {
+      isSearching = false;
+    });
+    // if (provider.isNotEmpty)
+    //   http
+    //       .post(
+    //     Uri.parse(
+    //         "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_search"),
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: jsonEncode({'keyword': keyword, 'provider': provider}),
+    //   )
+    //       .then((response) {
+    //     print(response.body);
+    //     if (response.statusCode == 200)
+    //       setState(() {
+    //         Iterable tmp = jsonDecode(response.body)['body'];
+    //         listSearch = List<String>.from(tmp);
+    //       });
+    //   }).catchError((onError) => showError(onError));
+    // else
+    //   showError("You haven't selected a provider");
   }
 
   submit() async {
@@ -127,7 +181,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    // _loadLastSaved();
+    _loadLastSaved();
   }
 
   getColor() {
@@ -177,7 +231,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           height: 0.05.sh,
           child: Padding(
             padding: EdgeInsets.all(20),
-            child: CircularProgressIndicator(
+            child: CircularProgressIndicator.adaptive(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               strokeWidth: 10,
             ),
@@ -342,43 +396,124 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     );
   }
 
+  _showResult() {
+    if (listSearch.isNotEmpty)
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "The below hospitals are in your network:",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: Colors.green[800]),
+            ),
+          ),
+          ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: listSearch.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: ListTile(
+                      title: Text(listSearch[index].name),
+                      subtitle: Text(listSearch[index].address),
+                      trailing: Icon(
+                        Icons.check,
+                        color: Colors.green[800],
+                      ),
+                      onTap: () => openMap(
+                          listSearch[index].name, listSearch[index].address)),
+                );
+              }),
+        ],
+      );
+  }
+
+  _buildSearchHospital() {
+    return FloatingSearchBar(
+        hint: 'Search for a specific hospital',
+        transitionCurve: Curves.easeInOut,
+        physics: const BouncingScrollPhysics(),
+        actions: [
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: Icon(Icons.search),
+          ),
+          FloatingSearchBarAction.back(),
+        ],
+        onSubmitted: (String keyword) {
+          _searchHospital(keyword);
+        },
+        builder: (context, transition) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Material(
+              color: Colors.white,
+              child: isSearching
+                  ? Container(
+                      width: 20,
+                      height: 20,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: LinearProgressIndicator(),
+                      ),
+                    )
+                  : _showResult(),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
         key: _hospitalKey,
         // backgroundColor: Colors.deepPurple[600],
-        body: Center(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Center(
-              child: GestureDetector(
-                onTap: () => isLoading ? null : submit(),
-                child: Container(
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: getShadow(),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3)),
-                        ],
-                        border: Border.all(width: 0.5),
-                        color: getColor(),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: 0.2.sh,
-                    height: 0.2.sh,
-                    child: getStatus()),
+        body: Stack(
+            fit: StackFit.loose,
+            alignment: Alignment.topCenter,
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 60,
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () => isLoading ? null : submit(),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: getShadow(),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3)),
+                                ],
+                                border: Border.all(width: 0.5),
+                                color: getColor(),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            width: 0.2.sh,
+                            height: 0.2.sh,
+                            child: getStatus()),
+                      ),
+                    ),
+                    _hospitalPage.name == null || _hospitalPage.name.isEmpty
+                        ? getPageIntroduction()
+                        : getHeader(),
+                    getTop3()
+                  ],
+                ),
               ),
-            ),
-            _hospitalPage.name == null || _hospitalPage.name.isEmpty
-                ? getPageIntroduction()
-                : getHeader(),
-            getTop3()
-          ],
-        )));
+              _buildSearchHospital(),
+            ]));
   }
 
   @override
