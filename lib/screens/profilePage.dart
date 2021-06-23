@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -34,6 +38,20 @@ class _ProfilePage extends State<ProfilePage>
     // userDeductibleReduction = await MySharedPreferences.instance
     //     .getStringValue('user_deductible_reduction');
   }
+
+  _loadProviderInfo(String provider) async {
+    final String temp =
+        await rootBundle.loadString('assets/data/provider.json');
+    final data = await jsonDecode(temp);
+    MySharedPreferences.instance
+        .setStringValue('provider_phone', data[provider]['phone']);
+  }
+  //  Call your provider function is here
+  // _callProvider() async {
+  //   String _tel = 'tel:' +
+  //       await MySharedPreferences.instance.getStringValue('provider_phone');
+  //   await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+  // }
 
   @override
   initState() {
@@ -145,6 +163,7 @@ class _ProfilePage extends State<ProfilePage>
                               // saved if the user never changes this dropdown
                               MySharedPreferences.instance
                                   .setStringValue('user_provider', s);
+                              _loadProviderInfo(s);
                             },
                             selectedItem: userProvider,
                           ),
