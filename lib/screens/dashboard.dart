@@ -19,11 +19,11 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String insuranceProvider, stateOfResidence;
-  String amountDeductiblePaid = '';
+  double amountDeductiblePaid;
 
   _loadSaved() async {
-    String temp = await MySharedPreferences.instance
-        .getStringValue('user_deductible_paid');
+    double temp = await MySharedPreferences.instance
+        .getDoubleValue('user_deductible_paid');
     setState(() {
       amountDeductiblePaid = temp;
     });
@@ -37,12 +37,12 @@ class _DashboardPageState extends State<DashboardPage> {
     getStateOfResidence();
   }
 
-  void updateAmountDeductiblePaid(String updatedAmount) {
+  void updateAmountDeductiblePaid(double updatedAmount) {
     setState(() {
       amountDeductiblePaid = updatedAmount;
     });
     MySharedPreferences.instance
-        .setStringValue('user_deductible_paid', amountDeductiblePaid);
+        .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
   }
 
   void getInsuranceProvider() async {
@@ -206,6 +206,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         defaultText: 'Enter amount',
                         textStyle: Styles.articleBody,
                         shouldWrap: true,
+                        keyboardType: TextInputType.number,
                         boxDecoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0)),
@@ -432,7 +433,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 'Setup your profile',
                 'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.'),
             buildTitle("My Tools"),
-            buildDeductibleTracker(),
+            // TO DO (if time): implement simple tracker
+            // buildDeductibleTracker(),
             buildTitle("Stay Informed"),
             // Articles to external sites:
             Row(
@@ -444,7 +446,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 buildArticleButton(Styles.darkGreenTheme,
                     'Knowledge is power: more resources on BrokenHealthcare.org'),
               ],
-            )
+            ),
+            buildWalkthroughCard(
+                'assets/images/avatar.svg',
+                'Learn about healthcare, bills and insurance',
+                'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.'),
           ],
         ),
       ),

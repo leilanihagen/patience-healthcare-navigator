@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
 class TapEditBox extends StatefulWidget {
-  String inputData, defaultText;
+  dynamic inputData, keyboardType;
+  String defaultText;
   bool shouldWrap;
   final Function updateFunction;
   final BoxDecoration boxDecoration;
@@ -13,6 +14,7 @@ class TapEditBox extends StatefulWidget {
 
   TapEditBox(
       {this.inputData,
+      this.keyboardType = TextInputType.text,
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
@@ -62,6 +64,7 @@ class _TapEditBoxState extends State<TapEditBox> {
           height: widget.height,
           width: widget.width,
           child: TextFormField(
+            keyboardType: widget.keyboardType,
             autofocus: true,
             initialValue: widget.inputData,
             style: widget.textStyle,
@@ -92,7 +95,7 @@ class _TapEditBoxState extends State<TapEditBox> {
               width: widget.width,
               child: RichText(
                 text: TextSpan(
-                  text: widget.inputData.isEmpty
+                  text: widget.inputData == null
                       ? widget.defaultText
                       : widget.inputData,
                   style: widget.textStyle,
