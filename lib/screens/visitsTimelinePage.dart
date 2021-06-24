@@ -448,11 +448,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                         size: 35,
                       ),
                     ),
-                    ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.red[600]),
+                    IconButton(
                         // Icon(Icons.add),
-                        child: Icon(Icons.delete),
+                        icon: Icon(Icons.delete),
                         onPressed: () {
                           deleteVisit(index);
                         }),
