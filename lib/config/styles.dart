@@ -4,11 +4,11 @@ import 'package:hexcolor/hexcolor.dart';
 
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
-  static const String lightPinkTheme = "#FDEBF1";
+  static HexColor lightPinkTheme = HexColor("#FDEBF1");
   static const String darkPinkTheme = "#ED558C";
   static HexColor blueTheme = HexColor("#44B5CD");
   // static const String darkGreenTheme = "#758C20";
-  static const String lightGreenTheme = "#A1BF36";
+  static HexColor lightGreenTheme = HexColor("#A1BF36");
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);

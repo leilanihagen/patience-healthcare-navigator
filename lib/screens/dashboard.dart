@@ -14,12 +14,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  String insuranceProvider;
+  String insuranceProvider, stateOfResidence;
 
   @override
   void initState() {
     super.initState();
     getInsuranceProvider();
+    getStateOfResidence();
   }
 
   void getInsuranceProvider() async {
@@ -32,6 +33,16 @@ class _DashboardPageState extends State<DashboardPage> {
     // });
   }
 
+  void getStateOfResidence() async {
+    // setState(() async {
+    String temp =
+        await MySharedPreferences.instance.getStringValue('user_state');
+    setState(() {
+      stateOfResidence = temp;
+    });
+    // });
+  }
+
   Widget buildWalkthroughCard(String imagePath, String title, String body) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -39,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
       // height: .45.sh,
       // width: 400,
       decoration: BoxDecoration(
-          color: HexColor(Styles.lightGreenTheme),
+          color: Styles.lightGreenTheme,
           borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: [
@@ -131,6 +142,84 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  Widget stateNotSelectedButton() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Styles.lightPinkTheme),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/images/nostate.png',
+                height: 80,
+                width: 50,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildStateButton() {
+    // String image = '';
+    // switch (stateOfResidence) {
+    //   case 'WA':
+    //     image = 'wa.png';
+    //     break;
+    //   case 'OR':
+    //     image = 'or.png';
+    //     break;
+    //   case 'CA':
+    //     image = 'ca.png';
+    //     break;
+    //   case 'MD':
+    //     image = 'md.png';
+    //     break;
+    //   case 'VA':
+    //     image = 'va.png';
+    //     break;
+    //   case 'DC':
+    //     image = 'dc.png';
+    //     break;
+    //   case 'GA':
+    //     image = 'ga.png';
+    //     break;
+    //   default:
+    //     image = 'nostate.png';
+    // }
+
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Styles.lightPinkTheme),
+        child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              'Choose\n your state',
+              textAlign: TextAlign.center,
+            )
+            // stateOfResidence == null
+            //   ? 'Choose your state'
+            //   : stateOfResidence)
+            //   Column(
+            //     children: [
+            //       // Image.asset(
+            //       //   'assets/images/' + image,
+            //       //   height: 80,
+            //       //   width: 50,
+            //       // ),
+            //     ],
+            //   ),
+            ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -139,22 +228,62 @@ class _DashboardPageState extends State<DashboardPage> {
       children: [
         Row(
           children: [
+            // Insurance provider disp:
             Container(
-                // decoration: BoxDecoration(color: Colors.blue),
-                child: Column(children: [
-              Text('Your provider:'),
-              Text(insuranceProvider == null
-                  ? 'Tap to select your provider'
-                  : insuranceProvider),
-            ])),
-            buildIconButton(
-                Colors.red,
-                Colors.white,
-                Icon(
-                  Icons.phone,
-                  color: Colors.white,
-                ),
-                'Call Now')
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+              margin: EdgeInsets.fromLTRB(15, 10, 5, 10),
+              decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Row(
+                children: [
+                  Column(children: [
+                    Text('Your provider:',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Text(
+                        insuranceProvider == null
+                            ? 'Tap to choose'
+                            : insuranceProvider,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700)),
+                  ]),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
+                    child: buildIconButton(
+                        Colors.red,
+                        Colors.white,
+                        Icon(
+                          Icons.phone,
+                          color: Colors.white,
+                        ),
+                        'Call'),
+                  )
+                ],
+              ),
+            ),
+            // State disp:
+            buildStateButton(),
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+            //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
+            //   decoration: BoxDecoration(
+            //       color: Colors.green,
+            //       borderRadius: BorderRadius.circular(10.0)),
+            //   child: Column(children: [
+            //     Text('Your state:',
+            //         style: TextStyle(color: Colors.white, fontSize: 16)),
+            //     Text(
+            //         stateOfResidence == null
+            //             ? 'Tap to choose'
+            //             : stateOfResidence,
+            //         style: TextStyle(
+            //             color: Colors.white,
+            //             fontSize: 17,
+            //             fontWeight: FontWeight.w700)),
+            //   ]),
+            // ),
           ],
         ),
         buildTitle("Welcome to Patience!"),
