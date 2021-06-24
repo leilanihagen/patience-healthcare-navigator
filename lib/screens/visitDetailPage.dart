@@ -41,8 +41,28 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
       // widget.visit.date = inputData;
     });
     widget.updateVisitFunction(visit, dataType, inputData);
-
     // widget.updateVisitFunction(visit, dataType, inputData);
+  }
+
+  deleteNote(int index) {
+    if (widget.visit.notes.length == 1) {
+      widget.deleteVisit(widget.visitIndex);
+      Navigator.pop(context);
+    } else
+      setState(() {
+        listKey.currentState.removeItem(
+            index, (_, animation) => noteWidget(context, index, animation),
+            duration: const Duration(milliseconds: 500));
+        widget.deleteNoteFunction(widget.visit, index);
+      });
+  }
+
+  createNewNote() {
+    setState(() {
+      listKey.currentState
+          .insertItem(0, duration: const Duration(milliseconds: 500));
+      widget.createNewNote(widget.visit);
+    });
   }
 
   noteWidget(BuildContext context, int index, animation) {
@@ -189,37 +209,25 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 textAlign: TextAlign.left,
                 shouldWrap: true,
               ),
-              // Align(
-              //   alignment: Alignment.topRight,
-              //   child: IconButton(
-              //     onPressed: () {
-              //       print(widget.visitIndex);
-              //       print(index);
-              //       widget.deleteNoteFunction(widget.visitIndex, index);
-              //     },
-              //     icon: Icon(Icons.delete),
-              //   ),
-              // )
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () => deleteNote(index),
+                  icon: Icon(Icons.delete),
+                ),
+              )
             ],
           )),
     );
   }
 
-  getNotes() {
+  Widget getNotes() {
     return AnimatedList(
         key: listKey,
-        initialItemCount: widget.visit.notes.length,
+        initialItemCount: widget.visit.notes.length.compareTo(0),
         itemBuilder: (context, index, animation) {
           return noteWidget(context, index, animation);
         });
-  }
-
-  createNewNote() {
-    setState(() {
-      listKey.currentState
-          .insertItem(0, duration: const Duration(milliseconds: 500));
-      widget.createNewNote(widget.visit);
-    });
   }
 
   @override

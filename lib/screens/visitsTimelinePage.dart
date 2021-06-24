@@ -64,7 +64,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   void createVisit() {
     setState(() {
       listKey.currentState
-          .insertItem(0, duration: const Duration(milliseconds: 200));
+          .insertItem(0, duration: const Duration(milliseconds: 500));
       visits.insert(0, Visit(notes: [VisitNote()]));
     });
     updateVisit();
@@ -75,7 +75,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
       visits.removeAt(visitIndex);
       listKey.currentState.removeItem(visitIndex,
           (_, animation) => visitWidget(context, visitIndex, animation),
-          duration: const Duration(milliseconds: 200));
+          duration: const Duration(milliseconds: 500));
     });
     updateVisit();
   }
@@ -87,9 +87,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     updateVisit();
   }
 
-  void deleteNote(int visitIndex, int noteIndex) {
+  void deleteNote(Visit visit, int noteIndex) {
     setState(() {
-      visits[visitIndex].notes.removeAt(noteIndex);
+      visit.notes.removeAt(noteIndex);
     });
     updateVisit();
   }
