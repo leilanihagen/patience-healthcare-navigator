@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
@@ -143,11 +144,11 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         title: profileSelected
             ? Text(
                 profileTitle,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                style: Styles.appBar,
               )
             : Text(
                 _pageTitles[_selectedIndex],
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                style: Styles.appBar,
               ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),

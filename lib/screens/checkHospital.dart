@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/widgets/textIcon.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -245,8 +246,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             Text(
               "Press to check Hospital",
               textAlign: TextAlign.center,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              style: Styles.statusButton,
             )
           ],
         );
@@ -257,7 +257,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
@@ -267,7 +267,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
@@ -277,7 +277,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
@@ -353,12 +353,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const ERIcon(),
-              const Text("=",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
-              const Text("Emergency services",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+              const Text("=", style: Styles.EURstyle),
+              const Text("Emergency services", style: Styles.EURstyle),
               // Switch.adaptive(
               //     value: er,
               //     onChanged: (value) => setState(() {
@@ -378,12 +374,11 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const URIcon(),
-              const Text("=",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
-              const Text("Urgent care services",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+              const Text(
+                "=",
+                style: Styles.EURstyle,
+              ),
+              const Text("Urgent care services", style: Styles.EURstyle),
               // Switch.adaptive(
               //     value: ur,
               //     onChanged: (value) => setState(() {

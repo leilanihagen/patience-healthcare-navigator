@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,7 +70,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: HexColor(darkPinkTheme),
+              primary: Styles.darkPinkTheme,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -78,10 +79,7 @@ Widget renderClickableSituationCard(
                 leading: icon,
                 title: Text(
                   situation,
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
+                  style: Styles.guidelineCard,
                 )),
             onPressed: () => Navigator.push(
                 context,
@@ -108,18 +106,17 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: HexColor(darkPinkTheme),
+              color: Styles.darkPinkTheme,
               child: ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(60)),
-                  leading: icon,
-                  title: Text(
-                    text,
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  )),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60),
+                ),
+                leading: icon,
+                title: Text(
+                  text,
+                  style: Styles.guidelineCard,
+                ),
+              ),
             ),
           ),
           padding: EdgeInsets.fromLTRB(7, 8, 7, 8)));
@@ -141,7 +138,7 @@ Widget renderGuideline(
               : Padding(
                   child: Text(
                     text,
-                    style: TextStyle(fontSize: 17),
+                    style: Styles.articleBody,
                     softWrap: true,
                     maxLines: linesShownCollapsed,
                     overflow: TextOverflow.ellipsis,
@@ -150,7 +147,7 @@ Widget renderGuideline(
           expanded: Padding(
               child: Text(
                 text,
-                style: TextStyle(fontSize: 17),
+                style: Styles.articleBody,
                 softWrap: true,
               ),
               padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
@@ -168,7 +165,7 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            style: Styles.headerGuildline,
           ),
           collapsed: (linesShownCollapsed == 0)
               ? null
@@ -178,15 +175,12 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
                       children: [
                         Text(
                           (text + "\n"),
-                          style: TextStyle(fontSize: 17),
+                          style: Styles.articleBody,
                         ),
                         InkWell(
                             child: Text(
                               hyperlinkText,
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: HexColor("#758C20"),
-                                  decoration: TextDecoration.underline),
+                              style: Styles.hyperlink,
                             ),
                             onTap: () => launch(hyperlink))
                       ]),
@@ -198,15 +192,12 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
                   children: [
                     Text(
                       (text + "\n"),
-                      style: TextStyle(fontSize: 17),
+                      style: Styles.articleBody,
                     ),
                     InkWell(
                         child: Text(
                           hyperlinkText,
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: HexColor("#758C20"),
-                              decoration: TextDecoration.underline),
+                          style: Styles.hyperlink,
                         ),
                         onTap: () => launch(hyperlink))
                   ]),
@@ -225,7 +216,7 @@ Widget renderGuidelineCustomWidgetText(
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            style: Styles.headerGuildline,
           ),
           collapsed: (linesShownCollapsed == 0)
               ? null
@@ -274,18 +265,12 @@ class RootCategoriesPage extends StatelessWidget {
                           Text(
                             "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                            style: Styles.instruction,
                           ),
                           Text(
                             "Start by choosing a category below that best fits your situation.",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                            style: Styles.instruction,
                           ),
                         ]),
                     padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
@@ -296,36 +281,35 @@ class RootCategoriesPage extends StatelessWidget {
               context,
               TermsPage(),
               "I want to learn healthcare terms and definitions",
-              Icon(Icons.menu_book_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.menu_book_rounded, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               BeforeStayPage(),
               "I'm preparing for a hospital visit",
-              Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               DuringStayPage(),
               "I'm at the hospital now",
-              Icon(Icons.sick_rounded, color: HexColor(blueTheme), size: 33)),
+              Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               AfterStayPage(),
               "I recently visited the hospital",
               Icon(Icons.medical_services_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+                  color: Styles.blueTheme, size: 33)),
           renderClickableSituationCard(
               context,
               ReceivedBillPage(),
               "I've received a surprise medical bill",
               Icon(Icons.attach_money_rounded,
-                  color: HexColor(blueTheme), size: 37)),
+                  color: Styles.blueTheme, size: 37)),
           renderClickableSituationCard(
               context,
               CollectionsPage(),
               "My medical bill/debt has been sent to a collections agency",
               Icon(Icons.priority_high_rounded,
-                  color: HexColor(blueTheme), size: 33)),
+                  color: Styles.blueTheme, size: 33)),
         ],
       ),
     ));
@@ -334,14 +318,6 @@ class RootCategoriesPage extends StatelessWidget {
 
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
-
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
-
   final BuildContext context;
   final RootCategoriesPage rootCategoriesPage;
   final List<String> guidelinesTitles = [
@@ -394,14 +370,14 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I want to learn healthcare terms and definitions",
                   Icon(Icons.menu_book_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               // renderGuidelineRichText(
               //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuidelineHyperlink(
@@ -466,11 +442,7 @@ class TermsPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -478,9 +450,8 @@ class TermsPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -527,12 +498,12 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox("I'm preparing for a hospital visit",
-                  Icon(Icons.laptop, color: HexColor(blueTheme), size: 33)),
+                  Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -546,11 +517,7 @@ class BeforeStayPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -558,9 +525,8 @@ class BeforeStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -612,14 +578,12 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
-              renderSituationBox(
-                  "I'm at the hospital now",
-                  Icon(Icons.sick_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+              renderSituationBox("I'm at the hospital now",
+                  Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -638,11 +602,7 @@ class DuringStayPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -650,9 +610,8 @@ class DuringStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -686,14 +645,14 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I recently visited the hospital",
                   Icon(Icons.medical_services_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               ElevatedButton(
@@ -701,11 +660,7 @@ class AfterStayPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -713,9 +668,8 @@ class AfterStayPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -766,25 +720,19 @@ class ReceivedBillPage extends StatelessWidget {
     Text(
       ("Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed." +
           "\n"),
-      style: TextStyle(fontSize: 17),
+      style: Styles.articleBody,
     ),
     InkWell(
         child: Text(
           "Source (YouTube Video by DerekVanSchaik)\n\n",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () => launch(
             "https://www.youtube.com/watch?v=fo3lvAS96a8&ab_channel=DerekVanSchaik")),
     InkWell(
         child: Text(
           "A template letter (brokenhealthcare.org article) (We recommend adding more from the above mentioned points.)",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () =>
             launch("https://brokenhealthcare.org/dispute-every-hospital-bill/"))
@@ -818,14 +766,14 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "I've received a surprise medical bill",
                   Icon(Icons.attach_money_rounded,
-                      color: HexColor(blueTheme), size: 37)),
+                      color: Styles.blueTheme, size: 37)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -836,11 +784,7 @@ class ReceivedBillPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -848,9 +792,8 @@ class ReceivedBillPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -911,54 +854,42 @@ class CollectionsPage extends StatelessWidget {
           "\n\nIn your letter/email, simply state that you will need to validate the debt before you can pay, and ask for documentation bearing your signature and dates of services you are being billed for. Either send the letter via certified mail or via email, so that you can record the date when the agency receives it." +
           "\n\nWhat you will do next depends on how the agency responds." +
           "\n\n(a) They do not respond within 30 days of receiving your request. If they do not respond, you can file a complaint with the Consumer Financial Protection Bureau "),
-      style: TextStyle(fontSize: 17),
+      style: Styles.articleBody,
     ),
     InkWell(
         child: Text(
           "here (consumerfinance.gov complaint submission).\n\n",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () => launch(
             "https://www.consumerfinance.gov/complaint/getting-started/")),
     Text(
       "After filing your complaint, send a Failure to Validate letter/email to the collection agency explaining that they have violated your rights as a consumer to have your debt violated, and that you have the right to sue them for damages to your credit score if the debt is not validated, or if the unvalidated debt is not removed from your credit report.",
-      style: TextStyle(fontSize: 17),
+      style: Styles.articleBody,
     ),
     InkWell(
         child: Text(
           "\n\nHere is a template Failure to Validate letter (from the achievingcreditexcellence.com blog).",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () =>
             launch("https://www.achievingcreditexcellence.com/freebies")),
     Text(
       "\n\n(b) They send you a bill. If they do not send you the explanation of charges and proof that the debt belongs to you, you can also report them to the CFPB and send a Failure to Validate email/letter, because they did not provide sufficient documentation to validate the debt. If they respond within 30 days of receiving your request, do not report them to CFPB yet, but inform them that if they do not send you evidence to validate the debt, you will report them. See (a) and the source blog and video linked below." +
           "\n\n (c) They send you documentation containing your medical records, (information about procedures you received, doctors you were seen by, etc.). If they do this, immediately file a complaint with the Consumer Financial Protection Bureau for violating your rights under HIPAA. You never signed any agreement authorizing them to access your medical records, so if they obtain this information, they have violated your privacy rights under HIPAA. At this point, you have the option to sue them if you wish, but at the very least, they must remove the debt and cease collection of the debt if they have violated your HIPAA rights. Ask the collections agency to delete your private medical information immediately and to cease all collection activities.",
-      style: TextStyle(fontSize: 17),
+      style: Styles.articleBody,
     ),
     InkWell(
         child: Text(
           "\n\nSource (from the achievingcreditexcellence.com blog).",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () =>
             launch("https://www.achievingcreditexcellence.com/freebies")),
     InkWell(
         child: Text(
           "\n\nSource (YouTube Video explaining how to dispute the debt).",
-          style: TextStyle(
-              fontSize: 17,
-              color: HexColor("#758C20"),
-              decoration: TextDecoration.underline),
+          style: Styles.hyperlink,
         ),
         onTap: () => launch(
             "https://www.youtube.com/watch?v=3xVGZ4QOCmk&ab_channel=LifeWithMC")),
@@ -967,14 +898,14 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
                   "My medical bill/debt has been sent to a collections agency",
                   Icon(Icons.priority_high_rounded,
-                      color: HexColor(blueTheme), size: 33)),
+                      color: Styles.blueTheme, size: 33)),
               renderGuidelineHyperlink(
                   guidelinesTitles[0],
                   subGuidelinesText[0],
@@ -1014,11 +945,7 @@ class CollectionsPage extends StatelessWidget {
                     leading: Icon(Icons.arrow_back_ios_rounded,
                         color: Colors.white, size: 27),
                     title: Padding(
-                      child: Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900, color: Colors.white),
-                      ),
+                      child: Styles.backButton,
                       padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                     )),
                 onPressed: () => Navigator.pop(context),
@@ -1026,9 +953,8 @@ class CollectionsPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.pressed))
-                        return HexColor(blueTheme);
-                      return HexColor(
-                          blueTheme); // Use the component's default.
+                        return Styles.blueTheme;
+                      return Styles.blueTheme; // Use the component's default.
                     },
                   ),
                 ),
@@ -1044,147 +970,3 @@ class CollectionsPage extends StatelessWidget {
         ));
   }
 }
-
-// ***DEPRECATED***
-// class GuidelinesPage extends StatefulWidget {
-//   GuidelinesPage({Key key}) : super(key: key);
-//   GuidelinesPageState createState() => new GuidelinesPageState();
-// }
-// //************************ */
-
-// class GuidelinesPageState extends State<GuidelinesPage>
-//     with AutomaticKeepAliveClientMixin<GuidelinesPage> {
-//   SharedPreferences prefs;
-//   // List<String> title, body;
-//   // List<String> beforeStayTitles, beforeStayTexts;
-
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     // Check if user has already read this, and skip to next page
-//   }
-//   //************************** */
-//   // List<Slide> getSlide() {
-//   //   List<Slide> slides = [
-//   //     Slide(
-//   //         maxLineTitle: 2,
-//   //         backgroundColor: Colors.deepPurple[600],
-//   //         title: "Before Hospital",
-//   //         styleTitle: TextStyle(
-//   //             color: Color(0xff3da4ab),
-//   //             fontSize: 30.0,
-//   //             fontWeight: FontWeight.bold),
-//   //         centerWidget: ListView.builder(
-//   //           shrinkWrap: true,
-//   //           itemCount: title.length,
-//   //           itemBuilder: (BuildContext context, int index) {
-//   //             return Padding(
-//   //                 padding:
-//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-//   //                 child: FocusedMenuHolder(
-//   //                   child: ListTile(
-//   //                     tileColor: Colors.white,
-//   //                     title: Text("Tip number ${title[index]}"),
-//   //                   ),
-//   //                   blurSize: 5.0,
-//   //                   openWithTap: true,
-//   //                   onPressed: () {},
-//   //                   menuItems: [
-//   //                     // ignore: missing_required_param
-//   //                     FocusedMenuItem(
-//   //                       title: Flexible(
-//   //                         child: Text(body[index]),
-//   //                       ),
-//   //                     )
-//   //                   ],
-//   //                 ));
-//   //           },
-//   //         )),
-//   //     Slide(
-//   //         maxLineTitle: 2,
-//   //         backgroundColor: Colors.deepPurple[600],
-//   //         title: getTranslated(context, 'during_hospital'),
-//   //         styleTitle: TextStyle(
-//   //             color: Color(0xff3da4ab),
-//   //             fontSize: 30.0,
-//   //             fontWeight: FontWeight.bold),
-//   //         centerWidget: ListView.builder(
-//   //           shrinkWrap: true,
-//   //           itemCount: title.length,
-//   //           itemBuilder: (BuildContext context, int index) {
-//   //             return Padding(
-//   //                 padding:
-//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-//   //                 child: ListTile(
-//   //                   tileColor: Colors.white,
-//   //                   title: Text("Tip number ${title[index]}"),
-//   //                 ));
-//   //           },
-//   //         )),
-//   //     Slide(
-//   //         maxLineTitle: 2,
-//   //         backgroundColor: Colors.deepPurple[600],
-//   //         title: getTranslated(context, 'after_hospital'),
-//   //         styleTitle: TextStyle(
-//   //             color: Color(0xff3da4ab),
-//   //             fontSize: 30.0,
-//   //             fontWeight: FontWeight.bold),
-//   //         centerWidget: ListView.builder(
-//   //           shrinkWrap: true,
-//   //           itemCount: title.length,
-//   //           itemBuilder: (BuildContext context, int index) {
-//   //             return Padding(
-//   //                 padding:
-//   //                     EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-//   //                 child: ListTile(
-//   //                   tileColor: Colors.white,
-//   //                   title: Text("Tip number ${title[index]}"),
-//   //                 ));
-//   //           },
-//   //         ))
-//   //   ];
-//   //   return slides;
-//   // }
-
-//   // Widget renderPreselectedSituationCard(String situation) {
-//   //   return Card(
-//   //     child: ListTile(title: Text(situation)),
-//   //     color: Colors.lightBlue,
-//   //   );
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return Scaffold(
-//       // backgroundColor: Colors.deepPurple[600],
-//       body: SingleChildScrollView(
-//         child: Column(children: <Widget>[
-//           Padding(
-//             // child: renderPreselectedSituationCard(
-//             //     "I'm preparing for a hospital visit"),
-//             padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
-//           ),
-//           BeforeStayPage(),
-//         ]),
-//       ),
-//     );
-
-//     // return IntroSlider(
-//     //   isShowDotIndicator: true,
-//     //   slides: getSlide(),
-//     //   // renderDoneBtn: this.renderDoneBtn(),
-//     //   renderNextBtn: this.renderNextBtn(),
-//     //   // renderSkipBtn: this.renderSkipBtn(),
-//     //   colorSkipBtn: Colors.pinkAccent,
-//     //   highlightColorSkipBtn: Colors.greenAccent,
-//     //   colorDot: Colors.pinkAccent,
-//     //   sizeDot: 10.0,
-//     //   typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
-//     // );
-//   }
-
-//   @override
-//   bool get wantKeepAlive => true;
-// }
