@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
-  static const String lightPinkTheme = "#FDEBF1";
+  static HexColor lightPinkTheme = HexColor("#FDEBF1");
   static HexColor darkPinkTheme = HexColor("#ED558C");
   static HexColor blueTheme = HexColor("#44B5CD");
   // static const String darkGreenTheme = "#758C20";
@@ -30,6 +30,12 @@ class Styles {
       TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
   static const instruction =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
+  static const smallButtonWhite =
+      TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white);
+  static const medButtonWhite =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white);
+  static const largeButtonWhite =
+      TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white);
   static const backButton = Text(
     "Back",
     style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),

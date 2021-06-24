@@ -63,43 +63,50 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     super.dispose();
   }
 
-  Widget _bottomNavBar(int selectedIndex) => BottomNavigationBar(
-          selectedItemColor: HexColor(blueTheme),
-          unselectedItemColor: Colors.grey,
-          backgroundColor: HexColor(lightPinkTheme),
-          onTap: (int index) => setState(() {
-                _selectedIndex = index;
-                profileSelected = false;
-                _pageController.jumpToPage(index);
-              }), // rebuild this widget
-          currentIndex: selectedIndex,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(IconData(
-                62421,
-                fontFamily: 'MaterialIcons',
-              )),
-              label: 'Guidelines',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.event_note,
+  Widget _bottomNavBar(int selectedIndex) => Theme(
+        data: Theme.of(context).copyWith(canvasColor: Styles.blueTheme),
+        child: BottomNavigationBar(
+            selectedItemColor: Styles.darkPinkTheme,
+            unselectedItemColor: Colors.white,
+            backgroundColor: Styles.blueTheme,
+            selectedLabelStyle: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: Styles.darkPinkTheme),
+            onTap: (int index) => setState(() {
+                  _selectedIndex = index;
+                  profileSelected = false;
+                  _pageController.jumpToPage(index);
+                }), // rebuild this widget
+            currentIndex: selectedIndex,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Dashboard',
               ),
-              label: 'Visits Timeline',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
-              label: 'Find In-Network Hospitals',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
-              label: 'Search Services',
-            ),
-          ]);
+              BottomNavigationBarItem(
+                icon: Icon(IconData(
+                  62421,
+                  fontFamily: 'MaterialIcons',
+                )),
+                label: 'Guidelines',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.event_note,
+                ),
+                label: 'Visits',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
+                label: 'Find Hospitals',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+                label: 'Services',
+              ),
+            ]),
+      );
 
   List<String> _pageTitles = [
     'Dashboard',

@@ -195,102 +195,132 @@ class _DashboardPageState extends State<DashboardPage> {
     return GestureDetector(
       onTap: () {},
       child: Container(
+        margin: EdgeInsets.fromLTRB(10, 7, 0, 0),
         decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.lightPinkTheme),
+            BoxDecoration(shape: BoxShape.circle, color: Styles.darkPinkTheme),
         child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              'Choose\n your state',
-              textAlign: TextAlign.center,
-            )
-            // stateOfResidence == null
-            //   ? 'Choose your state'
-            //   : stateOfResidence)
-            //   Column(
-            //     children: [
-            //       // Image.asset(
-            //       //   'assets/images/' + image,
-            //       //   height: 80,
-            //       //   width: 50,
-            //       // ),
-            //     ],
-            //   ),
-            ),
+          padding: const EdgeInsets.all(15.0),
+          child: stateOfResidence == null
+              ? Text(
+                  'Select\n state',
+                  textAlign: TextAlign.center,
+                  style: Styles.smallButtonWhite,
+                )
+              : Text(
+                  stateOfResidence,
+                  textAlign: TextAlign.center,
+                  style: Styles.largeButtonWhite,
+                ),
+          // Column(
+          //   children: [
+          //     // Image.asset(
+          //     //   'assets/images/' + image,
+          //     //   height: 80,
+          //     //   width: 50,
+          //     // ),
+          //   ],
+          // ),
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            // Insurance provider disp:
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-              margin: EdgeInsets.fromLTRB(15, 10, 5, 10),
-              decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Row(
-                children: [
-                  Column(children: [
-                    Text('Your provider:',
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
-                    Text(
-                        insuranceProvider == null
-                            ? 'Tap to choose'
-                            : insuranceProvider,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700)),
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
-                    child: buildIconButton(
-                        Colors.red,
-                        Colors.white,
-                        Icon(
-                          Icons.phone,
-                          color: Colors.white,
-                        ),
-                        'Call'),
-                  )
-                ],
-              ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Provider + state text hints:
+          Container(
+            decoration: BoxDecoration(color: Styles.purpleTheme),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: Text('Your provider:',
+                          style: TextStyle(color: Colors.white, fontSize: 16)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
+                      child: Text('Your state:',
+                          style: TextStyle(color: Colors.white, fontSize: 16)),
+                    ),
+                  ],
+                ),
+                // Ins. provider + state displays:
+                Row(
+                  children: [
+                    // Insurance provider disp:
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                      margin: EdgeInsets.fromLTRB(15, 4, 5, 10),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        children: [
+                          Column(children: [
+                            Text(
+                                insuranceProvider == null
+                                    ? 'Tap to choose'
+                                    : insuranceProvider,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700)),
+                          ]),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
+                            child: buildIconButton(
+                                Colors.red,
+                                Colors.white,
+                                Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                ),
+                                'Call'),
+                          )
+                        ],
+                      ),
+                    ),
+                    // State disp:
+                    buildStateButton(),
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                    //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.green,
+                    //       borderRadius: BorderRadius.circular(10.0)),
+                    //   child: Column(children: [
+                    //     Text('Your state:',
+                    //         style: TextStyle(color: Colors.white, fontSize: 16)),
+                    //     Text(
+                    //         stateOfResidence == null
+                    //             ? 'Tap to choose'
+                    //             : stateOfResidence,
+                    //         style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontSize: 17,
+                    //             fontWeight: FontWeight.w700)),
+                    //   ]),
+                    // ),
+                  ],
+                ),
+              ],
             ),
-            // State disp:
-            buildStateButton(),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-            //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
-            //   decoration: BoxDecoration(
-            //       color: Colors.green,
-            //       borderRadius: BorderRadius.circular(10.0)),
-            //   child: Column(children: [
-            //     Text('Your state:',
-            //         style: TextStyle(color: Colors.white, fontSize: 16)),
-            //     Text(
-            //         stateOfResidence == null
-            //             ? 'Tap to choose'
-            //             : stateOfResidence,
-            //         style: TextStyle(
-            //             color: Colors.white,
-            //             fontSize: 17,
-            //             fontWeight: FontWeight.w700)),
-            //   ]),
-            // ),
-          ],
-        ),
-        buildTitle("Welcome to Patience!"),
-        buildWalkthroughCard('assets/images/avatar.svg', 'Setup your profile',
-            'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.'),
-        buildTitle("My Tools"),
-      ],
+          ),
+          buildTitle("Welcome to Patience!"),
+          buildWalkthroughCard('assets/images/avatar.svg', 'Setup your profile',
+              'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.'),
+          buildTitle("My Tools"),
+        ],
+      ),
     );
   }
 }
