@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/tapEditBox.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
+import 'package:intl/intl.dart';
 
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
@@ -36,6 +38,48 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   // final String darkGreenTheme = "#758C20";
   final String lightGreenTheme = "#A1BF36";
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  Future<Null> _selectDate(
+      BuildContext context, String selectedDate, int index) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateFormat.yMd().parse(selectedDate),
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2025));
+    if (picked != null)
+      widget.updateNoteFunction(
+          widget.visit, index, 'date', DateFormat.yMd().format(picked));
+  }
+
+  Future<Null> _selectVisitDate(
+      BuildContext context, String selectedDate) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateFormat.yMd().parse(selectedDate),
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2025));
+    if (picked != null)
+      setState(() {
+        widget.updateVisitFunction(
+            widget.visit, 'date', DateFormat.yMd().format(picked));
+      });
+  }
+
+  Future<Null> _selectTime(
+      BuildContext context, String selectedTime, int index) async {
+    final TimeOfDay picked = await showTimePicker(
+        context: context,
+        initialTime:
+            TimeOfDay.fromDateTime(DateFormat.Hm().parse(selectedTime)),
+        initialEntryMode: TimePickerEntryMode.dial);
+    if (picked != null)
+      setState(() {
+        widget.updateNoteFunction(
+            widget.visit, index, 'time', picked.format(context));
+      });
+  }
+
   updatVisitDate(Visit visit, String dataType, String inputData) {
     setState(() {
       // widget.visit.date = inputData;
@@ -135,6 +179,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
 
                   // Note date/time:
                   Container(
+                    padding: EdgeInsets.all(10),
                     alignment: Alignment.topRight,
                     decoration: BoxDecoration(
                       border: Border.all(),
@@ -143,40 +188,19 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     child: Column(
                       children: [
                         // TODO: Replace placeholders:
-                        TapEditBox(
-                          visit: widget.visit,
-                          dataType: 'time',
-                          inputData: widget.visit.notes[index].time,
-                          defaultText: 'Event time',
-                          isEditingVisit: false,
-                          updateFunction: widget.updateNoteFunction,
-                          noteIndex: index,
-                          boxDecoration: BoxDecoration(
-                              color: Colors.white,
-                              // border: Border.all(),
-                              borderRadius: BorderRadius.circular(8.0)),
-                          height: 30.0,
-                          width: 100.0,
-                          // margin: 1.0,
-                          padding: 3.0,
+                        GestureDetector(
+                          onTap: () => _selectTime(
+                              context, widget.visit.notes[index].time, index),
+                          child: Text(widget.visit.notes[index].time),
                         ),
-                        TapEditBox(
-                          visit: widget.visit,
-                          dataType: 'date',
-                          inputData: widget.visit.notes[index].date,
-                          defaultText: 'Event date',
-                          isEditingVisit: false,
-                          updateFunction: widget.updateNoteFunction,
-                          noteIndex: index,
-                          boxDecoration: BoxDecoration(
-                              color: Colors.white,
-                              // border: Border.all(),
-                              borderRadius: BorderRadius.circular(8.0)),
-                          height: 30.0,
-                          width: 100.0,
-                          // margin: 1.0,
-                          padding: 3.0,
-                        ),
+                        Divider(thickness: 50, color: Colors.red),
+                        GestureDetector(
+                          onTap: () => _selectDate(
+                              context, widget.visit.notes[index].date, index),
+                          child: Container(
+                            child: Text(widget.visit.notes[index].date),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -270,30 +294,54 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Visit date:
                 Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 6,
-                        blurRadius: 6,
-                        offset: Offset(0, 3))
-                  ]),
-                  child: TapEditBox(
-                    visit: widget.visit,
-                    dataType: 'date',
-                    inputData: widget.visit.date,
-                    defaultText: 'Visit date',
-                    isEditingVisit: true,
-                    updateFunction: updatVisitDate,
-                    boxDecoration: BoxDecoration(
-                        color: Colors.white,
-                        // border: Border.all(),
-                        borderRadius: BorderRadius.circular(8.0)),
-                    height: 32.0,
-                    width: 120.0,
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      // border: Border.all(),
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 6,
+                            blurRadius: 6,
+                            offset: Offset(0, 3))
+                      ]),
+                  // onTap: () => _selectDate(
+                  //     context, widget.visit.date, index),
+                  child: GestureDetector(
+                    onTap: () => _selectVisitDate(context, widget.visit.date),
+                    child: Text(
+                      widget.visit.date,
+                      style: Styles.articleBody,
+                    ),
                   ),
                 ),
+                // Visit date:
+                // Container(
+                //   decoration: BoxDecoration(boxShadow: [
+                //     BoxShadow(
+                //         color: Colors.grey.withOpacity(0.2),
+                //         spreadRadius: 6,
+                //         blurRadius: 6,
+                //         offset: Offset(0, 3))
+                //   ]),
+                //   child: TapEditBox(
+                //     visit: widget.visit,
+                //     dataType: 'date',
+                //     inputData: widget.visit.date,
+                //     defaultText: 'Visit date',
+                //     isEditingVisit: true,
+                //     updateFunction: updatVisitDate,
+                //     boxDecoration: BoxDecoration(
+                //         color: Colors.white,
+                //         // border: Border.all(),
+                //         borderRadius: BorderRadius.circular(8.0)),
+                //     height: 32.0,
+                //     width: 120.0,
+                //   ),
+                // ),
                 // Visit patientName
                 Container(
                   decoration: BoxDecoration(boxShadow: [

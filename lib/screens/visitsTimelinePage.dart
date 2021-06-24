@@ -31,29 +31,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   void initState() {
     _loadSaved();
     super.initState();
-
-    // VisitNote myTestNote1 = VisitNote.fromJson({
-    //   'title': "Checked in at Legacy",
-    //   'time': "NOW",
-    //   'date': "Today",
-    //   'body': "Detail about this happended",
-    // });
-    // List<Map<String, dynamic>> myTestNotes = [
-    //   {
-    //     'title': "Checked in at Legacy",
-    //     'time': "NOW",
-    //     'date': "Today",
-    //     'body': "Detail about this happended",
-    //   }
-    // ];
-
-    // Visit myTestVisit = Visit.fromJson({
-    //   'date': 'Today',
-    //   'patientName': 'Sally',
-    //   'notes': myTestNotes,
-    // });
-
-    // visits.add(myTestVisit);
   }
 
   void updateVisit() async {
@@ -65,7 +42,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     setState(() {
       listKey.currentState
           .insertItem(0, duration: const Duration(milliseconds: 500));
-      visits.insert(0, Visit(notes: [VisitNote()]));
+      visits.insert(0, Visit([VisitNote()]));
     });
     updateVisit();
   }

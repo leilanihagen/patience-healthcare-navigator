@@ -1,12 +1,14 @@
+import 'package:intl/intl.dart';
+
 class Visit {
   String date, patientName;
   List<VisitNote> notes;
 
-  Visit({
-    this.date = "",
-    this.patientName = "",
-    this.notes,
-  });
+  Visit(List<VisitNote> notes) {
+    this.date = DateFormat.yMd().format(DateTime.now());
+    this.patientName = "";
+    this.notes = notes;
+  }
   Visit.fromJson(Map<String, dynamic> object) {
     date = object['date'];
     patientName = object['patientName'];
@@ -29,12 +31,13 @@ class Visit {
 class VisitNote {
   String title, time, date, body;
 
-  VisitNote({
-    this.title = "",
-    this.time = "",
-    this.date = "",
-    this.body = "",
-  });
+  VisitNote() {
+    DateTime now = DateTime.now();
+    this.date = DateFormat.yMd().format(now);
+    this.time = DateFormat.jm().format(now);
+    this.title = "";
+    this.body = "";
+  }
   VisitNote.fromJson(Map<String, dynamic> object) {
     title = object['title'];
     time = object['time'];
