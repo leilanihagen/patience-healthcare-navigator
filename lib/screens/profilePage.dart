@@ -24,11 +24,17 @@ class _ProfilePage extends State<ProfilePage>
   double userDeductibleReduction;
 
   _loadSave() async {
-    userState = await MySharedPreferences.instance.getStringValue('user_state');
-    userProvider =
+    String tempUserState =
+        await MySharedPreferences.instance.getStringValue('user_state');
+    String tempUserProvider =
         await MySharedPreferences.instance.getStringValue('user_provider');
-    userPlan = await MySharedPreferences.instance.getStringValue('user_plan');
-    setState(() {});
+    String tempUserPlan =
+        await MySharedPreferences.instance.getStringValue('user_plan');
+    setState(() {
+      userState = tempUserState;
+      userProvider = tempUserProvider;
+      userPlan = tempUserPlan;
+    });
     // Implement later:
     // userDeductible =
     //     await MySharedPreferences.instance.getStringValue('user_deductible');

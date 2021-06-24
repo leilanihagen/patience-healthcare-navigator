@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
-class TapEditBox extends StatefulWidget {
-  String inputData, defaultText;
-  bool shouldWrap;
+class VisitTapEditBox extends StatefulWidget {
+  Visit visit;
+  String dataType, inputData, defaultText;
+  bool isEditingVisit, shouldWrap;
   final Function updateFunction;
   final BoxDecoration boxDecoration;
   final TextStyle textStyle;
@@ -11,8 +13,11 @@ class TapEditBox extends StatefulWidget {
   double height, width, margin, padding;
   int noteIndex;
 
-  TapEditBox(
-      {this.inputData,
+  VisitTapEditBox(
+      {this.visit,
+      this.dataType,
+      this.inputData,
+      this.isEditingVisit,
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
@@ -28,10 +33,10 @@ class TapEditBox extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TapEditBoxState createState() => _TapEditBoxState();
+  _VisitTapEditBoxState createState() => _VisitTapEditBoxState();
 }
 
-class _TapEditBoxState extends State<TapEditBox> {
+class _VisitTapEditBoxState extends State<VisitTapEditBox> {
   TextEditingController _editingController;
   bool _isEditing = false;
   // String default_text;
@@ -68,7 +73,13 @@ class _TapEditBoxState extends State<TapEditBox> {
             onFieldSubmitted: (newText) {
               setState(() {
                 widget.inputData = newText;
-                widget.updateFunction(widget.inputData);
+                if (widget.isEditingVisit) {
+                  widget.updateFunction(
+                      widget.visit, widget.dataType, widget.inputData);
+                } else {
+                  widget.updateFunction(widget.visit, widget.noteIndex,
+                      widget.dataType, widget.inputData);
+                }
                 // TODO: Add editing visit/note flag and pass noteIndex
                 _isEditing = false;
               });

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -7,7 +9,6 @@ class Styles {
   static HexColor lightPinkTheme = HexColor("#FDEBF1");
   static HexColor darkPinkTheme = HexColor("#ED558C");
   static HexColor blueTheme = HexColor("#44B5CD");
-  // static const String darkGreenTheme = "#758C20";
   static HexColor lightGreenTheme = HexColor("#A1BF36");
   static HexColor darkGreenTheme = HexColor("#758C20");
 
@@ -20,8 +21,13 @@ class Styles {
     fontWeight: FontWeight.w600,
   );
 
-  static const articleBody = TextStyle(fontSize: 17);
+  static const articleBody = TextStyle(fontSize: 17, color: Colors.black);
+  static const articleBodyBold =
+      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
   static const articleBodySmall = TextStyle(fontSize: 16);
+  static const subHeading =
+      TextStyle(fontSize: 19, fontWeight: FontWeight.w700);
+  static const hintExtraSmall = TextStyle(fontSize: 14, color: Colors.black);
   static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
   static const guidelineCard =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);

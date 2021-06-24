@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
-import 'package:hospital_stay_helper/components/tapEditBox.dart';
+import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 
@@ -67,7 +67,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         alignment: Alignment.topLeft,
                         child: Wrap(
                           children: [
-                            TapEditBox(
+                            VisitTapEditBox(
                               visit: widget.visit,
                               inputData: widget.visit.notes[index].title,
                               dataType: 'title',
@@ -115,7 +115,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         child: Column(
                           children: [
                             // TODO: Replace placeholders:
-                            TapEditBox(
+                            VisitTapEditBox(
                               visit: widget.visit,
                               dataType: 'time',
                               inputData: widget.visit.notes[index].time,
@@ -132,7 +132,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                               // margin: 1.0,
                               padding: 3.0,
                             ),
-                            TapEditBox(
+                            VisitTapEditBox(
                               visit: widget.visit,
                               dataType: 'date',
                               inputData: widget.visit.notes[index].date,
@@ -155,7 +155,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     ],
                   ),
                   // Note body:
-                  TapEditBox(
+                  VisitTapEditBox(
                     visit: widget.visit,
                     dataType: 'body',
                     inputData: widget.visit.notes[index].body,
@@ -241,7 +241,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         blurRadius: 6,
                         offset: Offset(0, 3))
                   ]),
-                  child: TapEditBox(
+                  child: VisitTapEditBox(
                     visit: widget.visit,
                     dataType: 'date',
                     inputData: widget.visit.date,
@@ -266,7 +266,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         offset: Offset(0, 3))
                   ]),
                   alignment: Alignment.centerRight,
-                  child: TapEditBox(
+                  child: VisitTapEditBox(
                     visit: widget.visit,
                     dataType: 'patientName',
                     inputData: widget.visit.patientName,

@@ -1,8 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/components/tapEditBox.dart';
+import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,12 +19,30 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String insuranceProvider, stateOfResidence;
+  String amountDeductiblePaid = '';
+
+  _loadSaved() async {
+    String temp = await MySharedPreferences.instance
+        .getStringValue('user_deductible_paid');
+    setState(() {
+      amountDeductiblePaid = temp;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _loadSaved();
     getInsuranceProvider();
     getStateOfResidence();
+  }
+
+  void updateAmountDeductiblePaid(String updatedAmount) {
+    setState(() {
+      amountDeductiblePaid = updatedAmount;
+    });
+    MySharedPreferences.instance
+        .setStringValue('user_deductible_paid', amountDeductiblePaid);
   }
 
   void getInsuranceProvider() async {
@@ -136,6 +158,65 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ],
     );
+  }
+
+  Widget buildDeductibleTracker() {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        width: .9.sw,
+        decoration: BoxDecoration(
+            color: Styles.darkGreenTheme,
+            borderRadius: BorderRadius.circular(5.0)),
+        child: Column(
+          children: [
+            // Remaining/total annual:
+
+            // View annual deductible:
+
+            // Edit amount paid:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: .3.sw,
+                  child: Text(
+                    'Amount paid:',
+                    style: Styles.articleBodyBold,
+                  ),
+                ),
+                Container(
+                  width: .5.sw,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: .05.sw,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      TapEditBox(
+                        height: 30,
+                        width: .4.sw,
+                        inputData: amountDeductiblePaid,
+                        updateFunction: updateAmountDeductiblePaid,
+                        defaultText: 'Enter amount',
+                        textStyle: Styles.articleBody,
+                        shouldWrap: true,
+                        boxDecoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0)),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ));
   }
 
   Padding buildTitle(String text) {
@@ -351,15 +432,17 @@ class _DashboardPageState extends State<DashboardPage> {
                 'Setup your profile',
                 'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.'),
             buildTitle("My Tools"),
+            buildDeductibleTracker(),
             buildTitle("Stay Informed"),
             // Articles to external sites:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildArticleButton(Styles.lightGreenTheme,
                     'Healthcare laws & regulations in your state'),
                 buildArticleButton(Styles.darkGreenTheme,
-                    'Knowledge is power: learn more on BrokenHealthcare.org'),
+                    'Knowledge is power: more resources on BrokenHealthcare.org'),
               ],
             )
           ],
