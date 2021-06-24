@@ -136,6 +136,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   _loadLastSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('checkHospital');
+    print(tmp);
     if (tmp.isNotEmpty)
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));

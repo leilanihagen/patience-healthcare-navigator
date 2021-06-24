@@ -26,14 +26,33 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   final String lightGreenTheme = "#A1BF36";
 
   List<Visit> visits = [];
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> listKey;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  // }
   @override
   void initState() {
-    _loadSaved();
     super.initState();
+    _loadSaved();
+  }
+
+  _loadSaved() async {
+    String _savedVisits =
+        await MySharedPreferences.instance.getStringValue('visits');
+    if (_savedVisits.isNotEmpty) {
+      Iterable tmp = jsonDecode(_savedVisits);
+      setState(() {
+        visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
+      });
+      listKey = GlobalKey<AnimatedListState>();
+    }
   }
 
   void updateVisit() async {
+    // print(jsonEncode(visits));
     await MySharedPreferences.instance
         .setStringValue('visits', jsonEncode(visits));
   }
@@ -145,17 +164,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
       }
     });
     updateVisit();
-  }
-
-  _loadSaved() async {
-    String _savedVisits =
-        await MySharedPreferences.instance.getStringValue('visits');
-    if (_savedVisits.isNotEmpty) {
-      Iterable tmp = jsonDecode(_savedVisits);
-      setState(() {
-        visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
-      });
-    }
   }
 
   Widget visitWidget(BuildContext context, int index, animation) {
