@@ -66,7 +66,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   Widget _bottomNavBar(int selectedIndex) => Theme(
         data: Theme.of(context).copyWith(canvasColor: Styles.blueTheme),
         child: BottomNavigationBar(
-            selectedItemColor: Styles.darkPinkTheme,
+            selectedItemColor: Styles.purpleTheme,
             unselectedItemColor: Colors.white,
             backgroundColor: Styles.blueTheme,
             selectedLabelStyle: TextStyle(

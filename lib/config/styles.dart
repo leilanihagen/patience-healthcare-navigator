@@ -21,6 +21,7 @@ class Styles {
   );
 
   static const articleBody = TextStyle(fontSize: 17);
+  static const articleBodySmall = TextStyle(fontSize: 16);
   static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
   static const guidelineCard =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);
