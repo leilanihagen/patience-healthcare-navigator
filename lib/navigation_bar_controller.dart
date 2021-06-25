@@ -45,7 +45,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     pages = [
       DashboardPage(
         key: PageStorageKey('dashboard'),
-        openpage: openPage,
+        openPage: openPage,
       ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
