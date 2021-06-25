@@ -260,7 +260,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
@@ -270,7 +270,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
@@ -280,7 +280,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: Styles.statusButton,
           )
         ]);
         break;
