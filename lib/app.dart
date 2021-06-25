@@ -88,7 +88,9 @@ class _AppState extends State<App> {
                 }
                 return supportedLocales.first;
               },
-              home: AppBottomNavBarController()));
+              home: AppBottomNavBarController(
+                currentIndex: 0,
+              )));
     }
   }
 }
