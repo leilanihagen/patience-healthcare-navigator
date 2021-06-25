@@ -14,6 +14,7 @@ dependencies:
   # Flutter localization
   flutter_localizations:
     sdk: flutter
+  intl:
   shared_preferences: 2.0.6
   cupertino_icons:
   geolocator: 7.0.3
@@ -28,6 +29,11 @@ dependencies:
   csv: 5.0.0
   badges: 2.0.1
   flutter_svg: 0.22.0
+  image_picker: ^0.8.0+3 
+  path_provider: ^2.0.2
+  path: ^1.8.0
+  percent_indicator: "^2.1.7+2"
+  drop_cap_text: ^1.1.3
 
 dev_dependencies:
   flutter_test:
@@ -37,8 +43,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
-    - assets/data/usStates.json
-    - assets/data/proceduresList.csv
+    # - assets/data/usStates.json
+    # - assets/data/proceduresList.csv
+    - assets/data/provider.json
     - assets/images/
     - locales/EN.json
     - locales/ES.json

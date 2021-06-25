@@ -137,6 +137,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   _loadLastSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('checkHospital');
+    print(tmp);
     if (tmp.isNotEmpty)
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));
@@ -362,7 +363,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const ERIcon(),
-
               const Text("=",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: Colors.white)),
@@ -398,7 +398,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                       fontSize: 15)),
-
               // Switch.adaptive(
               //     value: ur,
               //     onChanged: (value) => setState(() {
