@@ -130,18 +130,21 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     )),
               )),
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AppBottomNavBarController(
-                            currentIndex: targetPageIndex)));
-              },
-              child: Text(
-                buttonText,
-                style: Styles.medButtonWhite,
-              )),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: .005.sw),
+            child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AppBottomNavBarController(
+                              currentIndex: targetPageIndex)));
+                },
+                child: Text(
+                  buttonText,
+                  style: Styles.medButton,
+                )),
+          ),
         ],
       ),
     );
@@ -529,10 +532,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes during your visit including uploading photos and recording audio.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
                       'Tap to explore your Visits Timeline',
                       LinearGradient(
-                        colors: [
-                          Styles.extraLightGreen,
-                          Styles.lightGreenTheme
-                        ],
+                        colors: [Styles.extraLightPinkTheme, Styles.medPink],
                         // begin: Alignment.topLeft,
                         // end: Alignment.bottomRight,
                         stops: [.1, .7],
@@ -544,10 +544,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Find In-Network Hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
                       'Tap to explore Find Hospitals',
                       LinearGradient(
-                        colors: [
-                          Styles.extraLightGreen,
-                          Styles.lightGreenTheme
-                        ],
+                        colors: [Styles.lightEmerald, Styles.emerald],
                         // begin: Alignment.topLeft,
                         // end: Alignment.bottomRight,
                         stops: [.1, .7],

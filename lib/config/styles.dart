@@ -15,23 +15,35 @@ class Styles {
   static HexColor lightGreenTheme = HexColor("#A1BF36");
   static HexColor darkGreenTheme = HexColor("#758C20");
   static HexColor lightBlueTheme = HexColor("#98D2EB");
+  static HexColor medBlue = HexColor("#289BCC");
   static HexColor darkBrown = HexColor("#3B341F");
   static HexColor extraLightGreen = HexColor("#DCE9AF");
   static HexColor darkOrange = HexColor("#FF6542");
+  static HexColor lightOrange = HexColor("#FF9B85");
+  static HexColor offWhite = HexColor("#FAF2F0");
+  static HexColor emerald = HexColor("#43B1AC");
+  static HexColor lightEmerald = HexColor("#A6DDDB");
+
+  static HexColor extraLightPinkTheme = HexColor("#F9C8D8");
+  static HexColor medPink = HexColor("#F17EA5");
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);
   static const articleHeading1White =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white);
+  static final articleHeading1OffWhite =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: offWhite);
   static const buttonTextStyle = TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
   );
 
   static const articleBody = TextStyle(fontSize: 17, color: Colors.black);
+  static final articleBodyOffWhite = TextStyle(fontSize: 17, color: offWhite);
   static const articleBodyBold =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
   static const articleBodySmall = TextStyle(fontSize: 16);
+
   static const subHeading =
       TextStyle(fontSize: 19, fontWeight: FontWeight.w700);
   static const hintExtraSmall = TextStyle(fontSize: 14, color: Colors.black);
@@ -44,12 +56,25 @@ class Styles {
       TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
   static const instruction =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
+  static const medButton =
+      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
+  static const medButtonGrey =
+      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.grey);
   static const smallButtonWhite =
       TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white);
   static const medButtonWhite =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white);
+  static const medButtonBlue =
+      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.blue);
   static const largeButtonWhite =
       TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white);
+
+  static const italicMedButton = TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+      fontStyle: FontStyle.italic);
+
   static const backButton = Text(
     "Back",
     style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),

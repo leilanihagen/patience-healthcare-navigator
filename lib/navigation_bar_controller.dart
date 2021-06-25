@@ -67,6 +67,12 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     super.dispose();
   }
 
+  void openPage(int index) {
+    setState(() {
+      _pageController.jumpToPage(index);
+    });
+  }
+
   Widget _bottomNavBar(int selectedIndex) => Theme(
         data: Theme.of(context).copyWith(canvasColor: Styles.blueTheme),
         child: BottomNavigationBar(
