@@ -52,7 +52,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             actions: [
               TextButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancle")),
+                  child: Text("Cancel")),
               TextButton(
                   onPressed: () => Navigator.pop(context, true),
                   child: Text("Yes")),
