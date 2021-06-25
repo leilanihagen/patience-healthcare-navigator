@@ -107,34 +107,28 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // Text:
-              Container(
-                  width: .4.sh,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: DropCapText(
-                          body,
-                          style: Styles.articleBody,
-                          dropCap: DropCap(
-                            height: 120,
-                            width: 120,
-                            child: // Image:
-                                Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 15, 10),
-                              child: Image.asset(imagePath,
-                                  height: 100, width: 100),
-                            ),
-                          ),
-                        )),
-                  )),
-              // Button (optional):
-            ],
-          ),
+          // Text + image:
+          Container(
+              width: .4.sh,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: DropCapText(
+                      body,
+                      style: Styles.articleBody,
+                      dropCap: DropCap(
+                        height: .33.sw,
+                        width: .33.sw,
+                        child: // Image:
+                            Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, .007.sw, .007.sw),
+                          child: Image.asset(imagePath,
+                              height: .33.sw, width: .33.sw),
+                        ),
+                      ),
+                    )),
+              )),
           TextButton(
               onPressed: () {
                 Navigator.push(
@@ -450,10 +444,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
                 'Tap to explore Guidelines',
                 LinearGradient(
-                  colors: [
-                    Styles.extraLightPurpleTheme,
-                    Styles.lightPurpleTheme
-                  ],
+                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
                   stops: [.1, .7],
                 ),
                 1),
@@ -463,11 +454,15 @@ class _DashboardPageState extends State<DashboardPage> {
                 'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
                 'Tap to open User Settings',
                 LinearGradient(
-                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
+                  colors: [
+                    Styles.extraLightPurpleTheme,
+                    Styles.lightPurpleTheme
+                  ],
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                ),5),
+                ),
+                5),
             buildTitle("My Tools"),
             // TO DO (if time): implement simple tracker
             // buildDeductibleTracker(),
@@ -508,7 +503,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                ),2),
+                ),
+                2),
             buildWalkthroughCard(
                 'assets/images/find_hospitals.png',
                 'Use our Hospital Finder to get to know the in-network hospitals in your area',
@@ -519,7 +515,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                ),3),
+                ),
+                3),
           ],
         ),
       ),
