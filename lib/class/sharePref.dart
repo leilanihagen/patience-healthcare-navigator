@@ -23,7 +23,7 @@ class MySharedPreferences {
 
   Future<double> getDoubleValue(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
-    return myPrefs.getDouble(key);
+    return myPrefs.getDouble(key) ?? 0.0;
   }
 
   setBoolValue(String key, bool value) async {

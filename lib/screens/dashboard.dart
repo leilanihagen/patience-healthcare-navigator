@@ -1,12 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
-import 'package:hospital_stay_helper/components/tapEditBox.dart';
-import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
+import 'package:hospital_stay_helper/components/tapEditBoxNumeric.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,31 +15,32 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String insuranceProvider, stateOfResidence;
-  double amountDeductiblePaid;
+  // double amountDeductiblePaid;
 
-  _loadSaved() async {
-    double temp = await MySharedPreferences.instance
-        .getDoubleValue('user_deductible_paid');
-    setState(() {
-      amountDeductiblePaid = temp;
-    });
-  }
+  // _loadSaved() async {
+  //   double temp = await MySharedPreferences.instance
+  //       .getDoubleValue('user_deductible_paid');
+  //   print(temp);
+  //   setState(() {
+  //     amountDeductiblePaid = temp;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    _loadSaved();
+    // _loadSaved();
     getInsuranceProvider();
     getStateOfResidence();
   }
 
-  void updateAmountDeductiblePaid(double updatedAmount) {
-    setState(() {
-      amountDeductiblePaid = updatedAmount;
-    });
-    MySharedPreferences.instance
-        .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
-  }
+  // void updateAmountDeductiblePaid(num updatedAmount) {
+  //   setState(() {
+  //     amountDeductiblePaid = updatedAmount;
+  //   });
+  //   MySharedPreferences.instance
+  //       .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
+  // }
 
   void getInsuranceProvider() async {
     // setState(() async {
@@ -65,41 +62,45 @@ class _DashboardPageState extends State<DashboardPage> {
     // });
   }
 
-  Widget buildWalkthroughCard(String imagePath, String title, String body) {
+  Widget buildWalkthroughCard(String imagePath, String title, String body,
+      String buttonText, Gradient gradient) {
     return Container(
+      width: .9.sw,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
       decoration: BoxDecoration(
-          // gradient: LinearGradient(
-          //   colors: [Colors.white, Styles.lightGreenTheme],
-          //   begin: Alignment.topLeft,
-          //   end: Alignment.bottomRight,
-          //   stops: [.1, .5],
-          // ),
+          gradient: gradient,
           color: Styles.lightGreenTheme,
           borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: [
-          // Close button:
+          // Title + close button:
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    title,
-                    style: Styles.articleHeading1,
+              Container(
+                width: .7.sw,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      title,
+                      style: Styles.articleHeading1,
+                      softWrap: true,
+                    ),
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {},
+              Container(
+                width: .1.sw,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {},
+                  ),
                 ),
               ),
             ],
@@ -108,36 +109,32 @@ class _DashboardPageState extends State<DashboardPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Image:
-              SvgPicture.asset(imagePath, height: 100, width: 100
+              Image.asset(imagePath, height: 100, width: 100
                   // semanticsLabel: 'Avatar image',
                   ),
               // Text:
               Container(
-                width: .29.sh,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            body,
-                            style: Styles.articleBody,
-                            softWrap: true,
-                          )),
-                    )
-                  ],
-                ),
-              ),
+                  width: .29.sh,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          body,
+                          style: Styles.articleBody,
+                          softWrap: true,
+                        )),
+                  )),
               // Button (optional):
             ],
           ),
+          TextButton(onPressed: () {}, child: Text(buttonText)),
         ],
       ),
     );
   }
 
-  Widget buildArticleButton(Color color, String title) {
+  Widget buildArticleButton(Color color, String title, Image image) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -145,6 +142,7 @@ class _DashboardPageState extends State<DashboardPage> {
           decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           height: .15.sh,
           width: .15.sh,
+          child: image,
         ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 5),
@@ -160,65 +158,65 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildDeductibleTracker() {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-        width: .9.sw,
-        decoration: BoxDecoration(
-            color: Styles.darkGreenTheme,
-            borderRadius: BorderRadius.circular(5.0)),
-        child: Column(
-          children: [
-            // Remaining/total annual:
+  // Widget buildDeductibleTracker() {
+  //   return Container(
+  //       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+  //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+  //       width: .9.sw,
+  //       decoration: BoxDecoration(
+  //           color: Styles.darkGreenTheme,
+  //           borderRadius: BorderRadius.circular(5.0)),
+  //       child: Column(
+  //         children: [
+  //           // Remaining/total annual:
 
-            // View annual deductible:
+  //           // View annual deductible:
 
-            // Edit amount paid:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: .3.sw,
-                  child: Text(
-                    'Amount paid:',
-                    style: Styles.articleBodyBold,
-                  ),
-                ),
-                Container(
-                  width: .5.sw,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: .05.sw,
-                        child: Text(
-                          '\$',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                      TapEditBox(
-                        height: 30,
-                        width: .4.sw,
-                        inputData: amountDeductiblePaid,
-                        updateFunction: updateAmountDeductiblePaid,
-                        defaultText: 'Enter amount',
-                        textStyle: Styles.articleBody,
-                        shouldWrap: true,
-                        keyboardType: TextInputType.number,
-                        boxDecoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.0)),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
-        ));
-  }
+  //           // Edit amount paid:
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.start,
+  //             children: [
+  //               Container(
+  //                 width: .3.sw,
+  //                 child: Text(
+  //                   'Amount paid:',
+  //                   style: Styles.articleBodyBold,
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: .5.sw,
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: [
+  //                     Container(
+  //                       width: .05.sw,
+  //                       child: Text(
+  //                         '\$',
+  //                         style: TextStyle(
+  //                             fontSize: 22, fontWeight: FontWeight.w800),
+  //                       ),
+  //                     ),
+  //                     TapEditBoxNumeric(
+  //                       height: 30,
+  //                       width: .4.sw,
+  //                       inputData: amountDeductiblePaid,
+  //                       updateFunction: updateAmountDeductiblePaid,
+  //                       defaultText: 'Enter amount',
+  //                       textStyle: Styles.articleBody,
+  //                       shouldWrap: true,
+  //                       keyboardType: TextInputType.number,
+  //                       boxDecoration: BoxDecoration(
+  //                           color: Colors.white,
+  //                           borderRadius: BorderRadius.circular(8.0)),
+  //                     )
+  //                   ],
+  //                 ),
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       ));
+  // }
 
   Padding buildTitle(String text) {
     return Padding(
@@ -429,9 +427,28 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             buildTitle("Welcome to Patience!"),
             buildWalkthroughCard(
-                'assets/images/avatar.svg',
-                'Setup your profile',
-                'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.'),
+                'assets/images/study_guidelines.png',
+                'Learn about healthcare, bills and insurance',
+                'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
+                'Tap to explore Guidelines',
+                LinearGradient(
+                  colors: [
+                    Styles.extraLightPurpleTheme,
+                    Styles.lightPurpleTheme
+                  ],
+                  stops: [.1, .7],
+                )),
+            buildWalkthroughCard(
+                'assets/images/setup_settings.png',
+                'Setup your user settings',
+                'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
+                'Tap to open User Settings',
+                LinearGradient(
+                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                )),
             buildTitle("My Tools"),
             // TO DO (if time): implement simple tracker
             // buildDeductibleTracker(),
@@ -441,16 +458,49 @@ class _DashboardPageState extends State<DashboardPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildArticleButton(Styles.lightGreenTheme,
-                    'Healthcare laws & regulations in your state'),
-                buildArticleButton(Styles.darkGreenTheme,
-                    'Knowledge is power: more resources on BrokenHealthcare.org'),
+                buildArticleButton(
+                  Styles.lightPurpleTheme,
+                  'Healthcare laws & regulations in your state',
+                  Image.asset(
+                    'assets/images/usa.png',
+                    height: .12.sh,
+                    width: .12.sh,
+                  ),
+                ),
+                buildArticleButton(
+                  Styles.lightBlueTheme,
+                  'Knowledge is power: more resources on BrokenHealthcare.org',
+                  Image.asset(
+                    'assets/images/broken_health.png',
+                    height: .12.sh,
+                    width: .12.sh,
+                  ),
+                ),
               ],
             ),
+            buildTitle("What Can I Do with Patience?"),
             buildWalkthroughCard(
-                'assets/images/avatar.svg',
-                'Learn about healthcare, bills and insurance',
-                'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.'),
+                'assets/images/medical_records.png',
+                'Keep detailed records of your regularly scheduled medical visits',
+                'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes during your visit including uploading photos and recording audio.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
+                'Tap to explore your Visits Timeline',
+                LinearGradient(
+                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                )),
+            buildWalkthroughCard(
+                'assets/images/find_hospitals.png',
+                'Use our Hospital Finder to get to know the in-network hospitals in your area',
+                'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Find In-Network Hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
+                'Tap to explore Find Hospitals',
+                LinearGradient(
+                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                )),
           ],
         ),
       ),

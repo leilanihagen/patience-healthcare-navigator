@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
-class TapEditBox extends StatefulWidget {
-  dynamic inputData, keyboardType;
+class TapEditBoxNumeric extends StatefulWidget {
+  num inputData;
+  TextInputType keyboardType;
   String defaultText;
   bool shouldWrap;
-  final Function updateFunction;
+  final Function updateFunction, parseFunction;
   final BoxDecoration boxDecoration;
   final TextStyle textStyle;
   final TextAlign textAlign;
   double height, width, margin, padding;
   int noteIndex;
 
-  TapEditBox(
+  TapEditBoxNumeric(
       {this.inputData,
       this.keyboardType = TextInputType.text,
       this.updateFunction,
+      this.parseFunction,
       this.defaultText,
       this.boxDecoration,
       this.textStyle = const TextStyle(color: Colors.black, fontSize: 17),
@@ -30,20 +32,22 @@ class TapEditBox extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TapEditBoxState createState() => _TapEditBoxState();
+  _TapEditBoxNumericState createState() => _TapEditBoxNumericState();
 }
 
-class _TapEditBoxState extends State<TapEditBox> {
+class _TapEditBoxNumericState extends State<TapEditBoxNumeric> {
   TextEditingController _editingController;
   bool _isEditing = false;
+  String stringData;
   // String default_text;
   @override
   void initState() {
     super.initState();
+    stringData = widget.inputData.toString();
     // if (widget.dataType == 'date') default_text = "Date created";
     // if (widget.dataType == 'patientName') default_text = "Patient name";
 
-    _editingController = TextEditingController(text: widget.inputData);
+    _editingController = TextEditingController(text: stringData);
   }
 
   @override
@@ -66,11 +70,12 @@ class _TapEditBoxState extends State<TapEditBox> {
           child: TextFormField(
             keyboardType: widget.keyboardType,
             autofocus: true,
-            initialValue: widget.inputData,
+            initialValue: stringData,
             style: widget.textStyle,
             onFieldSubmitted: (newText) {
               setState(() {
-                widget.inputData = newText;
+                stringData = newText;
+                widget.inputData = num.parse(stringData);
                 widget.updateFunction(widget.inputData);
                 // TODO: Add editing visit/note flag and pass noteIndex
                 _isEditing = false;
@@ -95,9 +100,7 @@ class _TapEditBoxState extends State<TapEditBox> {
               width: widget.width,
               child: RichText(
                 text: TextSpan(
-                  text: widget.inputData == null
-                      ? widget.defaultText
-                      : widget.inputData,
+                  text: stringData == '' ? widget.defaultText : stringData,
                   style: widget.textStyle,
                 ),
                 textAlign: widget.textAlign,
