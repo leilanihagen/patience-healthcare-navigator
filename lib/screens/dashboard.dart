@@ -324,7 +324,7 @@ class _DashboardPageState extends State<DashboardPage> {
       onTap: () {},
       child: Container(
         decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.darkOrange),
+            BoxDecoration(shape: BoxShape.circle, color: Styles.medPink),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: stateOfResidence == null
@@ -342,7 +342,7 @@ class _DashboardPageState extends State<DashboardPage> {
           //   children: [
           //     // Image.asset(
           //     //   'assets/images/' + image,
-          //     //   height: 80,
+          //     //   height: 80,`
           //     //   width: 50,
           //     // ),
           //   ],
