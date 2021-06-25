@@ -1,19 +1,13 @@
 import 'dart:io';
-
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
-import 'package:hospital_stay_helper/components/tapEditBox.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
-import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:hospital_stay_helper/main.dart';
-
 
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
@@ -180,7 +174,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       alignment: Alignment.topLeft,
                       child: Wrap(
                         children: [
-                          TapEditBox(
+                          VisitTapEditBox(
                             visit: widget.visit,
                             inputData: note.title,
                             dataType: 'title',
@@ -246,7 +240,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   ],
                 ),
                 // Note body:
-                TapEditBox(
+                VisitTapEditBox(
                   visit: widget.visit,
                   dataType: 'body',
                   inputData: note.body,
@@ -413,7 +407,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 //         blurRadius: 6,
                 //         offset: Offset(0, 3))
                 //   ]),
-                //   child: TapEditBox(
+                //   child: VisitTapEditBox(
                 //     visit: widget.visit,
                 //     dataType: 'date',
                 //     inputData: widget.visit.date,

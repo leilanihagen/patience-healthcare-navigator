@@ -56,12 +56,6 @@ class _ProfilePage extends State<ProfilePage>
     MySharedPreferences.instance
         .setStringValue('provider_phone', data[provider]['phone']);
   }
-  //  Call your provider function is here
-  // _callProvider() async {
-  //   String _tel = 'tel:' +
-  //       await MySharedPreferences.instance.getStringValue('provider_phone');
-  //   await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
-  // }
 
   @override
   initState() {

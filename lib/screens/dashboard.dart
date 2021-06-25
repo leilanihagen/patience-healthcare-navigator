@@ -46,6 +46,13 @@ class _DashboardPageState extends State<DashboardPage> {
   //       .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
   // }
 
+  //  Call your provider function is here
+  _callProvider() async {
+    String _tel = 'tel:' +
+        await MySharedPreferences.instance.getStringValue('provider_phone');
+    await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+  }
+
   void getInsuranceProvider() async {
     // setState(() async {
     String temp =
