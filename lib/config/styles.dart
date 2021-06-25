@@ -6,8 +6,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
-  static HexColor extraLightPurpleTheme = HexColor("#F3EBFF");
-  static HexColor lightPurpleTheme = HexColor("#DABFFF");
+  static HexColor extraLightPurpleTheme = HexColor("#E7D6FF");
+  static HexColor lightPurpleTheme = HexColor("#CFADFF");
+  static HexColor lightPurple2Theme = HexColor("#C399FF");
   static HexColor lightPinkTheme = HexColor("#FDEBF1");
   static HexColor darkPinkTheme = HexColor("#ED558C");
   static HexColor blueTheme = HexColor("#44B5CD");
@@ -16,6 +17,7 @@ class Styles {
   static HexColor lightBlueTheme = HexColor("#98D2EB");
   static HexColor darkBrown = HexColor("#3B341F");
   static HexColor extraLightGreen = HexColor("#DCE9AF");
+  static HexColor darkOrange = HexColor("#FF6542");
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);

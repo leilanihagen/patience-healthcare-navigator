@@ -7,6 +7,7 @@ import 'package:hospital_stay_helper/components/tapEditBoxNumeric.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/navigation_bar_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({Key key}) : super(key: key);
@@ -146,27 +147,31 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildArticleButton(Color color, String title, Image image) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-          height: .15.sh,
-          width: .15.sh,
-          child: image,
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 5),
-          width: .25.sh,
-          child: Text(
-            title,
-            style: Styles.articleBodySmall,
-            softWrap: true,
-            textAlign: TextAlign.center,
+  Widget buildArticleButton(
+      Color color, String title, Image image, String url) {
+    return GestureDetector(
+      onTap: () => launch(url),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+            height: .15.sh,
+            width: .15.sh,
+            child: image,
           ),
-        ),
-      ],
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            width: .25.sh,
+            child: Text(
+              title,
+              style: Styles.articleBodySmall,
+              softWrap: true,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -313,9 +318,8 @@ class _DashboardPageState extends State<DashboardPage> {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        margin: EdgeInsets.fromLTRB(10, 7, 0, 0),
         decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.darkPinkTheme),
+            BoxDecoration(shape: BoxShape.circle, color: Styles.darkOrange),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: stateOfResidence == null
@@ -347,178 +351,213 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Provider + state text hints:
-            Container(
-              decoration: BoxDecoration(color: Styles.purpleTheme),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
-                        child: Text('Your provider:',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
-                        child: Text('Your state:',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                      ),
-                    ],
-                  ),
-                  // Ins. provider + state displays:
-                  Row(
-                    children: [
-                      // Insurance provider disp:
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                        margin: EdgeInsets.fromLTRB(15, 4, 5, 10),
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Row(
-                          children: [
-                            Column(children: [
-                              Text(
-                                  insuranceProvider == null
-                                      ? 'Tap to choose'
-                                      : insuranceProvider,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w700)),
-                            ]),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
-                              child: buildIconButton(
-                                  Colors.red,
-                                  Colors.white,
-                                  Icon(
-                                    Icons.phone,
-                                    color: Colors.white,
-                                  ),
-                                  'Call'),
-                            )
-                          ],
-                        ),
-                      ),
-                      // State disp:
-                      buildStateButton(),
-                      // Container(
-                      //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                      //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.green,
-                      //       borderRadius: BorderRadius.circular(10.0)),
-                      //   child: Column(children: [
-                      //     Text('Your state:',
-                      //         style: TextStyle(color: Colors.white, fontSize: 16)),
-                      //     Text(
-                      //         stateOfResidence == null
-                      //             ? 'Tap to choose'
-                      //             : stateOfResidence,
-                      //         style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontSize: 17,
-                      //             fontWeight: FontWeight.w700)),
-                      //   ]),
-                      // ),
-                    ],
-                  ),
-                ],
+      body: Column(
+        children: [
+          // Header:
+          Container(
+            padding: EdgeInsets.symmetric(vertical: .02.sh),
+            decoration: BoxDecoration(
+              color: Styles.purpleTheme,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(.1.sw),
+                bottomRight: Radius.circular(.1.sw),
               ),
             ),
-            buildTitle("Welcome to Patience!"),
-            buildWalkthroughCard(
-                'assets/images/study_guidelines.png',
-                'Learn about healthcare, bills and insurance',
-                'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
-                'Tap to explore Guidelines',
-                LinearGradient(
-                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
-                  stops: [.1, .7],
-                ),
-                1),
-            buildWalkthroughCard(
-                'assets/images/setup_settings.png',
-                'Setup your user settings',
-                'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
-                'Tap to open User Settings',
-                LinearGradient(
-                  colors: [
-                    Styles.extraLightPurpleTheme,
-                    Styles.lightPurpleTheme
-                  ],
-                  // begin: Alignment.topLeft,
-                  // end: Alignment.bottomRight,
-                  stops: [.1, .7],
-                ),
-                5),
-            buildTitle("My Tools"),
-            // TO DO (if time): implement simple tracker
-            // buildDeductibleTracker(),
-            buildTitle("Stay Informed"),
-            // Articles to external sites:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
               children: [
-                buildArticleButton(
-                  Styles.lightPurpleTheme,
-                  'Healthcare laws & regulations in your state',
-                  Image.asset(
-                    'assets/images/usa.png',
-                    height: .12.sh,
-                    width: .12.sh,
-                  ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, .015.sw),
+                  child: Text('Your Information',
+                      style: Styles.articleHeading1White),
                 ),
-                buildArticleButton(
-                  Styles.lightBlueTheme,
-                  'Knowledge is power: more resources on BrokenHealthcare.org',
-                  Image.asset(
-                    'assets/images/broken_health.png',
-                    height: .12.sh,
-                    width: .12.sh,
-                  ),
+                // Provider + state text hints:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Padding(
+                    //   padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
+                    //   child: Text('Your state:',
+                    //       style:
+                    //           TextStyle(color: Colors.white, fontSize: 16)),
+                    // ),
+                  ],
+                ),
+                // Ins. provider + state displays:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Insurance provider disp:
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                      margin: EdgeInsets.fromLTRB(15, 4, 5, 10),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        children: [
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text('Insurance:',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16)),
+                                ),
+                                Text(
+                                    insuranceProvider == null
+                                        ? 'Tap to choose'
+                                        : insuranceProvider,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700)),
+                              ]),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
+                            child: buildIconButton(
+                                Colors.red,
+                                Colors.white,
+                                Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                ),
+                                'Call'),
+                          )
+                        ],
+                      ),
+                    ),
+                    // State disp:
+                    buildStateButton(),
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                    //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.green,
+                    //       borderRadius: BorderRadius.circular(10.0)),
+                    //   child: Column(children: [
+                    //     Text('Your state:',
+                    //         style: TextStyle(color: Colors.white, fontSize: 16)),
+                    //     Text(
+                    //         stateOfResidence == null
+                    //             ? 'Tap to choose'
+                    //             : stateOfResidence,
+                    //         style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontSize: 17,
+                    //             fontWeight: FontWeight.w700)),
+                    //   ]),
+                    // ),
+                  ],
                 ),
               ],
             ),
-            buildTitle("What Can I Do with Patience?"),
-            buildWalkthroughCard(
-                'assets/images/medical_records.png',
-                'Keep detailed records of your regularly scheduled medical visits',
-                'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes during your visit including uploading photos and recording audio.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
-                'Tap to explore your Visits Timeline',
-                LinearGradient(
-                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
-                  // begin: Alignment.topLeft,
-                  // end: Alignment.bottomRight,
-                  stops: [.1, .7],
-                ),
-                2),
-            buildWalkthroughCard(
-                'assets/images/find_hospitals.png',
-                'Use our Hospital Finder to get to know the in-network hospitals in your area',
-                'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Find In-Network Hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
-                'Tap to explore Find Hospitals',
-                LinearGradient(
-                  colors: [Styles.extraLightGreen, Styles.lightGreenTheme],
-                  // begin: Alignment.topLeft,
-                  // end: Alignment.bottomRight,
-                  stops: [.1, .7],
-                ),
-                3),
-          ],
-        ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header:
+                  buildTitle("Welcome to Patience!"),
+                  buildWalkthroughCard(
+                      'assets/images/study_guidelines.png',
+                      'Learn about healthcare, bills and insurance',
+                      'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
+                      'Tap to explore Guidelines',
+                      LinearGradient(
+                        colors: [
+                          Styles.extraLightGreen,
+                          Styles.lightGreenTheme
+                        ],
+                        stops: [.1, .7],
+                      ),
+                      1),
+                  buildWalkthroughCard(
+                      'assets/images/setup_settings.png',
+                      'Setup your user settings',
+                      'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
+                      'Tap to open User Settings',
+                      LinearGradient(
+                        colors: [
+                          Styles.extraLightPurpleTheme,
+                          Styles.lightPurple2Theme
+                        ],
+                        // begin: Alignment.topLeft,
+                        // end: Alignment.bottomRight,
+                        stops: [.1, .7],
+                      ),
+                      5),
+                  // buildTitle("My Tools"),s
+                  // TO DO (if time): implement simple tracker
+                  // buildDeductibleTracker(),
+                  buildTitle("Stay Informed"),
+                  // Articles to external sites:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildArticleButton(
+                        Styles.lightPurpleTheme,
+                        'Healthcare laws & regulations in your state',
+                        Image.asset(
+                          'assets/images/usa.png',
+                          height: .12.sh,
+                          width: .12.sh,
+                        ),
+                        'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
+                      ),
+                      buildArticleButton(
+                        Styles.lightBlueTheme,
+                        'Knowledge is power: more resources on BrokenHealthcare.org',
+                        Image.asset(
+                          'assets/images/broken_health.png',
+                          height: .12.sh,
+                          width: .12.sh,
+                        ),
+                        'https://brokenhealthcare.org/patient-education/',
+                      ),
+                    ],
+                  ),
+                  buildTitle("What Can I Do with Patience?"),
+                  buildWalkthroughCard(
+                      'assets/images/medical_records.png',
+                      'Keep detailed records of your regularly scheduled medical visits',
+                      'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes during your visit including uploading photos and recording audio.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
+                      'Tap to explore your Visits Timeline',
+                      LinearGradient(
+                        colors: [
+                          Styles.extraLightGreen,
+                          Styles.lightGreenTheme
+                        ],
+                        // begin: Alignment.topLeft,
+                        // end: Alignment.bottomRight,
+                        stops: [.1, .7],
+                      ),
+                      2),
+                  buildWalkthroughCard(
+                      'assets/images/find_hospitals.png',
+                      'Use our Hospital Finder to get to know the in-network hospitals in your area',
+                      'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Find In-Network Hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
+                      'Tap to explore Find Hospitals',
+                      LinearGradient(
+                        colors: [
+                          Styles.extraLightGreen,
+                          Styles.lightGreenTheme
+                        ],
+                        // begin: Alignment.topLeft,
+                        // end: Alignment.bottomRight,
+                        stops: [.1, .7],
+                      ),
+                      3),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
