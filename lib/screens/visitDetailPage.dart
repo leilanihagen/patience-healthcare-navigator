@@ -128,26 +128,23 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         widget.deleteVisit(widget.visitIndex);
         Navigator.pop(context);
       } else {
-        setState(() {
-          listKey.currentState.removeItem(
-              index, (_, animation) => noteWidget(context, index, animation),
-              duration: const Duration(milliseconds: 200));
-        });
-        widget.deleteNoteFunction(widget.visit, index);
+        VisitNote temp = widget.deleteNoteFunction(widget.visit, index);
+
+        listKey.currentState.removeItem(index,
+            (_, animation) => noteWidget(context, temp, index, animation),
+            duration: const Duration(milliseconds: 200));
       }
     }
   }
 
   createNewNote(String type, String path) {
-    setState(() {
-      listKey.currentState
-          .insertItem(0, duration: const Duration(milliseconds: 500));
-      widget.createNewNote(widget.visit, type, path);
-    });
+    listKey.currentState
+        .insertItem(0, duration: const Duration(milliseconds: 500));
+    widget.createNewNote(widget.visit, type, path);
   }
 
-  noteWidget(BuildContext context, int index, animation) {
-    if (widget.visit.notes[index].type == 'note')
+  noteWidget(BuildContext context, VisitNote note, int index, animation) {
+    if (note.type == 'note')
       return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
@@ -180,7 +177,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         children: [
                           TapEditBox(
                             visit: widget.visit,
-                            inputData: widget.visit.notes[index].title,
+                            inputData: note.title,
                             dataType: 'title',
                             defaultText: "Untitled note",
                             isEditingVisit: false,
@@ -228,16 +225,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         children: [
                           // TODO: Replace placeholders:
                           GestureDetector(
-                            onTap: () => _selectTime(
-                                context, widget.visit.notes[index].time, index),
-                            child: Text(widget.visit.notes[index].time),
+                            onTap: () => _selectTime(context, note.time, index),
+                            child: Text(note.time),
                           ),
                           Divider(thickness: 50, color: Colors.red),
                           GestureDetector(
-                            onTap: () => _selectDate(
-                                context, widget.visit.notes[index].date, index),
+                            onTap: () => _selectDate(context, note.date, index),
                             child: Container(
-                              child: Text(widget.visit.notes[index].date),
+                              child: Text(note.date),
                             ),
                           )
                         ],
@@ -249,7 +244,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 TapEditBox(
                   visit: widget.visit,
                   dataType: 'body',
-                  inputData: widget.visit.notes[index].body,
+                  inputData: note.body,
                   defaultText: 'Enter a description for this note...',
                   isEditingVisit: false,
                   updateFunction: widget.updateNoteFunction,
@@ -282,7 +277,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               ],
             )),
       );
-    else if (widget.visit.notes[index].type == 'image')
+    else if (note.type == 'image')
       return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
@@ -298,7 +293,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   image: DecorationImage(
-                    image: FileImage(File(widget.visit.notes[index].body)),
+                    image: FileImage(File(note.body)),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -335,7 +330,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         key: listKey,
         initialItemCount: widget.visit.notes.length.compareTo(0),
         itemBuilder: (context, index, animation) {
-          return noteWidget(context, index, animation);
+          return noteWidget(
+              context, widget.visit.notes[index], index, animation);
         });
   }
 
