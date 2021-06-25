@@ -45,7 +45,7 @@ class Styles {
   static const smallButtonWhite =
       TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white);
   static const medButtonWhite =
-      TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white);
+      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white);
   static const largeButtonWhite =
       TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white);
   static const backButton = Text(

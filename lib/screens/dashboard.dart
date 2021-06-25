@@ -1,3 +1,4 @@
+import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/tapEditBoxNumeric.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hospital_stay_helper/navigation_bar_controller.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({Key key}) : super(key: key);
@@ -63,7 +65,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget buildWalkthroughCard(String imagePath, String title, String body,
-      String buttonText, Gradient gradient) {
+      String buttonText, Gradient gradient, int targetPageIndex) {
     return Container(
       width: .9.sw,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -108,27 +110,43 @@ class _DashboardPageState extends State<DashboardPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Image:
-              Image.asset(imagePath, height: 100, width: 100
-                  // semanticsLabel: 'Avatar image',
-                  ),
               // Text:
               Container(
-                  width: .29.sh,
+                  width: .4.sh,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Text(
+                        child: DropCapText(
                           body,
                           style: Styles.articleBody,
-                          softWrap: true,
+                          dropCap: DropCap(
+                            height: 120,
+                            width: 120,
+                            child: // Image:
+                                Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 15, 10),
+                              child: Image.asset(imagePath,
+                                  height: 100, width: 100),
+                            ),
+                          ),
                         )),
                   )),
               // Button (optional):
             ],
           ),
-          TextButton(onPressed: () {}, child: Text(buttonText)),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AppBottomNavBarController(
+                            currentIndex: targetPageIndex)));
+              },
+              child: Text(
+                buttonText,
+                style: Styles.medButtonWhite,
+              )),
         ],
       ),
     );
@@ -437,7 +455,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     Styles.lightPurpleTheme
                   ],
                   stops: [.1, .7],
-                )),
+                ),
+                1),
             buildWalkthroughCard(
                 'assets/images/setup_settings.png',
                 'Setup your user settings',
@@ -448,7 +467,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                )),
+                ),5),
             buildTitle("My Tools"),
             // TO DO (if time): implement simple tracker
             // buildDeductibleTracker(),
@@ -489,7 +508,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                )),
+                ),2),
             buildWalkthroughCard(
                 'assets/images/find_hospitals.png',
                 'Use our Hospital Finder to get to know the in-network hospitals in your area',
@@ -500,7 +519,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   // begin: Alignment.topLeft,
                   // end: Alignment.bottomRight,
                   stops: [.1, .7],
-                )),
+                ),3),
           ],
         ),
       ),

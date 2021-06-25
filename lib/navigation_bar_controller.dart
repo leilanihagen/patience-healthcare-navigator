@@ -14,6 +14,10 @@ import 'screens/guidelinesPage.dart';
 import 'screens/visitsTimelinePage.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
+  final int currentIndex;
+  AppBottomNavBarController({Key key, @required this.currentIndex})
+      : super(key: key);
+
   @override
   _AppBottomNavBarControllerState createState() =>
       _AppBottomNavBarControllerState();
@@ -36,8 +40,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   bool haveOpenProfile = false;
   @override
   void initState() {
+    _selectedIndex = widget.currentIndex;
     super.initState();
-    _selectedIndex = 0;
     pages = [
       DashboardPage(key: PageStorageKey('dashboard')),
       RootCategoriesPage(),
