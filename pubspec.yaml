@@ -39,8 +39,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
-    - assets/data/usStates.json
-    - assets/data/proceduresList.csv
+    # - assets/data/usStates.json
+    # - assets/data/proceduresList.csv
+    - assets/data/provider.json
     - assets/images/
     - locales/EN.json
     - locales/ES.json
