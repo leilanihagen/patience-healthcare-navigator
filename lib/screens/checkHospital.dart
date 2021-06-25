@@ -299,7 +299,14 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     if (_hospitalPage.top3 == null) return SizedBox.shrink();
     return Column(
         children: _hospitalPage.top3
-            .map((e) => Padding(
+            .map((e) => Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 4,
+                        blurRadius: 6,
+                        offset: Offset(0, 3))
+                  ]),
                   padding: EdgeInsets.all(5),
                   child: ListTile(
                     onTap: () => openMap(e.name, e.street),
