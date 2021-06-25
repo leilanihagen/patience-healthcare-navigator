@@ -10,7 +10,8 @@ import 'package:hospital_stay_helper/navigation_bar_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({Key key}) : super(key: key);
+  final Function openpage;
+  DashboardPage({Key key, this.openpage}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -134,11 +135,12 @@ class _DashboardPageState extends State<DashboardPage> {
             padding: EdgeInsets.symmetric(vertical: .005.sw),
             child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AppBottomNavBarController(
-                              currentIndex: targetPageIndex)));
+                  widget.openpage(targetPageIndex);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => AppBottomNavBarController(
+                  //             currentIndex: targetPageIndex)));
                 },
                 child: Text(
                   buttonText,

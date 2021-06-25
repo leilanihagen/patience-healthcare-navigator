@@ -43,7 +43,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     _selectedIndex = widget.currentIndex;
     super.initState();
     pages = [
-      DashboardPage(key: PageStorageKey('dashboard')),
+      DashboardPage(
+        key: PageStorageKey('dashboard'),
+        openpage: openPage,
+      ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
       HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
@@ -69,6 +72,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   void openPage(int index) {
     setState(() {
+      if (index < 5) _selectedIndex = index;
       _pageController.jumpToPage(index);
     });
   }
