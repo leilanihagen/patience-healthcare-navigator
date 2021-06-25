@@ -297,26 +297,60 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Container(
-                    height: 30.0,
-                    width: 30.0,
+              // Note date/time:
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Date/time container:
+                  Container(
+                    padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: InkWell(
-                      onTap: () => deleteNote(index),
-                      child: Icon(
-                        Icons.delete,
-                        size: 16.0,
-                      ),
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        // TODO: Replace placeholders:
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 14),
+                          child: GestureDetector(
+                            onTap: () => _selectTime(context, note.time, index),
+                            child: Text(note.time),
+                          ),
+                        ),
+                        // Divider(thickness: 50, color: Colors.red),
+                        GestureDetector(
+                          onTap: () => _selectDate(context, note.date, index),
+                          child: Container(
+                            child: Text(note.date),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Container(
+                        height: 30.0,
+                        width: 30.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: InkWell(
+                          onTap: () => deleteNote(index),
+                          child: Icon(
+                            Icons.delete,
+                            size: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           ),
