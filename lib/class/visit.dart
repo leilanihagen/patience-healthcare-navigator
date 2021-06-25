@@ -29,7 +29,7 @@ class Visit {
 }
 
 class VisitNote {
-  String title, time, date, body;
+  String title, time, date, body, type;
 
   VisitNote() {
     DateTime now = DateTime.now();
@@ -37,13 +37,23 @@ class VisitNote {
     this.time = DateFormat.jm().format(now);
     this.title = "";
     this.body = "";
+    this.type = 'note';
   }
   VisitNote.fromJson(Map<String, dynamic> object) {
     title = object['title'];
     time = object['time'];
     date = object['date'];
     body = object['body'];
+    type = object['type'];
   }
-
-  Map toJson() => {"title": title, "time": time, "date": date, "body": body};
+  VisitNote.fromPicture(String path) {
+    DateTime now = DateTime.now();
+    this.date = DateFormat.yMd().format(now);
+    this.time = DateFormat.jm().format(now);
+    this.title = "";
+    this.body = path;
+    this.type = 'image';
+  }
+  Map toJson() =>
+      {"title": title, "time": time, "date": date, "body": body, "type": type};
 }

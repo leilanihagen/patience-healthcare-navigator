@@ -47,8 +47,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
       setState(() {
         visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
       });
-      listKey = GlobalKey<AnimatedListState>();
     }
+    setState(() {
+      listKey = GlobalKey<AnimatedListState>();
+    });
   }
 
   void updateVisit() async {
@@ -76,10 +78,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     updateVisit();
   }
 
-  void createNote(Visit visit) {
-    setState(() {
-      visit.notes.insert(0, VisitNote());
-    });
+  void createNote(Visit visit, String type, String path) {
+    if (type == 'note')
+      setState(() {
+        visit.notes.insert(0, VisitNote());
+      });
+    if (type == 'image')
+      setState(() {
+        visit.notes.insert(0, VisitNote.fromPicture(path));
+      });
     updateVisit();
   }
 
