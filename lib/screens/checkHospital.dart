@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/widgets/textIcon.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -243,10 +244,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           children: [
             Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
             Text(
-              "Press to check Hospital",
+              "Find/verify\n hospitals",
               textAlign: TextAlign.center,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15),
             )
           ],
         );
@@ -295,29 +298,28 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   getTop3() {
     if (_hospitalPage.top3 == null) return SizedBox.shrink();
     return Column(
-      children: _hospitalPage.top3
-          .map((e) => Padding(
-                padding: EdgeInsets.all(5),
-                child: ListTile(
-                  onTap: () => openMap(e.name, e.street),
-                  tileColor: Colors.white,
-                  title: Text(e.name),
-                  subtitle: Text(e.street),
-                  trailing: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 5,
-                    children: [
-                      Text("${e.distance} mile",
-                          style:
-                              TextStyle(color: getDistanceColor(e.distance))),
-                      e.er ? ERIcon() : SizedBox(width: 40),
-                      e.ur ? URIcon() : SizedBox(width: 40),
-                    ],
+        children: _hospitalPage.top3
+            .map((e) => Padding(
+                  padding: EdgeInsets.all(5),
+                  child: ListTile(
+                    onTap: () => openMap(e.name, e.street),
+                    tileColor: Colors.white,
+                    title: Text(e.name),
+                    subtitle: Text(e.street),
+                    trailing: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 5,
+                      children: [
+                        Text("${e.distance} mile",
+                            style:
+                                TextStyle(color: getDistanceColor(e.distance))),
+                        e.er ? ERIcon() : SizedBox(width: 40),
+                        e.ur ? URIcon() : SizedBox(width: 40),
+                      ],
+                    ),
                   ),
-                ),
-              ))
-          .toList(),
-    );
+                ))
+            .toList());
   }
 
   getHeader() {
@@ -344,7 +346,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
+          padding: const EdgeInsets.fromLTRB(7, 8, 7, 3),
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(5),
           //   color: Colors.white,
@@ -358,7 +360,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Emergency services",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 15)),
               // Switch.adaptive(
               //     value: er,
               //     onChanged: (value) => setState(() {
@@ -369,7 +373,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         ),
         Container(
           margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          padding: const EdgeInsets.fromLTRB(7, 8, 7, 8),
+          padding: const EdgeInsets.fromLTRB(7, 3, 7, 8),
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(5),
           //   color: Colors.white,
@@ -383,7 +387,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Urgent care services",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 15)),
               // Switch.adaptive(
               //     value: ur,
               //     onChanged: (value) => setState(() {
@@ -401,7 +407,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       return Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(.02.sw),
             child: Text(
               "The below hospitals are in your network:",
               style: TextStyle(
@@ -410,6 +416,16 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                   color: Colors.green[800]),
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.all(.004.sw),
+          //   child: Text(
+          //     "(Tap to go Maps)",
+          //     style: TextStyle(
+          //         fontWeight: FontWeight.w600,
+          //         fontSize: 15,
+          //         color: Colors.green[800]),
+          //   ),
+          // ),
           ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemCount: listSearch.length,
@@ -481,8 +497,24 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // Hint text:
+                    // Find-hospital square:
                     Container(
                       height: 60,
+                    ),
+                    Card(
+                      margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
+                      color: Colors.white,
+                      child: Padding(
+                          child: Text(
+                            'Tap below to find hospitals nearby or check if the hospital you are at is in-network.\n\nTap any hospital name to view in Maps.',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                          padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
                     ),
                     Center(
                       child: GestureDetector(
@@ -508,6 +540,16 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     _hospitalPage.name == null || _hospitalPage.name.isEmpty
                         ? getPageIntroduction()
                         : getHeader(),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(4, 26, 4, 10),
+                      child: Text(
+                        'TOP 3 NEARBY IN-NETWORK HOSPITALS',
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ),
                     getTop3()
                   ],
                 ),
