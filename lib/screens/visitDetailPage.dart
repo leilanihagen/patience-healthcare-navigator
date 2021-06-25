@@ -42,6 +42,25 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   final String lightGreenTheme = "#A1BF36";
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final picker = ImagePicker();
+  Future<bool> showConfirm() async {
+    bool result = await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirm delete?"),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text("Cancle")),
+              TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text("Yes")),
+            ],
+          );
+        });
+    return result;
+  }
 
   getImage() async {
     PickedFile imageFile = await picker.getImage(source: ImageSource.gallery);
@@ -103,17 +122,19 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
     // widget.updateVisitFunction(visit, dataType, inputData);
   }
 
-  deleteNote(int index) {
-    if (widget.visit.notes.length == 1) {
-      widget.deleteVisit(widget.visitIndex);
-      Navigator.pop(context);
-    } else {
-      setState(() {
-        listKey.currentState.removeItem(
-            index, (_, animation) => noteWidget(context, index, animation),
-            duration: const Duration(milliseconds: 200));
-      });
-      widget.deleteNoteFunction(widget.visit, index);
+  deleteNote(int index) async {
+    if (await showConfirm()) {
+      if (widget.visit.notes.length == 1) {
+        widget.deleteVisit(widget.visitIndex);
+        Navigator.pop(context);
+      } else {
+        setState(() {
+          listKey.currentState.removeItem(
+              index, (_, animation) => noteWidget(context, index, animation),
+              duration: const Duration(milliseconds: 200));
+        });
+        widget.deleteNoteFunction(widget.visit, index);
+      }
     }
   }
 
@@ -312,7 +333,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   Widget getNotes() {
     return AnimatedList(
         key: listKey,
-        initialItemCount: widget.visit.notes.length,
+        initialItemCount: widget.visit.notes.length.compareTo(0),
         itemBuilder: (context, index, animation) {
           return noteWidget(context, index, animation);
         });

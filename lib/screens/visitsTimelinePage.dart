@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
-import 'package:hospital_stay_helper/components/tapEditBox.dart';
-import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 import '../class/sharePref.dart';
 
@@ -37,6 +34,25 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   void initState() {
     super.initState();
     _loadSaved();
+  }
+
+  Future<bool> showConfirm() async {
+    return await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirm delete?"),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text("Cancel")),
+              TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text("YES")),
+            ],
+          );
+        });
   }
 
   _loadSaved() async {
@@ -443,8 +459,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     IconButton(
                         // Icon(Icons.add),
                         icon: Icon(Icons.delete),
-                        onPressed: () {
-                          deleteVisit(index);
+                        onPressed: () async {
+                          if (await showConfirm()) deleteVisit(index);
                         }),
                   ],
                 ),
@@ -457,7 +473,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   getVisits() {
     return AnimatedList(
         key: listKey,
-        initialItemCount: visits.length,
+        initialItemCount: visits.length.compareTo(0),
         itemBuilder: (context, index, animation) {
           // Visit:
           return visitWidget(context, index, animation);
