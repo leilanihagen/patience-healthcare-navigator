@@ -361,7 +361,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   Widget getNotes() {
     return AnimatedList(
         key: listKey,
-        initialItemCount: widget.visit.notes.length.compareTo(0),
+        initialItemCount: widget.visit.notes.length,
         itemBuilder: (context, index, animation) {
           return noteWidget(
               context, widget.visit.notes[index], index, animation);

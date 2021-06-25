@@ -334,11 +334,11 @@ class _DashboardPageState extends State<DashboardPage> {
             BoxDecoration(shape: BoxShape.circle, color: Styles.medPink),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: stateOfResidence == null
+          child: stateOfResidence == ''
               ? Text(
                   'Select\n state',
                   textAlign: TextAlign.center,
-                  style: Styles.smallButtonWhite,
+                  style: Styles.medButtonWhite,
                 )
               : Text(
                   stateOfResidence,
@@ -419,7 +419,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           color: Colors.white, fontSize: 16)),
                                 ),
                                 Text(
-                                    insuranceProvider == null
+                                    insuranceProvider == ''
                                         ? 'Tap to choose'
                                         : insuranceProvider,
                                     style: TextStyle(
