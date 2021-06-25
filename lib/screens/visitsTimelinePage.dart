@@ -5,6 +5,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
+import 'package:hospital_stay_helper/main.dart';
+
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 import '../class/sharePref.dart';
 
@@ -16,13 +19,6 @@ class VisitsTimelinePage extends StatefulWidget {
 }
 
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
-
   List<Visit> visits = [];
   GlobalKey<AnimatedListState> listKey;
 
@@ -119,18 +115,12 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                 Text(
                   "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n",
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                  style: Styles.instruction,
                 ),
                 Text(
                   'Tap "+"" to create a new visit. Tap your visit to edit and add notes.',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                  style: Styles.instruction,
                 ),
               ]),
               padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
@@ -209,7 +199,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
             ? Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                 decoration: BoxDecoration(
-                    color: HexColor(lightGreenTheme),
+                    color: Styles.lightGreenTheme,
                     borderRadius: BorderRadius.circular(5.0),
                     boxShadow: [
                       BoxShadow(
@@ -348,7 +338,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headline6))),
-
                                       // Note date/time:
                                       Expanded(
                                           child: Container(
@@ -514,9 +503,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(purpleTheme),
+        backgroundColor: Styles.purpleTheme,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: HexColor(blueTheme),
+          backgroundColor: Styles.blueTheme,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();

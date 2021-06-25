@@ -10,6 +10,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
+import 'package:hospital_stay_helper/main.dart';
+
+
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
   final int visitIndex;
@@ -338,7 +343,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor(lightGreenTheme),
+        backgroundColor: Styles.lightGreenTheme,
         floatingActionButton: FloatingActionButton(
             backgroundColor: HexColor(purpleTheme),
             child: Icon(Icons.add),
@@ -433,7 +438,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         offset: Offset(0, 3))
                   ]),
                   alignment: Alignment.centerRight,
-                  child: TapEditBox(
+                  child: VisitTapEditBox(
                     visit: widget.visit,
                     dataType: 'patientName',
                     inputData: widget.visit.patientName,
@@ -460,6 +465,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   onPressed: () => createNewNote('note', ''),
                   style:
                       ElevatedButton.styleFrom(primary: HexColor(purpleTheme)),
+
                   // Icon(Icons.add),
                   child: Icon(Icons.note_add),
                 ),
@@ -500,11 +506,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   leading: Icon(Icons.arrow_back_ios_rounded,
                       color: Colors.white, size: 27),
                   title: Padding(
-                    child: Text(
-                      "Back",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900, color: Colors.white),
-                    ),
+                    child: Styles.backButton,
                     padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
                   )),
               onPressed: () => Navigator.pop(context),
@@ -512,8 +514,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed))
-                      return HexColor(blueTheme);
-                    return HexColor(blueTheme); // Use the component's default.
+                      return Styles.blueTheme;
+                    return Styles.blueTheme; // Use the component's default.
                   },
                 ),
               ),

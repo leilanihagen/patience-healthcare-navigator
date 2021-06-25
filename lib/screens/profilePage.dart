@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:hospital_stay_helper/config/styles.dart';
+
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -23,17 +31,37 @@ class _ProfilePage extends State<ProfilePage>
   double userDeductibleReduction;
 
   _loadSave() async {
-    userState = await MySharedPreferences.instance.getStringValue('user_state');
-    userProvider =
+    String tempUserState =
+        await MySharedPreferences.instance.getStringValue('user_state');
+    String tempUserProvider =
         await MySharedPreferences.instance.getStringValue('user_provider');
-    userPlan = await MySharedPreferences.instance.getStringValue('user_plan');
-    setState(() {});
+    String tempUserPlan =
+        await MySharedPreferences.instance.getStringValue('user_plan');
+    setState(() {
+      userState = tempUserState;
+      userProvider = tempUserProvider;
+      userPlan = tempUserPlan;
+    });
     // Implement later:
     // userDeductible =
     //     await MySharedPreferences.instance.getStringValue('user_deductible');
     // userDeductibleReduction = await MySharedPreferences.instance
     //     .getStringValue('user_deductible_reduction');
   }
+
+  _loadProviderInfo(String provider) async {
+    final String temp =
+        await rootBundle.loadString('assets/data/provider.json');
+    final data = await jsonDecode(temp);
+    MySharedPreferences.instance
+        .setStringValue('provider_phone', data[provider]['phone']);
+  }
+  //  Call your provider function is here
+  // _callProvider() async {
+  //   String _tel = 'tel:' +
+  //       await MySharedPreferences.instance.getStringValue('provider_phone');
+  //   await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+  // }
 
   @override
   initState() {
@@ -67,10 +95,7 @@ class _ProfilePage extends State<ProfilePage>
                           Text(
                             "Your setting is used to provide you with personalized tips and info to navigate your hospital stay, like finding in-network hospitals on the Find In-Network Hospital page.",
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                            style: Styles.instruction,
                           ),
                         ],
                       ),
@@ -121,7 +146,7 @@ class _ProfilePage extends State<ProfilePage>
                             },
                             selectedItem: userState,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -145,10 +170,11 @@ class _ProfilePage extends State<ProfilePage>
                               // saved if the user never changes this dropdown
                               MySharedPreferences.instance
                                   .setStringValue('user_provider', s);
+                              _loadProviderInfo(s);
                             },
                             selectedItem: userProvider,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -182,7 +208,7 @@ class _ProfilePage extends State<ProfilePage>
                             },
                             selectedItem: userPlan,
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8)),
+                          padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
