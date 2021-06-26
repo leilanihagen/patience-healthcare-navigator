@@ -1,6 +1,7 @@
 // import 'package:csv/csv.dart';
 // import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 // import 'package:flutter/services.dart';
 // import 'package:hexcolor/hexcolor.dart';
 // import 'package:hospital_stay_helper/class/class.dart';
@@ -576,12 +577,15 @@ class _SearchPage extends State<SearchPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Hello from the dev team',
+                    'Hello from the dev team!',
+                    style: Styles.articleBody,
                   ),
                   const Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     child: const Text(
-                        '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the devs team is constantly working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (6-25-2021)'''),
+                      '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the dev team is currently working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (6-25-2021)''',
+                      style: Styles.articleBody,
+                    ),
                   ),
                 ],
               ),

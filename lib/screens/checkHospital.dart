@@ -183,7 +183,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    _loadLastSaved();
+    // _loadLastSaved();
   }
 
   getColor() {
@@ -245,7 +245,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           children: [
             Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
             Text(
-              "Find/verify\n hospitals",
+              "Tap to find/verify\n hospitals",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
@@ -515,7 +515,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       color: Colors.white,
                       child: Padding(
                           child: Text(
-                            'Tap below to find hospitals nearby or check if the hospital you are at is in-network.\n\nTap any hospital name to view in Maps.',
+                            'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location.\n\nTap any hospital search result to open in Maps.',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 16,
