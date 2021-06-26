@@ -9,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:hospital_stay_helper/config/styles.dart';
 
-
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
 
@@ -72,7 +71,7 @@ class _ProfilePage extends State<ProfilePage>
       body: Center(
         child: SingleChildScrollView(
           child: Column(children: [
-            Padding(padding: EdgeInsets.all(20)),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
             // Text(
             //   "Your Information",
             //   textAlign: TextAlign.left,
@@ -87,7 +86,7 @@ class _ProfilePage extends State<ProfilePage>
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "Your setting is used to provide you with personalized tips and info to navigate your hospital stay, like finding in-network hospitals on the Find In-Network Hospital page.",
+                            "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.",
                             textAlign: TextAlign.left,
                             style: Styles.instruction,
                           ),
@@ -95,7 +94,7 @@ class _ProfilePage extends State<ProfilePage>
                       ),
                       padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
                 ),
-                padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 12)),
             // SizedBox(
             //   width: double.infinity,
             //   child: Padding(
@@ -180,29 +179,31 @@ class _ProfilePage extends State<ProfilePage>
                       //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                       //   ),
                       // ),
-                      Padding(
-                          child: DropdownSearch<String>(
-                            mode: Mode.MENU,
-                            showSelectedItem: true,
-                            items: [
-                              'Gold 2000',
-                              'Silver 3500',
-                              'Silver 5000',
-                              'Bronze 7000',
-                              'Deductible Bronze',
-                              'HSA Bronze'
-                            ],
-                            label: 'Insurance Plan',
-                            hint: 'Select your insurance plan',
-                            onChanged: (String s) => {
-                              // TO DO: Create an initialization where the default provider is
-                              // saved if the user never changes this dropdown
-                              MySharedPreferences.instance
-                                  .setStringValue('user_plan', s),
-                            },
-                            selectedItem: userPlan,
-                          ),
-                          padding: Styles.dropdownPadding),
+
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: DropdownSearch<String>(
+                      //       mode: Mode.MENU,
+                      //       showSelectedItem: true,
+                      //       items: [
+                      //         'Gold 2000',
+                      //         'Silver 3500',
+                      //         'Silver 5000',
+                      //         'Bronze 7000',
+                      //         'Deductible Bronze',
+                      //         'HSA Bronze'
+                      //       ],
+                      //       label: 'Insurance Plan',
+                      //       hint: 'Select your insurance plan',
+                      //       onChanged: (String s) => {
+                      //         // TO DO: Create an initialization where the default provider is
+                      //         // saved if the user never changes this dropdown
+                      //         MySharedPreferences.instance
+                      //             .setStringValue('user_plan', s),
+                      //       },
+                      //       selectedItem: userPlan,
+                      //     ),
+                      //     padding: Styles.dropdownPadding),
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -215,21 +216,23 @@ class _ProfilePage extends State<ProfilePage>
                       //   ),
                       // ),
                       // ******REMOVE if adding text labels above each item again:
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                      // ),
                       // *********************************************************
-                      Padding(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Your plan\'s deductible amount'),
-                            keyboardType: TextInputType.number,
-                            // onChanged: (String s) => {
-                            //       MySharedPreferences.instance
-                            //           .setStringValue('user_deductible', s),
-                            //     }
-                          ),
-                          padding: EdgeInsets.fromLTRB(20, 5, 20, 8)),
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: TextField(
+                      //       decoration: InputDecoration(
+                      //           hintText: 'Your plan\'s deductible amount'),
+                      //       keyboardType: TextInputType.number,
+                      //       // onChanged: (String s) => {
+                      //       //       MySharedPreferences.instance
+                      //       //           .setStringValue('user_deductible', s),
+                      //       //     }
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 8)),
+
                       // SizedBox(
                       //   width: double.infinity,
                       //   child: Padding(
@@ -241,18 +244,20 @@ class _ProfilePage extends State<ProfilePage>
                       //     padding: EdgeInsets.fromLTRB(20, 8, 20, 5),
                       //   ),
                       // ),
-                      Padding(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintText:
-                                    'Amount of your deductible you have paid'),
-                            keyboardType: TextInputType.number,
-                            // onChanged: (String s) => {
-                            //   MySharedPreferences.instance
-                            //       .setStringValue('user_deductible_reduction', s),
-                            // },
-                          ),
-                          padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: TextField(
+                      //       decoration: InputDecoration(
+                      //           hintText:
+                      //               'Amount of your deductible you have paid'),
+                      //       keyboardType: TextInputType.number,
+                      //       // onChanged: (String s) => {
+                      //       //   MySharedPreferences.instance
+                      //       //       .setStringValue('user_deductible_reduction', s),
+                      //       // },
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
                     ],
                   ),
                   padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),

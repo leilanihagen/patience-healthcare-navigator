@@ -45,7 +45,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     pages = [
       DashboardPage(
         key: PageStorageKey('dashboard'),
-        openpage: openPage,
+        openPage: openPage,
       ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
@@ -80,6 +80,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   Widget _bottomNavBar(int selectedIndex) => Theme(
         data: Theme.of(context).copyWith(canvasColor: Styles.blueTheme),
         child: BottomNavigationBar(
+            // showSelectedLabels: false,
+            // showUnselectedLabels: true,
             selectedItemColor: Styles.purpleTheme,
             unselectedItemColor: Colors.white,
             backgroundColor: Styles.blueTheme,

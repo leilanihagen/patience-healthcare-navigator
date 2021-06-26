@@ -10,15 +10,15 @@ import 'package:hospital_stay_helper/navigation_bar_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
-  final Function openpage;
-  DashboardPage({Key key, this.openpage}) : super(key: key);
+  final Function openPage;
+  DashboardPage({Key key, this.openPage}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  String insuranceProvider, stateOfResidence;
+  String insuranceProvider = '', stateOfResidence = '';
   // double amountDeductiblePaid;
 
   // _loadSaved() async {
@@ -86,36 +86,36 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         children: [
           // Title + close button:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: .7.sw,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      title,
-                      style: Styles.articleHeading1,
-                      softWrap: true,
-                    ),
-                  ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          Container(
+            width: .8.sw,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  title,
+                  style: Styles.articleHeading1,
+                  softWrap: true,
                 ),
               ),
-              Container(
-                width: .1.sw,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
+          // Container(
+          //   width: .1.sw,
+          //   child: Align(
+          //     alignment: Alignment.topRight,
+          //     child: IconButton(
+          //       icon: Icon(Icons.close),
+          //       onPressed: () {},
+          //     ),
+          //   ),
+          // ),
+          //   ],
+          // ),
           // Text + image:
           Container(
               width: .4.sh,
@@ -142,7 +142,7 @@ class _DashboardPageState extends State<DashboardPage> {
             padding: EdgeInsets.symmetric(vertical: .005.sw),
             child: TextButton(
                 onPressed: () {
-                  widget.openpage(targetPageIndex);
+                  widget.openPage(targetPageIndex);
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -258,10 +258,10 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildIconButton(
-      Color backgroundColor, Color foregroundColor, Icon icon, String text) {
+  Widget buildIconButton(Color backgroundColor, Color foregroundColor,
+      Icon icon, String text, Function function) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: () => {function()},
       style: ElevatedButton.styleFrom(
         primary: backgroundColor,
         onPrimary: foregroundColor,
@@ -328,17 +328,19 @@ class _DashboardPageState extends State<DashboardPage> {
     // }
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        widget.openPage(5);
+      },
       child: Container(
         decoration:
             BoxDecoration(shape: BoxShape.circle, color: Styles.medPink),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: stateOfResidence == null
+          child: stateOfResidence == ''
               ? Text(
                   'Select\n state',
                   textAlign: TextAlign.center,
-                  style: Styles.smallButtonWhite,
+                  style: Styles.medButtonWhite,
                 )
               : Text(
                   stateOfResidence,
@@ -408,25 +410,28 @@ class _DashboardPageState extends State<DashboardPage> {
                           borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         children: [
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text('Insurance:',
+                          GestureDetector(
+                            onTap: () => widget.openPage(5),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text('Insurance:',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16)),
+                                  ),
+                                  Text(
+                                      insuranceProvider == ''
+                                          ? 'Tap to choose'
+                                          : insuranceProvider,
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 16)),
-                                ),
-                                Text(
-                                    insuranceProvider == null
-                                        ? 'Tap to choose'
-                                        : insuranceProvider,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w700)),
-                              ]),
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700)),
+                                ]),
+                          ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
                             child: buildIconButton(
@@ -436,7 +441,8 @@ class _DashboardPageState extends State<DashboardPage> {
                                   Icons.phone,
                                   color: Colors.white,
                                 ),
-                                'Call'),
+                                'Call',
+                                _callProvider),
                           )
                         ],
                       ),
