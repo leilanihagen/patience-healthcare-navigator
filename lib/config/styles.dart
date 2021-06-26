@@ -21,11 +21,11 @@ class Styles {
   static HexColor darkOrange = HexColor("#FF6542");
   static HexColor lightOrange = HexColor("#FF9B85");
   static HexColor offWhite = HexColor("#FAF2F0");
-  static HexColor emerald = HexColor("#43B1AC");
+  static HexColor emerald = HexColor("#4EBCB6");
   static HexColor lightEmerald = HexColor("#A6DDDB");
 
   static HexColor extraLightPinkTheme = HexColor("#F9C8D8");
-  static HexColor medPink = HexColor("#F17EA5");
+  static HexColor medPink = HexColor("#F391B1");
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);

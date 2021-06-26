@@ -118,7 +118,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   style: Styles.instruction,
                 ),
                 Text(
-                  'Tap "+"" to create a new visit. Tap your visit to edit and add notes.',
+                  'Tap "+"" to create a new visit. Tap your visit to edit and add notes. Inside your visit, tap any field to customize it.',
                   textAlign: TextAlign.left,
                   style: Styles.instruction,
                 ),

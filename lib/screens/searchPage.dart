@@ -579,9 +579,9 @@ class _SearchPage extends State<SearchPage>
                     'Hello from the dev team',
                   ),
                   const Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: const Text(
-                        '''Thank you for your interest in our app Patience - a Health Care Navigator. This feature is not finished yet, as the devs team is constantly working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (6-15-2021)'''),
+                        '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the devs team is constantly working in it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (6-25-2021)'''),
                   ),
                 ],
               ),

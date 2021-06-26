@@ -541,10 +541,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     ],
                   ),
                   buildTitle("What Can I Do with Patience?"),
+                  // TODO: add "you can record audio" to the description once this feature is added:
                   buildWalkthroughCard(
                       'assets/images/medical_records.png',
                       'Keep detailed records of your regularly scheduled medical visits',
-                      'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes during your visit including uploading photos and recording audio.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
+                      'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
                       'Tap to explore your Visits Timeline',
                       LinearGradient(
                         colors: [Styles.extraLightPinkTheme, Styles.medPink],
