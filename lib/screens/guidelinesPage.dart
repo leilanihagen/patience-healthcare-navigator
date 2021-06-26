@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -81,12 +82,16 @@ Widget renderClickableSituationCard(
                   situation,
                   style: Styles.guidelineCard,
                 )),
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
-                )),
+            onPressed: () {
+              observer.analytics.logEvent(
+                  name: 'guideLine', parameters: {'situation': situation});
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
+                  ));
+            },
           ),
         ),
         padding: EdgeInsets.fromLTRB(7, 8, 7, 8)),

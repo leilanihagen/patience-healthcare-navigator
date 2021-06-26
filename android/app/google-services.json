@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "177267768234",
+    "project_id": "patience-healthcare-navigator",
+    "storage_bucket": "patience-healthcare-navigator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177267768234:android:e083027df0dd4f146d49d3",
+        "android_client_info": {
+          "package_name": "com.patienceteam.healthcarenavigator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177267768234-as4litac5f5hg9hq6ahi8jbog7a721n6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQWVq5lCNLYgLFhYrNI0w9nXESdh8WexQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177267768234-as4litac5f5hg9hq6ahi8jbog7a721n6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
@@ -30,10 +31,12 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   int _selectedIndex;
   bool profileSelected = false;
   bool haveOpenProfile = false;
+
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
     super.initState();
+    observer.analytics.logAppOpen();
     pages = [
       DashboardPage(
         key: PageStorageKey('dashboard'),
@@ -62,11 +65,34 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     super.dispose();
   }
 
-  void openPage(int index) {
+  void openPage(int index) async {
     setState(() {
       if (index < 5) _selectedIndex = index;
       _pageController.jumpToPage(index);
     });
+    switch (index) {
+      case 0:
+        observer.analytics.logEvent(name: 'open_dashboard');
+
+        break;
+      case 1:
+        observer.analytics.logEvent(name: 'open_guildelines');
+        break;
+      case 2:
+        observer.analytics.logEvent(name: 'open_visittimeline');
+
+        break;
+      case 3:
+        observer.analytics.logEvent(name: 'open_checkhospital');
+        break;
+      case 4:
+        observer.analytics.logEvent(name: 'open_searchpage');
+        break;
+      case 5:
+        observer.analytics.logEvent(name: 'open_profilepage');
+        break;
+      default:
+    }
   }
 
   Widget _bottomNavBar(int selectedIndex) => Theme(
@@ -81,11 +107,13 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
                 color: Styles.darkPinkTheme),
-            onTap: (int index) => setState(() {
-                  _selectedIndex = index;
-                  profileSelected = false;
-                  _pageController.jumpToPage(index);
-                }), // rebuild this widget
+            onTap: (int index) {
+              setState(() {
+                _selectedIndex = index;
+                profileSelected = false;
+                openPage(index);
+              });
+            }, // rebuild this widget
             currentIndex: selectedIndex,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(

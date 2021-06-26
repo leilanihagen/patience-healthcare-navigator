@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 import '../class/sharePref.dart';
@@ -77,6 +78,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         .insertItem(0, duration: const Duration(milliseconds: 500));
     visits.insert(0, Visit([VisitNote()]));
     updateVisit();
+    observer.analytics.logEvent(name: 'create_visit');
   }
 
   void deleteVisit(int visitIndex) {
@@ -85,6 +87,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         (_, animation) => visitWidget(context, temp, visitIndex, animation),
         duration: const Duration(milliseconds: 500));
     updateVisit();
+    observer.analytics.logEvent(name: 'delete_visit');
   }
 
   void createNote(Visit visit, String type, String path) {
@@ -97,11 +100,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         visit.notes.insert(0, VisitNote.fromPicture(path));
       });
     updateVisit();
+    observer.analytics
+        .logEvent(name: 'create_note', parameters: {'type': type});
   }
 
   VisitNote deleteNote(Visit visit, int noteIndex) {
     VisitNote temp = visit.notes.removeAt(noteIndex);
     updateVisit();
+    observer.analytics
+        .logEvent(name: 'delete_note', parameters: {'type': temp.type});
     return temp;
   }
 
