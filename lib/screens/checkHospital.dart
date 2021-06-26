@@ -548,16 +548,18 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     _hospitalPage.name == null || _hospitalPage.name.isEmpty
                         ? getPageIntroduction()
                         : getHeader(),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(4, 26, 4, 10),
-                      child: Text(
-                        'TOP 3 NEARBY IN-NETWORK HOSPITALS',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                    ),
+                    _hospitalPage.top3 == null
+                        ? SizedBox.shrink()
+                        : Padding(
+                            padding: EdgeInsets.fromLTRB(4, 26, 4, 10),
+                            child: Text(
+                              'TOP 3 NEARBY IN-NETWORK HOSPITALS',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                          ),
                     getTop3()
                   ],
                 ),

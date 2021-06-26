@@ -86,36 +86,36 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         children: [
           // Title + close button:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: .7.sw,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      title,
-                      style: Styles.articleHeading1,
-                      softWrap: true,
-                    ),
-                  ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          Container(
+            width: .8.sw,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  title,
+                  style: Styles.articleHeading1,
+                  softWrap: true,
                 ),
               ),
-              Container(
-                width: .1.sw,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
+          // Container(
+          //   width: .1.sw,
+          //   child: Align(
+          //     alignment: Alignment.topRight,
+          //     child: IconButton(
+          //       icon: Icon(Icons.close),
+          //       onPressed: () {},
+          //     ),
+          //   ),
+          // ),
+          //   ],
+          // ),
           // Text + image:
           Container(
               width: .4.sh,

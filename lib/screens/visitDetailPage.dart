@@ -306,9 +306,10 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   Container(
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.white),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white,
+                    ),
                     child: Column(
                       children: [
                         // TODO: Replace placeholders:

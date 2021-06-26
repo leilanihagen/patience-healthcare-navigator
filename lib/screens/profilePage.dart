@@ -216,9 +216,9 @@ class _ProfilePage extends State<ProfilePage>
                       //   ),
                       // ),
                       // ******REMOVE if adding text labels above each item again:
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                      // ),
                       // *********************************************************
                       // CURRENT version (temporarily disabled):
                       // Padding(

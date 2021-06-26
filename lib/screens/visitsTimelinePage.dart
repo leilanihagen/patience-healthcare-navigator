@@ -456,7 +456,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   )
                 : Container(
                     // TODO: refactor/untangle this!!:
-
                     margin:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                     decoration: BoxDecoration(
