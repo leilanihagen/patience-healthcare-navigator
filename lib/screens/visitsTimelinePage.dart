@@ -53,13 +53,23 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   _loadSaved() async {
-    String _savedVisits =
-        await MySharedPreferences.instance.getStringValue('visits');
-    if (_savedVisits.isNotEmpty) {
-      Iterable tmp = jsonDecode(_savedVisits);
+    if (await MySharedPreferences.instance.getBoolValue('first_visit') ==
+        false) {
+      print('false');
       setState(() {
-        visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
+        visits = [Visit.fromTemplate()];
       });
+      updateVisit();
+      MySharedPreferences.instance.setBoolValue('first_visit', true);
+    } else {
+      String _savedVisits =
+          await MySharedPreferences.instance.getStringValue('visits');
+      if (_savedVisits.isNotEmpty) {
+        Iterable tmp = jsonDecode(_savedVisits);
+        setState(() {
+          visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
+        });
+      }
     }
     setState(() {
       listKey = GlobalKey<AnimatedListState>();
@@ -832,6 +842,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.purpleTheme,
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniEndDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Styles.blueTheme,
           child: Icon(Icons.add),
