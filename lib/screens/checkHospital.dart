@@ -510,19 +510,21 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Container(
                       height: 60,
                     ),
-                    Card(
-                      margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-                      color: Colors.white,
-                      child: Padding(
-                          child: Text(
-                            'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          ),
-                          padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
+                      child: Card(
+                        color: Colors.white,
+                        child: Padding(
+                            child: Text(
+                              'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+                      ),
                     ),
                     Center(
                       child: GestureDetector(
