@@ -12,6 +12,7 @@ class Styles {
   static HexColor lightPinkTheme = HexColor("#FDEBF1");
   static HexColor darkPinkTheme = HexColor("#ED558C");
   static HexColor blueTheme = HexColor("#44B5CD");
+  static HexColor guildelineSituationBlue = HexColor("#1AC8ED");
   static HexColor darkGreenTheme = HexColor("#758C20");
   static HexColor lightGreenTheme = HexColor("#A1BF36");
   static HexColor medGreenTheme = HexColor("#ABC940");

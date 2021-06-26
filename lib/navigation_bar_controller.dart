@@ -158,7 +158,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: HexColor(blueTheme),
+        backgroundColor: Styles.blueTheme,
         leading: IconButton(
           color: profileSelected ? Styles.blueTheme : Colors.grey,
           icon: Badge(
