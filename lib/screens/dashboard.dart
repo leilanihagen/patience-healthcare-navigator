@@ -487,10 +487,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
                       'Tap to explore Guidelines',
                       LinearGradient(
-                        colors: [
-                          Styles.extraLightGreen,
-                          Styles.lightGreenTheme
-                        ],
+                        colors: [Styles.extraLightGreen, Styles.medGreenTheme],
                         stops: [.1, .7],
                       ),
                       1),
