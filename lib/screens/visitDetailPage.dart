@@ -9,6 +9,32 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
 
+class ImageFullScreenView extends StatelessWidget {
+  final Image image;
+
+  ImageFullScreenView({this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Styles.lightGreenTheme,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.close),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      body: InteractiveViewer(
+        child: Center(child: Hero(tag: 'imageView', child: image)),
+        // onTap: () {
+        //   Navigator.pop(context);
+        // },
+      ),
+    );
+  }
+}
+
 class VisitDetailPage extends StatefulWidget {
   final Visit visit;
   final int visitIndex;
@@ -291,12 +317,23 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           height: 250.0,
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  image: DecorationImage(
-                    image: FileImage(File(note.body)),
-                    fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ImageFullScreenView(
+                        image: Image.file((File(note.body))));
+                  }));
+                },
+                child: Hero(
+                  tag: 'imageView',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      image: DecorationImage(
+                        image: FileImage(File(note.body)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
