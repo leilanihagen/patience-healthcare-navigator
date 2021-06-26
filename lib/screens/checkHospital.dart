@@ -6,6 +6,7 @@ import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,6 +36,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         {'api': '1', 'query': name + ' ' + street});
     if (await canLaunch(googleUrl.toString())) {
       await launch(googleUrl.toString());
+      observer.analytics.logEvent(
+          name: 'open_map', parameters: {'name': name, 'street': street});
     } else {
       throw 'Could not launch $googleUrl';
     }
@@ -70,6 +73,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isSearching = false;
     });
+    observer.analytics
+        .logEvent(name: 'search_hospital', parameters: {'keyword': keyword});
     // if (provider.isNotEmpty)
     //   http
     //       .post(
@@ -132,6 +137,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isLoading = false;
     });
+    observer.analytics.logEvent(name: 'check_hospital');
   }
 
   _loadLastSaved() async {
@@ -183,7 +189,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    // _loadLastSaved();
+    _loadLastSaved();
   }
 
   getColor() {
