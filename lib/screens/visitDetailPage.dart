@@ -79,9 +79,12 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2025));
-    if (picked != null)
-      widget.updateNoteFunction(
-          widget.visit, index, 'date', DateFormat.yMd().format(picked));
+    if (picked != null) {
+      setState(() {
+        widget.updateNoteFunction(
+            widget.visit, index, 'date', DateFormat.yMd().format(picked));
+      });
+    }
   }
 
   Future<Null> _selectVisitDate(
