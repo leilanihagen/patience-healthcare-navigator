@@ -515,7 +515,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       color: Colors.white,
                       child: Padding(
                           child: Text(
-                            'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location.\n\nTap any hospital search result to open in Maps.',
+                            'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 16,
