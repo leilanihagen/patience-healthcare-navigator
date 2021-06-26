@@ -333,7 +333,7 @@ class _DashboardPageState extends State<DashboardPage> {
       },
       child: Container(
         decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.medPink),
+            BoxDecoration(shape: BoxShape.circle, color: Styles.darkPinkTheme),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: stateOfResidence == ''
@@ -398,13 +398,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 // Ins. provider + state displays:
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Insurance provider disp:
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                      margin: EdgeInsets.fromLTRB(15, 4, 5, 10),
+                      margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(10.0)),
@@ -554,7 +554,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   buildWalkthroughCard(
                       'assets/images/find_hospitals.png',
                       'Use our Hospital Finder to get to know the in-network hospitals in your area',
-                      'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Find In-Network Hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
+                      'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
                       'Tap to explore Find Hospitals',
                       LinearGradient(
                         colors: [Styles.lightEmerald, Styles.emerald],

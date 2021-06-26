@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:hospital_stay_helper/widgets/textIcon.dart';
+import 'package:hospital_stay_helper/components/textIcon.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';

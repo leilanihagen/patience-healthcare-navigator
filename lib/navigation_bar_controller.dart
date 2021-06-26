@@ -28,14 +28,6 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   List<Widget> pages;
   PageController _pageController;
   int _selectedIndex;
-
-  String purpleTheme = "#66558E";
-  String lightPinkTheme = "#FDEBF1";
-  String darkPinkTheme = "#ED558C";
-  String blueTheme = "#44B5CD";
-  String darkGreenTheme = "#758C20";
-  String lightGreenTheme = "#A1BF36";
-
   bool profileSelected = false;
   bool haveOpenProfile = false;
   @override
@@ -140,7 +132,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       appBar: AppBar(
         backgroundColor: HexColor(blueTheme),
         leading: IconButton(
-          color: profileSelected ? HexColor(blueTheme) : Colors.grey,
+          color: profileSelected ? Styles.blueTheme : Colors.grey,
           icon: Badge(
             // badgeColor: Colors.white,
             showBadge: !haveOpenProfile,

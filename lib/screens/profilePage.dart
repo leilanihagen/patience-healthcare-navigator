@@ -128,7 +128,7 @@ class _ProfilePage extends State<ProfilePage>
                           child: DropdownSearch<String>(
                             mode: Mode.MENU,
                             showSelectedItem: true,
-                            items: ['CA', 'WA', 'OR'],
+                            items: ['CA', 'WA', 'OR', 'DC', 'VA', 'MD', 'GA'],
                             label: 'State of residence',
                             hint: 'Select state of residence',
                             onChanged: (String s) => {

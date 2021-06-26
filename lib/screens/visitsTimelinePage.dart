@@ -581,6 +581,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   children: [
                                     // Date/time container:
                                     Container(
+                                      margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
                                       padding: EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
                                           border: Border.all(),

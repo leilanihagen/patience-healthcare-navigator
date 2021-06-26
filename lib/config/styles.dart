@@ -14,7 +14,7 @@ class Styles {
   static HexColor blueTheme = HexColor("#44B5CD");
   static HexColor darkGreenTheme = HexColor("#758C20");
   static HexColor lightGreenTheme = HexColor("#A1BF36");
-  static HexColor medGreenTheme = HexColor("#B2CE50");
+  static HexColor medGreenTheme = HexColor("#ABC940");
   static HexColor extraLightGreen = HexColor("#DCE9AF");
   static HexColor lightBlueTheme = HexColor("#98D2EB");
   static HexColor medBlue = HexColor("#289BCC");

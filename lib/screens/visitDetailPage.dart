@@ -59,12 +59,6 @@ class VisitDetailPage extends StatefulWidget {
 }
 
 class _VisitDetailPageState extends State<VisitDetailPage> {
-  final String purpleTheme = "#66558E";
-  final String lightPinkTheme = "#FDEBF1";
-  final String darkPinkTheme = "#ED558C";
-  final String blueTheme = "#44B5CD";
-  // final String darkGreenTheme = "#758C20";
-  final String lightGreenTheme = "#A1BF36";
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final picker = ImagePicker();
   Future<bool> showConfirm() async {
@@ -344,6 +338,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 children: [
                   // Date/time container:
                   Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       border: Border.all(),
@@ -414,7 +409,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
     return Scaffold(
         backgroundColor: Styles.lightGreenTheme,
         floatingActionButton: FloatingActionButton(
-            backgroundColor: HexColor(purpleTheme),
+            backgroundColor: Styles.purpleTheme,
             child: Icon(Icons.add),
             onPressed: () => createNewNote('note', '')),
         body: Column(
@@ -532,8 +527,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               children: [
                 ElevatedButton(
                   onPressed: () => createNewNote('note', ''),
-                  style:
-                      ElevatedButton.styleFrom(primary: HexColor(purpleTheme)),
+                  style: ElevatedButton.styleFrom(primary: Styles.purpleTheme),
 
                   // Icon(Icons.add),
                   child: Icon(Icons.note_add),
@@ -543,8 +537,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 ),
                 ElevatedButton(
                   onPressed: () => getImage(),
-                  style:
-                      ElevatedButton.styleFrom(primary: HexColor(purpleTheme)),
+                  style: ElevatedButton.styleFrom(primary: Styles.purpleTheme),
                   // Icon(Icons.add),
                   child: Icon(Icons.image),
                 )
