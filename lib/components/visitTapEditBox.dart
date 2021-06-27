@@ -64,7 +64,7 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
           padding: EdgeInsets.all(5.0),
           margin: EdgeInsets.all(widget.margin),
           decoration: widget.boxDecoration,
-          height: widget.height,
+          // height: widget.height,
           width: widget.width,
           child: TextFormField(
             autofocus: true,
@@ -99,7 +99,7 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
                   color: Colors.white,
                   // border: Border.all(),
                   borderRadius: BorderRadius.circular(8.0)),
-              height: widget.height,
+              // height: widget.height,
               width: widget.width,
               child: RichText(
                 text: TextSpan(
