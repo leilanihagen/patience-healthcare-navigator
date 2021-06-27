@@ -32,28 +32,28 @@ class Visit {
     this.patientName = 'JR';
     this.notes = [
       VisitNote.fromTemplate(
-          'Template note',
-          'Welcome to your Visits Timeline. Use this fake visit to learn about how to keep detailed records of your medical visits. The medical visit described in this Visit is based on a real event',
-          '2:00 PM',
+          'Template visit',
+          'Welcome to your Visits Timeline. Use this fake visit to learn about how to keep detailed records of your medical visits. The medical visit described in this Visit is based on a real medical event described on the Chubbyemu YouTube channel. It is written from the perspective of the patient JR\'s mother.',
+          '5:00 PM',
           '2/1/2018',
           'note'),
       VisitNote.fromTemplate(
-          'intubated',
-          'JR was intubated to prevent respiratory arrest. JR lost consciousness.',
-          '3:00 PM',
+          'Intubated',
+          'JR was intubated to prevent respiratory arrest.',
+          '3:03 PM',
           '2/1/2018',
           'note'),
       VisitNote.fromTemplate(
         'Arrived at emergency room',
         '',
-        '3:30 PM',
+        '2:19 PM',
         '2/1/2018',
         'note',
       ),
       VisitNote.fromTemplate(
-        'Take an ambulance',
-        'Called 911 and taken in an ambulance',
-        '3:30 PM',
+        'Took an ambulance',
+        'Called 911 and rode with JR in an ambulance',
+        '2:00 PM',
         '2/1/2018',
         'note',
       ),
