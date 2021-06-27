@@ -1,9 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';

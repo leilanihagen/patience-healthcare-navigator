@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageFullScreenView extends StatelessWidget {
   final Image image;
@@ -173,8 +174,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         ).animate(animation),
         child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+            padding: const EdgeInsets.all(7.0),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
@@ -186,17 +186,22 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       offset: Offset(0, 3))
                 ]),
             // Title and note body:
-            child: Wrap(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Title line:
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: Wrap(
-                        children: [
-                          VisitTapEditBox(
+                    Expanded(
+                        flex: 5,
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          child:
+                              // Wrap(
+                              //   children: [
+                              VisitTapEditBox(
                             visit: widget.visit,
                             inputData: note.title,
                             dataType: 'title',
@@ -217,15 +222,15 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                             noteIndex: index,
                             // TODO: make height dynamic (grow with textwrap)
                             height: 80.0,
-                            width: 200.0,
+                            // width: 200.0,
                             margin: 2.0,
                             padding: 2.0,
                             shouldWrap: true,
                             textAlign: TextAlign.left,
-                          )
-                        ],
-                      ),
-                    ),
+                          ),
+                          //   ],
+                          // ),
+                        )),
                     // Expanded(
                     //     // TODO: Replace placeholder:
                     //     child: RichText(
@@ -235,28 +240,42 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     //                 Theme.of(context).textTheme.headline6))),
 
                     // Note date/time:
-                    Container(
-                      padding: EdgeInsets.all(10),
+                    Align(
                       alignment: Alignment.topRight,
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Column(
-                        children: [
-                          // TODO: Replace placeholders:
-                          GestureDetector(
-                            onTap: () => _selectTime(context, note.time, index),
-                            child: Text(note.time),
+                      child: Expanded(
+                        flex: 2,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                          padding: EdgeInsets.all(10),
+                          alignment: Alignment.topRight,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
-                          Divider(thickness: 50, color: Colors.red),
-                          GestureDetector(
-                            onTap: () => _selectDate(context, note.date, index),
-                            child: Container(
-                              child: Text(note.date),
-                            ),
-                          )
-                        ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // TODO: Replace placeholders:
+                              GestureDetector(
+                                onTap: () =>
+                                    _selectTime(context, note.time, index),
+                                child: Text(
+                                  note.time,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Divider(thickness: 10, color: Colors.white),
+                              GestureDetector(
+                                onTap: () =>
+                                    _selectDate(context, note.date, index),
+                                child: Container(
+                                  child: Text(note.date,
+                                      style: TextStyle(fontSize: 16)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -281,8 +300,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         //     blurRadius: 7,
                         //     offset: Offset(0, 3))
                       ]),
-                  height: 100.0,
-                  width: 400.0,
+                  // height: 100.0,
+                  width: .87.sw,
                   margin: 1.0,
                   padding: 3.0,
                   textAlign: TextAlign.left,
@@ -306,7 +325,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         ).animate(animation),
         child: Container(
           padding: EdgeInsets.all(10.0),
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width, //
           height: 250.0,
           child: Stack(
             children: [

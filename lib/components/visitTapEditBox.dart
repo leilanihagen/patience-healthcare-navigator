@@ -21,7 +21,7 @@ class VisitTapEditBox extends StatefulWidget {
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
-      this.textStyle = const TextStyle(color: Colors.black, fontSize: 17),
+      this.textStyle = const TextStyle(color: Colors.black, fontSize: 16),
       this.height,
       this.width,
       this.margin = 7.0,

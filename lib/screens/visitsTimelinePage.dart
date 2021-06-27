@@ -410,7 +410,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                           : '${visit.notes[0].time}',
                                                       style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: 17),
+                                                          fontSize: 16),
                                                     )),
                                                   ),
                                                   Container(
@@ -666,16 +666,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                   width: 100.0,
                                                   // padding: EdgeInsets.all(3.0),
                                                   // margin: EdgeInsets.all(7.0),
-                                                  child: RichText(
-                                                      text: TextSpan(
-                                                    text: visit.notes[0].time
-                                                            .isEmpty
+                                                  child: Text(
+                                                    visit.notes[0].time.isEmpty
                                                         ? "Visit time"
                                                         : '${visit.notes[0].time}',
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 17),
-                                                  )),
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                               // Divider(thickness: 50, color: Colors.red),
@@ -685,16 +683,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                 width: 100.0,
                                                 // padding: EdgeInsets.all(3.0),
                                                 // margin: EdgeInsets.all(7.0),
-                                                child: RichText(
-                                                    text: TextSpan(
-                                                  text: visit
-                                                          .notes[0].date.isEmpty
+                                                child: Text(
+                                                  visit.notes[0].date.isEmpty
                                                       ? "Visit date"
                                                       : '${visit.notes[0].date}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 17),
-                                                )),
+                                                      fontSize: 16),
+                                                ),
                                               ),
                                             ],
                                           ),
