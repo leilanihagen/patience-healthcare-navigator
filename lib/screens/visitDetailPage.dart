@@ -240,44 +240,45 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     //                 Theme.of(context).textTheme.headline6))),
 
                     // Note date/time:
-                    Align(
+                    // Align(
+                    //   alignment: Alignment.topRight,
+                    // child:
+                    // Expanded(
+                    //   flex: 2,
+                    //   child:
+                    Container(
+                      width: 112,
+                      margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                      padding: EdgeInsets.all(10),
                       alignment: Alignment.topRight,
-                      child: Expanded(
-                        flex: 2,
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                          padding: EdgeInsets.all(10),
-                          alignment: Alignment.topRight,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(20.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // TODO: Replace placeholders:
+                          GestureDetector(
+                            onTap: () => _selectTime(context, note.time, index),
+                            child: Text(
+                              note.time,
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // TODO: Replace placeholders:
-                              GestureDetector(
-                                onTap: () =>
-                                    _selectTime(context, note.time, index),
-                                child: Text(
-                                  note.time,
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ),
-                              Divider(thickness: 10, color: Colors.white),
-                              GestureDetector(
-                                onTap: () =>
-                                    _selectDate(context, note.date, index),
-                                child: Container(
-                                  child: Text(note.date,
-                                      style: TextStyle(fontSize: 16)),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                          Divider(thickness: 10, color: Colors.white),
+                          GestureDetector(
+                            onTap: () => _selectDate(context, note.date, index),
+                            child: Container(
+                              child: Text(note.date,
+                                  style: TextStyle(fontSize: 16)),
+                            ),
+                          )
+                        ],
                       ),
                     ),
+                    // ),
+                    // ),
                   ],
                 ),
                 // Note body:
@@ -311,7 +312,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     onPressed: () => deleteNote(index),
-                    icon: Icon(Icons.delete),
+                    icon: Icon(Icons.delete, size: 22),
                   ),
                 )
               ],
@@ -339,6 +340,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 child: Hero(
                   tag: 'imageView',
                   child: Container(
+                    // width: 112,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
@@ -356,7 +358,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 children: [
                   // Date/time container:
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                    width: 112,
+                    margin: EdgeInsets.all(13.0),
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       border: Border.all(),
@@ -370,14 +373,16 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 14),
                           child: GestureDetector(
                             onTap: () => _selectTime(context, note.time, index),
-                            child: Text(note.time),
+                            child:
+                                Text(note.time, style: TextStyle(fontSize: 16)),
                           ),
                         ),
                         // Divider(thickness: 50, color: Colors.red),
                         GestureDetector(
                           onTap: () => _selectDate(context, note.date, index),
                           child: Container(
-                            child: Text(note.date),
+                            child:
+                                Text(note.date, style: TextStyle(fontSize: 16)),
                           ),
                         )
                       ],
@@ -398,7 +403,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                           onTap: () => deleteNote(index),
                           child: Icon(
                             Icons.delete,
-                            size: 16.0,
+                            size: 22.0,
                           ),
                         ),
                       ),
