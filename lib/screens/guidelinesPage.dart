@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expandable/expandable.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -81,12 +82,16 @@ Widget renderClickableSituationCard(
                   situation,
                   style: Styles.guidelineCard,
                 )),
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
-                )),
+            onPressed: () {
+              observer.analytics.logEvent(
+                  name: 'guideLine', parameters: {'situation': situation});
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
+                  ));
+            },
           ),
         ),
         padding: EdgeInsets.fromLTRB(7, 8, 7, 8)),
@@ -281,35 +286,38 @@ class RootCategoriesPage extends StatelessWidget {
               context,
               TermsPage(),
               "I want to learn healthcare terms and definitions",
-              Icon(Icons.menu_book_rounded, color: Styles.blueTheme, size: 33)),
+              Icon(Icons.menu_book_rounded,
+                  color: Styles.guildelineSituationBlue, size: 33)),
           renderClickableSituationCard(
               context,
               BeforeStayPage(),
               "I'm preparing for a hospital visit",
-              Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
+              Icon(Icons.laptop,
+                  color: Styles.guildelineSituationBlue, size: 33)),
           renderClickableSituationCard(
               context,
               DuringStayPage(),
               "I'm at the hospital now",
-              Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
+              Icon(Icons.sick_rounded,
+                  color: Styles.guildelineSituationBlue, size: 33)),
           renderClickableSituationCard(
               context,
               AfterStayPage(),
               "I recently visited the hospital",
               Icon(Icons.medical_services_rounded,
-                  color: Styles.blueTheme, size: 33)),
+                  color: Styles.guildelineSituationBlue, size: 33)),
           renderClickableSituationCard(
               context,
               ReceivedBillPage(),
               "I've received a surprise medical bill",
               Icon(Icons.attach_money_rounded,
-                  color: Styles.blueTheme, size: 37)),
+                  color: Styles.guildelineSituationBlue, size: 37)),
           renderClickableSituationCard(
               context,
               CollectionsPage(),
               "My medical bill/debt has been sent to a collections agency",
               Icon(Icons.priority_high_rounded,
-                  color: Styles.blueTheme, size: 33)),
+                  color: Styles.guildelineSituationBlue, size: 33)),
         ],
       ),
     ));

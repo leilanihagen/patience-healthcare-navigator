@@ -7,6 +7,7 @@ import 'package:hospital_stay_helper/components/tapEditBoxNumeric.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/navigation_bar_controller.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -51,6 +52,9 @@ class _DashboardPageState extends State<DashboardPage> {
     String _tel = 'tel:' +
         await MySharedPreferences.instance.getStringValue('provider_phone');
     await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+    observer.analytics.logEvent(
+        name: 'call_provider',
+        parameters: {'provider': insuranceProvider, 'state': stateOfResidence});
   }
 
   void getInsuranceProvider() async {
@@ -162,7 +166,11 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget buildArticleButton(
       Color color, String title, Image image, String url) {
     return GestureDetector(
-      onTap: () => launch(url),
+      onTap: () {
+        observer.analytics
+            .logEvent(name: 'launch_article', parameters: {'url': url});
+        launch(url);
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

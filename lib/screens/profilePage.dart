@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -131,11 +132,13 @@ class _ProfilePage extends State<ProfilePage>
                             items: ['CA', 'WA', 'OR', 'DC', 'VA', 'MD', 'GA'],
                             label: 'State of residence',
                             hint: 'Select state of residence',
-                            onChanged: (String s) => {
+                            onChanged: (String s) {
+                              observer.analytics.logEvent(
+                                  name: 'set_state', parameters: {'state': s});
                               // TO DO: Create an initialization where the default provider is
                               // saved if the user never changes this dropdown
                               MySharedPreferences.instance
-                                  .setStringValue('user_state', s),
+                                  .setStringValue('user_state', s);
                             },
                             selectedItem: userState,
                           ),
@@ -159,6 +162,9 @@ class _ProfilePage extends State<ProfilePage>
                             label: 'Insurance Provider',
                             hint: 'Select your insurance provider',
                             onChanged: (String s) {
+                              observer.analytics.logEvent(
+                                  name: 'set_provider',
+                                  parameters: {'provider': s});
                               // TO DO: Create an initialization where the default provider is
                               // saved if the user never changes this dropdown
                               MySharedPreferences.instance
