@@ -80,8 +80,8 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget buildWalkthroughCard(String imagePath, String title, String body,
       String buttonText, Gradient gradient, int targetPageIndex) {
     return Container(
-      width: .9.sw,
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      width: .97.sw,
+      margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
       padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
       decoration: BoxDecoration(
           gradient: gradient,
@@ -165,32 +165,35 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget buildArticleButton(
       Color color, String title, Image image, String url) {
-    return GestureDetector(
-      onTap: () {
-        observer.analytics
-            .logEvent(name: 'launch_article', parameters: {'url': url});
-        launch(url);
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-            height: .15.sh,
-            width: .15.sh,
-            child: image,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 5),
-            width: .25.sh,
-            child: Text(
-              title,
-              style: Styles.articleBodySmall,
-              softWrap: true,
-              textAlign: TextAlign.center,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      child: GestureDetector(
+        onTap: () {
+          observer.analytics
+              .logEvent(name: 'launch_article', parameters: {'url': url});
+          launch(url);
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+              height: .15.sh,
+              width: .15.sh,
+              child: image,
             ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              width: .25.sh,
+              child: Text(
+                title,
+                style: Styles.articleBodySmall,
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -255,13 +258,57 @@ class _DashboardPageState extends State<DashboardPage> {
   //       ));
   // }
 
-  Padding buildTitle(String text) {
+  Widget buildStatisticButton(String impactText, String title, String url) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      child: GestureDetector(
+        onTap: () {
+          observer.analytics.logEvent(
+              name: 'launch_statistic_article', parameters: {'url': url});
+          launch(url);
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              impactText,
+              style: Styles.bigImpact,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              width: .25.sh,
+              child: Text(
+                title,
+                style: Styles.articleBodySmall,
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding buildTitle(String text, String subtitle) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-      child: Text(
-        text,
-        textAlign: TextAlign.left,
-        style: Styles.articleHeading1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            textAlign: TextAlign.left,
+            style: Styles.articleHeading1,
+          ),
+          subtitle == ''
+              ? SizedBox.shrink()
+              : Text(
+                  subtitle,
+                  textAlign: TextAlign.left,
+                  style: Styles.articleBody,
+                ),
+        ],
       ),
     );
   }
@@ -488,7 +535,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Header:
-                  buildTitle("Welcome to Patience!"),
+                  buildTitle("Welcome to Patience!", ''),
                   buildWalkthroughCard(
                       'assets/images/study_guidelines.png',
                       'Learn about healthcare, bills and insurance',
@@ -517,7 +564,15 @@ class _DashboardPageState extends State<DashboardPage> {
                   // buildTitle("My Tools"),s
                   // TO DO (if time): implement simple tracker
                   // buildDeductibleTracker(),
-                  buildTitle("Stay Informed"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildTitle("Stay Informed", ''),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: Icon(Icons.arrow_forward)),
+                    ],
+                  ),
                   // Articles to external sites:
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -526,14 +581,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         buildArticleButton(
-                          Styles.lightPurpleTheme,
-                          'Healthcare laws & regulations in your state',
+                          Styles.extraLightPinkTheme,
+                          'Find price estimates for medical procedures: MediBid.com',
                           Image.asset(
-                            'assets/images/usa.png',
+                            'assets/images/cost_estimate.png',
                             height: .12.sh,
                             width: .12.sh,
                           ),
-                          'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
+                          'https://www.medibid.com/cost-calculator/',
                         ),
                         buildArticleButton(
                           Styles.lightBlueTheme,
@@ -545,10 +600,20 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                           'https://brokenhealthcare.org/patient-education/',
                         ),
+                        buildArticleButton(
+                          Styles.lightPurpleTheme,
+                          'Healthcare laws & regulations in your state',
+                          Image.asset(
+                            'assets/images/usa.png',
+                            height: .12.sh,
+                            width: .12.sh,
+                          ),
+                          'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
+                        ),
                       ],
                     ),
                   ),
-                  buildTitle("What Can I Do with Patience?"),
+                  buildTitle("What Can I Do with Patience?", ''),
                   // TODO: add "you can record audio" to the description once this feature is added:
                   buildWalkthroughCard(
                       'assets/images/medical_records.png',
@@ -574,6 +639,51 @@ class _DashboardPageState extends State<DashboardPage> {
                         stops: [.1, .7],
                       ),
                       3),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildTitle(
+                          "US Healthcare Statistics", '(Tap to read more)'),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: Icon(Icons.arrow_forward)),
+                    ],
+                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  //   child: Text(
+                  //     'More resources',
+                  //     style: Styles.articleSubtitleLight,
+                  //   ),
+                  // ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildStatisticButton(
+                              '80%',
+                              'Up to 4/5 of medical bills contain errors',
+                              'https://www.hcinnovationgroup.com/finance-revenue-cycle/article/21080693/medical-billing-errors-are-alarmingly-commonand-patients-are-paying-the-price'),
+                          buildStatisticButton(
+                              '35%',
+                              'Of Americans avoid or delay healthcare due to financial barriers',
+                              'https://www.commonwealthfund.org/publications/issue-briefs/2020/aug/looming-crisis-health-coverage-2020-biennial'),
+                          buildStatisticButton(
+                              '27.2%',
+                              'Of Americans avoided healthcare because they were unsure what their insurance covered',
+                              'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
+                          buildStatisticButton(
+                              '2×',
+                              'We spend avg. 2× as much as other developed nations on healthcare',
+                              'https://youtu.be/tNla9nyRMmQ'),
+                          buildStatisticButton(
+                              '31%',
+                              'Higher disease burden (measure of health outcome) than other developed nations',
+                              'https://www.healthsystemtracker.org/chart-collection/quality-u-s-healthcare-system-compare-countries/#item-age-standardized-disability-adjusted-life-year-daly-rate-per-100000-population-2017'),
+                        ]),
+                  ),
                 ],
               ),
             ),

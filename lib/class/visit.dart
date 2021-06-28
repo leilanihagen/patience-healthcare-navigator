@@ -33,7 +33,7 @@ class Visit {
     this.notes = [
       VisitNote.fromTemplate(
           'Template visit',
-          'Welcome to your Visits Timeline. Use this fake visit to learn about how to keep detailed records of your medical visits. The medical visit described in this Visit is based on a real medical event described on the Chubbyemu YouTube channel. It is written from the perspective of the patient JR\'s mother.',
+          'Welcome to your Visits Timeline. Use this fake visit to learn about how to keep timestamped records of your medical visits. The medical visit described in this Visit is based on a real medical event described on the Chubbyemu YouTube channel. It is written from the perspective of the patient JR\'s mother.\n\nWhen you are done exploring this template visit, delete it by tapping the red trashcan button in the top right corner.',
           '5:00 PM',
           '2/1/2018',
           'note'),
