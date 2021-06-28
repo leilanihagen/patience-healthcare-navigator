@@ -148,9 +148,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Visits Timeline',
     'Find In-Network Hospitals',
     'Search Medical Services',
+    'User Settings'
   ];
-
-  String profileTitle = 'User Settings';
 
   @override
   Widget build(BuildContext context) {
@@ -182,15 +181,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             _pageController.jumpToPage(5);
           }),
         ),
-        title: profileSelected
-            ? Text(
-                profileTitle,
-                style: Styles.appBar,
-              )
-            : Text(
-                _pageTitles[_selectedIndex],
-                style: Styles.appBar,
-              ),
+        title: Text(
+          _pageTitles[_selectedIndex],
+          style: Styles.appBar,
+        ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(
