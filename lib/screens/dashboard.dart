@@ -84,6 +84,13 @@ class _DashboardPageState extends State<DashboardPage> {
       margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
       padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
       decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 4,
+                blurRadius: 6,
+                offset: Offset(0, 3))
+          ],
           gradient: gradient,
           color: Styles.lightGreenTheme,
           borderRadius: BorderRadius.circular(20.0)),
@@ -427,6 +434,13 @@ class _DashboardPageState extends State<DashboardPage> {
             padding: EdgeInsets.symmetric(vertical: .02.sh),
             decoration: BoxDecoration(
               color: Styles.purpleTheme,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 4,
+                    blurRadius: 6,
+                    offset: Offset(0, 3))
+              ],
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(.1.sw),
                 bottomRight: Radius.circular(.1.sw),
