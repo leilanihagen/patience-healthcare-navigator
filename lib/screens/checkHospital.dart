@@ -75,65 +75,41 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     });
     observer.analytics
         .logEvent(name: 'search_hospital', parameters: {'keyword': keyword});
-    // if (provider.isNotEmpty)
-    //   http
-    //       .post(
-    //     Uri.parse(
-    //         "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_search"),
-    //     headers: <String, String>{
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: jsonEncode({'keyword': keyword, 'provider': provider}),
-    //   )
-    //       .then((response) {
-    //     print(response.body);
-    //     if (response.statusCode == 200)
-    //       setState(() {
-    //         Iterable tmp = jsonDecode(response.body)['body'];
-    //         listSearch = List<String>.from(tmp);
-    //       });
-    //   }).catchError((onError) => showError(onError));
-    // else
-    //   showError("You haven't selected a provider");
   }
 
-  submit() async {
+  _checkHospital() async {
     setState(() {
       isLoading = true;
     });
     String provider =
         await MySharedPreferences.instance.getStringValue('user_provider');
-
-    if (provider.isNotEmpty)
-      await _determinePosition()
-          .then((position) => http
-                  .post(
-                Uri.parse(
-                    "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
-                headers: <String, String>{
-                  'Content-Type': 'application/json; charset=UTF-8',
-                },
-                body: jsonEncode({
-                  'lat': position.latitude,
-                  'lng': position.longitude,
-                  'provider': provider
-                }),
-              )
-                  .then((response) {
-                if (response.statusCode == 200) {
-                  setState(() {
-                    _hospitalPage =
-                        HospitalPage.fromJson(jsonDecode(response.body));
-                  });
-                  MySharedPreferences.instance
-                      .setStringValue('checkHospital', response.body);
-                } else {
-                  showError("Error in request");
-                }
-              }).catchError((onError) => showError(onError)))
-          .catchError((onError) => showError(onError));
-    else
-      showError("You haven't selected a provider");
+    try {
+      if (provider.isNotEmpty) {
+        Position position = await _determinePosition();
+        http.Response response = await http.post(
+          Uri.parse(
+              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({
+            'lat': position.latitude,
+            'lng': position.longitude,
+            'provider': provider
+          }),
+        );
+        if (response.statusCode == 200) {
+          setState(() {
+            _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
+          });
+          MySharedPreferences.instance
+              .setStringValue('checkHospital', response.body);
+        }
+      } else
+        showError("You haven't selected a provider");
+    } catch (e) {
+      showError(e);
+    }
     setState(() {
       isLoading = false;
     });
@@ -143,7 +119,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   _loadLastSaved() async {
     String tmp =
         await MySharedPreferences.instance.getStringValue('checkHospital');
-    print(tmp);
     if (tmp.isNotEmpty)
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));
@@ -189,7 +164,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    _loadLastSaved();
+    // _loadLastSaved();
   }
 
   getColor() {
@@ -341,6 +316,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       child: Column(children: [
         Text(
           _hospitalPage.name ?? "",
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
@@ -348,6 +324,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         ),
         Text(
           _hospitalPage.address ?? "",
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, backgroundColor: Colors.white),
         ),
       ]),
@@ -534,7 +511,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     ),
                     Center(
                       child: GestureDetector(
-                        onTap: () => isLoading ? null : submit(),
+                        onTap: () => isLoading ? null : _checkHospital(),
                         child: Container(
                             decoration: BoxDecoration(
                                 boxShadow: [

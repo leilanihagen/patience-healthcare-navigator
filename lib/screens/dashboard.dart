@@ -519,31 +519,34 @@ class _DashboardPageState extends State<DashboardPage> {
                   // buildDeductibleTracker(),
                   buildTitle("Stay Informed"),
                   // Articles to external sites:
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildArticleButton(
-                        Styles.lightPurpleTheme,
-                        'Healthcare laws & regulations in your state',
-                        Image.asset(
-                          'assets/images/usa.png',
-                          height: .12.sh,
-                          width: .12.sh,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildArticleButton(
+                          Styles.lightPurpleTheme,
+                          'Healthcare laws & regulations in your state',
+                          Image.asset(
+                            'assets/images/usa.png',
+                            height: .12.sh,
+                            width: .12.sh,
+                          ),
+                          'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
                         ),
-                        'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
-                      ),
-                      buildArticleButton(
-                        Styles.lightBlueTheme,
-                        'Knowledge is power: more resources on BrokenHealthcare.org',
-                        Image.asset(
-                          'assets/images/broken_health.png',
-                          height: .12.sh,
-                          width: .12.sh,
+                        buildArticleButton(
+                          Styles.lightBlueTheme,
+                          'Knowledge is power: more resources on BrokenHealthcare.org',
+                          Image.asset(
+                            'assets/images/broken_health.png',
+                            height: .12.sh,
+                            width: .12.sh,
+                          ),
+                          'https://brokenhealthcare.org/patient-education/',
                         ),
-                        'https://brokenhealthcare.org/patient-education/',
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   buildTitle("What Can I Do with Patience?"),
                   // TODO: add "you can record audio" to the description once this feature is added:
