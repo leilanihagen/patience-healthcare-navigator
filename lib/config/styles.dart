@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:path/path.dart';
 
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
@@ -31,6 +32,8 @@ class Styles {
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);
+  static const articleSubtitleLight =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black);
   static const articleHeading1White =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white);
   static final articleHeading1OffWhite =
@@ -49,6 +52,9 @@ class Styles {
   static const subHeading =
       TextStyle(fontSize: 19, fontWeight: FontWeight.w700);
   static const hintExtraSmall = TextStyle(fontSize: 14, color: Colors.black);
+  static const bigImpact =
+      TextStyle(fontSize: 60, fontWeight: FontWeight.w500, color: Colors.black);
+
   static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
   static const guidelineCard =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);
