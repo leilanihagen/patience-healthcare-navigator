@@ -57,7 +57,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   _loadSaved() async {
     if (await MySharedPreferences.instance.getBoolValue('first_visit') ==
         false) {
-      print('false');
       setState(() {
         visits = [Visit.fromTemplate()];
       });
@@ -79,7 +78,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   void updateVisit() async {
-    // print(jsonEncode(visits));
     await MySharedPreferences.instance
         .setStringValue('visits', jsonEncode(visits));
   }
