@@ -436,7 +436,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             child: Icon(Icons.add),
             onPressed: () => createNewNote('note', '')),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // Title and trashcan line:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -468,6 +470,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
+                  margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.centerRight,
                   decoration: BoxDecoration(
@@ -491,30 +494,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     ),
                   ),
                 ),
-                // Visit date:
-                // Container(
-                //   decoration: BoxDecoration(boxShadow: [
-                //     BoxShadow(
-                //         color: Colors.grey.withOpacity(0.2),
-                //         spreadRadius: 6,
-                //         blurRadius: 6,
-                //         offset: Offset(0, 3))
-                //   ]),
-                //   child: VisitTapEditBox(
-                //     visit: widget.visit,
-                //     dataType: 'date',
-                //     inputData: widget.visit.date,
-                //     defaultText: 'Visit date',
-                //     isEditingVisit: true,
-                //     updateFunction: updatVisitDate,
-                //     boxDecoration: BoxDecoration(
-                //         color: Colors.white,
-                //         // border: Border.all(),
-                //         borderRadius: BorderRadius.circular(8.0)),
-                //     height: 32.0,
-                //     width: 120.0,
-                //   ),
-                // ),
                 // Visit patientName
                 Container(
                   decoration: BoxDecoration(boxShadow: [
@@ -541,6 +520,34 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   ),
                 ),
               ],
+            ),
+            // Healthcare provider line:
+            Container(
+              // height: 50,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 6,
+                    blurRadius: 6,
+                    offset: Offset(0, 3))
+              ]),
+              alignment: Alignment.topLeft,
+              child: VisitTapEditBox(
+                visit: widget.visit,
+                dataType: 'healthcareProvider',
+                inputData: widget.visit.healthcareProvider,
+                defaultText: "Healthcare provider (e.g. hospital name)",
+                isEditingVisit: true,
+                updateFunction: widget.updateVisitFunction,
+                boxDecoration: BoxDecoration(
+                    color: Colors.white,
+                    // border: Border.all(),
+                    borderRadius: BorderRadius.circular(8.0)),
+                // height: 32.0,
+                width: .97.sw,
+                shouldWrap: true,
+                textAlign: TextAlign.left,
+              ),
             ),
 
             // Add media buttons:
