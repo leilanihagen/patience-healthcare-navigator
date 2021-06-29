@@ -164,7 +164,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    // _loadLastSaved();
+    _loadLastSaved();
   }
 
   getColor() {
