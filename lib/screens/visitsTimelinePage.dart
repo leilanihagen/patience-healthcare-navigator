@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -122,26 +123,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   getPageDescription() {
-    return Padding(
-        child: Card(
-          color: Colors.white,
-          child: Padding(
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Text(
-                  "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n",
-                  textAlign: TextAlign.left,
-                  style: Styles.instruction,
-                ),
-                Text(
-                  'Tap "+"" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.',
-                  textAlign: TextAlign.left,
-                  style: Styles.instruction,
-                ),
-              ]),
-              padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-        ),
-        padding: EdgeInsets.fromLTRB(0, 12, 0, 12));
+    return buildPageDescriptionPink(
+      "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
+    );
   }
 
   void updateVisitData(Visit visit, String type, String data) {
@@ -894,11 +878,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniEndDocked,
+        backgroundColor: Colors.white,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Styles.darkPinkTheme,
+          backgroundColor: Styles.purpleTheme,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();

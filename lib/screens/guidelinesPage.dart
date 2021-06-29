@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
@@ -261,49 +262,9 @@ class RootCategoriesPage extends StatelessWidget {
               //   ),
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
-              Padding(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 4,
-                              blurRadius: 6,
-                              offset: Offset(0, 3))
-                        ],
-                        gradient: LinearGradient(
-                          colors: [
-                            Styles.extraLightPurpleTheme,
-                            Styles.lightPurpleTheme
-                          ],
-                          // begin: Alignment.topLeft,
-                          // end: Alignment.bottomRight,
-                          stops: [.1, .7],
-                        ),
-                        color: Styles.lightGreenTheme,
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
-                                textAlign: TextAlign.left,
-                                style: Styles.articleBody,
-                              ),
-                              Text(
-                                "Start by choosing a category below that best fits your situation.",
-                                textAlign: TextAlign.left,
-                                style: Styles.articleBody,
-                              ),
-                            ]),
-                        padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-                    // child: Card(
-                    //   // color: Styles.lightPurpleTheme,
-                    //   child:
-                    // ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+              buildPageDescriptionPink(
+                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
+              ),
               //renderClickableSituationCard("I'm preparing for a hospital visit"),
               renderClickableSituationCard(
                   context,

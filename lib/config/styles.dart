@@ -12,8 +12,12 @@ class Styles {
   static HexColor descriptionLightPurple = HexColor("#B0A6C9");
   static HexColor lightPurpleTheme = HexColor("#CFADFF");
   static HexColor lightPurple2Theme = HexColor("#C399FF");
-  static HexColor lightPinkTheme = HexColor("#FDEBF1");
+  static HexColor extraLightPinkTheme = HexColor("#FDEBF1");
+  static HexColor lightPinkTheme = HexColor("#F9C8D8");
+  static HexColor medPinkTheme = HexColor("#F391B1");
   static HexColor darkPinkTheme = HexColor("#ED558C");
+  static HexColor peachPinkTheme = HexColor("#FDD4D5");
+  static HexColor candyPinkTheme = HexColor("#FCDFF6");
   static HexColor blueTheme = HexColor("#44B5CD");
   static HexColor guildelineSituationBlue = HexColor("#1AC8ED");
   static HexColor darkGreenTheme = HexColor("#758C20");
@@ -28,9 +32,6 @@ class Styles {
   static HexColor offWhite = HexColor("#FAF2F0");
   static HexColor emerald = HexColor("#4EBCB6");
   static HexColor lightEmerald = HexColor("#A6DDDB");
-
-  static HexColor extraLightPinkTheme = HexColor("#F9C8D8");
-  static HexColor medPink = HexColor("#F391B1");
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);
