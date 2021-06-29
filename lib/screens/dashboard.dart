@@ -343,8 +343,8 @@ class _DashboardPageState extends State<DashboardPage> {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.lightPinkTheme),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: Styles.extraLightPinkTheme),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -635,7 +635,10 @@ class _DashboardPageState extends State<DashboardPage> {
                       'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
                       'Tap to explore your Visits Timeline',
                       LinearGradient(
-                        colors: [Styles.extraLightPinkTheme, Styles.medPink],
+                        colors: [
+                          Styles.extraLightPinkTheme,
+                          Styles.medPinkTheme
+                        ],
                         // begin: Alignment.topLeft,
                         // end: Alignment.bottomRight,
                         stops: [.1, .7],

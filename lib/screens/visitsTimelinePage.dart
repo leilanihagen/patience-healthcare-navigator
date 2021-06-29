@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -122,26 +123,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   getPageDescription() {
-    return Padding(
-        child: Card(
-          color: Colors.white,
-          child: Padding(
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Text(
-                  "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n",
-                  textAlign: TextAlign.left,
-                  style: Styles.instruction,
-                ),
-                Text(
-                  'Tap "+"" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.',
-                  textAlign: TextAlign.left,
-                  style: Styles.instruction,
-                ),
-              ]),
-              padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-        ),
-        padding: EdgeInsets.fromLTRB(0, 12, 0, 12));
+    return buildPageDescriptionColor(
+      "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
+      Colors.white,
+    );
   }
 
   void updateVisitData(Visit visit, String type, String data) {
@@ -155,6 +140,11 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         case 'patientName':
           {
             visit.patientName = data;
+          }
+          break;
+        case 'healthcareProvider':
+          {
+            visit.healthcareProvider = data;
           }
           break;
       }
@@ -228,27 +218,13 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     // height: 310,
                     child: Column(
                       children: [
-                        // Visit info line:
+                        // Visit date + patient name line:
                         Row(
                           // This makes child alignment work (patientName):
                           mainAxisAlignment: MainAxisAlignment
                               .spaceBetween, // This aligns date/patient containers
                           children: [
-                            // Date:
-                            // TapEditBox(
-                            //   visit: visits[index],
-                            //   dataType: 'date',
-                            //   inputData: visits[index].date,
-                            //   defaultText: 'Visit date',
-                            //   isEditingVisit: true,
-                            //   updateFunction: updateVisitData,
-                            //   boxDecoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       // border: Border.all(),
-                            //       borderRadius: BorderRadius.circular(8.0)),
-                            //   height: 32.0,
-                            //   width: 120.0,
-                            // ),
+                            // Visit date:
                             Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(5.0),
@@ -257,7 +233,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     color: Colors.white,
                                     // border: Border.all(),
                                     borderRadius: BorderRadius.circular(8.0)),
-                                height: 32.0,
+                                height: 31.0,
                                 width: 120.0,
 
                                 // Date text:
@@ -271,23 +247,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   textAlign: TextAlign.center,
                                 )),
                             // Patient name:
-                            // Container(
-                            //   alignment: Alignment.topRight,
-                            // child: TapEditBox(
-                            //   visit: visits[index],
-                            //   dataType: 'patientName',
-                            //   inputData: visits[index].patientName,
-                            //   defaultText: "Enter name",
-                            //   isEditingVisit: true,
-                            //   updateFunction: updateVisitData,
-                            //   boxDecoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       // border: Border.all(),
-                            //       borderRadius: BorderRadius.circular(8.0)),
-                            //   height: 32.0,
-                            //   width: 140.0,
-                            // ),
-                            // ),
                             Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(5.0),
@@ -296,7 +255,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     color: Colors.white,
                                     // border: Border.all(),
                                     borderRadius: BorderRadius.circular(8.0)),
-                                height: 32.0,
+                                height: 31.0,
                                 width: 140.0,
                                 // Patient text:
                                 child: RichText(
@@ -309,6 +268,31 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   textAlign: TextAlign.center,
                                 )),
                           ],
+                        ),
+                        // Healthcare provider name:
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                              height: 31,
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.all(5.0),
+                              margin: EdgeInsets.all(7.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  // border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              // height: 32.0,
+                              width: .97.sw,
+                              // Patient text:
+                              child: RichText(
+                                text: TextSpan(
+                                    text: visit.healthcareProvider.isEmpty
+                                        ? "Healthcare provider"
+                                        : '${visit.healthcareProvider}',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 17)),
+                                textAlign: TextAlign.center,
+                              )),
                         ),
 
                         // Note:
@@ -895,8 +879,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.purpleTheme,
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniEndDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Styles.darkPinkTheme,
           child: Icon(Icons.add),

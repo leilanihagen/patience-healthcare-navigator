@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/main.dart';
@@ -71,7 +72,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Styles.purpleTheme,
+              primary: Styles.darkPinkTheme,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -111,7 +112,7 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: Styles.purpleTheme,
+              color: Styles.darkPinkTheme,
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -245,7 +246,7 @@ class RootCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -261,49 +262,10 @@ class RootCategoriesPage extends StatelessWidget {
               //   ),
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
-              Padding(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 4,
-                              blurRadius: 6,
-                              offset: Offset(0, 3))
-                        ],
-                        gradient: LinearGradient(
-                          colors: [
-                            Styles.extraLightPurpleTheme,
-                            Styles.lightPurpleTheme
-                          ],
-                          // begin: Alignment.topLeft,
-                          // end: Alignment.bottomRight,
-                          stops: [.1, .7],
-                        ),
-                        color: Styles.lightGreenTheme,
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
-                                textAlign: TextAlign.left,
-                                style: Styles.instruction,
-                              ),
-                              Text(
-                                "Start by choosing a category below that best fits your situation.",
-                                textAlign: TextAlign.left,
-                                style: Styles.instruction,
-                              ),
-                            ]),
-                        padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-                    // child: Card(
-                    //   // color: Styles.lightPurpleTheme,
-                    //   child:
-                    // ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+              buildPageDescriptionColor(
+                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
+                Colors.white,
+              ),
               //renderClickableSituationCard("I'm preparing for a hospital visit"),
               renderClickableSituationCard(
                   context,
@@ -338,7 +300,7 @@ class RootCategoriesPage extends StatelessWidget {
               renderClickableSituationCard(
                   context,
                   CollectionsPage(),
-                  "My medical bill/debt has been sent to a collections agency",
+                  "My medical bill/debt has been sent to collections",
                   Icon(Icons.priority_high_rounded,
                       color: Styles.guildelineSituationBlue, size: 33)),
             ],
@@ -401,7 +363,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -934,7 +896,7 @@ class CollectionsPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox(
-                  "My medical bill/debt has been sent to a collections agency",
+                  "My medical bill/debt has been sent to collections",
                   Icon(Icons.priority_high_rounded,
                       color: Styles.blueTheme, size: 33)),
               renderGuidelineHyperlink(

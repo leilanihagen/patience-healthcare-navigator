@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -491,23 +492,11 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     // Hint text:
                     // Find-hospital square:
                     Container(
-                      height: 60,
+                      height: .07.sh,
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
-                      child: Card(
-                        color: Colors.white,
-                        child: Padding(
-                            child: Text(
-                              'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                            ),
-                            padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-                      ),
+                    buildPageDescriptionColor(
+                      'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                      Colors.white,
                     ),
                     Center(
                       child: GestureDetector(
