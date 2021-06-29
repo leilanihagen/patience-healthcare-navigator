@@ -65,7 +65,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   void openPage(int index) async {
     setState(() {
-      if (index < 5) _selectedIndex = index;
+      if (index < 5)
+        _selectedIndex = index;
+      else
+        profileSelected = true;
       _pageController.jumpToPage(index);
     });
     switch (index) {
@@ -147,9 +150,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Guidelines',
     'Visits Timeline',
     'Find In-Network Hospitals',
-    'Search Medical Services',
-    'User Settings'
+    'Search Medical Services'
   ];
+  String profileTitle = 'User Settings';
 
   @override
   Widget build(BuildContext context) {
@@ -181,10 +184,15 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             _pageController.jumpToPage(5);
           }),
         ),
-        title: Text(
-          _pageTitles[_selectedIndex],
-          style: Styles.appBar,
-        ),
+        title: profileSelected
+            ? Text(
+                profileTitle,
+                style: Styles.appBar,
+              )
+            : Text(
+                _pageTitles[_selectedIndex],
+                style: Styles.appBar,
+              ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(
