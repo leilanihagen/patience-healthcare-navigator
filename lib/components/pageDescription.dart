@@ -63,3 +63,28 @@ Padding buildPageDescriptionPink(String description) {
       ),
       padding: EdgeInsets.fromLTRB(4, 12, 4, 12));
 }
+
+Padding buildPageDescriptionColor(String description, Color color) {
+  return Padding(
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 4,
+              blurRadius: 6,
+              offset: Offset(0, 3))
+        ], color: color, borderRadius: BorderRadius.circular(5.0)),
+        child: Padding(
+            child: Text(
+              description,
+              textAlign: TextAlign.left,
+              style: Styles.articleBody,
+            ),
+            padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+        // child: Card(
+        //   // color: Styles.lightPurpleTheme,
+        //   child:
+        // ),
+      ),
+      padding: EdgeInsets.fromLTRB(4, 12, 4, 12));
+}

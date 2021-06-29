@@ -72,7 +72,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Styles.purpleTheme,
+              primary: Styles.darkPinkTheme,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -112,7 +112,7 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: Styles.purpleTheme,
+              color: Styles.darkPinkTheme,
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -246,7 +246,7 @@ class RootCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -262,8 +262,9 @@ class RootCategoriesPage extends StatelessWidget {
               //   ),
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
-              buildPageDescriptionPink(
+              buildPageDescriptionColor(
                 "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
+                Colors.white,
               ),
               //renderClickableSituationCard("I'm preparing for a hospital visit"),
               renderClickableSituationCard(
@@ -362,7 +363,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -490,7 +491,7 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -570,7 +571,7 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -637,7 +638,7 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -758,7 +759,7 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -890,7 +891,7 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         body: GestureDetector(
           child: ListView(
             children: [

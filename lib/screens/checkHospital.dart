@@ -494,8 +494,10 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Container(
                       height: .07.sh,
                     ),
-                    buildPageDescriptionPink(
-                        'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.'),
+                    buildPageDescriptionColor(
+                      'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                      Colors.white,
+                    ),
                     Center(
                       child: GestureDetector(
                         onTap: () => isLoading ? null : _checkHospital(),

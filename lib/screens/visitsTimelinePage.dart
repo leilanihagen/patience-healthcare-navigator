@@ -123,8 +123,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   getPageDescription() {
-    return buildPageDescriptionPink(
+    return buildPageDescriptionColor(
       "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
+      Colors.white,
     );
   }
 
@@ -878,10 +879,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.purpleTheme,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Styles.purpleTheme,
+          backgroundColor: Styles.darkPinkTheme,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();
