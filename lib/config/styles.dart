@@ -59,13 +59,14 @@ class Styles {
 
   static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
   static const guidelineCard =
-      TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);
+      TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
   static const hyperlink = TextStyle(
       fontSize: 17, color: Colors.blue, decoration: TextDecoration.underline);
   static const headerGuildline =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
   static const instruction =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
+
   static const medButton =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
   static const medButtonGrey =

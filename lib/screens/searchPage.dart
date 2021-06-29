@@ -345,32 +345,35 @@ class _SearchPage extends State<SearchPage>
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Divider(),
-                          ListTile(
-                              title: Text(
-                                "Provider: ${controller.provider ?? "Empty provider"}",
-                                style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.bold),
-                              ),
-                              trailing: IconButton(
-                                iconSize: 30,
-                                color: Colors.blue,
-                                tooltip: "Call your provider",
-                                icon: Icon(
-                                  Icons.phone,
-                                ),
-                                onPressed: () => print("hello"),
-                              )),
+                          // ListTile(
+                          //     title: Text(
+                          //       "Provider: ${controller.provider ?? "Empty provider"}",
+                          //       style: TextStyle(
+                          //           fontSize: 24, fontWeight: FontWeight.bold),
+                          //     ),
+                          //     trailing: IconButton(
+                          //       iconSize: 30,
+                          //       color: Colors.blue,
+                          //       tooltip: "Call your provider",
+                          //       icon: Icon(
+                          //         Icons.phone,
+                          //       ),
+                          //       onPressed: () => print("hello"),
+                          //     )),
                           Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("Price range:"),
+                              Text(
+                                "Price range:",
+                                style: Styles.articleBody,
+                              ),
                               Text(
                                 "\$ ${controller.totalLowerPrice}",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              Text(" to "),
+                              Text(" to ", style: Styles.articleBody),
                               Text(
                                 "\$ ${controller.totalUpperPrice}",
                                 style: TextStyle(

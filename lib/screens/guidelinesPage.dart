@@ -289,12 +289,12 @@ class RootCategoriesPage extends StatelessWidget {
                               Text(
                                 "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
                                 textAlign: TextAlign.left,
-                                style: Styles.instruction,
+                                style: Styles.articleBody,
                               ),
                               Text(
                                 "Start by choosing a category below that best fits your situation.",
                                 textAlign: TextAlign.left,
-                                style: Styles.instruction,
+                                style: Styles.articleBody,
                               ),
                             ]),
                         padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
@@ -338,7 +338,7 @@ class RootCategoriesPage extends StatelessWidget {
               renderClickableSituationCard(
                   context,
                   CollectionsPage(),
-                  "My medical bill/debt has been sent to a collections agency",
+                  "My medical bill/debt has been sent to collections",
                   Icon(Icons.priority_high_rounded,
                       color: Styles.guildelineSituationBlue, size: 33)),
             ],
@@ -529,7 +529,7 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -609,7 +609,7 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -676,7 +676,7 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -797,7 +797,7 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -929,12 +929,12 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [
               renderSituationBox(
-                  "My medical bill/debt has been sent to a collections agency",
+                  "My medical bill/debt has been sent to collections",
                   Icon(Icons.priority_high_rounded,
                       color: Styles.blueTheme, size: 33)),
               renderGuidelineHyperlink(
