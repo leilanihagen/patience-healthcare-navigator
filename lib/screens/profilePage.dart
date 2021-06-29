@@ -87,7 +87,7 @@ class _ProfilePage extends State<ProfilePage>
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.",
+                            "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
                             textAlign: TextAlign.left,
                             style: Styles.instruction,
                           ),

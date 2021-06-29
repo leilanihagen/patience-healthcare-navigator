@@ -71,7 +71,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Styles.darkPinkTheme,
+              primary: Styles.purpleTheme,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -111,7 +111,7 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: Styles.darkPinkTheme,
+              color: Styles.purpleTheme,
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -245,82 +245,105 @@ class RootCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // Padding(
-          //   child: Text(
-          //     "Guidelines",
-          //     textAlign: TextAlign.left,
-          //     style: TextStyle(
-          //         fontSize: 30,
-          //         fontWeight: FontWeight.w800,
-          //         color: Colors.white),
-          //   ),
-          //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          // ),
-          Padding(
-              child: Card(
-                color: Colors.white,
-                child: Padding(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
-                            textAlign: TextAlign.left,
-                            style: Styles.instruction,
-                          ),
-                          Text(
-                            "Start by choosing a category below that best fits your situation.",
-                            textAlign: TextAlign.left,
-                            style: Styles.instruction,
-                          ),
-                        ]),
-                    padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-              ),
-              padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
-          //renderClickableSituationCard("I'm preparing for a hospital visit"),
-          renderClickableSituationCard(
-              context,
-              TermsPage(),
-              "I want to learn healthcare terms and definitions",
-              Icon(Icons.menu_book_rounded,
-                  color: Styles.guildelineSituationBlue, size: 33)),
-          renderClickableSituationCard(
-              context,
-              BeforeStayPage(),
-              "I'm preparing for a hospital visit",
-              Icon(Icons.laptop,
-                  color: Styles.guildelineSituationBlue, size: 33)),
-          renderClickableSituationCard(
-              context,
-              DuringStayPage(),
-              "I'm at the hospital now",
-              Icon(Icons.sick_rounded,
-                  color: Styles.guildelineSituationBlue, size: 33)),
-          renderClickableSituationCard(
-              context,
-              AfterStayPage(),
-              "I recently visited the hospital",
-              Icon(Icons.medical_services_rounded,
-                  color: Styles.guildelineSituationBlue, size: 33)),
-          renderClickableSituationCard(
-              context,
-              ReceivedBillPage(),
-              "I've received a surprise medical bill",
-              Icon(Icons.attach_money_rounded,
-                  color: Styles.guildelineSituationBlue, size: 37)),
-          renderClickableSituationCard(
-              context,
-              CollectionsPage(),
-              "My medical bill/debt has been sent to a collections agency",
-              Icon(Icons.priority_high_rounded,
-                  color: Styles.guildelineSituationBlue, size: 33)),
-        ],
-      ),
-    ));
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Padding(
+              //   child: Text(
+              //     "Guidelines",
+              //     textAlign: TextAlign.left,
+              //     style: TextStyle(
+              //         fontSize: 30,
+              //         fontWeight: FontWeight.w800,
+              //         color: Colors.white),
+              //   ),
+              //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              // ),
+              Padding(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 4,
+                              blurRadius: 6,
+                              offset: Offset(0, 3))
+                        ],
+                        gradient: LinearGradient(
+                          colors: [
+                            Styles.extraLightPurpleTheme,
+                            Styles.lightPurpleTheme
+                          ],
+                          // begin: Alignment.topLeft,
+                          // end: Alignment.bottomRight,
+                          stops: [.1, .7],
+                        ),
+                        color: Styles.lightGreenTheme,
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Padding(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n",
+                                textAlign: TextAlign.left,
+                                style: Styles.instruction,
+                              ),
+                              Text(
+                                "Start by choosing a category below that best fits your situation.",
+                                textAlign: TextAlign.left,
+                                style: Styles.instruction,
+                              ),
+                            ]),
+                        padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+                    // child: Card(
+                    //   // color: Styles.lightPurpleTheme,
+                    //   child:
+                    // ),
+                  ),
+                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12)),
+              //renderClickableSituationCard("I'm preparing for a hospital visit"),
+              renderClickableSituationCard(
+                  context,
+                  TermsPage(),
+                  "I want to learn healthcare terms and definitions",
+                  Icon(Icons.menu_book_rounded,
+                      color: Styles.guildelineSituationBlue, size: 33)),
+              renderClickableSituationCard(
+                  context,
+                  BeforeStayPage(),
+                  "I'm preparing for a hospital visit",
+                  Icon(Icons.laptop,
+                      color: Styles.guildelineSituationBlue, size: 33)),
+              renderClickableSituationCard(
+                  context,
+                  DuringStayPage(),
+                  "I'm at the hospital now",
+                  Icon(Icons.sick_rounded,
+                      color: Styles.guildelineSituationBlue, size: 33)),
+              renderClickableSituationCard(
+                  context,
+                  AfterStayPage(),
+                  "I recently visited the hospital",
+                  Icon(Icons.medical_services_rounded,
+                      color: Styles.guildelineSituationBlue, size: 33)),
+              renderClickableSituationCard(
+                  context,
+                  ReceivedBillPage(),
+                  "I've received a surprise medical bill",
+                  Icon(Icons.attach_money_rounded,
+                      color: Styles.guildelineSituationBlue, size: 37)),
+              renderClickableSituationCard(
+                  context,
+                  CollectionsPage(),
+                  "My medical bill/debt has been sent to a collections agency",
+                  Icon(Icons.priority_high_rounded,
+                      color: Styles.guildelineSituationBlue, size: 33)),
+            ],
+          ),
+        ));
   }
 }
 
@@ -378,7 +401,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Colors.white,
         body: GestureDetector(
           child: ListView(
             children: [

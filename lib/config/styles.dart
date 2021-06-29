@@ -8,6 +8,8 @@ import 'package:path/path.dart';
 class Styles {
   static HexColor purpleTheme = HexColor("#66558E");
   static HexColor extraLightPurpleTheme = HexColor("#E7D6FF");
+  // static HexColor descriptionExtraLightPurple = HexColor("#DBC2FF");
+  static HexColor descriptionLightPurple = HexColor("#B0A6C9");
   static HexColor lightPurpleTheme = HexColor("#CFADFF");
   static HexColor lightPurple2Theme = HexColor("#C399FF");
   static HexColor lightPinkTheme = HexColor("#FDEBF1");
