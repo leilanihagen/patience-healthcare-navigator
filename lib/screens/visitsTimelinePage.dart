@@ -142,6 +142,11 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
             visit.patientName = data;
           }
           break;
+        case 'healthcareProvider':
+          {
+            visit.healthcareProvider = data;
+          }
+          break;
       }
     });
     updateVisit();
@@ -213,27 +218,13 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     // height: 310,
                     child: Column(
                       children: [
-                        // Visit info line:
+                        // Visit date + patient name line:
                         Row(
                           // This makes child alignment work (patientName):
                           mainAxisAlignment: MainAxisAlignment
                               .spaceBetween, // This aligns date/patient containers
                           children: [
-                            // Date:
-                            // TapEditBox(
-                            //   visit: visits[index],
-                            //   dataType: 'date',
-                            //   inputData: visits[index].date,
-                            //   defaultText: 'Visit date',
-                            //   isEditingVisit: true,
-                            //   updateFunction: updateVisitData,
-                            //   boxDecoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       // border: Border.all(),
-                            //       borderRadius: BorderRadius.circular(8.0)),
-                            //   height: 32.0,
-                            //   width: 120.0,
-                            // ),
+                            // Visit date:
                             Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(5.0),
@@ -242,7 +233,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     color: Colors.white,
                                     // border: Border.all(),
                                     borderRadius: BorderRadius.circular(8.0)),
-                                height: 32.0,
+                                height: 31.0,
                                 width: 120.0,
 
                                 // Date text:
@@ -256,23 +247,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   textAlign: TextAlign.center,
                                 )),
                             // Patient name:
-                            // Container(
-                            //   alignment: Alignment.topRight,
-                            // child: TapEditBox(
-                            //   visit: visits[index],
-                            //   dataType: 'patientName',
-                            //   inputData: visits[index].patientName,
-                            //   defaultText: "Enter name",
-                            //   isEditingVisit: true,
-                            //   updateFunction: updateVisitData,
-                            //   boxDecoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       // border: Border.all(),
-                            //       borderRadius: BorderRadius.circular(8.0)),
-                            //   height: 32.0,
-                            //   width: 140.0,
-                            // ),
-                            // ),
                             Container(
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.all(5.0),
@@ -281,7 +255,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     color: Colors.white,
                                     // border: Border.all(),
                                     borderRadius: BorderRadius.circular(8.0)),
-                                height: 32.0,
+                                height: 31.0,
                                 width: 140.0,
                                 // Patient text:
                                 child: RichText(
@@ -294,6 +268,31 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   textAlign: TextAlign.center,
                                 )),
                           ],
+                        ),
+                        // Healthcare provider name:
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                              height: 31,
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.all(5.0),
+                              margin: EdgeInsets.all(7.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  // border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              // height: 32.0,
+                              width: .97.sw,
+                              // Patient text:
+                              child: RichText(
+                                text: TextSpan(
+                                    text: visit.healthcareProvider.isEmpty
+                                        ? "Healthcare provider"
+                                        : '${visit.healthcareProvider}',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 17)),
+                                textAlign: TextAlign.center,
+                              )),
                         ),
 
                         // Note:

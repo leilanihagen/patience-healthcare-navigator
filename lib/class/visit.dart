@@ -1,17 +1,19 @@
 import 'package:intl/intl.dart';
 
 class Visit {
-  String date, patientName;
+  String date, patientName, healthcareProvider;
   List<VisitNote> notes;
 
   Visit(List<VisitNote> notes) {
     this.date = DateFormat.yMd().format(DateTime.now());
     this.patientName = "";
+    this.healthcareProvider = "";
     this.notes = notes;
   }
   Visit.fromJson(Map<String, dynamic> object) {
     date = object['date'];
     patientName = object['patientName'];
+    healthcareProvider = object['healthcareProvider'];
     Iterable notesObjects = object['notes'];
     notes = List<VisitNote>.from(notesObjects.map(
         (e) => VisitNote.fromJson(e))); // cannot pass visitnote obj in here
@@ -23,6 +25,7 @@ class Visit {
     return {
       'date': date,
       'patientName': patientName,
+      'healthcareProvider': healthcareProvider,
       'notes': notesJson,
     };
   }
@@ -30,6 +33,7 @@ class Visit {
   Visit.fromTemplate() {
     this.date = '2/1/2018';
     this.patientName = 'JR';
+    this.healthcareProvider = 'Chubby Emu Emergency Room';
     this.notes = [
       VisitNote.fromTemplate(
           'Template visit',
