@@ -7,7 +7,7 @@ A tool that help patients navigate their healthcare, specifically their hospital
 This flutter app using Flutter 2.0.3, Dart 2.12.2, Android SDK version 30.0.3
 To clone the app, use this command line
 
-Please clone the visitOrientation branch to experience our latest updates and working app version:
+Please clone the main branch to experience our latest updates and working app version:
 
 Using https:
 
