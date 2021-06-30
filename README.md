@@ -4,7 +4,7 @@ A tool that help patients navigate their healthcare, specifically their hospital
 
 ## Installation
 
-This flutter app using Flutter 2.0.3, Dart 2.12.2.
+This flutter app using Flutter 2.0.3, Dart 2.12.2, Android SDK version 30.0.3
 To clone the app, use this command line
 
 Please clone the visitOrientation branch to experience our latest updates and working app version:
@@ -12,15 +12,15 @@ Please clone the visitOrientation branch to experience our latest updates and wo
 Using https:
 
 ```bash
-git clone -b visitOrientation https://github.com/leilanihagen/hospital-stay-helper.git
-cd hospital-stay-helper
+git clone https://github.com/leilanihagen/patience-healthcare-navigator.git
+cd patience-healthcare-navogator
 ```
 
 Using ssh:
 
 ```bash
-git clone -b visitOrientation git@github.com:leilanihagen/hospital-stay-helper.git
-cd hospital-stay-helper
+git clone https://github.com/leilanihagen/patience-healthcare-navigator.git
+cd patience-healthcare-navogator
 ```
 
 After cloning the app, run the following lines.
@@ -45,9 +45,25 @@ To compile in release mode (make app run smoother than debug mode), run the foll
 flutter run --release
 ```
 
+## Errors, Bugs and TroubleShooting
+
+If you run into an error while running the app, you can contact us via [Patience Healthcare Navigator Email](patiencehealthcarenavi@gmail.com)
+
+#### or
+
+Create a `New Issue` in our [Our Repository](https://github.com/leilanihagen/patience-healthcare-navigator/issues)
+
+## Feedbacks
+
+We are much appreciate if you can provide your feedback about your experience of this app. Help us fill out [this feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdY0JrIfUcmTRSx81xKdcH3YwXAQcSmUi9lYg9xVIRE3-2rjg/viewform?usp=sf_link)
+
+Your valuable feedbacks will motivate and help us in developing this awesome app.
+
+> Patience's future depend on your feedbacks.
+
 ## Side-notes
 
-This project hasn't been tested on IOS, so there is no further instruction for running on IOS device, we don't know any possible error if you run on IOS. We will target this platform in the future.
+This project hasn't been tested on IOS, so there is no further instruction for running on IOS device, we don't know any potential error if you run on IOS. We will target this platform in the future.
 
 ## Important notes
 
@@ -61,6 +77,10 @@ The goal of this app is to empower any person with a simple set of knowledge and
 
 To accomplish the above goals, we have implemented the following features:
 
+#### Dashboard
+
+The dashboard contain walkthroughs of the app and a collection of healthcare-related resources to
+
 #### Guidelines
 
 The user navigates and through our guidelines depending on their situation (i.e. "I'm in the hospital now," "I recently visited the hospital," etc.) and is presented with organized and concise information about things they can do before, during and after hospital stays to avoid surprise bills and manage their healthcare. We are working on adding video summaries to each of our guidelines pages for ease of use and accessibility.
@@ -73,9 +93,9 @@ This feature provides price estimates and medical service details to the user. T
 
 This feature allows the user both to locate in-network hospitals near them, and determine whether a hospital they are currently at is in-network or not. This is helpful both in emergency/unplanned visit situations as well as planning for a visit, and helps avoid surprise bills by helping the user avoid expensive out-of-network care. We plan to also develop a feature that allows searching for a specific hospital by name and verifying if it is in-network or out-of-network. IMPORTANT: To use this feature, location services must be turned ON
 
-#### Visit Timelines and Summaries (in development)
+#### Visit Timelines and Summaries
 
-We are working on developing a timeline-based note-taking feature that will allow patients or their family members/caretakers to take detailed, timestamped notes during and after hospital visits in order to track, manage and more effectively dispute surprise bills.
+The visit timeline-based note-taking feature allow patients or their family members/caretakers to take detailed, timestamped notes during and after hospital visits in order to track, manage and more effectively dispute surprise bills; eliminate the errors in the bill in order to avoid excess costs.
 
 ## License
 
