@@ -59,7 +59,7 @@ We are much appreciate if you can provide your feedback about your experience of
 
 Your valuable feedbacks will motivate and help us in developing this awesome app.
 
-> Patience's future depend on your feedbacks.
+> Patience's future depend on your feedbacks - Tuan & Leilani
 
 ## Side-notes
 
