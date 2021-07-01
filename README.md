@@ -47,7 +47,7 @@ flutter run --release
 
 ## Errors, Bugs and TroubleShooting
 
-If you run into an error while running the app, you can contact us via [Patience Healthcare Navigator Email](patiencehealthcarenavi@gmail.com)
+If you run into an error while running the app, you can contact us via patiencehealthcarenavi@gmail.com
 
 #### or
 
