@@ -63,16 +63,18 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  contentPadding: EdgeInsets.all(0),
+                  elevation: 10,
                   title: Text("Set your profile at User Settings"),
                   content: Image.asset(
-                    'assets/images/setup_settings.png',
-                    width: .45.sw,
-                    height: .45.sw,
+                    'assets/images/setup_settings_crop.png',
+                    width: .30.sw,
+                    height: .30.sw,
                   ),
                   actions: [
                     TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text("Dismiss")),
+                        child: Text("Later")),
                     TextButton(
                         onPressed: () {
                           openPage(5);
