@@ -11,10 +11,10 @@ class Visit {
     this.notes = notes;
   }
   Visit.fromJson(Map<String, dynamic> object) {
-    date = object['date'];
-    patientName = object['patientName'];
-    healthcareProvider = object['healthcareProvider'];
-    Iterable notesObjects = object['notes'];
+    date = object['date'] ?? '';
+    patientName = object['patientName'] ?? '';
+    healthcareProvider = object['healthcareProvider'] ?? '';
+    Iterable notesObjects = object['notes'] ?? [];
     notes = List<VisitNote>.from(notesObjects.map(
         (e) => VisitNote.fromJson(e))); // cannot pass visitnote obj in here
   }
@@ -87,11 +87,11 @@ class VisitNote {
     this.type = type;
   }
   VisitNote.fromJson(Map<String, dynamic> object) {
-    title = object['title'];
-    time = object['time'];
-    date = object['date'];
-    body = object['body'];
-    type = object['type'];
+    title = object['title'] ?? '';
+    time = object['time'] ?? '';
+    date = object['date'] ?? '';
+    body = object['body'] ?? '';
+    type = object['type'] ?? '';
   }
   VisitNote.fromPicture(String path) {
     DateTime now = DateTime.now();
