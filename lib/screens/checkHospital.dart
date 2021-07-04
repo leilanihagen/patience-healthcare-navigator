@@ -29,7 +29,11 @@ showError(error) {
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false, ur = true, er = true, isSearching = false;
+  bool isLoading = false,
+      ur = true,
+      er = true,
+      isSearching = false,
+      collapse = true;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
   openMap(String name, String street) async {
@@ -42,6 +46,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     } else {
       throw 'Could not launch $googleUrl';
     }
+  }
+
+  _toggle() {
+    setState(() {
+      collapse = !collapse;
+    });
   }
 
   _searchHospital(String keyword) async {
@@ -494,10 +504,11 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Container(
                       height: .07.sh,
                     ),
-                    buildPageDescriptionColor(
-                      'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                      Colors.white,
-                    ),
+                    testBuildPageDescriptionColor(
+                        'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                        Colors.white,
+                        collapse,
+                        _toggle),
                     Center(
                       child: GestureDetector(
                         onTap: () => isLoading ? null : _checkHospital(),

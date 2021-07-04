@@ -24,7 +24,7 @@ class VisitsTimelinePage extends StatefulWidget {
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   List<Visit> visits = [];
   GlobalKey<AnimatedListState> listKey;
-
+  bool collapse = true;
   // @override
   // void initState() {
   //   super.initState();
@@ -122,11 +122,18 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     return temp;
   }
 
+  toggle() {
+    setState(() {
+      collapse = !collapse;
+    });
+  }
+
   getPageDescription() {
-    return buildPageDescriptionColor(
-      "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
-      Colors.white,
-    );
+    return testBuildPageDescriptionColor(
+        "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
+        Colors.white,
+        collapse,
+        toggle);
   }
 
   void updateVisitData(Visit visit, String type, String data) {
