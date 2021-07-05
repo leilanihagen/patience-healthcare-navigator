@@ -14,16 +14,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
-  HospitalSearchPage({Key key}) : super(key: key);
+  final Function openPage;
+  HospitalSearchPage({Key key, this.openPage}) : super(key: key);
 
   @override
   _CheckHospitalPage createState() => _CheckHospitalPage();
-}
-
-showError(error) {
-  rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-    content: Text(error),
-  ));
 }
 
 class _CheckHospitalPage extends State<HospitalSearchPage>
@@ -54,6 +49,22 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     });
   }
 
+  showError(error) {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text(error),
+    ));
+  }
+
+  showProviderError() {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text("You haven't selected a provider"),
+      action: SnackBarAction(
+        label: 'SETTINGS',
+        onPressed: () => widget.openPage(5),
+      ),
+    ));
+  }
+
   _searchHospital(String keyword) async {
     setState(() {
       isSearching = true;
@@ -77,7 +88,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                 tmp.map((e) => SearchResult.fromJson(e)));
           });
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }
@@ -117,7 +128,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               .setStringValue('checkHospital', response.body);
         }
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }

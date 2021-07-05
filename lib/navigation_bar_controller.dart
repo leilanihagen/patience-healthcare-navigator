@@ -42,7 +42,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
-      HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+      HospitalSearchPage(
+        key: PageStorageKey('hospitalsearch'),
+        openPage: openPage,
+      ),
       SearchPage(key: PageStorageKey('searchservices')),
       ProfilePage(key: PageStorageKey('yourprofile')),
     ];

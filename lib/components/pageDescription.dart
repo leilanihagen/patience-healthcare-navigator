@@ -104,7 +104,13 @@ Widget testBuildPageDescriptionColor(
             child: SizedBox(
               width: 40,
               height: 40,
-              child: Icon(Icons.unfold_more),
+              child: RotatedBox(
+                quarterTurns: 3,
+                child: Icon(
+                  Icons.chevron_left,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
@@ -141,7 +147,13 @@ Widget testBuildPageDescriptionColor(
                 child: SizedBox(
                   width: 40,
                   height: 40,
-                  child: Icon(Icons.unfold_less),
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
