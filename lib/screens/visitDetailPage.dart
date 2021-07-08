@@ -463,7 +463,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0),
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.red[600]),
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
                       // Icon(Icons.add),
                       child: Icon(Icons.delete),
                       onPressed: () {

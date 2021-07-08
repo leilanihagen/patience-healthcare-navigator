@@ -257,8 +257,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       text: visit.date.isEmpty
                                           ? "Visit date"
                                           : '${visit.date}',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 17)),
+                                      style: Styles.articleBodySmall),
                                   textAlign: TextAlign.center,
                                 )),
                             // Patient name:
@@ -291,8 +290,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       text: visit.patientName.isEmpty
                                           ? "Patient's name"
                                           : '${visit.patientName}',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 17)),
+                                      style: Styles.articleBodySmall),
                                   textAlign: TextAlign.center,
                                 )),
                           ],
@@ -330,8 +328,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     text: visit.healthcareProvider.isEmpty
                                         ? "Healthcare provider"
                                         : '${visit.healthcareProvider}',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                    style: Styles.articleBodySmall),
                                 textAlign: TextAlign.center,
                               )),
                         ),
@@ -463,9 +460,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                               .isEmpty
                                                           ? "Visit date"
                                                           : '${visit.notes[0].date}',
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 17),
+                                                      style: Styles
+                                                          .articleBodySmall,
                                                     )),
                                                   ),
                                                 ],
@@ -483,7 +479,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       height: 58,
                                       alignment: Alignment.centerLeft,
                                       margin: EdgeInsets.symmetric(
-                                          horizontal: 1.0, vertical: 8.0),
+                                          horizontal: 1.0, vertical: 7.0),
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
@@ -496,9 +492,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             text: visit.notes[0].body.isEmpty
                                                 ? 'Enter a description for this note...'
                                                 : '${visit.notes[0].body}',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17)),
+                                            style: Styles.articleBodySmall),
                                       )),
                                   // Three dots within note body:
                                   Container(
@@ -516,9 +510,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       child: RichText(
                                         text: TextSpan(
                                             text: '...',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17)),
+                                            style: Styles.articleBodySmall),
                                       ))
                                   // ),
                                 ],
@@ -542,7 +534,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.red[600]),
+                                      primary: Colors.red),
                                   // Icon(Icons.add),
                                   child: Icon(Icons.delete),
                                   onPressed: () async {
@@ -609,8 +601,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     text: visit.date.isEmpty
                                         ? "Visit date"
                                         : '${visit.date}',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                    style: Styles.articleBodySmall),
                                 textAlign: TextAlign.center,
                               )),
                           // Patient name:
@@ -647,8 +638,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                     text: visit.patientName.isEmpty
                                         ? "Patient's name"
                                         : '${visit.patientName}',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                    style: Styles.articleBodySmall),
                                 textAlign: TextAlign.center,
                               )),
                         ],
@@ -761,7 +751,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.red[600]),
+                                    primary: Colors.red),
                                 // Icon(Icons.add),
                                 child: Icon(Icons.delete),
                                 onPressed: () async {
