@@ -78,7 +78,7 @@ Padding buildPageDescriptionColor(String description, Color color) {
             child: Text(
               description,
               textAlign: TextAlign.left,
-              style: Styles.articleBody,
+              style: Styles.articleBodySmall,
             ),
             padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
         // child: Card(

@@ -124,7 +124,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   getPageDescription() {
     return buildPageDescriptionColor(
-      "Welcome to your Visit Timeline. Here, you can keep organized records of each hospital visit.\n\nTap \"+\" to create a new visit. Tap your visit to edit and add notes. On each, tap any piece of information to customize it.",
+      "Use the Visit Timeline to keep organized records of all your medical visits.\n\nTap \"+\" to create a new visit. Tap your visit to fill in your information and start adding notes.",
       Colors.white,
     );
   }
