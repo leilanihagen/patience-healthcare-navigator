@@ -56,7 +56,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     setState(() {
       haveOpenProfile = temp;
     });
-    if (temp)
+    if (!temp)
       Future.delayed(
           const Duration(seconds: 3),
           () => showDialog(
