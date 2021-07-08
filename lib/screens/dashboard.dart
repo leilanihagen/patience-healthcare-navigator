@@ -395,7 +395,7 @@ class _DashboardPageState extends State<DashboardPage> {
       },
       child: Container(
         decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.darkPinkTheme),
+            BoxDecoration(shape: BoxShape.circle, color: Styles.modestPink),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: stateOfResidence == ''
@@ -637,7 +637,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       LinearGradient(
                         colors: [
                           Styles.extraLightPinkTheme,
-                          Styles.medPinkTheme
+                          Styles.medPinkTheme,
                         ],
                         // begin: Alignment.topLeft,
                         // end: Alignment.bottomRight,

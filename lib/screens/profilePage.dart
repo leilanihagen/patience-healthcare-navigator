@@ -79,8 +79,9 @@ class _ProfilePage extends State<ProfilePage>
           //   style: TextStyle(
           //       fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
           // ),
-          buildPageDescriptionPink(
+          buildPageDescriptionColor(
             "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
+            Colors.white,
           ),
           // Padding(
           //     child: Card(

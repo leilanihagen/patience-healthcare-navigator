@@ -182,6 +182,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   Widget visitWidget(BuildContext context, Visit visit, int index, animation) {
+    Color visitBorders = Colors.black;
     return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
@@ -206,8 +207,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     margin:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                     decoration: BoxDecoration(
-                        color: Styles.lightGreenTheme,
+                        color: Styles.purpleTheme,
                         borderRadius: BorderRadius.circular(5.0),
+                        // border: Border.all(color: visitBorders, width: 1),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -230,9 +232,22 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                 padding: EdgeInsets.all(5.0),
                                 margin: EdgeInsets.all(7.0),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    // border: Border.all(),
-                                    borderRadius: BorderRadius.circular(8.0)),
+                                  color: Colors.white,
+                                  // border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  // border:
+                                  //     Border.all(color: visitBorders, width: 2),
+                                  // border: Border(
+                                  //     bottom: BorderSide(
+                                  //         width: 1, color: visitBorders)),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //       color: Colors.grey.withOpacity(0.5),
+                                  //       spreadRadius: 2,
+                                  //       blurRadius: 2,
+                                  //       offset: Offset(0, 3))
+                                  // ],
+                                ),
                                 height: 31.0,
                                 width: 120.0,
 
@@ -252,9 +267,22 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                 padding: EdgeInsets.all(5.0),
                                 margin: EdgeInsets.all(7.0),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    // border: Border.all(),
-                                    borderRadius: BorderRadius.circular(8.0)),
+                                  color: Colors.white,
+                                  // border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  // border: Border(
+                                  //     bottom: BorderSide(
+                                  //         width: 1, color: visitBorders)),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //       color: Colors.grey.withOpacity(0.5),
+                                  //       spreadRadius: 2,
+                                  //       blurRadius: 2,
+                                  //       offset: Offset(0, 3))
+                                  // ],
+                                  // border:
+                                  //     Border.all(color: visitBorders, width: 2),
+                                ),
                                 height: 31.0,
                                 width: 140.0,
                                 // Patient text:
@@ -278,9 +306,22 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                               padding: EdgeInsets.all(5.0),
                               margin: EdgeInsets.all(7.0),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  // border: Border.all(),
-                                  borderRadius: BorderRadius.circular(8.0)),
+                                color: Colors.white,
+                                // border: Border.all(),
+                                borderRadius: BorderRadius.circular(8.0),
+                                // border: Border(
+                                //     bottom: BorderSide(
+                                //         width: 1, color: visitBorders)),
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Colors.grey.withOpacity(0.5),
+                                //       spreadRadius: 2,
+                                //       blurRadius: 2,
+                                //       offset: Offset(0, 3))
+                                // ],
+                                // border:
+                                //     Border.all(color: visitBorders, width: 2),
+                              ),
                               // height: 32.0,
                               width: .97.sw,
                               // Patient text:
@@ -308,6 +349,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                 color: Colors.white,
                                 // border: Border.all(),
                                 borderRadius: BorderRadius.circular(20.0),
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Colors.grey.withOpacity(0.5),
+                                //       spreadRadius: 2,
+                                //       blurRadius: 2,
+                                //       offset: Offset(0, 3))
+                                // ],
+                                // border:
+                                //     Border.all(color: visitBorders, width: 2),
                                 // boxShadow: [
                                 // BoxShadow(
                                 //     color: Colors.grey.withOpacity(0.5),
@@ -373,7 +423,12 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(20.0),
-                                                border: Border.all(),
+                                                // border: Border.all(
+                                                //     color: visitBorders,
+                                                //     width: 2),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: Colors.grey[600]),
                                               ),
                                               child: Column(
                                                 children: [
@@ -483,12 +538,17 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                 size: 35,
                               ),
                             ),
-                            IconButton(
-                                // Icon(Icons.add),
-                                icon: Icon(Icons.delete),
-                                onPressed: () async {
-                                  if (await showConfirm()) deleteVisit(index);
-                                }),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.red[600]),
+                                  // Icon(Icons.add),
+                                  child: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    if (await showConfirm()) deleteVisit(index);
+                                  }),
+                            ),
                           ],
                         ),
                       ],
@@ -697,12 +757,23 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                               size: 35,
                             ),
                           ),
-                          IconButton(
-                              // Icon(Icons.add),
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                if (await showConfirm()) deleteVisit(index);
-                              }),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.red[600]),
+                                // Icon(Icons.add),
+                                child: Icon(Icons.delete),
+                                onPressed: () async {
+                                  if (await showConfirm()) deleteVisit(index);
+                                }),
+                          ),
+                          // IconButton(
+                          //     // Icon(Icons.add),
+                          //     icon: Icon(Icons.delete),
+                          //     onPressed: () async {
+                          //       if (await showConfirm()) deleteVisit(index);
+                          //     }),
                         ],
                       ),
                     ]))));
@@ -878,10 +949,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        backgroundColor: Styles.shadowWhite,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Styles.darkPinkTheme,
+          backgroundColor: Styles.modestPink,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();

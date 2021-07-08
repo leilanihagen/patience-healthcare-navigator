@@ -8,7 +8,7 @@ class VisitTapEditBox extends StatefulWidget {
   bool isEditingVisit, shouldWrap;
   final Function updateFunction;
   final BoxDecoration boxDecoration;
-  final TextStyle textStyle;
+  final TextStyle mainTextStyle, defaultTextStyle;
   final TextAlign textAlign;
   double height, width, margin, padding;
   int noteIndex;
@@ -21,7 +21,9 @@ class VisitTapEditBox extends StatefulWidget {
       this.updateFunction,
       this.defaultText,
       this.boxDecoration,
-      this.textStyle = const TextStyle(color: Colors.black, fontSize: 16),
+      this.mainTextStyle = const TextStyle(color: Colors.black, fontSize: 16),
+      this.defaultTextStyle =
+          const TextStyle(color: Colors.black, fontSize: 16),
       this.height,
       this.width,
       this.margin = 7.0,
@@ -69,7 +71,7 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
           child: TextFormField(
             autofocus: true,
             initialValue: widget.inputData,
-            style: widget.textStyle,
+            style: widget.mainTextStyle,
             onFieldSubmitted: (newText) {
               setState(() {
                 widget.inputData = newText;
@@ -106,7 +108,9 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
                   text: widget.inputData.isEmpty
                       ? widget.defaultText
                       : widget.inputData,
-                  style: widget.textStyle,
+                  style: widget.inputData.isEmpty
+                      ? widget.defaultTextStyle
+                      : widget.mainTextStyle,
                 ),
                 textAlign: widget.textAlign,
                 softWrap: widget.shouldWrap,
