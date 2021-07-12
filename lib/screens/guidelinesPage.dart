@@ -264,6 +264,7 @@ class RootCategoriesPage extends StatelessWidget {
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
               buildPageDescriptionColor(
+                "Welcome to your Guidelines",
                 "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
                 Colors.white,
               ),

@@ -20,7 +20,10 @@ class ImageFullScreenView extends StatelessWidget {
       backgroundColor: Styles.purpleTheme,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: IconButton(
-        icon: Icon(Icons.close),
+        icon: Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
         onPressed: () {
           Navigator.pop(context);
         },

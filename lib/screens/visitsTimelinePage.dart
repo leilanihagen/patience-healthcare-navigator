@@ -66,6 +66,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     } else {
       String _savedVisits =
           await MySharedPreferences.instance.getStringValue('visits');
+      print(_savedVisits);
       if (_savedVisits.isNotEmpty) {
         Iterable tmp = jsonDecode(_savedVisits);
         setState(() {
@@ -124,6 +125,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   getPageDescription() {
     return buildPageDescriptionColor(
+      "Welcome to your Visits Timeline",
       "Use the Visit Timeline to keep organized records of all your medical visits.\n\nTap \"+\" to create a new visit. Tap your visit to fill in your information and start adding notes.",
       Colors.white,
     );
@@ -205,7 +207,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
             child: visit.notes[0].type == 'note'
                 ? Container(
                     margin:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
                     decoration: BoxDecoration(
                         color: Styles.purpleTheme,
                         borderRadius: BorderRadius.circular(5.0),
@@ -378,94 +380,93 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       // Note title:
-                                      Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            padding:
-                                                EdgeInsets.fromLTRB(9, 0, 0, 0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                    height: 57,
-                                                    // width: .4.sw,
-                                                    child: RichText(
-                                                        text: TextSpan(
-                                                            text: visit
-                                                                    .notes[0]
-                                                                    .title
-                                                                    .isEmpty
-                                                                ? "Untitled note"
-                                                                : ('${visit.notes[0].title}'),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .headline6))),
-                                                Text('...',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6),
-                                              ],
-                                            ),
+                                      // Expanded(
+                                      //     flex: 2,
+                                      // child:
+                                      Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(9, 0, 0, 0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                  height: 57,
+                                                  // width: .4.sw,
+                                                  child: RichText(
+                                                      text: TextSpan(
+                                                          text: visit.notes[0]
+                                                                  .title.isEmpty
+                                                              ? "Untitled note"
+                                                              : ('${visit.notes[0].title}'),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .headline6))),
+                                              Text('...',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6),
+                                            ],
+                                            // ),
                                           )),
                                       // Note date/time:
-                                      Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                              height: 85,
-                                              // width: .1.sw,
-                                              alignment: Alignment.topRight,
-                                              // padding: EdgeInsets.all(8.0),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                // border: Border.all(
-                                                //     color: visitBorders,
-                                                //     width: 2),
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.grey[600]),
+                                      // Expanded(
+                                      //     flex: 1,
+                                      //     child:
+                                      Container(
+                                          height: 85,
+                                          // width: .1.sw,
+                                          alignment: Alignment.topRight,
+                                          // padding: EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            // border: Border.all(
+                                            //     color: visitBorders,
+                                            //     width: 2),
+                                            border: Border.all(
+                                                width: 1,
+                                                color: Colors.grey[600]),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              // TODO: Replace placeholders:
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 26.0,
+                                                padding: EdgeInsets.all(3.0),
+                                                margin: EdgeInsets.all(7.0),
+                                                child: RichText(
+                                                    text: TextSpan(
+                                                  text: visit
+                                                          .notes[0].time.isEmpty
+                                                      ? "Visit time"
+                                                      : '${visit.notes[0].time}',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16),
+                                                )),
                                               ),
-                                              child: Column(
-                                                children: [
-                                                  // TODO: Replace placeholders:
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: 26.0,
-                                                    padding:
-                                                        EdgeInsets.all(3.0),
-                                                    margin: EdgeInsets.all(7.0),
-                                                    child: RichText(
-                                                        text: TextSpan(
-                                                      text: visit.notes[0].time
-                                                              .isEmpty
-                                                          ? "Visit time"
-                                                          : '${visit.notes[0].time}',
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16),
-                                                    )),
-                                                  ),
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: 26.0,
-                                                    width: 100.0,
-                                                    padding:
-                                                        EdgeInsets.all(3.0),
-                                                    margin: EdgeInsets.all(7.0),
-                                                    child: RichText(
-                                                        text: TextSpan(
-                                                      text: visit.notes[0].date
-                                                              .isEmpty
-                                                          ? "Visit date"
-                                                          : '${visit.notes[0].date}',
-                                                      style: Styles
-                                                          .articleBodySmall,
-                                                    )),
-                                                  ),
-                                                ],
-                                              ))),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 26.0,
+                                                width: 100.0,
+                                                padding: EdgeInsets.all(3.0),
+                                                margin: EdgeInsets.all(7.0),
+                                                child: RichText(
+                                                    text: TextSpan(
+                                                  text: visit
+                                                          .notes[0].date.isEmpty
+                                                      ? "Visit date"
+                                                      : '${visit.notes[0].date}',
+                                                  style:
+                                                      Styles.articleBodySmall,
+                                                )),
+                                              ),
+                                            ],
+                                          ))
+                                      // ),
                                     ],
                                     // )
                                   ),
@@ -546,13 +547,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                       ],
                     ),
                   )
+
                 // If image note is first in visit:
                 : Container(
                     // TODO: refactor/untangle this!!:
                     margin:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
                     decoration: BoxDecoration(
-                        color: Styles.lightGreenTheme,
+                        color: Styles.purpleTheme,
                         borderRadius: BorderRadius.circular(5.0),
                         boxShadow: [
                           BoxShadow(
@@ -648,11 +650,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                       Column(children: [
                         // NOTE whitespace:
                         Container(
-                          padding: EdgeInsets.all(10.0),
-                          width: MediaQuery.of(context).size.width,
-                          height: 250.0,
-                          child: Stack(
-                            children: [
+                            padding: EdgeInsets.all(10.0),
+                            width: MediaQuery.of(context).size.width,
+                            height: 250.0,
+                            child: Stack(children: [
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
@@ -662,79 +663,78 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   ),
                                 ),
                               ),
-                              Row(children: [
-                                // Title (placeholder):
-                                Expanded(flex: 2, child: SizedBox.shrink()),
-                                // Note date/time:
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Column(
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        // Date/time container:
-                                        Container(
-                                          margin:
-                                              EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                          padding: EdgeInsets.all(10.0),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(),
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              color: Colors.white),
-                                          child: Column(
-                                            children: [
-                                              // TODO: Replace placeholders:
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0, 0, 0, 14),
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  height: 26.0,
-                                                  width: 100.0,
-                                                  // padding: EdgeInsets.all(3.0),
-                                                  // margin: EdgeInsets.all(7.0),
-                                                  child: Text(
-                                                    visit.notes[0].time.isEmpty
-                                                        ? "Visit time"
-                                                        : '${visit.notes[0].time}',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16),
-                                                  ),
-                                                ),
+                              // Row(children: [
+                              // Title (placeholder):
+                              // Expanded(flex: 2, child: SizedBox.shrink()),
+                              // Note date/time:
+                              // Expanded(
+                              //   flex: 1,
+                              //   child:
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Column(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    // Date/time container:
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                      padding: EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          color: Colors.white),
+                                      child: Column(
+                                        children: [
+                                          // TODO: Replace placeholders:
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 0, 0, 14),
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: 26.0,
+                                              width: 100.0,
+                                              // padding: EdgeInsets.all(3.0),
+                                              // margin: EdgeInsets.all(7.0),
+                                              child: Text(
+                                                visit.notes[0].time.isEmpty
+                                                    ? "Visit time"
+                                                    : '${visit.notes[0].time}',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16),
                                               ),
-                                              // Divider(thickness: 50, color: Colors.red),
-                                              Container(
-                                                alignment: Alignment.center,
-                                                height: 26.0,
-                                                width: 100.0,
-                                                // padding: EdgeInsets.all(3.0),
-                                                // margin: EdgeInsets.all(7.0),
-                                                child: Text(
-                                                  visit.notes[0].date.isEmpty
-                                                      ? "Visit date"
-                                                      : '${visit.notes[0].date}',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          // Divider(thickness: 50, color: Colors.red),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 26.0,
+                                            width: 100.0,
+                                            // padding: EdgeInsets.all(3.0),
+                                            // margin: EdgeInsets.all(7.0),
+                                            child: Text(
+                                              visit.notes[0].date.isEmpty
+                                                  ? "Visit date"
+                                                  : '${visit.notes[0].date}',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ])
-                            ],
-                          ),
-                        )
+                              ),
+                              // ),
+                            ])
+                            //   ],
+                            // ),
+                            )
                       ]),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -950,7 +950,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         ),
         body: Column(
           children: [
+            // Flexible(
+            //   child:
             getPageDescription(),
+            // ),
             Expanded(child: getVisits()),
           ],
         ));

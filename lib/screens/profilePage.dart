@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:hospital_stay_helper/config/styles.dart';
@@ -80,6 +79,7 @@ class _ProfilePage extends State<ProfilePage>
           //       fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
           // ),
           buildPageDescriptionColor(
+            "Welcome to Your Settings",
             "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
             Colors.white,
           ),
