@@ -32,6 +32,14 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   bool isLoading = false, ur = true, er = true, isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _hospitalPage = HospitalPage();
+    _loadLastSaved();
+  }
+
   openMap(String name, String street) async {
     Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
         {'api': '1', 'query': name + ' ' + street});
@@ -159,13 +167,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     return await Geolocator.getCurrentPosition(
         timeLimit: Duration(seconds: 5),
         desiredAccuracy: LocationAccuracy.high);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _hospitalPage = HospitalPage();
-    _loadLastSaved();
   }
 
   getColor() {

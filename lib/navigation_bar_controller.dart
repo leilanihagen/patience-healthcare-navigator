@@ -65,7 +65,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   void openPage(int index) async {
     setState(() {
-      if (index < 5) _selectedIndex = index;
+      if (index < 5)
+        _selectedIndex = index;
+      else
+        profileSelected = true;
       _pageController.jumpToPage(index);
     });
     switch (index) {
@@ -147,9 +150,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Guidelines',
     'Visits Timeline',
     'Find In-Network Hospitals',
-    'Search Medical Services',
+    'Search Medical Services'
   ];
-
   String profileTitle = 'User Settings';
 
   @override
