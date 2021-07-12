@@ -11,6 +11,7 @@ import 'package:hospital_stay_helper/screens/searchPage.dart';
 import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
 import 'screens/visitsTimelinePage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
   final int currentIndex;
@@ -58,6 +59,34 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     setState(() {
       haveOpenProfile = temp;
     });
+    if (!temp)
+      Future.delayed(
+          const Duration(seconds: 3),
+          () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.all(0),
+                  elevation: 10,
+                  title: Text("Set your profile at User Settings"),
+                  content: Image.asset(
+                    'assets/images/setup_settings_crop.png',
+                    width: .30.sw,
+                    height: .30.sw,
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Later")),
+                    TextButton(
+                        onPressed: () {
+                          openPage(5);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Okay")),
+                  ],
+                );
+              }));
   }
 
   @override

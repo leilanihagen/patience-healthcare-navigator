@@ -469,9 +469,11 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       style: ElevatedButton.styleFrom(primary: Colors.red),
                       // Icon(Icons.add),
                       child: Icon(Icons.delete),
-                      onPressed: () {
-                        widget.deleteVisit(widget.visitIndex);
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        if (await showConfirm()) {
+                          widget.deleteVisit(widget.visitIndex);
+                          Navigator.pop(context);
+                        }
                       }),
                 )
               ],
