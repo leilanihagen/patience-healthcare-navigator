@@ -24,7 +24,6 @@ class VisitsTimelinePage extends StatefulWidget {
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   List<Visit> visits = [];
   GlobalKey<AnimatedListState> listKey;
-
   // @override
   // void initState() {
   //   super.initState();
@@ -122,7 +121,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         .logEvent(name: 'delete_note', parameters: {'type': temp.type});
     return temp;
   }
-
+  
   getPageDescription() {
     return buildPageDescriptionColor(
       "Welcome to your Visits Timeline",

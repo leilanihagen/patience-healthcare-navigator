@@ -14,22 +14,20 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
-  HospitalSearchPage({Key key}) : super(key: key);
+  final Function openPage;
+  HospitalSearchPage({Key key, this.openPage}) : super(key: key);
 
   @override
   _CheckHospitalPage createState() => _CheckHospitalPage();
 }
 
-showError(error) {
-  rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-    content: Text(error),
-  ));
-}
-
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false, ur = true, er = true, isSearching = false;
+  bool isLoading = false,
+      ur = true,
+      er = true,
+      isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
 
@@ -50,6 +48,22 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     } else {
       throw 'Could not launch $googleUrl';
     }
+  }
+
+  showError(error) {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text(error),
+    ));
+  }
+
+  showProviderError() {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text("You haven't selected a provider"),
+      action: SnackBarAction(
+        label: 'SETTINGS',
+        onPressed: () => widget.openPage(5),
+      ),
+    ));
   }
 
   _searchHospital(String keyword) async {
@@ -75,7 +89,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                 tmp.map((e) => SearchResult.fromJson(e)));
           });
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }
@@ -115,7 +129,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               .setStringValue('checkHospital', response.body);
         }
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }

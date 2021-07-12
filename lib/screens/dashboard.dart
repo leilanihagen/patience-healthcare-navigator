@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
-import 'package:hospital_stay_helper/components/tapEditBoxNumeric.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hospital_stay_helper/navigation_bar_controller.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,6 +18,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
+  List<bool> walkthrough = [true, true, true, true, true];
   // double amountDeductiblePaid;
 
   // _loadSaved() async {
@@ -79,94 +78,153 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget buildWalkthroughCard(String imagePath, String title, String body,
       String buttonText, Gradient gradient, int targetPageIndex) {
-    return Container(
-      width: .97.sw,
-      margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
-      padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: Offset(0, 3))
-          ],
-          gradient: gradient,
-          color: Styles.lightGreenTheme,
-          borderRadius: BorderRadius.circular(20.0)),
-      child: Column(
-        children: [
-          // Title + close button:
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          Container(
-            width: .8.sw,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  title,
-                  style: Styles.articleHeading1,
-                  softWrap: true,
+    return Visibility(
+      visible: walkthrough[targetPageIndex - 1],
+      replacement: Align(
+        alignment: Alignment.topRight,
+        child: ClipOval(
+          child: Material(
+            color: Colors.blue, // Button color
+            child: InkWell(
+              splashColor: Colors.red, // Splash color
+              onTap: () {
+                setState(() {
+                  walkthrough[targetPageIndex - 1] = true;
+                });
+              },
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: RotatedBox(
+                  quarterTurns: 3,
+                  child: Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-          // Container(
-          //   width: .1.sw,
-          //   child: Align(
-          //     alignment: Alignment.topRight,
-          //     child: IconButton(
-          //       icon: Icon(Icons.close),
-          //       onPressed: () {},
-          //     ),
-          //   ),
-          // ),
-          //   ],
-          // ),
-          // Text + image:
-          Container(
-              width: .4.sh,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: DropCapText(
-                      body,
-                      style: Styles.articleBody,
-                      dropCap: DropCap(
-                        height: .33.sw,
-                        width: .33.sw,
-                        child: // Image:
-                            Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, .007.sw, .007.sw),
-                          child: Image.asset(imagePath,
-                              height: .33.sw, width: .33.sw),
-                        ),
-                      ),
-                    )),
-              )),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: .005.sw),
-            child: TextButton(
-                onPressed: () {
-                  widget.openPage(targetPageIndex);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => AppBottomNavBarController(
-                  //             currentIndex: targetPageIndex)));
-                },
-                child: Text(
-                  buttonText,
-                  style: Styles.medButton,
-                )),
-          ),
-        ],
+        ),
       ),
+      child: Stack(children: [
+        Container(
+          width: .97.sw,
+          margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
+          padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 4,
+                    blurRadius: 6,
+                    offset: Offset(0, 3))
+              ],
+              gradient: gradient,
+              color: Styles.lightGreenTheme,
+              borderRadius: BorderRadius.circular(20.0)),
+          child: Column(
+            children: [
+              // Title + close button:
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              Container(
+                width: .8.sw,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
+                  // alignment: Alignment.topCenter,
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: Styles.articleHeading1,
+                    softWrap: true,
+                  ),
+                ),
+              ),
+              // Container(
+              //   width: .1.sw,
+              //   child: Align(
+              //     alignment: Alignment.topRight,
+              //     child: IconButton(
+              //       icon: Icon(Icons.close),
+              //       onPressed: () {},
+              //     ),
+              //   ),
+              // ),
+              //   ],
+              // ),
+              // Text + image:
+              Container(
+                  width: .4.sh,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: DropCapText(
+                          body,
+                          style: Styles.articleBody,
+                          dropCap: DropCap(
+                            height: .33.sw,
+                            width: .33.sw,
+                            child: // Image:
+                                Padding(
+                              padding:
+                                  EdgeInsets.fromLTRB(0, 0, .007.sw, .007.sw),
+                              child: Image.asset(imagePath,
+                                  height: .33.sw, width: .33.sw),
+                            ),
+                          ),
+                        )),
+                  )),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: .005.sw),
+                child: TextButton(
+                    onPressed: () {
+                      widget.openPage(targetPageIndex);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => AppBottomNavBarController(
+                      //             currentIndex: targetPageIndex)));
+                    },
+                    child: Text(
+                      buttonText,
+                      style: Styles.medButton,
+                    )),
+              ),
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: ClipOval(
+            child: Material(
+              color: Colors.blue, // Button color
+              child: InkWell(
+                splashColor: Colors.red, // Splash color
+                onTap: () {
+                  setState(() {
+                    walkthrough[targetPageIndex - 1] = false;
+                  });
+                },
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ]),
     );
   }
 
