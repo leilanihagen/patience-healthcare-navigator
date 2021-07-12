@@ -94,7 +94,13 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         await MySharedPreferences.instance.getStringValue('user_provider');
     try {
       if (provider.isNotEmpty) {
+        setState(() {
+          _hospitalPage.status = "Getting your position";
+        });
         Position position = await _determinePosition();
+        setState(() {
+          _hospitalPage.status = "Checking...";
+        });
         http.Response response = await http.post(
           Uri.parse(
               "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
@@ -211,16 +217,27 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   getStatus() {
     if (isLoading)
-      return SizedBox(
-          width: 0.05.sh,
-          height: 0.05.sh,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: CircularProgressIndicator.adaptive(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              strokeWidth: 10,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 10,
+              ),
             ),
-          ));
+          ),
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: Styles.statusButton,
+          )
+        ],
+      );
     switch (_hospitalPage.check) {
       case 0:
         return Column(
