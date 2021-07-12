@@ -101,7 +101,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         child: BottomNavigationBar(
             // showSelectedLabels: false,
             // showUnselectedLabels: true,
-            selectedItemColor: Styles.purpleTheme,
+            selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white,
             backgroundColor: Styles.blueTheme,
             selectedLabelStyle: TextStyle(
