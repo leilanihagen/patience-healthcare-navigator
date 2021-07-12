@@ -27,10 +27,17 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   bool isLoading = false,
       ur = true,
       er = true,
-      isSearching = false,
-      collapse = true;
+      isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _hospitalPage = HospitalPage();
+    _loadLastSaved();
+  }
+
   openMap(String name, String street) async {
     Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
         {'api': '1', 'query': name + ' ' + street});
@@ -41,12 +48,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     } else {
       throw 'Could not launch $googleUrl';
     }
-  }
-
-  _toggle() {
-    setState(() {
-      collapse = !collapse;
-    });
   }
 
   showError(error) {
@@ -180,13 +181,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     return await Geolocator.getCurrentPosition(
         timeLimit: Duration(seconds: 5),
         desiredAccuracy: LocationAccuracy.high);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _hospitalPage = HospitalPage();
-    _loadLastSaved();
   }
 
   getColor() {
@@ -515,11 +509,11 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Container(
                       height: .07.sh,
                     ),
-                    testBuildPageDescriptionColor(
-                        'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                        Colors.white,
-                        collapse,
-                        _toggle),
+                    buildPageDescriptionColor(
+                      "Welcome to Check Hospitals",
+                      'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                      Colors.white,
+                    ),
                     Center(
                       child: GestureDetector(
                         onTap: () => isLoading ? null : _checkHospital(),

@@ -72,7 +72,7 @@ Widget renderClickableSituationCard(
           ]),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Styles.darkPinkTheme,
+              primary: Styles.modestPink,
               onPrimary: Colors.white,
             ),
             child: ListTile(
@@ -242,11 +242,12 @@ class RootCategoriesPage extends StatelessWidget {
 
   final BuildContext context;
   final BeforeStayPage beforeStayPage;
+  Color icons = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -263,6 +264,7 @@ class RootCategoriesPage extends StatelessWidget {
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
               buildPageDescriptionColor(
+                "Welcome to your Guidelines",
                 "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
                 Colors.white,
               ),
@@ -271,38 +273,32 @@ class RootCategoriesPage extends StatelessWidget {
                   context,
                   TermsPage(),
                   "I want to learn healthcare terms and definitions",
-                  Icon(Icons.menu_book_rounded,
-                      color: Styles.guildelineSituationBlue, size: 33)),
+                  Icon(Icons.menu_book_rounded, color: icons, size: 33)),
               renderClickableSituationCard(
                   context,
                   BeforeStayPage(),
                   "I'm preparing for a hospital visit",
-                  Icon(Icons.laptop,
-                      color: Styles.guildelineSituationBlue, size: 33)),
+                  Icon(Icons.laptop, color: icons, size: 33)),
               renderClickableSituationCard(
                   context,
                   DuringStayPage(),
                   "I'm at the hospital now",
-                  Icon(Icons.sick_rounded,
-                      color: Styles.guildelineSituationBlue, size: 33)),
+                  Icon(Icons.sick_rounded, color: icons, size: 33)),
               renderClickableSituationCard(
                   context,
                   AfterStayPage(),
                   "I recently visited the hospital",
-                  Icon(Icons.medical_services_rounded,
-                      color: Styles.guildelineSituationBlue, size: 33)),
+                  Icon(Icons.medical_services_rounded, color: icons, size: 33)),
               renderClickableSituationCard(
                   context,
                   ReceivedBillPage(),
                   "I've received a surprise medical bill",
-                  Icon(Icons.attach_money_rounded,
-                      color: Styles.guildelineSituationBlue, size: 37)),
+                  Icon(Icons.attach_money_rounded, color: icons, size: 37)),
               renderClickableSituationCard(
                   context,
                   CollectionsPage(),
                   "My medical bill/debt has been sent to collections",
-                  Icon(Icons.priority_high_rounded,
-                      color: Styles.guildelineSituationBlue, size: 33)),
+                  Icon(Icons.priority_high_rounded, color: icons, size: 33)),
             ],
           ),
         ));
