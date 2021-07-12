@@ -73,6 +73,7 @@ Widget buildPageDescriptionColor(
       //   width: .7.sw,
       // child:
       child: ExpansionTile(
+        key: PageStorageKey(title),
         backgroundColor: color,
         collapsedBackgroundColor: color,
         children: [
