@@ -65,7 +65,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     } else {
       String _savedVisits =
           await MySharedPreferences.instance.getStringValue('visits');
-      print(_savedVisits);
       if (_savedVisits.isNotEmpty) {
         Iterable tmp = jsonDecode(_savedVisits);
         setState(() {
@@ -121,7 +120,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         .logEvent(name: 'delete_note', parameters: {'type': temp.type});
     return temp;
   }
-  
+
   getPageDescription() {
     return buildPageDescriptionColor(
       "Welcome to your Visits Timeline",
