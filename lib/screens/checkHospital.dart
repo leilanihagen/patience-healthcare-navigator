@@ -76,7 +76,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       if (provider.isNotEmpty) {
         http.Response response = await http.post(
           Uri.parse(
-              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_search"),
+              "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -111,7 +111,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         Position position = await _determinePosition();
         http.Response response = await http.post(
           Uri.parse(
-              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
+              "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
