@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,10 +27,7 @@ class HospitalSearchPage extends StatefulWidget {
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false,
-      ur = true,
-      er = true,
-      isSearching = false;
+  bool isLoading = false, ur = true, er = true, isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
 
@@ -74,20 +74,25 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         await MySharedPreferences.instance.getStringValue('user_provider');
     try {
       if (provider.isNotEmpty) {
-        http.Response response = await http.post(
-          Uri.parse(
-              "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({'keyword': keyword, 'provider': provider}),
-        );
-        if (response.statusCode == 200)
-          setState(() {
-            Iterable tmp = jsonDecode(response.body)['body'];
-            listSearch = List<SearchResult>.from(
-                tmp.map((e) => SearchResult.fromJson(e)));
-          });
+        bool connection = await DataConnectionChecker().hasConnection;
+        if (connection) {
+          print(true);
+          http.Response response = await http.post(
+            Uri.parse(
+                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({'keyword': keyword, 'provider': provider}),
+          );
+          if (response.statusCode == 200)
+            setState(() {
+              Iterable tmp = jsonDecode(response.body)['body'];
+              listSearch = List<SearchResult>.from(
+                  tmp.map((e) => SearchResult.fromJson(e)));
+            });
+        } else
+          showError("No internet connection");
       } else
         showProviderError();
     } catch (e) {
@@ -115,25 +120,29 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         setState(() {
           _hospitalPage.status = "Checking...";
         });
-        http.Response response = await http.post(
-          Uri.parse(
-              "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({
-            'lat': position.latitude,
-            'lng': position.longitude,
-            'provider': provider
-          }),
-        );
-        if (response.statusCode == 200) {
-          setState(() {
-            _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
-          });
-          MySharedPreferences.instance
-              .setStringValue('checkHospital', response.body);
-        }
+        bool connection = await DataConnectionChecker().hasConnection;
+        if (connection) {
+          http.Response response = await http.post(
+            Uri.parse(
+                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({
+              'lat': position.latitude,
+              'lng': position.longitude,
+              'provider': provider
+            }),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
+            });
+            MySharedPreferences.instance
+                .setStringValue('checkHospital', response.body);
+          }
+        } else
+          showError("No internet connection");
       } else
         showProviderError();
     } catch (e) {

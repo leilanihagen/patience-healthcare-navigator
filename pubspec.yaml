@@ -21,17 +21,21 @@ dependencies:
   dropdown_search: 0.6.1
   reorderables: 0.4.1
   hexcolor: 2.0.3
+  # Connect to internet resource
   url_launcher: 6.0.6
   http: 0.13.3
+  data_connection_checker: ^0.3.4
   material_floating_search_bar: 0.3.4
   flutter_screenutil: 5.0.0+2
   expandable: 5.0.1
   csv: 5.0.0
   badges: 2.0.1
   flutter_svg: 0.22.0
+  # For image picker
   image_picker: ^0.8.0+3
   path_provider: ^2.0.2
   path: ^1.8.0
+  
   percent_indicator: "^2.1.7+2"
   drop_cap_text: ^1.1.3
   # Firebase stuff

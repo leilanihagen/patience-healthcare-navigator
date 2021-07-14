@@ -112,7 +112,7 @@ Widget renderSituationBox(String text, Icon icon) {
                   offset: Offset(0, 3))
             ]),
             child: Card(
-              color: Styles.darkPinkTheme,
+              color: Styles.modestPink,
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -365,8 +365,7 @@ class TermsPage extends StatelessWidget {
             children: [
               renderSituationBox(
                   "I want to learn healthcare terms and definitions",
-                  Icon(Icons.menu_book_rounded,
-                      color: Styles.blueTheme, size: 33)),
+                  Icon(Icons.menu_book_rounded, color: Colors.white, size: 33)),
               // renderGuidelineRichText(
               //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuidelineHyperlink(
@@ -492,7 +491,7 @@ class BeforeStayPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox("I'm preparing for a hospital visit",
-                  Icon(Icons.laptop, color: Styles.blueTheme, size: 33)),
+                  Icon(Icons.laptop, color: Colors.white, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -572,7 +571,7 @@ class DuringStayPage extends StatelessWidget {
           child: ListView(
             children: [
               renderSituationBox("I'm at the hospital now",
-                  Icon(Icons.sick_rounded, color: Styles.blueTheme, size: 33)),
+                  Icon(Icons.sick_rounded, color: Colors.white, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -641,7 +640,7 @@ class AfterStayPage extends StatelessWidget {
               renderSituationBox(
                   "I recently visited the hospital",
                   Icon(Icons.medical_services_rounded,
-                      color: Styles.blueTheme, size: 33)),
+                      color: Colors.white, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               ElevatedButton(
@@ -762,7 +761,7 @@ class ReceivedBillPage extends StatelessWidget {
               renderSituationBox(
                   "I've received a surprise medical bill",
                   Icon(Icons.attach_money_rounded,
-                      color: Styles.blueTheme, size: 37)),
+                      color: Colors.white, size: 37)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
@@ -894,7 +893,7 @@ class CollectionsPage extends StatelessWidget {
               renderSituationBox(
                   "My medical bill/debt has been sent to collections",
                   Icon(Icons.priority_high_rounded,
-                      color: Styles.blueTheme, size: 33)),
+                      color: Colors.white, size: 33)),
               renderGuidelineHyperlink(
                   guidelinesTitles[0],
                   subGuidelinesText[0],
