@@ -19,14 +19,15 @@ class ImageFullScreenView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Styles.purpleTheme,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: IconButton(
-        icon: Icon(
-          Icons.close,
-          color: Colors.white,
-        ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white24,
         onPressed: () {
           Navigator.pop(context);
         },
+        child: Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
       ),
       body: InteractiveViewer(
         child: Center(child: Hero(tag: 'imageView', child: image)),
