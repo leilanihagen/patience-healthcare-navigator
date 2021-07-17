@@ -11,6 +11,7 @@ import 'package:hospital_stay_helper/screens/searchPage.dart';
 import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
 import 'screens/visitsTimelinePage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
   final int currentIndex;
@@ -42,7 +43,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
-      HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+      HospitalSearchPage(
+        key: PageStorageKey('hospitalsearch'),
+        openPage: openPage,
+      ),
       SearchPage(key: PageStorageKey('searchservices')),
       ProfilePage(key: PageStorageKey('yourprofile')),
     ];
@@ -55,6 +59,34 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     setState(() {
       haveOpenProfile = temp;
     });
+    if (!temp)
+      Future.delayed(
+          const Duration(seconds: 3),
+          () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.all(0),
+                  elevation: 10,
+                  title: Text("Set your profile at User Settings"),
+                  content: Image.asset(
+                    'assets/images/setup_settings_crop.png',
+                    width: .30.sw,
+                    height: .30.sw,
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Later")),
+                    TextButton(
+                        onPressed: () {
+                          openPage(5);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Okay")),
+                  ],
+                );
+              }));
   }
 
   @override
@@ -101,7 +133,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         child: BottomNavigationBar(
             // showSelectedLabels: false,
             // showUnselectedLabels: true,
-            selectedItemColor: Styles.purpleTheme,
+            selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white,
             backgroundColor: Styles.blueTheme,
             selectedLabelStyle: TextStyle(
@@ -159,31 +191,33 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Styles.blueTheme,
-        leading: IconButton(
-          color: profileSelected ? Styles.blueTheme : Colors.grey,
-          icon: Badge(
-            // badgeColor: Colors.white,
-            showBadge: !haveOpenProfile,
-            badgeContent: Text(
-              "1",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-            ),
-            child: ClipOval(
-              child: Container(
-                padding: EdgeInsets.all(5),
-                color: Colors.white,
-                child: Icon(
-                  Icons.settings,
+        actions: [
+          IconButton(
+            color: profileSelected ? Styles.blueTheme : Colors.grey,
+            icon: Badge(
+              // badgeColor: Colors.white,
+              showBadge: !haveOpenProfile,
+              badgeContent: Text(
+                "1",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              ),
+              child: ClipOval(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  color: Colors.white,
+                  child: Icon(
+                    Icons.settings,
+                  ),
                 ),
               ),
             ),
+            onPressed: () => setState(() {
+              profileSelected = haveOpenProfile = true;
+              _pageController.jumpToPage(5);
+            }),
           ),
-          onPressed: () => setState(() {
-            profileSelected = haveOpenProfile = true;
-            _pageController.jumpToPage(5);
-          }),
-        ),
+        ],
         title: profileSelected
             ? Text(
                 profileTitle,

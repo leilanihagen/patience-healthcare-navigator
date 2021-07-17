@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app.dart';
 
 String purpleTheme = "#66558E";
@@ -9,5 +10,7 @@ String darkGreenTheme = "#758C20";
 String lightGreenTheme = "#A1BF36";
 
 void main() async {
-  runApp(App());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(App()));
 }

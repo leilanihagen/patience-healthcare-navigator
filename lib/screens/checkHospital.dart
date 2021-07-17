@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,16 +17,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
-  HospitalSearchPage({Key key}) : super(key: key);
+  final Function openPage;
+  HospitalSearchPage({Key key, this.openPage}) : super(key: key);
 
   @override
   _CheckHospitalPage createState() => _CheckHospitalPage();
-}
-
-showError(error) {
-  rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-    content: Text(error),
-  ));
 }
 
 class _CheckHospitalPage extends State<HospitalSearchPage>
@@ -52,6 +50,22 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     }
   }
 
+  showError(error) {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text(error),
+    ));
+  }
+
+  showProviderError() {
+    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text("You haven't selected a provider"),
+      action: SnackBarAction(
+        label: 'SETTINGS',
+        onPressed: () => widget.openPage(5),
+      ),
+    ));
+  }
+
   _searchHospital(String keyword) async {
     setState(() {
       isSearching = true;
@@ -60,22 +74,27 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         await MySharedPreferences.instance.getStringValue('user_provider');
     try {
       if (provider.isNotEmpty) {
-        http.Response response = await http.post(
-          Uri.parse(
-              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_search"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({'keyword': keyword, 'provider': provider}),
-        );
-        if (response.statusCode == 200)
-          setState(() {
-            Iterable tmp = jsonDecode(response.body)['body'];
-            listSearch = List<SearchResult>.from(
-                tmp.map((e) => SearchResult.fromJson(e)));
-          });
+        bool connection = await DataConnectionChecker().hasConnection;
+        if (connection) {
+          print(true);
+          http.Response response = await http.post(
+            Uri.parse(
+                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({'keyword': keyword, 'provider': provider}),
+          );
+          if (response.statusCode == 200)
+            setState(() {
+              Iterable tmp = jsonDecode(response.body)['body'];
+              listSearch = List<SearchResult>.from(
+                  tmp.map((e) => SearchResult.fromJson(e)));
+            });
+        } else
+          showError("No internet connection");
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }
@@ -94,28 +113,38 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         await MySharedPreferences.instance.getStringValue('user_provider');
     try {
       if (provider.isNotEmpty) {
+        setState(() {
+          _hospitalPage.status = "Getting your position";
+        });
         Position position = await _determinePosition();
-        http.Response response = await http.post(
-          Uri.parse(
-              "https://us-west2-dscapp-301108.cloudfunctions.net/hospital_check"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({
-            'lat': position.latitude,
-            'lng': position.longitude,
-            'provider': provider
-          }),
-        );
-        if (response.statusCode == 200) {
-          setState(() {
-            _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
-          });
-          MySharedPreferences.instance
-              .setStringValue('checkHospital', response.body);
-        }
+        setState(() {
+          _hospitalPage.status = "Checking...";
+        });
+        bool connection = await DataConnectionChecker().hasConnection;
+        if (connection) {
+          http.Response response = await http.post(
+            Uri.parse(
+                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({
+              'lat': position.latitude,
+              'lng': position.longitude,
+              'provider': provider
+            }),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
+            });
+            MySharedPreferences.instance
+                .setStringValue('checkHospital', response.body);
+          }
+        } else
+          showError("No internet connection");
       } else
-        showError("You haven't selected a provider");
+        showProviderError();
     } catch (e) {
       showError(e);
     }
@@ -211,16 +240,27 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   getStatus() {
     if (isLoading)
-      return SizedBox(
-          width: 0.05.sh,
-          height: 0.05.sh,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: CircularProgressIndicator.adaptive(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              strokeWidth: 10,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 10,
+              ),
             ),
-          ));
+          ),
+          Text(
+            _hospitalPage.status,
+            textAlign: TextAlign.center,
+            style: Styles.statusButton,
+          )
+        ],
+      );
     switch (_hospitalPage.check) {
       case 0:
         return Column(
@@ -496,6 +536,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       height: .07.sh,
                     ),
                     buildPageDescriptionColor(
+                      "Welcome to Check Hospitals",
                       'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
                       Colors.white,
                     ),
