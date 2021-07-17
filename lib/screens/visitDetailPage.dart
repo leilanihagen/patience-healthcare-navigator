@@ -17,10 +17,13 @@ class ImageFullScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Styles.lightGreenTheme,
+      backgroundColor: Styles.purpleTheme,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: IconButton(
-        icon: Icon(Icons.close),
+        icon: Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -176,15 +179,17 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
             padding: const EdgeInsets.all(7.0),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3))
-                ]),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3))
+              ],
+              border: Border.all(width: 1, color: Colors.grey[600]),
+            ),
             // Title and note body:
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,11 +217,16 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                 color: Colors.white,
                                 // border: Border.all(),
                                 borderRadius: BorderRadius.circular(8.0)),
-                            textStyle: Theme.of(context)
+                            mainTextStyle: Theme.of(context)
                                 .textTheme
                                 .apply(
                                   bodyColor: Colors.black,
-                                  displayColor: Colors.black,
+                                )
+                                .headline6,
+                            defaultTextStyle: Theme.of(context)
+                                .textTheme
+                                .apply(
+                                  bodyColor: Colors.grey[700],
                                 )
                                 .headline6,
                             noteIndex: index,
@@ -252,7 +262,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topRight,
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(color: Colors.grey[600]),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: Column(
@@ -305,6 +315,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   width: .87.sw,
                   margin: 1.0,
                   padding: 3.0,
+                  defaultTextStyle: Styles.articleBodySmallGreyed,
                   textAlign: TextAlign.left,
                   shouldWrap: true,
                 ),
@@ -430,9 +441,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.lightGreenTheme,
+        backgroundColor: Styles.purpleTheme,
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Styles.purpleTheme,
+            backgroundColor: Styles.modestPink,
             child: Icon(Icons.add),
             onPressed: () => createNewNote('note', '')),
         body: Column(
@@ -455,12 +466,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0),
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.red[600]),
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
                       // Icon(Icons.add),
                       child: Icon(Icons.delete),
-                      onPressed: () {
-                        widget.deleteVisit(widget.visitIndex);
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        if (await showConfirm()) {
+                          widget.deleteVisit(widget.visitIndex);
+                          Navigator.pop(context);
+                        }
                       }),
                 )
               ],
@@ -470,8 +483,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                  padding: EdgeInsets.all(5),
                   alignment: Alignment.centerRight,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -480,9 +493,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       boxShadow: [
                         BoxShadow(
                             color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 6,
+                            spreadRadius: 2,
                             blurRadius: 6,
-                            offset: Offset(0, 3))
+                            offset: Offset(6, 2))
                       ]),
                   // onTap: () => _selectDate(
                   //     context, widget.visit.date, index),
@@ -490,7 +503,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     onTap: () => _selectVisitDate(context, widget.visit.date),
                     child: Text(
                       widget.visit.date,
-                      style: Styles.articleBody,
+                      style: Styles.articleBodySmall,
                     ),
                   ),
                 ),
@@ -499,24 +512,27 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   decoration: BoxDecoration(boxShadow: [
                     BoxShadow(
                         color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 6,
+                        spreadRadius: 2,
                         blurRadius: 6,
-                        offset: Offset(0, 3))
+                        offset: Offset(1, 2))
                   ]),
                   alignment: Alignment.centerRight,
                   child: VisitTapEditBox(
                     visit: widget.visit,
                     dataType: 'patientName',
                     inputData: widget.visit.patientName,
-                    defaultText: "Patient's name",
+                    defaultText: "Patient's name...",
                     isEditingVisit: true,
                     updateFunction: widget.updateVisitFunction,
                     boxDecoration: BoxDecoration(
                         color: Colors.white,
                         // border: Border.all(),
                         borderRadius: BorderRadius.circular(8.0)),
-                    height: 32.0,
-                    width: 140.0,
+                    defaultTextStyle: Styles.articleBodySmallGreyed,
+                    // height: 32.0,
+                    width: .5.sw,
+                    shouldWrap: true,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ],
@@ -527,7 +543,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 6,
+                    spreadRadius: 2,
                     blurRadius: 6,
                     offset: Offset(0, 3))
               ]),
@@ -536,13 +552,14 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 visit: widget.visit,
                 dataType: 'healthcareProvider',
                 inputData: widget.visit.healthcareProvider,
-                defaultText: "Healthcare provider (e.g. hospital name)",
+                defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
                 isEditingVisit: true,
                 updateFunction: widget.updateVisitFunction,
                 boxDecoration: BoxDecoration(
                     color: Colors.white,
                     // border: Border.all(),
                     borderRadius: BorderRadius.circular(8.0)),
+                defaultTextStyle: Styles.articleBodySmallGreyed,
                 // height: 32.0,
                 width: .97.sw,
                 shouldWrap: true,
@@ -557,7 +574,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               children: [
                 ElevatedButton(
                   onPressed: () => createNewNote('note', ''),
-                  style: ElevatedButton.styleFrom(primary: Styles.purpleTheme),
+                  style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
 
                   // Icon(Icons.add),
                   child: Icon(Icons.note_add),
@@ -567,7 +584,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 ),
                 ElevatedButton(
                   onPressed: () => getImage(),
-                  style: ElevatedButton.styleFrom(primary: Styles.purpleTheme),
+                  style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
                   // Icon(Icons.add),
                   child: Icon(Icons.image),
                 )
@@ -588,9 +605,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 Expanded(
                   child: getNotes(),
                 ),
-                Container(
-                  height: 10,
-                )
               ],
             )),
             ElevatedButton(
