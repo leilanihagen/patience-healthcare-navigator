@@ -10,11 +10,9 @@ import 'package:hospital_stay_helper/navigation_bar_controller.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:provider';
 
 class DashboardPage extends StatefulWidget {
   final Function openPage;
-  final GlobalKey globalKey = GlobalKey();
 
   DashboardPage({Key key, this.openPage}) : super(key: key);
 
@@ -430,28 +428,16 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print('111 ${context?.size}');
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           // Header:
-          // SliverAppBar(floating: true),
           SliverPersistentHeader(
-            delegate: SectionHeaderDelegate(
-                widget.globalKey,
-                insuranceProvider,
-                widget.openPage,
-                buildIconButton,
-                buildStateButton,
-                _callProvider),
-            // pinned: true,
+            delegate: CustomSliverDelegate(insuranceProvider, widget.openPage,
+                buildIconButton, buildStateButton, _callProvider),
             floating: true,
           ),
-          // SliverToBoxAdapter(
-          //   child: buildContainer(),
-          // ),
           SliverList(
             // mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -613,19 +599,16 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 }
 
+/// Smaller helper ChangeNotifier just to manually trigger a rebuild (when height changes)
 class _Rebuild extends ChangeNotifier {
   @override
   void notifyListeners() {
-    // TODO: implement notifyListeners
     super.notifyListeners();
   }
 }
 
-class SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
-  // final String title;
-  double height;
-  final GlobalKey globalKey;
-  bool buildAtleastOnce = false;
+class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
+  double height = double.infinity;
 
   final String insuranceProvider;
   final Function(int) openPage;
@@ -633,42 +616,18 @@ class SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Function buildStateButton;
   final Function callProvider;
 
-  SectionHeaderDelegate(this.globalKey, this.insuranceProvider, this.openPage,
-      this.buildIconButton, this.buildStateButton, this.callProvider,
-      [this.height = double.infinity]);
+  CustomSliverDelegate(this.insuranceProvider, this.openPage,
+      this.buildIconButton, this.buildStateButton, this.callProvider);
 
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
-    // if (context?.size != null && height != context.size.height) {
-    //   height = context.size.height;
-    // }
-
-    // WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-    //   if (context?.size != null && height != context.size.height) {
-    //     height = context.size.height;
-    //   }
-    // });
-
     return ChangeNotifierProvider(
       create: (_) => _Rebuild(),
       child: LayoutBuilder(
         builder: (c, cd) {
           c.watch<_Rebuild>();
-          // print('Build');
-
-          // if (buildAtleastOnce && context?.size != null && height != context.size.height) {
-          //   height = context.size.height;
-          // }
-          // buildAtleastOnce = true;
-          // print(cd);
-
           WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-            // print('Added Post Frame Callback');
-            // print(
-            //     'Added Post Frame Callback: ${c?.size}, ${c?.size?.height}, $height');
             if (c?.size != null && height != c.size.height) {
-              // print(
-              //     'Added Post Frame Callback: ${c?.size}, ${c?.size?.height}, $height');
               height = c.size.height;
               c.read<_Rebuild>().notifyListeners();
             }
@@ -811,5 +770,6 @@ class SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => height;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+  // TODO: If something doesn't work in the future, try returning true
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }
