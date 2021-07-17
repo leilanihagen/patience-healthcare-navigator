@@ -652,7 +652,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // ElevatedButton(onPressed: () => print(c.size), child: Text('Debug')),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, .015.sw),
                   child: Text('Your Information',
@@ -748,17 +747,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             ),
           );
         },
-      ),
-    );
-
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0))),
-      alignment: Alignment.center,
-      child: Container(
-        // child: Center(child: Text(title)),
-        color: Theme.of(context).primaryColor,
       ),
     );
   }
