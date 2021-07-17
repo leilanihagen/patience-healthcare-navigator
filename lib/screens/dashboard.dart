@@ -599,7 +599,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 }
 
-/// Smaller helper ChangeNotifier just to manually trigger a rebuild (when height changes)
+/// Small helper ChangeNotifier just to manually trigger a rebuild (when height changes)
 class _Rebuild extends ChangeNotifier {
   @override
   void notifyListeners() {
