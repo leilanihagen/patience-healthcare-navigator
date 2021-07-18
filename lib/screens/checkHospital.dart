@@ -543,22 +543,31 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Center(
                       child: GestureDetector(
                         onTap: () => isLoading ? null : _checkHospital(),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: getShadow(),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3)),
-                                ],
-                                border: Border.all(width: 0.5),
-                                color: getColor(),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            width: 0.2.sh,
-                            height: 0.2.sh,
-                            child: getStatus()),
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                                child: child, opacity: animation);
+                          },
+                          child: Container(
+                              key: UniqueKey(),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: getShadow(),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3)),
+                                  ],
+                                  border: Border.all(width: 0.5),
+                                  color: getColor(),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              width: 0.2.sh,
+                              height: 0.2.sh,
+                              child: getStatus()),
+                        ),
                       ),
                     ),
                     _hospitalPage.name == null || _hospitalPage.name.isEmpty
