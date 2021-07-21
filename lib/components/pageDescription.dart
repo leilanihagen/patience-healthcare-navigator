@@ -136,3 +136,78 @@ Widget buildPageDescriptionColor(
   // ),
   // padding: EdgeInsets.fromLTRB(4, 8, 4, 12));
 }
+
+// Widget testBuildPageDescriptionColor(
+//     String description, Color color, bool visibility, Function toggleFunct) {
+//   return Visibility(
+//     visible: visibility,
+//     replacement: Align(
+//       alignment: Alignment.topRight,
+//       child: ClipOval(
+//         child: Material(
+//           color: Colors.blue, // Button color
+//           child: InkWell(
+//             splashColor: Colors.red, // Splash color
+//             onTap: toggleFunct,
+//             child: SizedBox(
+//               width: 40,
+//               height: 40,
+//               child: RotatedBox(
+//                 quarterTurns: 3,
+//                 child: Icon(
+//                   Icons.chevron_left,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),
+//     child: Stack(
+//       alignment: Alignment.bottomRight,
+//       children: [
+//         Container(
+//           margin: EdgeInsets.fromLTRB(4, 12, 4, 12),
+//           decoration: BoxDecoration(boxShadow: [
+//             BoxShadow(
+//                 color: Colors.grey.withOpacity(0.5),
+//                 spreadRadius: 4,
+//                 blurRadius: 6,
+//                 offset: Offset(0, 3))
+//           ], color: color, borderRadius: BorderRadius.circular(5.0)),
+//           child: Padding(
+//               child: Text(
+//                 description,
+//                 textAlign: TextAlign.left,
+//                 style: Styles.articleBody,
+//               ),
+//               padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+//         ),
+//         Align(
+//           alignment: Alignment.topRight,
+//           child: ClipOval(
+//             child: Material(
+//               color: Colors.blue, // Button color
+//               child: InkWell(
+//                 splashColor: Colors.red, // Splash color
+//                 onTap: toggleFunct,
+//                 child: SizedBox(
+//                   width: 40,
+//                   height: 40,
+//                   child: RotatedBox(
+//                     quarterTurns: 1,
+//                     child: Icon(
+//                       Icons.chevron_left,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ),
+//         )
+//       ],
+//     ),
+//   );
+// }

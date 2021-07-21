@@ -24,7 +24,6 @@ class VisitsTimelinePage extends StatefulWidget {
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   List<Visit> visits = [];
   GlobalKey<AnimatedListState> listKey;
-
   // @override
   // void initState() {
   //   super.initState();
@@ -66,7 +65,6 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     } else {
       String _savedVisits =
           await MySharedPreferences.instance.getStringValue('visits');
-      print(_savedVisits);
       if (_savedVisits.isNotEmpty) {
         Iterable tmp = jsonDecode(_savedVisits);
         setState(() {

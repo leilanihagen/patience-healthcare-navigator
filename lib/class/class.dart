@@ -127,11 +127,11 @@ class Top3 {
   bool er, ur;
   Top3(this.name, this.distance);
   Top3.fromJson(Map<String, dynamic> json)
-      : distance = json['distance'],
-        name = json['name'],
-        street = json['street'],
-        er = json['ER'],
-        ur = json['UR'];
+      : distance = json['distance'] ?? 0,
+        name = json['name'] ?? '',
+        street = json['street'] ?? '',
+        er = json['ER'] ?? false,
+        ur = json['UR'] ?? false;
   Map toJson() => {
         'name': name,
         'street': street,
@@ -152,11 +152,11 @@ class HospitalPage {
     check = 0;
   }
   HospitalPage.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    address = json['address'];
-    status = json['status'];
-    check = json['check'];
-    Iterable tmp = json['top3'];
+    name = json['name'] ?? '';
+    address = json['address'] ?? '';
+    status = json['status'] ?? '';
+    check = json['check'] ?? 0;
+    Iterable tmp = json['top3'] ?? [];
     top3 = List<Top3>.from(tmp.map((e) => Top3.fromJson(e)));
   }
   Map toJson() {
@@ -176,9 +176,9 @@ class SearchResult {
   String name, address;
   SearchResult(this.name, this.address);
   SearchResult.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    address = json['street'];
+    name = json['name'] ?? '';
+    address = json['street'] ?? '';
   }
 }
 
-class ProfilePage {}
+// class ProfilePage {}
