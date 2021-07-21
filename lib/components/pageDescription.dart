@@ -67,7 +67,6 @@ Padding buildPageDescriptionPink(String description) {
 
 Widget buildPageDescriptionColor(
     String title, String description, Color color) {
-<<<<<<< HEAD
   return
       // Padding(
       //     padding: EdgeInsets.fromLTRB(4, 8, 4, 12),
@@ -76,6 +75,7 @@ Widget buildPageDescriptionColor(
       //     // child:
       //     child:
       ExpansionTile(
+    key: PageStorageKey(title),
     backgroundColor: color,
     collapsedBackgroundColor: color,
     children: [
@@ -91,29 +91,6 @@ Widget buildPageDescriptionColor(
     initiallyExpanded: true,
     // )
   );
-=======
-  return Padding(
-      padding: EdgeInsets.fromLTRB(4, 8, 4, 12),
-      // child: Container(
-      //   width: .7.sw,
-      // child:
-      child: ExpansionTile(
-        key: PageStorageKey(title),
-        backgroundColor: color,
-        collapsedBackgroundColor: color,
-        children: [
-          Padding(
-              child: Text(
-                description,
-                textAlign: TextAlign.left,
-                style: Styles.articleBodySmall,
-              ),
-              padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
-        ],
-        title: Text(title, style: Styles.articleBodyBold),
-        initiallyExpanded: true,
-      ));
->>>>>>> c70bdf17365e55245c4b721ea71c1b4532dea1b3
   // Container(
   //   decoration: BoxDecoration(boxShadow: [
   //     BoxShadow(
