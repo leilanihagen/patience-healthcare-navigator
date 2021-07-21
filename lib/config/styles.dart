@@ -86,7 +86,7 @@ class Styles {
   static const bigImpact =
       TextStyle(fontSize: 60, fontWeight: FontWeight.w500, color: Colors.black);
 
-  static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800);
+  static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white);
   static const guidelineCard =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
   static const hyperlink = TextStyle(

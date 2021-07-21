@@ -18,7 +18,7 @@ class DashboardPage extends StatefulWidget {
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage> with AutomaticKeepAliveClientMixin<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
   // double amountDeductiblePaid;
@@ -485,9 +485,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
+    return Container(
+      color: Colors.white,
+      child: CustomScrollView(
         slivers: [
           // Header:
           SliverPersistentHeader(
@@ -654,6 +654,9 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 /// Small helper ChangeNotifier just to manually trigger a rebuild (when height changes)

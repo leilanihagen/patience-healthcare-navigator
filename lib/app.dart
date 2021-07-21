@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/localizations/language_constants.dart';
 import 'package:hospital_stay_helper/localizations/localization.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -66,7 +67,9 @@ class _AppState extends State<App> {
                   // primarySwatch: Colors.blue,
                   scaffoldBackgroundColor: HexColor(purpleTheme),
                   visualDensity: VisualDensity.adaptivePlatformDensity,
-                  fontFamily: 'Open Sans'),
+                  fontFamily: 'Open Sans',
+                accentColor: Styles.blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
+              ),
               locale: _locale,
               supportedLocales: [
                 Locale("en", "US"),
