@@ -81,8 +81,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                         child: Text("Later")),
                     TextButton(
                         onPressed: () {
-                          openPage(5);
                           Navigator.pop(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (c) => ProfilePage()));
                         },
                         child: Text("Okay")),
                   ],
