@@ -14,6 +14,7 @@ import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
@@ -535,11 +536,14 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Container(
                       height: .07.sh,
                     ),
-                    
-                    buildPageDescriptionColor(
-                      "Welcome to Check Hospitals",
-                      'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                      Colors.white,
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: .025.sw),
+                      child: buildPageDescriptionColor(
+                        "Welcome to Check Hospitals",
+                        'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                        Colors.white,
+                      ),
                     ),
                     Center(
                       child: GestureDetector(
@@ -552,6 +556,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                                 child: child, opacity: animation);
                           },
                           child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
                               key: UniqueKey(),
                               decoration: BoxDecoration(
                                   boxShadow: [
