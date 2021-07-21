@@ -69,6 +69,48 @@ class _ProfilePage extends State<ProfilePage>
     super.build(context);
     return Scaffold(
       // backgroundColor: Colors.deepPurple[600],
+      appBar: AppBar(
+        backgroundColor: Styles.blueTheme,
+        leading: Center(
+          child: Hero(
+            tag: 'settings_icon',
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: 48.0,
+                height: 48.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white
+                      ),
+                      child: Icon(Icons.arrow_back, color: Colors.grey, size: 24.0,),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        title: Hero(
+          tag: 'app_bar_title',
+          child: Container(
+            width: double.infinity,
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                'User Settings',
+                style: Styles.appBar,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           // Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),

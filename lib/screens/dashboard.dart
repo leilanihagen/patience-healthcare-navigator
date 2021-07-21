@@ -6,6 +6,7 @@ import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,9 +19,11 @@ class DashboardPage extends StatefulWidget {
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage>
+    with AutomaticKeepAliveClientMixin<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
+
   // double amountDeductiblePaid;
 
   // _loadSaved() async {
@@ -450,9 +453,8 @@ class _DashboardPageState extends State<DashboardPage> {
     // }
 
     return GestureDetector(
-      onTap: () {
-        widget.openPage(5);
-      },
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (c) => ProfilePage())),
       child: Container(
         decoration:
             BoxDecoration(shape: BoxShape.circle, color: Styles.modestPink),
@@ -485,9 +487,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
+    return Container(
+      color: Colors.white,
+      child: CustomScrollView(
         slivers: [
           // Header:
           SliverPersistentHeader(
@@ -654,6 +656,9 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 /// Small helper ChangeNotifier just to manually trigger a rebuild (when height changes)
@@ -741,7 +746,10 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                       child: Row(
                         children: [
                           GestureDetector(
-                            onTap: () => openPage(5),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) => ProfilePage())),
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,

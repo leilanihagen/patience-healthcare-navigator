@@ -11,6 +11,7 @@ import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +20,7 @@ import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
   final Function openPage;
+
   HospitalSearchPage({Key key, this.openPage}) : super(key: key);
 
   @override
@@ -62,7 +64,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       content: Text("You haven't selected a provider"),
       action: SnackBarAction(
         label: 'SETTINGS',
-        onPressed: () => widget.openPage(5),
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (c) => ProfilePage())),
       ),
     ));
   }
