@@ -359,7 +359,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -486,7 +486,7 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -566,7 +566,7 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -633,7 +633,7 @@ class AfterStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -754,7 +754,7 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -886,7 +886,7 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
