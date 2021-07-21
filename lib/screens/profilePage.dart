@@ -71,33 +71,14 @@ class _ProfilePage extends State<ProfilePage>
       // backgroundColor: Colors.deepPurple[600],
       appBar: AppBar(
         backgroundColor: Styles.blueTheme,
-        // leading: ClipOval(
-        //   child: Container(
-        //     // padding: EdgeInsets.all(5),
-        //     color: Colors.white,
-        //     child: Icon(
-        //       Icons.arrow_back,
-        //       color: Colors.grey,
-        //       size: 24.0,
-        //     ),
-        //   ),
-        // ),
-        // leading: const SizedBox.shrink(),
-        // leadingWidth: 0.0,
         leading: Center(
           child: Hero(
             tag: 'settings_icon',
             child: Material(
               color: Colors.transparent,
               child: Container(
-                // constraints: BoxConstraints(maxWidth: 48.0, maxHeight: 48.0),
                 width: 48.0,
                 height: 48.0,
-                // decoration: BoxDecoration(
-                //   shape: BoxShape.circle,
-                //   color: Colors.white,
-                // ),
-                // color: Colors.green,
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: GestureDetector(
@@ -111,23 +92,6 @@ class _ProfilePage extends State<ProfilePage>
                     ),
                   ),
                 ),
-
-                // child: Container(
-                //   decoration: BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     color: Colors.white,
-                //   ),
-                //   child: Center(
-                //     child: Padding(
-                //       padding: const EdgeInsets.all(8.0),
-                //       child: Icon(
-                //         Icons.settings,
-                //         color: Colors.grey,
-                //         size: 24.0,
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ),
             ),
           ),
@@ -146,71 +110,6 @@ class _ProfilePage extends State<ProfilePage>
             ),
           ),
         ),
-
-        // title: Row(
-        //   children: [
-        //     // Hero(
-        //     //   tag: 'settings_icon',
-        //     //   child: Material(
-        //     //     color: Colors.transparent,
-        //     //     child: Container(
-        //     //       // constraints: BoxConstraints(maxWidth: 48.0, maxHeight: 48.0),
-        //     //       width: 48.0,
-        //     //       height: 48.0,
-        //     //       // decoration: BoxDecoration(
-        //     //       //   shape: BoxShape.circle,
-        //     //       //   color: Colors.white,
-        //     //       // ),
-        //     //       // color: Colors.green,
-        //     //       child: Padding(
-        //     //         padding: const EdgeInsets.all(6.0),
-        //     //         child: GestureDetector(
-        //     //           onTap: () => Navigator.pop(context),
-        //     //           child: Container(
-        //     //             decoration: BoxDecoration(
-        //     //                 shape: BoxShape.circle,
-        //     //                 color: Colors.white
-        //     //             ),
-        //     //             child: Icon(Icons.arrow_back, color: Colors.grey, size: 24.0,),
-        //     //           ),
-        //     //         ),
-        //     //       ),
-        //     //
-        //     //       // child: Container(
-        //     //       //   decoration: BoxDecoration(
-        //     //       //     shape: BoxShape.circle,
-        //     //       //     color: Colors.white,
-        //     //       //   ),
-        //     //       //   child: Center(
-        //     //       //     child: Padding(
-        //     //       //       padding: const EdgeInsets.all(8.0),
-        //     //       //       child: Icon(
-        //     //       //         Icons.settings,
-        //     //       //         color: Colors.grey,
-        //     //       //         size: 24.0,
-        //     //       //       ),
-        //     //       //     ),
-        //     //       //   ),
-        //     //       // ),
-        //     //     ),
-        //     //   ),
-        //     // ),
-        //     // const SizedBox(width: 10.0,),
-        //     // Expanded(
-        //     //   child: Hero(
-        //     //     tag: 'app_bar_title',
-        //     //     child: Material(
-        //     //       color: Colors.transparent,
-        //     //       child: Text(
-        //     //         'UserSettings',
-        //     //         style: Styles.appBar,
-        //     //       ),
-        //     //     ),
-        //     //   ),
-        //     // ),
-        //   ],
-        // )
-        // ),
       ),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
