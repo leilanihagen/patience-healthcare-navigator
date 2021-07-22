@@ -658,6 +658,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Styles.modestPink,
+          foregroundColor: Styles.shadowWhite,
           child: Icon(Icons.add),
           onPressed: () {
             createVisit();

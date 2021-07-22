@@ -445,6 +445,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         backgroundColor: Styles.purpleTheme,
         floatingActionButton: FloatingActionButton(
             backgroundColor: Styles.modestPink,
+            foregroundColor: Styles.shadowWhite,
             child: Icon(Icons.add),
             onPressed: () => createNewNote('note', '')),
         body: Column(

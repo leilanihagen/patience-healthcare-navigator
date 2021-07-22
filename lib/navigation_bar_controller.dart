@@ -157,10 +157,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(
-                  62421,
-                  fontFamily: 'MaterialIcons',
-                )),
+                icon: Icon(Icons.question_answer),
                 label: 'Guidelines',
               ),
               BottomNavigationBarItem(
@@ -170,11 +167,11 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Visits',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.map),
                 label: 'Find Hospitals',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.search),
                 label: 'Services',
               ),
             ]),
