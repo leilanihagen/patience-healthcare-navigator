@@ -11,9 +11,11 @@ import 'package:hospital_stay_helper/screens/searchPage.dart';
 import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
 import 'screens/visitsTimelinePage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
   final int currentIndex;
+
   AppBottomNavBarController({Key key, @required this.currentIndex})
       : super(key: key);
 
@@ -27,9 +29,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   List<Widget> pages;
   PageController _pageController;
   int _selectedIndex;
-  bool profileSelected = false;
   bool haveOpenProfile = false;
-
+  GlobalKey<DashboardPageState> _dashBoardKey = GlobalKey();
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
@@ -37,15 +38,19 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     observer.analytics.logAppOpen();
     pages = [
       DashboardPage(
-        key: PageStorageKey('dashboard'),
+        key: _dashBoardKey,
         openPage: openPage,
       ),
       RootCategoriesPage(),
       VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
-      HospitalSearchPage(key: PageStorageKey('hospitalsearch')),
+      HospitalSearchPage(
+        key: PageStorageKey('hospitalsearch'),
+        openPage: openPage,
+      ),
       SearchPage(key: PageStorageKey('searchservices')),
-      ProfilePage(key: PageStorageKey('yourprofile')),
     ];
+
+    // TODO: If page state lost when changing page in bottom nav bar, then try keepPage = True
     _pageController = PageController(initialPage: _selectedIndex);
     profileSelect();
   }
@@ -55,6 +60,38 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     setState(() {
       haveOpenProfile = temp;
     });
+    if (!temp)
+      Future.delayed(
+          const Duration(seconds: 3),
+          () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.all(0),
+                  elevation: 10,
+                  title: Text("Set your profile at User Settings"),
+                  content: Image.asset(
+                    'assets/images/setup_settings_crop.png',
+                    width: .30.sw,
+                    height: .30.sw,
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Later")),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => ProfilePage())).then(
+                              (_) => _dashBoardKey.currentState.refresh());
+                        },
+                        child: Text("Okay")),
+                  ],
+                );
+              }));
   }
 
   @override
@@ -65,16 +102,21 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   void openPage(int index) async {
     setState(() {
-      if (index < 5)
-        _selectedIndex = index;
-      else
-        profileSelected = true;
-      _pageController.jumpToPage(index);
+      if (0 <= index && index < pages.length) {
+        // _selectedIndex = index;
+        // _pageController.jumpToPage(index);
+
+        _pageController.animateToPage(
+          index,
+          duration: Duration(milliseconds: 800),
+          // Stick with Curves.easeIn or similar to avoid errors (https://github.com/flutter/flutter/issues/47730)
+          curve: Curves.ease,
+        );
+      }
     });
     switch (index) {
       case 0:
         observer.analytics.logEvent(name: 'open_dashboard');
-
         break;
       case 1:
         observer.analytics.logEvent(name: 'open_guildelines');
@@ -91,6 +133,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         break;
       case 5:
         observer.analytics.logEvent(name: 'open_profilepage');
+        Navigator.push(
+                context, MaterialPageRoute(builder: (c) => ProfilePage()))
+            .then((_) => {_dashBoardKey.currentState.refresh()});
         break;
       default:
     }
@@ -101,20 +146,15 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         child: BottomNavigationBar(
             // showSelectedLabels: false,
             // showUnselectedLabels: true,
-            selectedItemColor: Styles.purpleTheme,
+            selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white,
             backgroundColor: Styles.blueTheme,
             selectedLabelStyle: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: Styles.darkPinkTheme),
+                fontWeight: FontWeight.w700, color: Styles.darkPinkTheme),
             onTap: (int index) {
-              setState(() {
-                _selectedIndex = index;
-                profileSelected = false;
-                openPage(index);
-              });
-            }, // rebuild this widget
+              openPage(index);
+            },
+            // rebuild this widget
             currentIndex: selectedIndex,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -122,10 +162,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(
-                  62421,
-                  fontFamily: 'MaterialIcons',
-                )),
+                icon: Icon(Icons.question_answer),
                 label: 'Guidelines',
               ),
               BottomNavigationBarItem(
@@ -135,11 +172,11 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Visits',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.map),
                 label: 'Find Hospitals',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.search),
                 label: 'Services',
               ),
             ]),
@@ -152,16 +189,15 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Find In-Network Hospitals',
     'Search Medical Services'
   ];
-  String profileTitle = 'User Settings';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Styles.blueTheme,
-        leading: IconButton(
-          color: profileSelected ? Styles.blueTheme : Colors.grey,
-          icon: Badge(
+        actions: [
+          Badge(
+            position: BadgePosition.topStart(),
             // badgeColor: Colors.white,
             showBadge: !haveOpenProfile,
             badgeContent: Text(
@@ -169,36 +205,81 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ),
-            child: ClipOval(
-              child: Container(
-                padding: EdgeInsets.all(5),
-                color: Colors.white,
-                child: Icon(
-                  Icons.settings,
+            child: Hero(
+              tag: 'settings_icon',
+
+              // Not doing the flightShuttleBuilder approach to have the left arrow rotation animation
+              // This is because the duration is too less, so the animation won't even be seen.
+              // Thus, no point in increasing complexity that'll decrease performance
+              // So sticking only with the usual Hero animation (no rotation animation)
+
+              // flightShuttleBuilder: (context, anim, dir, _, __) {
+              //   print(anim.value);
+              //   ColorTween tween = ColorTween(begin: Colors.red, end: Colors.green);
+              //   return Container(width: 20.0 * anim.value, height: 20.0, color: tween.transform(anim.value),);
+              // },
+              // flightShuttleBuilder: (
+              //     BuildContext flightContext,
+              //     Animation<double> animation,
+              //     HeroFlightDirection flightDirection,
+              //     BuildContext fromHeroContext,
+              //     BuildContext toHeroContext,
+              //     ) {
+              //   print(animation.value);
+              //   final Hero toHero = toHeroContext.widget;
+              //   return RotationTransition(
+              //     turns: animation,
+              //     child: toHero.child,
+              //   );
+              // },
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 48.0,
+                  height: 48.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (c) => ProfilePage()))
+                          .then((_) => _dashBoardKey.currentState.refresh()),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.white),
+                        child: Icon(
+                          Icons.settings,
+                          color: Colors.grey,
+                          size: 24.0,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-          onPressed: () => setState(() {
-            profileSelected = haveOpenProfile = true;
-            _pageController.jumpToPage(5);
-          }),
-        ),
-        title: profileSelected
-            ? Text(
-                profileTitle,
-                style: Styles.appBar,
-              )
-            : Text(
+        ],
+        title: Hero(
+          tag: 'app_bar_title',
+          child: Container(
+            width: double.infinity,
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
                 _pageTitles[_selectedIndex],
                 style: Styles.appBar,
               ),
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),
       body: PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
+        // physics: BouncingScrollPhysics(),
         children: pages,
+        onPageChanged: (index) => setState(() => _selectedIndex = index),
       ),
     );
   }

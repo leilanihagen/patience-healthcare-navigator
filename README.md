@@ -13,14 +13,14 @@ Using https:
 
 ```bash
 git clone https://github.com/leilanihagen/patience-healthcare-navigator.git
-cd patience-healthcare-navogator
+cd patience-healthcare-navigator
 ```
 
 Using ssh:
 
 ```bash
 git clone https://github.com/leilanihagen/patience-healthcare-navigator.git
-cd patience-healthcare-navogator
+cd patience-healthcare-navigator
 ```
 
 After cloning the app, run the following lines.
