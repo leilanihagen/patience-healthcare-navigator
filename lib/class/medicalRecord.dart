@@ -42,7 +42,7 @@ class MedicalRecord {
       'totalPayment': totalPayment,
       'outOfPocket': outOfPocket,
       'deductible': deductible,
-      'notes': notes
+      'notes': notesJson
     };
   }
 }
