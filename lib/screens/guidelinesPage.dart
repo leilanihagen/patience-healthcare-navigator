@@ -359,7 +359,7 @@ class TermsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -486,7 +486,7 @@ class BeforeStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -566,7 +566,7 @@ class DuringStayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -626,14 +626,14 @@ class AfterStayPage extends StatelessWidget {
     "Ask the hospital if they offer financial assistance/aid or charity care",
   ];
   final List<String> subGuidelinesText = [
-    "If you have received a large hospital bill, do not pay even a small part of it until you have tried other methods of handling the bill first. You may be able to write a simple letter from you or your provider to stop collections agencies from contacting you.",
-    "Some hospitals, including all non-profit facilities, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs to help you pay off your bill.",
+    "If you have received a large bill, do not pay even a small part of it until you have disputed the bill first. You can dispute the bill directly with the hospital or the hospital's billing agency (depending on if your hospital uses one), with the collections agency, if your bill has been sent to collections, or both. You may be able to write a simple letter to stop collections agencies from contacting you.\n\nPlease read more disputing bills in the \"I've received a surprise medical bill\" and \"My medical bill/debt has been sent to collections\" categories.",
+    "Many hospitals, including all non-profit hospitals, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs to help you pay off your bill.",
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -754,7 +754,7 @@ class ReceivedBillPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [
@@ -886,7 +886,7 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
+        backgroundColor: Styles.shadowWhite,
         body: GestureDetector(
           child: ListView(
             children: [

@@ -16,10 +16,10 @@ class DashboardPage extends StatefulWidget {
   DashboardPage({Key key, this.openPage}) : super(key: key);
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  DashboardPageState createState() => DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage>
+class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
@@ -43,6 +43,10 @@ class _DashboardPageState extends State<DashboardPage>
     getStateOfResidence();
   }
 
+  refresh() {
+    getInsuranceProvider();
+    getStateOfResidence();
+  }
   // void updateAmountDeductiblePaid(num updatedAmount) {
   //   setState(() {
   //     amountDeductiblePaid = updatedAmount;

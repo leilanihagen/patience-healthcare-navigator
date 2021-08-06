@@ -30,7 +30,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   PageController _pageController;
   int _selectedIndex;
   bool haveOpenProfile = false;
-
+  GlobalKey<DashboardPageState> _dashBoardKey = GlobalKey();
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
@@ -38,7 +38,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     observer.analytics.logAppOpen();
     pages = [
       DashboardPage(
-        key: PageStorageKey('dashboard'),
+        key: _dashBoardKey,
         openPage: openPage,
       ),
       RootCategoriesPage(),
@@ -82,8 +82,11 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (c) => ProfilePage()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => ProfilePage())).then(
+                              (_) => _dashBoardKey.currentState.refresh());
                         },
                         child: Text("Okay")),
                   ],
@@ -114,7 +117,6 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     switch (index) {
       case 0:
         observer.analytics.logEvent(name: 'open_dashboard');
-
         break;
       case 1:
         observer.analytics.logEvent(name: 'open_guildelines');
@@ -131,6 +133,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         break;
       case 5:
         observer.analytics.logEvent(name: 'open_profilepage');
+        Navigator.push(
+                context, MaterialPageRoute(builder: (c) => ProfilePage()))
+            .then((_) => {_dashBoardKey.currentState.refresh()});
         break;
       default:
     }
@@ -147,7 +152,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             selectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.w700, color: Styles.darkPinkTheme),
             onTap: (int index) {
-              setState(() => openPage(index));
+              openPage(index);
             },
             // rebuild this widget
             currentIndex: selectedIndex,
@@ -157,10 +162,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(
-                  62421,
-                  fontFamily: 'MaterialIcons',
-                )),
+                icon: Icon(Icons.question_answer),
                 label: 'Guidelines',
               ),
               BottomNavigationBarItem(
@@ -170,11 +172,11 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 label: 'Visits',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(0xe857, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.map),
                 label: 'Find Hospitals',
               ),
               BottomNavigationBarItem(
-                icon: Icon(IconData(59828, fontFamily: 'MaterialIcons')),
+                icon: Icon(Icons.search),
                 label: 'Services',
               ),
             ]),
@@ -239,7 +241,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                     padding: const EdgeInsets.all(6.0),
                     child: GestureDetector(
                       onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => ProfilePage())),
+                              MaterialPageRoute(builder: (c) => ProfilePage()))
+                          .then((_) => _dashBoardKey.currentState.refresh()),
                       child: Container(
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.white),
