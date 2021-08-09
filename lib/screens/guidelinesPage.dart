@@ -92,10 +92,16 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
 Widget renderClickableSituationCard(
     BuildContext context, pageBuilder, String situation, Icon icon) {
   return GestureDetector(
-    onTap: () => Navigator.push(
-      context,
-      CustomPageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => pageBuilder),
-    ),
+    onTap: () {
+      observer.analytics
+          .logEvent(name: 'guideLine', parameters: {'situation': situation});
+      Navigator.push(
+        context,
+        CustomPageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                pageBuilder),
+      );
+    },
     child: renderSituationBox(situation, icon, 0.0),
   );
 }
