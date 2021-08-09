@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -57,62 +59,140 @@ RichText renderClickableLinkPassage(String text, String urlText, String url) {
   ]));
 }
 
+class CustomPageRouteBuilder<T> extends PageRoute<T> {
+  final RoutePageBuilder pageBuilder;
+  final PageTransitionsBuilder matchingBuilder = const FadeUpwardsPageTransitionsBuilder(); // Default Android/Linux/Windows
+  // final PageTransitionsBuilder matchingBuilder = const CupertinoPageTransitionsBuilder(); // Default iOS/macOS (to get the swipe right to go back gesture)
+
+  CustomPageRouteBuilder({this.pageBuilder});
+
+  @override
+  Color get barrierColor => null;
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+    return pageBuilder(context, animation, secondaryAnimation);
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 900); // Can give custom Duration, unlike in MaterialPageRoute
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    return matchingBuilder.buildTransitions<T>(this, context, animation, secondaryAnimation, child);
+  }
+}
+
 Widget renderClickableSituationCard(
     BuildContext context, pageBuilder, String situation, Icon icon) {
-  return Hero(
-    tag: situation,
-    child: Padding(
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: Offset(0, 3))
-          ]),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Styles.modestPink,
-              onPrimary: Colors.white,
-            ),
-            child: ListTile(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60)),
-                leading: icon,
-                title: Text(
-                  situation,
-                  style: Styles.guidelineCard,
-                )),
-            onPressed: () {
-              observer.analytics.logEvent(
-                  name: 'guideLine', parameters: {'situation': situation});
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        pageBuilder, //context, SlideRightRoute(page: BeforeStayPage())
-                  ));
-            },
-          ),
-        ),
-        padding: EdgeInsets.fromLTRB(7, 8, 7, 8)),
+  return GestureDetector(
+    onTap: () => Navigator.push(
+      context,
+      CustomPageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => pageBuilder),
+    ),
+    child: renderSituationBox(situation, icon, 0.0),
   );
 }
 
-Widget renderSituationBox(String text, Icon icon) {
+class _CustomRectTween extends RectTween {
+  _CustomRectTween({Rect begin, Rect end})
+      : super(begin: begin, end: end);
+
+  @override
+  Rect lerp(double t) {
+    t = Curves.easeOut.transform(t);
+    double animatedLeft = begin.left + t * (end.left-begin.left);
+    double animatedTop = begin.top + t * (end.top-begin.top);
+    double animatedRight = begin.right + t * (end.right-begin.right);
+    double animatedBottom = begin.bottom + t * (end.bottom-begin.bottom);
+
+    return Rect.fromLTRB(animatedLeft, animatedTop, animatedRight, animatedBottom);
+  }
+}
+
+Widget renderSituationBox(String text, Icon icon,
+    [double backButtonOpacity = 1]) {
   return Hero(
-      tag: text,
-      child: Padding(
-          child: Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 4,
-                  blurRadius: 6,
-                  offset: Offset(0, 3))
-            ]),
-            child: Card(
-              color: Styles.modestPink,
+    tag: text,
+    createRectTween: (begin, end) => _CustomRectTween(begin: begin, end: end),
+    flightShuttleBuilder: (flightContext, animation, flightDirection,
+        fromHeroContext, toHeroContext) {
+      animation = CurvedAnimation(parent: animation, curve: Curves.easeOut, reverseCurve: Curves.easeOut);
+
+      return AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) {
+          return _SituationBoxTile(
+            icon: icon,
+            text: text,
+            opacity: animation.value,
+          );
+        },
+      );
+    },
+    child: _SituationBoxTile(
+      icon: icon,
+      text: text,
+      opacity: backButtonOpacity,
+    ),
+  );
+}
+
+class _SituationBoxTile extends StatelessWidget {
+  final Icon icon;
+  final String text;
+  final double opacity;
+
+  const _SituationBoxTile({
+    @required this.icon,
+    @required this.text,
+    @required this.opacity,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double animProgress = 1-opacity;
+
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
+        decoration: BoxDecoration(
+            color: Styles.modestPink,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5 * animProgress),
+              spreadRadius: 4,
+              blurRadius: 6,
+              offset: Offset(0, 3),
+            )
+          ],
+          borderRadius: BorderRadius.circular(5.0 * animProgress)
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: opacity * max(24.0, Material.defaultSplashRadius),
+              child: Opacity(
+                opacity: opacity,
+                child: IconButton(
+                  iconSize: 24.0,
+                  splashRadius: Material.defaultSplashRadius,
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+            ),
+            Expanded(
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
@@ -124,8 +204,11 @@ Widget renderSituationBox(String text, Icon icon) {
                 ),
               ),
             ),
-          ),
-          padding: EdgeInsets.fromLTRB(7, 8, 7, 8)));
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 Widget renderGuideline(
@@ -242,7 +325,7 @@ class RootCategoriesPage extends StatelessWidget {
 
   final BuildContext context;
   final BeforeStayPage beforeStayPage;
-  Color icons = Colors.white;
+  final Color icons = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -307,6 +390,7 @@ class RootCategoriesPage extends StatelessWidget {
 
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
+
   final BuildContext context;
   final RootCategoriesPage rootCategoriesPage;
   final List<String> guidelinesTitles = [
@@ -360,6 +444,7 @@ class TermsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -487,6 +572,7 @@ class BeforeStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -567,6 +653,7 @@ class DuringStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -634,6 +721,7 @@ class AfterStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -685,6 +773,7 @@ class ReceivedBillPage extends StatelessWidget {
     "Ask about payment plans, pay small amounts toward your bill, then ask to negotiate",
     "Dispute the bill with the hospital",
   ];
+
   // final String titleText = "Write a letter to the hospital disputing the bill";
   final List<String> subGuidelinesText = [
     "When you receive an unjustly large bill, it is a common reaction to want to run from it, avoid talking to the hospital, and simply not pay. However, there are many things that can be done to dispute your bill, negotiate a lower price, receive financial assistance, and pay off your bill over a longer period of time.",
@@ -755,6 +844,7 @@ class ReceivedBillPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -887,6 +977,7 @@ class CollectionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
+        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
         body: GestureDetector(
           child: ListView(
             children: [
