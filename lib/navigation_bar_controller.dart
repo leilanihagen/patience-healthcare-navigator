@@ -6,6 +6,7 @@ import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
+import 'package:hospital_stay_helper/screens/medicalRecordPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:hospital_stay_helper/screens/searchPage.dart';
 import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
@@ -42,7 +43,8 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         openPage: openPage,
       ),
       RootCategoriesPage(),
-      VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
+      // VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
+      MedicalRecordPage(key: PageStorageKey('medicalRecord')),
       HospitalSearchPage(
         key: PageStorageKey('hospitalsearch'),
         openPage: openPage,

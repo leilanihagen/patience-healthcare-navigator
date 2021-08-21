@@ -13,7 +13,7 @@ class MedicalRecord {
     this.startDate = startDate;
     notes = [];
   }
-  MedicalRecord.fromJson(Map<String, dynamic> json) {
+  MedicalRecord.fromJson(Map<dynamic, dynamic> json) {
     totalNote = json['totalNote'];
     title = json['title'];
     startDate = json['startDate'];
