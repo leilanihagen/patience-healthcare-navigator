@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
-import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,12 +60,17 @@ class _ProfilePage extends State<ProfilePage>
     box.put('provider_phone', data[provider]['phone']);
   }
 
+  _check() async {
+    var tempBox = await Hive.openBox('mainController');
+    tempBox.put('selectProfile', true);
+    tempBox.close();
+  }
+
   @override
   initState() {
     super.initState();
     _loadSave();
-    var tempBox = Hive.box('mainController');
-    tempBox.put('selectProfile', true);
+    _check();
   }
 
   @override

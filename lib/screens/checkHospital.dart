@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/class/class.dart';
-import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
@@ -16,7 +14,6 @@ import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
@@ -39,7 +36,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    _loadLastSaved();
+    // _loadLastSaved();
   }
 
   openMap(String name, String street) async {

@@ -50,8 +50,6 @@ class DashboardPageState extends State<DashboardPage>
       box = await Hive.openBox("profile");
       String temp_1 = box.get('user_provider') ?? '';
       String temp_2 = box.get('user_state') ?? '';
-      print(temp_1);
-      print(temp_2);
       setState(() {
         insuranceProvider = temp_1;
         stateOfResidence = temp_2;
