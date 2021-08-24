@@ -122,7 +122,7 @@ class Procedure {
 }
 
 class Top3 {
-  String name, street;
+  String name, street, state;
   double distance;
   bool er, ur;
   Top3(this.name, this.distance);
@@ -130,11 +130,13 @@ class Top3 {
       : distance = json['distance'] ?? 0,
         name = json['name'] ?? '',
         street = json['street'] ?? '',
+        state = json['state'] ?? '',
         er = json['ER'] ?? false,
         ur = json['UR'] ?? false;
   Map toJson() => {
         'name': name,
         'street': street,
+        'state': state,
         'distance': distance,
         'ER': er,
         'UR': ur
