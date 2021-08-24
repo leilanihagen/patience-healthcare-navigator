@@ -5,6 +5,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/class/class.dart';
 import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
@@ -33,7 +34,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   bool isLoading = false, ur = true, er = true, isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
-
+  Box box;
   @override
   void initState() {
     super.initState();
@@ -74,8 +75,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isSearching = true;
     });
-    String provider =
-        await MySharedPreferences.instance.getStringValue('user_provider');
+    var box = await Hive.openBox('profile');
+    String provider = box.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         bool connection = await DataConnectionChecker().hasConnection;
@@ -113,8 +114,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isLoading = true;
     });
-    String provider =
-        await MySharedPreferences.instance.getStringValue('user_provider');
+    var box = await Hive.openBox('profile');
+    String provider = box.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         setState(() {
@@ -142,8 +143,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             setState(() {
               _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
             });
-            MySharedPreferences.instance
-                .setStringValue('checkHospital', response.body);
+            var box = await Hive.openBox('checkHospitalPage');
+            box.put('checkHospital', response.body);
           }
         } else
           showError("No internet connection");
@@ -159,8 +160,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   _loadLastSaved() async {
-    String tmp =
-        await MySharedPreferences.instance.getStringValue('checkHospital');
+    box = await Hive.openBox('checkHospitalPage');
+    String tmp = box.get('checkHospital') ?? '';
     if (tmp.isNotEmpty)
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));

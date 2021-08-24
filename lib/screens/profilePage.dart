@@ -7,6 +7,7 @@ import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hive/hive.dart';
 
 import 'package:hospital_stay_helper/config/styles.dart';
 
@@ -29,14 +30,18 @@ class _ProfilePage extends State<ProfilePage>
   // Not yet used:
   double userDeductible;
   double userDeductibleReduction;
-
+  Box box;
   _loadSave() async {
-    String tempUserState =
-        await MySharedPreferences.instance.getStringValue('user_state');
-    String tempUserProvider =
-        await MySharedPreferences.instance.getStringValue('user_provider');
-    String tempUserPlan =
-        await MySharedPreferences.instance.getStringValue('user_plan');
+    // String tempUserState =
+    //     await MySharedPreferences.instance.getStringValue('user_state');
+    // String tempUserProvider =
+    //     await MySharedPreferences.instance.getStringValue('user_provider');
+    // String tempUserPlan =
+    //     await MySharedPreferences.instance.getStringValue('user_plan');
+    box = await Hive.openBox('profile');
+    String tempUserState = box.get('user_state');
+    String tempUserProvider = box.get('user_provider');
+    String tempUserPlan = box.get('user_plan');
     setState(() {
       userState = tempUserState;
       userProvider = tempUserProvider;
@@ -53,15 +58,15 @@ class _ProfilePage extends State<ProfilePage>
     final String temp =
         await rootBundle.loadString('assets/data/provider.json');
     final data = await jsonDecode(temp);
-    MySharedPreferences.instance
-        .setStringValue('provider_phone', data[provider]['phone']);
+    box.put('provider_phone', data[provider]['phone']);
   }
 
   @override
   initState() {
     super.initState();
     _loadSave();
-    MySharedPreferences.instance.setBoolValue('selectProfile', true);
+    var tempBox = Hive.box('mainController');
+    tempBox.put('selectProfile', true);
   }
 
   @override
@@ -85,10 +90,12 @@ class _ProfilePage extends State<ProfilePage>
                     onTap: () => Navigator.pop(context),
                     child: Container(
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white
+                          shape: BoxShape.circle, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.grey,
+                        size: 24.0,
                       ),
-                      child: Icon(Icons.arrow_back, color: Colors.grey, size: 24.0,),
                     ),
                   ),
                 ),
@@ -96,7 +103,6 @@ class _ProfilePage extends State<ProfilePage>
             ),
           ),
         ),
-
         title: Hero(
           tag: 'app_bar_title',
           child: Container(
@@ -184,8 +190,9 @@ class _ProfilePage extends State<ProfilePage>
                                 name: 'set_state', parameters: {'state': s});
                             // TO DO: Create an initialization where the default provider is
                             // saved if the user never changes this dropdown
-                            MySharedPreferences.instance
-                                .setStringValue('user_state', s);
+                            // MySharedPreferences.instance
+                            //     .setStringValue('user_state', s);
+                            box.put('user_state', s);
                           },
                           selectedItem: userState,
                         ),
@@ -214,8 +221,9 @@ class _ProfilePage extends State<ProfilePage>
                                 parameters: {'provider': s});
                             // TO DO: Create an initialization where the default provider is
                             // saved if the user never changes this dropdown
-                            MySharedPreferences.instance
-                                .setStringValue('user_provider', s);
+                            // MySharedPreferences.instance
+                            //     .setStringValue('user_provider', s);
+                            box.put('user_provider', s);
                             _loadProviderInfo(s);
                           },
                           selectedItem: userProvider,
