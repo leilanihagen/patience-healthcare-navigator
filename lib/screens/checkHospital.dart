@@ -30,7 +30,7 @@ class HospitalSearchPage extends StatefulWidget {
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
-  bool isLoading = false, ur = true, er = true, isSearching = false;
+  bool isLoading = false, ur = false, er = false, isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
 
@@ -128,13 +128,15 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         if (connection) {
           http.Response response = await http.post(
             Uri.parse(
-                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital"),
+                "https://us-west2-patience-tuan-leilani.cloudfunctions.net/check_hospital_test"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode({
               'lat': position.latitude,
               'lng': position.longitude,
+              'er': er,
+              'ur': ur,
               'provider': provider
             }),
           );
@@ -340,7 +342,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     onTap: () => openMap(e.name, e.street),
                     tileColor: Colors.white,
                     title: Text(e.name),
-                    subtitle: Text(e.street),
+                    subtitle: Text(e.street + ', ' + e.state),
                     trailing: Wrap(
                       alignment: WrapAlignment.center,
                       spacing: 5,
@@ -392,19 +394,19 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const ERIcon(),
-              const Text("=",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+              // const Text("=",
+              //     style: TextStyle(
+              //         fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Emergency services",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                       fontSize: 15)),
-              // Switch.adaptive(
-              //     value: er,
-              //     onChanged: (value) => setState(() {
-              //           er = value;
-              //         }))
+              Switch.adaptive(
+                  value: er,
+                  onChanged: (value) => setState(() {
+                        er = value;
+                      }))
             ],
           ),
         ),
@@ -419,19 +421,19 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const URIcon(),
-              const Text("=",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white)),
+              // const Text("=",
+              //     style: TextStyle(
+              //         fontWeight: FontWeight.w600, color: Colors.white)),
               const Text("Urgent care services",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                       fontSize: 15)),
-              // Switch.adaptive(
-              //     value: ur,
-              //     onChanged: (value) => setState(() {
-              //           ur = value;
-              //         })),
+              Switch.adaptive(
+                  value: ur,
+                  onChanged: (value) => setState(() {
+                        ur = value;
+                      })),
             ],
           ),
         )
@@ -580,7 +582,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                       ),
                     ),
                     _hospitalPage.name == null || _hospitalPage.name.isEmpty
-                        ? getPageIntroduction()
+                        ? SizedBox.shrink()
                         : getHeader(),
                     _hospitalPage.top3 == null
                         ? SizedBox.shrink()
@@ -594,7 +596,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                                   color: Colors.white),
                             ),
                           ),
-                    getTop3()
+                    getTop3(),
+                    getPageIntroduction()
                   ],
                 ),
               ),
