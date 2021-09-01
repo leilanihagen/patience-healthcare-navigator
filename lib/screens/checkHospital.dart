@@ -36,7 +36,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   void initState() {
     super.initState();
     _hospitalPage = HospitalPage();
-    // _loadLastSaved();
+    _loadLastSaved();
   }
 
   openMap(String name, String street) async {
@@ -72,13 +72,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isSearching = true;
     });
-    var box = await Hive.openBox('profile');
-    String provider = box.get('user_provider') ?? '';
+    var tbox = await Hive.openBox('profile');
+    String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         bool connection = await DataConnectionChecker().hasConnection;
         if (connection) {
-          print(true);
           http.Response response = await http.post(
             Uri.parse(
                 "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
@@ -111,8 +110,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isLoading = true;
     });
-    var box = await Hive.openBox('profile');
-    String provider = box.get('user_provider') ?? '';
+    var tbox = await Hive.openBox('profile');
+    String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         setState(() {
@@ -140,7 +139,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             setState(() {
               _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
             });
-            var box = await Hive.openBox('checkHospitalPage');
             box.put('checkHospital', response.body);
           }
         } else
@@ -154,6 +152,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       isLoading = false;
     });
     observer.analytics.logEvent(name: 'check_hospital');
+    tbox.close();
   }
 
   _loadLastSaved() async {
