@@ -10,9 +10,10 @@ import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
-import '../class/sharePref.dart';
+// import '../class/sharePref.dart';
 
 class VisitsTimelinePage extends StatefulWidget {
   VisitsTimelinePage({Key key}) : super(key: key);
@@ -24,6 +25,7 @@ class VisitsTimelinePage extends StatefulWidget {
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   List<Visit> visits = [];
   GlobalKey<AnimatedListState> listKey;
+  Box box;
   // @override
   // void initState() {
   //   super.initState();
@@ -55,16 +57,16 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   _loadSaved() async {
-    if (await MySharedPreferences.instance.getBoolValue('first_visit') ==
-        false) {
+    box = await Hive.openBox('visitsTimeline');
+    var temp = box.get('first_visit') ?? false;
+    if (temp == false) {
       setState(() {
         visits = [Visit.fromTemplate()];
       });
       updateVisit();
-      MySharedPreferences.instance.setBoolValue('first_visit', true);
+      box.put('first_visit', true);
     } else {
-      String _savedVisits =
-          await MySharedPreferences.instance.getStringValue('visits');
+      String _savedVisits = box.get('visits') ?? '';
       if (_savedVisits.isNotEmpty) {
         Iterable tmp = jsonDecode(_savedVisits);
         setState(() {
@@ -78,8 +80,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   void updateVisit() async {
-    await MySharedPreferences.instance
-        .setStringValue('visits', jsonEncode(visits));
+    box.put('visits', jsonEncode(visits));
+    // await MySharedPreferences.instance
+    //     .setStringValue('visits', jsonEncode(visits));
   }
 
   void createVisit() {

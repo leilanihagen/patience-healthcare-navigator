@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/class/class.dart';
-import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
@@ -15,7 +14,6 @@ import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
@@ -33,7 +31,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   bool isLoading = false, ur = false, er = false, isSearching = false;
   HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
-
+  Box box;
   @override
   void initState() {
     super.initState();
@@ -74,13 +72,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isSearching = true;
     });
-    String provider =
-        await MySharedPreferences.instance.getStringValue('user_provider');
+    var tbox = await Hive.openBox('profile');
+    String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         bool connection = await DataConnectionChecker().hasConnection;
         if (connection) {
-          print(true);
           http.Response response = await http.post(
             Uri.parse(
                 "https://us-west2-patience-tuan-leilani.cloudfunctions.net/search_hospital"),
@@ -113,8 +110,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isLoading = true;
     });
-    String provider =
-        await MySharedPreferences.instance.getStringValue('user_provider');
+    var tbox = await Hive.openBox('profile');
+    String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
         setState(() {
@@ -144,8 +141,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             setState(() {
               _hospitalPage = HospitalPage.fromJson(jsonDecode(response.body));
             });
-            MySharedPreferences.instance
-                .setStringValue('checkHospital', response.body);
+            box.put('checkHospital', response.body);
           }
         } else
           showError("No internet connection");
@@ -158,11 +154,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       isLoading = false;
     });
     observer.analytics.logEvent(name: 'check_hospital');
+    tbox.close();
   }
 
   _loadLastSaved() async {
-    String tmp =
-        await MySharedPreferences.instance.getStringValue('checkHospital');
+    box = await Hive.openBox('checkHospitalPage');
+    String tmp = box.get('checkHospital') ?? '';
     if (tmp.isNotEmpty)
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));

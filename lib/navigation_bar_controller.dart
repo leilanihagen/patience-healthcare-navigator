@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_stay_helper/class/sharePref.dart';
+import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
@@ -31,6 +31,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   int _selectedIndex;
   bool haveOpenProfile = false;
   GlobalKey<DashboardPageState> _dashBoardKey = GlobalKey();
+  Box box;
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
@@ -56,7 +57,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   }
 
   profileSelect() async {
-    var temp = await MySharedPreferences.instance.getBoolValue("selectProfile");
+    // box = await Hive.openBox("mainController");
+    // var temp = await MySharedPreferences.instance.getBoolValue("selectProfile");
+    var temp = box.get('selectProfile') ?? false;
     setState(() {
       haveOpenProfile = temp;
     });

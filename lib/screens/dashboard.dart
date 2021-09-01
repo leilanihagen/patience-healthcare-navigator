@@ -1,14 +1,15 @@
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hospital_stay_helper/class/sharePref.dart';
+// import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hive/hive.dart';
 
 class DashboardPage extends StatefulWidget {
   final Function openPage;
@@ -23,7 +24,7 @@ class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
-
+  Box box;
   // double amountDeductiblePaid;
 
   // _loadSaved() async {
@@ -39,13 +40,29 @@ class DashboardPageState extends State<DashboardPage>
   void initState() {
     super.initState();
     // _loadSaved();
+    load();
     getInsuranceProvider();
     getStateOfResidence();
   }
 
+  load() async {
+    if (await Hive.boxExists("profile")) {
+      box = await Hive.openBox("profile");
+      String temp_1 = box.get('user_provider') ?? '';
+      String temp_2 = box.get('user_state') ?? '';
+      setState(() {
+        insuranceProvider = temp_1;
+        stateOfResidence = temp_2;
+      });
+    } else
+      setState(() {
+        insuranceProvider = '';
+        stateOfResidence = '';
+      });
+  }
+
   refresh() {
-    getInsuranceProvider();
-    getStateOfResidence();
+    load();
   }
   // void updateAmountDeductiblePaid(num updatedAmount) {
   //   setState(() {
@@ -57,8 +74,9 @@ class DashboardPageState extends State<DashboardPage>
 
   //  Call your provider function is here
   _callProvider() async {
-    String _tel = 'tel:' +
-        await MySharedPreferences.instance.getStringValue('provider_phone');
+    // String _tel = 'tel:' +
+    //     await MySharedPreferences.instance.getStringValue('provider_phone');
+    String _tel = 'tel:' + box.get('provider_phone');
     await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
     observer.analytics.logEvent(
         name: 'call_provider',
@@ -67,8 +85,10 @@ class DashboardPageState extends State<DashboardPage>
 
   void getInsuranceProvider() async {
     // setState(() async {
-    String temp =
-        await MySharedPreferences.instance.getStringValue('user_provider');
+    // String temp =
+    //     await MySharedPreferences.instance.getStringValue('user_provider');
+    String temp = box.get('user_provider') ?? '';
+    print(temp);
     setState(() {
       insuranceProvider = temp;
     });
@@ -77,8 +97,10 @@ class DashboardPageState extends State<DashboardPage>
 
   void getStateOfResidence() async {
     // setState(() async {
-    String temp =
-        await MySharedPreferences.instance.getStringValue('user_state');
+    // String temp =
+    //     await MySharedPreferences.instance.getStringValue('user_state');
+    String temp = box.get('user_state') ?? '';
+    print(temp);
     setState(() {
       stateOfResidence = temp;
     });
