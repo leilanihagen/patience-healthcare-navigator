@@ -569,9 +569,9 @@ class DashboardPageState extends State<DashboardPage>
               // Articles to external sites:
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildArticleButton(
                       Styles.extraLightPinkTheme,
@@ -603,6 +603,16 @@ class DashboardPageState extends State<DashboardPage>
                       ),
                       'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
                     ),
+                    buildArticleButton(
+                      Styles.shadowWhite,
+                      "Clinics offer services for free or at reduced rate",
+                      Image.asset(
+                        'assets/images/free_clinic.png',
+                        // height: .01.sh,
+                        // width: .01.sh,
+                      ),
+                      'https://www.freeclinics.com/',
+                    )
                   ],
                 ),
               ),
