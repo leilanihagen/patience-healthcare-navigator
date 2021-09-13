@@ -588,8 +588,7 @@ class DashboardPageState extends State<DashboardPage>
                       'Knowledge is power: more resources on BrokenHealthcare.org',
                       Image.asset(
                         'assets/images/broken_health.png',
-                        height: .12.sh,
-                        width: .12.sh,
+                       
                       ),
                       'https://brokenhealthcare.org/patient-education/',
                     ),
@@ -608,8 +607,6 @@ class DashboardPageState extends State<DashboardPage>
                       "Clinics offer services for free or at reduced rate",
                       Image.asset(
                         'assets/images/free_clinic.png',
-                        // height: .01.sh,
-                        // width: .01.sh,
                       ),
                       'https://www.freeclinics.com/',
                     )
