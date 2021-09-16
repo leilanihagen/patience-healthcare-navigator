@@ -578,8 +578,6 @@ class DashboardPageState extends State<DashboardPage>
                       'Find price estimates for medical procedures: MediBid.com',
                       Image.asset(
                         'assets/images/cost_estimate.png',
-                        height: .12.sh,
-                        width: .12.sh,
                       ),
                       'https://www.medibid.com/cost-calculator/',
                     ),
@@ -588,7 +586,6 @@ class DashboardPageState extends State<DashboardPage>
                       'Knowledge is power: more resources on BrokenHealthcare.org',
                       Image.asset(
                         'assets/images/broken_health.png',
-                       
                       ),
                       'https://brokenhealthcare.org/patient-education/',
                     ),
@@ -597,8 +594,6 @@ class DashboardPageState extends State<DashboardPage>
                       'Healthcare laws & regulations in your state',
                       Image.asset(
                         'assets/images/usa.png',
-                        height: .12.sh,
-                        width: .12.sh,
                       ),
                       'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
                     ),
