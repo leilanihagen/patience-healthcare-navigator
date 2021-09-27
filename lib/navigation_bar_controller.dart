@@ -57,7 +57,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   }
 
   profileSelect() async {
-    // box = await Hive.openBox("mainController");
+    box = await Hive.openBox("mainController");
     // var temp = await MySharedPreferences.instance.getBoolValue("selectProfile");
     var temp = box.get('selectProfile') ?? false;
     setState(() {
