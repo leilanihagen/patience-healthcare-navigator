@@ -569,17 +569,15 @@ class DashboardPageState extends State<DashboardPage>
               // Articles to external sites:
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildArticleButton(
                       Styles.extraLightPinkTheme,
                       'Find price estimates for medical procedures: MediBid.com',
                       Image.asset(
                         'assets/images/cost_estimate.png',
-                        height: .12.sh,
-                        width: .12.sh,
                       ),
                       'https://www.medibid.com/cost-calculator/',
                     ),
@@ -588,8 +586,6 @@ class DashboardPageState extends State<DashboardPage>
                       'Knowledge is power: more resources on BrokenHealthcare.org',
                       Image.asset(
                         'assets/images/broken_health.png',
-                        height: .12.sh,
-                        width: .12.sh,
                       ),
                       'https://brokenhealthcare.org/patient-education/',
                     ),
@@ -598,11 +594,17 @@ class DashboardPageState extends State<DashboardPage>
                       'Healthcare laws & regulations in your state',
                       Image.asset(
                         'assets/images/usa.png',
-                        height: .12.sh,
-                        width: .12.sh,
                       ),
                       'https://www.commonwealthfund.org/publications/maps-and-interactives/2021/feb/state-balance-billing-protections',
                     ),
+                    buildArticleButton(
+                      Styles.shadowWhite,
+                      "Clinics offer services for free or at reduced rate",
+                      Image.asset(
+                        'assets/images/free_clinic.png',
+                      ),
+                      'https://www.freeclinics.com/',
+                    )
                   ],
                 ),
               ),
