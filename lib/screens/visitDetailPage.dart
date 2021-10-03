@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/expandableFAB.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -442,193 +443,216 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.purpleTheme,
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Styles.modestPink,
-            foregroundColor: Styles.shadowWhite,
-            child: Icon(Icons.add),
-            onPressed: () => createNewNote('note', '')),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            // Title and trashcan line:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(6.0, 25.0, 2.0, 10.0),
-                  child: RichText(
-                      text: TextSpan(
-                          text: widget.visit.date.isEmpty
-                              ? "New Visit"
-                              : "${widget.visit.date}'s Visit",
-                          style: TextStyle(
-                              fontSize: 34, fontWeight: FontWeight.w700))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.red),
-                      // Icon(Icons.add),
-                      child: Icon(Icons.delete),
-                      onPressed: () async {
-                        if (await showConfirm()) {
-                          widget.deleteVisit(widget.visitIndex);
-                          Navigator.pop(context);
-                        }
-                      }),
-                )
-              ],
+      backgroundColor: Styles.purpleTheme,
+      // floatingActionButton: FloatingActionButton(
+      //     backgroundColor: Styles.modestPink,
+      //     foregroundColor: Styles.shadowWhite,
+      //     child: Icon(Icons.add),
+      //     onPressed: () => createNewNote('note', '')),
+      floatingActionButton: ExpandableFab(
+        distance: 100,
+        backgroundColor: Styles.modestPink,
+        foregroundColor: Styles.shadowWhite,
+        children: [
+          ActionButton(
+              iconSize: 30,
+              onPressed: () => createNewNote('note', ''),
+              icon: Icon(
+                Icons.note_add,
+                color: Styles.blueTheme,
+              )),
+          ActionButton(
+            iconSize: 30,
+            onPressed: () => getImage(),
+            icon: Icon(
+              Icons.image,
+              color: Styles.blueTheme,
             ),
-            // Visit date and patientName line:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                  padding: EdgeInsets.all(5),
-                  alignment: Alignment.centerRight,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                            offset: Offset(6, 2))
-                      ]),
-                  // onTap: () => _selectDate(
-                  //     context, widget.visit.date, index),
-                  child: GestureDetector(
-                    onTap: () => _selectVisitDate(context, widget.visit.date),
-                    child: Text(
-                      widget.visit.date,
-                      style: Styles.articleBodySmall,
-                    ),
-                  ),
-                ),
-                // Visit patientName
-                Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 6,
-                        offset: Offset(1, 2))
-                  ]),
-                  alignment: Alignment.centerRight,
-                  child: VisitTapEditBox(
-                    visit: widget.visit,
-                    dataType: 'patientName',
-                    inputData: widget.visit.patientName,
-                    defaultText: "Patient's name...",
-                    isEditingVisit: true,
-                    updateFunction: widget.updateVisitFunction,
-                    boxDecoration: BoxDecoration(
-                        color: Colors.white,
-                        // border: Border.all(),
-                        borderRadius: BorderRadius.circular(8.0)),
-                    defaultTextStyle: Styles.articleBodySmallGreyed,
-                    // height: 32.0,
-                    width: .5.sw,
-                    shouldWrap: true,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            ),
-            // Healthcare provider line:
-            Container(
-              // height: 50,
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 6,
-                    offset: Offset(0, 3))
-              ]),
-              alignment: Alignment.topLeft,
-              child: VisitTapEditBox(
-                visit: widget.visit,
-                dataType: 'healthcareProvider',
-                inputData: widget.visit.healthcareProvider,
-                defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
-                isEditingVisit: true,
-                updateFunction: widget.updateVisitFunction,
-                boxDecoration: BoxDecoration(
+          )
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // Title and trashcan line:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(6.0, 25.0, 2.0, 10.0),
+                child: RichText(
+                    text: TextSpan(
+                        text: widget.visit.date.isEmpty
+                            ? "New Visit"
+                            : "${widget.visit.date}'s Visit",
+                        style: TextStyle(
+                            fontSize: 34, fontWeight: FontWeight.w700))),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                    // Icon(Icons.add),
+                    child: Icon(Icons.delete),
+                    onPressed: () async {
+                      if (await showConfirm()) {
+                        widget.deleteVisit(widget.visitIndex);
+                        Navigator.pop(context);
+                      }
+                    }),
+              )
+            ],
+          ),
+          // Visit date and patientName line:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                padding: EdgeInsets.all(5),
+                alignment: Alignment.centerRight,
+                decoration: BoxDecoration(
                     color: Colors.white,
                     // border: Border.all(),
-                    borderRadius: BorderRadius.circular(8.0)),
-                defaultTextStyle: Styles.articleBodySmallGreyed,
-                // height: 32.0,
-                width: .97.sw,
-                shouldWrap: true,
-                textAlign: TextAlign.left,
-              ),
-            ),
-
-            // Add media buttons:
-            // TODO (after first release): Enable Add media buttons:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => createNewNote('note', ''),
-                  style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-
-                  // Icon(Icons.add),
-                  child: Icon(Icons.note_add),
-                ),
-                Container(
-                  width: 50,
-                ),
-                ElevatedButton(
-                  onPressed: () => getImage(),
-                  style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-                  // Icon(Icons.add),
-                  child: Icon(Icons.image),
-                )
-                //     IconButton(
-                //         icon: Icon(Icons.camera_alt),
-                //         color: Colors.white,
-                //         onPressed: () => {}),
-                //     IconButton(
-                //         icon: Icon(Icons.mic),
-                //         color: Colors.white,
-                //         onPressed: () => {})
-              ],
-            ),
-
-            Expanded(
-                child: Column(
-              children: [
-                Expanded(
-                  child: getNotes(),
-                ),
-              ],
-            )),
-            ElevatedButton(
-              child: ListTile(
-                  leading: Icon(Icons.arrow_back_ios_rounded,
-                      color: Colors.white, size: 27),
-                  title: Padding(
-                    child: Styles.backButton,
-                    padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                  )),
-              onPressed: () => Navigator.pop(context),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Styles.blueTheme;
-                    return Styles.blueTheme; // Use the component's default.
-                  },
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: Offset(6, 2))
+                    ]),
+                // onTap: () => _selectDate(
+                //     context, widget.visit.date, index),
+                child: GestureDetector(
+                  onTap: () => _selectVisitDate(context, widget.visit.date),
+                  child: Text(
+                    widget.visit.date,
+                    style: Styles.articleBodySmall,
+                  ),
                 ),
               ),
-            ), // Use Expanded to take up remaining space on screen
-          ],
-        ));
+              // Visit patientName
+              Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: Offset(1, 2))
+                ]),
+                alignment: Alignment.centerRight,
+                child: VisitTapEditBox(
+                  visit: widget.visit,
+                  dataType: 'patientName',
+                  inputData: widget.visit.patientName,
+                  defaultText: "Patient's name...",
+                  isEditingVisit: true,
+                  updateFunction: widget.updateVisitFunction,
+                  boxDecoration: BoxDecoration(
+                      color: Colors.white,
+                      // border: Border.all(),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  defaultTextStyle: Styles.articleBodySmallGreyed,
+                  // height: 32.0,
+                  width: .5.sw,
+                  shouldWrap: true,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ],
+          ),
+          // Healthcare provider line:
+          Container(
+            // height: 50,
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 6,
+                  offset: Offset(0, 3))
+            ]),
+            alignment: Alignment.topLeft,
+            child: VisitTapEditBox(
+              visit: widget.visit,
+              dataType: 'healthcareProvider',
+              inputData: widget.visit.healthcareProvider,
+              defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
+              isEditingVisit: true,
+              updateFunction: widget.updateVisitFunction,
+              boxDecoration: BoxDecoration(
+                  color: Colors.white,
+                  // border: Border.all(),
+                  borderRadius: BorderRadius.circular(8.0)),
+              defaultTextStyle: Styles.articleBodySmallGreyed,
+              // height: 32.0,
+              width: .97.sw,
+              shouldWrap: true,
+              textAlign: TextAlign.left,
+            ),
+          ),
+
+          // Add media buttons:
+          // TODO (after first release): Enable Add media buttons:
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     ElevatedButton(
+          //       onPressed: () => createNewNote('note', ''),
+          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
+
+          //       // Icon(Icons.add),
+          //       child: Icon(Icons.note_add),
+          //     ),
+          //     Container(
+          //       width: 50,
+          //     ),
+          //     ElevatedButton(
+          //       onPressed: () => getImage(),
+          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
+          //       // Icon(Icons.add),
+          //       child: Icon(Icons.image),
+          //     )
+          //     //     IconButton(
+          //     //         icon: Icon(Icons.camera_alt),
+          //     //         color: Colors.white,
+          //     //         onPressed: () => {}),
+          //     //     IconButton(
+          //     //         icon: Icon(Icons.mic),
+          //     //         color: Colors.white,
+          //     //         onPressed: () => {})
+          //   ],
+          // ),
+
+          Expanded(
+              child: Column(
+            children: [
+              Expanded(
+                child: getNotes(),
+              ),
+            ],
+          )),
+          ElevatedButton(
+            child: ListTile(
+                leading: Icon(Icons.arrow_back_ios_rounded,
+                    color: Colors.white, size: 27),
+                title: Padding(
+                  child: Styles.backButton,
+                  padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
+                )),
+            onPressed: () => Navigator.pop(context),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed))
+                    return Styles.blueTheme;
+                  return Styles.blueTheme; // Use the component's default.
+                },
+              ),
+            ),
+          ), // Use Expanded to take up remaining space on screen
+        ],
+      ),
+    );
   }
 }

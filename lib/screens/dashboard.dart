@@ -54,11 +54,13 @@ class DashboardPageState extends State<DashboardPage>
         insuranceProvider = temp_1;
         stateOfResidence = temp_2;
       });
-    } else
+    } else {
+      box = await Hive.openBox("profile");
       setState(() {
         insuranceProvider = '';
         stateOfResidence = '';
       });
+    }
   }
 
   refresh() {
