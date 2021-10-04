@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:hospital_stay_helper/localizations/language_constants.dart';
-import 'package:hospital_stay_helper/localizations/localization.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'navigation_bar_controller.dart';
 import 'package:hexcolor/hexcolor.dart';

@@ -199,49 +199,49 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
       appBar: AppBar(
         backgroundColor: Styles.blueTheme,
         actions: [
-          Badge(
-            position: BadgePosition.topStart(),
-            // badgeColor: Colors.white,
-            showBadge: !haveOpenProfile,
-            badgeContent: Text(
-              "1",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-            ),
-            child: Hero(
-              tag: 'settings_icon',
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Badge(
+              position: BadgePosition.topStart(),
+              // badgeColor: Colors.white,
+              showBadge: !haveOpenProfile,
+              badgeContent: Text(
+                "1",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              ),
+              child: Hero(
+                tag: 'settings_icon',
 
-              // Not doing the flightShuttleBuilder approach to have the left arrow rotation animation
-              // This is because the duration is too less, so the animation won't even be seen.
-              // Thus, no point in increasing complexity that'll decrease performance
-              // So sticking only with the usual Hero animation (no rotation animation)
+                // Not doing the flightShuttleBuilder approach to have the left arrow rotation animation
+                // This is because the duration is too less, so the animation won't even be seen.
+                // Thus, no point in increasing complexity that'll decrease performance
+                // So sticking only with the usual Hero animation (no rotation animation)
 
-              // flightShuttleBuilder: (context, anim, dir, _, __) {
-              //   print(anim.value);
-              //   ColorTween tween = ColorTween(begin: Colors.red, end: Colors.green);
-              //   return Container(width: 20.0 * anim.value, height: 20.0, color: tween.transform(anim.value),);
-              // },
-              // flightShuttleBuilder: (
-              //     BuildContext flightContext,
-              //     Animation<double> animation,
-              //     HeroFlightDirection flightDirection,
-              //     BuildContext fromHeroContext,
-              //     BuildContext toHeroContext,
-              //     ) {
-              //   print(animation.value);
-              //   final Hero toHero = toHeroContext.widget;
-              //   return RotationTransition(
-              //     turns: animation,
-              //     child: toHero.child,
-              //   );
-              // },
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
+                // flightShuttleBuilder: (context, anim, dir, _, __) {
+                //   print(anim.value);
+                //   ColorTween tween = ColorTween(begin: Colors.red, end: Colors.green);
+                //   return Container(width: 20.0 * anim.value, height: 20.0, color: tween.transform(anim.value),);
+                // },
+                // flightShuttleBuilder: (
+                //     BuildContext flightContext,
+                //     Animation<double> animation,
+                //     HeroFlightDirection flightDirection,
+                //     BuildContext fromHeroContext,
+                //     BuildContext toHeroContext,
+                //     ) {
+                //   print(animation.value);
+                //   final Hero toHero = toHeroContext.widget;
+                //   return RotationTransition(
+                //     turns: animation,
+                //     child: toHero.child,
+                //   );
+                // },
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 125.w,
+                    height: 125.w,
                     child: GestureDetector(
                       onTap: () => Navigator.push(context,
                               MaterialPageRoute(builder: (c) => ProfilePage()))
@@ -252,7 +252,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                         child: Icon(
                           Icons.settings,
                           color: Colors.grey,
-                          size: 24.0,
+                          size: 75.w,
                         ),
                       ),
                     ),

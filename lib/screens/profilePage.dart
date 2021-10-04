@@ -5,9 +5,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:hive/hive.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -81,15 +80,15 @@ class _ProfilePage extends State<ProfilePage>
       appBar: AppBar(
         backgroundColor: Styles.blueTheme,
         leading: Center(
-          child: Hero(
-            tag: 'settings_icon',
-            child: Material(
-              color: Colors.transparent,
-              child: Container(
-                width: 48.0,
-                height: 48.0,
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Hero(
+              tag: 'settings_icon',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: 165.w,
+                  height: 165.w,
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Container(
@@ -98,7 +97,7 @@ class _ProfilePage extends State<ProfilePage>
                       child: Icon(
                         Icons.arrow_back,
                         color: Colors.grey,
-                        size: 24.0,
+                        size: 75.w,
                       ),
                     ),
                   ),

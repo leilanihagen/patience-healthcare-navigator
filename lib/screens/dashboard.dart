@@ -41,8 +41,8 @@ class DashboardPageState extends State<DashboardPage>
     super.initState();
     // _loadSaved();
     load();
-    getInsuranceProvider();
-    getStateOfResidence();
+    // getInsuranceProvider();
+    // getStateOfResidence();
   }
 
   load() async {

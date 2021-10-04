@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/class/class.dart';
+import 'package:hospital_stay_helper/components/listTileTop3.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/textIcon.dart';
@@ -247,10 +248,10 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 80,
-            height: 80,
+            width: 80.w,
+            height: 80.w,
             child: Padding(
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(5.w),
               child: CircularProgressIndicator.adaptive(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 strokeWidth: 10,
@@ -269,21 +270,21 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on_rounded, size: 80, color: Colors.white),
+            Icon(Icons.location_on_rounded, size: 80.w, color: Colors.white),
             Text(
               "Tap to find/verify\n hospitals",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
-                  fontSize: 15),
+                  fontSize: 15.sp),
             )
           ],
         );
         break;
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.check_rounded, size: 80, color: Colors.white),
+          Icon(Icons.check_rounded, size: 80.w, color: Colors.white),
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
@@ -293,7 +294,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         break;
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.clear_rounded, size: 80, color: Colors.white),
+          Icon(Icons.clear_rounded, size: 80.w, color: Colors.white),
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
@@ -303,7 +304,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         break;
       case 3:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.error_rounded, size: 80, color: Colors.white),
+          Icon(Icons.error_rounded, size: 80.w, color: Colors.white),
           Text(
             _hospitalPage.status,
             textAlign: TextAlign.center,
@@ -312,46 +313,17 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         ]);
         break;
       default:
-        return Icon(Icons.location_on_rounded, size: 80);
+        return Icon(Icons.location_on_rounded, size: 80.w);
     }
-  }
-
-  getDistanceColor(double distance) {
-    if (distance < 10) return Colors.green[800];
-    if (distance < 20) return Colors.yellow[800];
-    return Colors.red;
   }
 
   getTop3() {
     if (_hospitalPage.top3 == null) return SizedBox.shrink();
     return Column(
         children: _hospitalPage.top3
-            .map((e) => Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 4,
-                        blurRadius: 6,
-                        offset: Offset(0, 3))
-                  ]),
-                  padding: EdgeInsets.all(5),
-                  child: ListTile(
-                    onTap: () => openMap(e.name, e.street),
-                    tileColor: Colors.white,
-                    title: Text(e.name),
-                    subtitle: Text(e.street + ', ' + e.state),
-                    trailing: Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 5,
-                      children: [
-                        Text("${e.distance} mile",
-                            style:
-                                TextStyle(color: getDistanceColor(e.distance))),
-                        e.er ? ERIcon() : SizedBox(width: 40),
-                        e.ur ? URIcon() : SizedBox(width: 40),
-                      ],
-                    ),
-                  ),
+            .map((e) => ListTop(
+                  top3: e,
+                  callback: () => openMap(e.name, e.street),
                 ))
             .toList());
   }
@@ -448,7 +420,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               "The below hospitals are in your network:",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: Colors.green[800]),
             ),
           ),
@@ -535,8 +507,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                   children: [
                     // Hint text:
                     // Find-hospital square:
-                    Container(
-                      height: .07.sh,
+                    SizedBox(
+                      height: 50,
                     ),
 
                     Padding(
@@ -558,7 +530,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                                 child: child, opacity: animation);
                           },
                           child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
+                              // margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
                               key: UniqueKey(),
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -572,8 +544,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                                   color: getColor(),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20))),
-                              width: 0.2.sh,
-                              height: 0.2.sh,
+                              width: 375.w,
+                              height: 375.w,
                               child: getStatus()),
                         ),
                       ),
