@@ -3,29 +3,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'navigation_bar_controller.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
-class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
-  // static void setLocale(BuildContext context, Locale newLocale) {
-  //   _AppState state = context.findAncestorStateOfType<_AppState>();
-  //   state.setLocale(newLocale);
-  // }
+// class App extends StatefulWidget {
+//   const App({Key? key}) : super(key: key);
+//   // static void setLocale(BuildContext context, Locale newLocale) {
+//   //   _AppState state = context.findAncestorStateOfType<_AppState>();
+//   //   state.setLocale(newLocale);
+//   // }
 
-  @override
-  _AppState createState() => _AppState();
-}
+//   @override
+//   _AppState createState() => _AppState();
+// }
 
-class _AppState extends State<App> {
-  String purpleTheme = "#66558E";
-  String lightPinkTheme = "#FDEBF1";
-  String darkPinkTheme = "#ED558C";
-  String blueTheme = "#54D0EB";
-  String darkGreenTheme = "#758C20";
-  String lightGreenTheme = "#A1BF36";
+class App extends StatelessWidget {
+  // String purpleTheme = "#66558E";
+  // String lightPinkTheme = "#FDEBF1";
+  // String darkPinkTheme = "#ED558C";
+  // String blueTheme = "#54D0EB";
+  // String darkGreenTheme = "#758C20";
+  // String lightGreenTheme = "#A1BF36";
 
   // Locale _locale;
   // setLocale(Locale locale) {
@@ -62,11 +61,11 @@ class _AppState extends State<App> {
             title: 'Flutter Demo',
             theme: ThemeData(
               // primarySwatch: Colors.blue,
-              scaffoldBackgroundColor: HexColor(purpleTheme),
+              scaffoldBackgroundColor: Color(0xff66558E),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Open Sans',
-              accentColor: Styles
-                  .blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
+              // accentColor: Styles
+              //     .blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
             ),
             // locale: _locale,
             // supportedLocales: [

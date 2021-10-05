@@ -21,7 +21,7 @@ dependencies:
   geolocator: 7.0.3
   dropdown_search: 0.6.1
   # reorderables: 0.4.1
-  hexcolor: 2.0.3
+  # hexcolor: 2.0.3
   # Connect to internet resource
   url_launcher: 6.0.6
   http: 0.13.3

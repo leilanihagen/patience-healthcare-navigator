@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
 class VisitTapEditBox extends StatefulWidget {

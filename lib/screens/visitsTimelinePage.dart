@@ -3,11 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:hospital_stay_helper/main.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';

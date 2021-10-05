@@ -150,7 +150,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   }
 
   deleteNote(int index) async {
-    if (await (showConfirm() as Future<bool>)) {
+    if (await (showConfirm())) {
       if (widget.visit!.notes!.length == 1) {
         widget.deleteVisit!(widget.visitIndex);
         Navigator.pop(context);

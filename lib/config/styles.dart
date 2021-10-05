@@ -2,61 +2,59 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:path/path.dart';
 
 class Styles {
   // Original theme:
-  static HexColor purpleTheme = HexColor("#66558E");
-  static HexColor extraLightPurpleTheme = HexColor("#E7D6FF");
-  static HexColor blueTheme = HexColor("#44B5CD"); // 55D0EB 44B5CD
-  static HexColor darkPinkTheme = HexColor("#ED558C");
-  static HexColor darkGreenTheme = HexColor("#758C20");
-  static HexColor lightGreenTheme = HexColor("#A1BF36");
+  static Color purpleTheme = Color(0xff66558E);
+  static Color extraLightPurpleTheme = Color(0xffE7D6FF);
+  static Color blueTheme = Color(0xff44B5CD); // 55D0EB 44B5CD
+  static Color darkPinkTheme = Color(0xffED558C);
+  static Color darkGreenTheme = Color(0xff758C20);
+  static Color lightGreenTheme = Color(0xffA1BF36);
 
   // "More professional" generated from above:
-  static HexColor lighterPurpleTheme = HexColor("#BBB3D0");
-  static HexColor lighterBlueTheme = HexColor("#9ED9E6");
-  static HexColor darkerBlueTheme = HexColor("#216ED4");
-  static HexColor medEmerald = HexColor("#97D8D7");
-  static HexColor discordGrey = HexColor("#B9BBBE");
-  static HexColor shadowWhite = HexColor("#F4F4F8");
-  static HexColor shadowGreen = HexColor("#E7F7FB");
-  static HexColor lightCyan = HexColor("#CBEDF6");
-  static HexColor middleBlueGreen = HexColor("#85D6EA");
-  static HexColor dogYellow = HexColor("#F1D265");
+  static Color lighterPurpleTheme = Color(0xffBBB3D0);
+  static Color lighterBlueTheme = Color(0xff9ED9E6);
+  static Color darkerBlueTheme = Color(0xff216ED4);
+  static Color medEmerald = Color(0xff97D8D7);
+  static Color discordGrey = Color(0xffB9BBBE);
+  static Color shadowWhite = Color(0xffF4F4F8);
+  static Color shadowGreen = Color(0xffE7F7FB);
+  static Color lightCyan = Color(0xffCBEDF6);
+  static Color middleBlueGreen = Color(0xff85D6EA);
+  static Color dogYellow = Color(0xffF1D265);
 
   // Scooter theme:
-  static HexColor descriptionExtraLightPurple = HexColor("#DBC2FF");
-  static HexColor peachPink = HexColor("#FFD6D6");
-  static HexColor nightPurple = HexColor("#928DFF");
-  static HexColor lightPurple = HexColor("#C7B6FF");
-  static HexColor darkPurple = HexColor("#6050EA");
-  static HexColor candyPink = HexColor("#F4C9FE");
-  static HexColor modestPink = HexColor("#F17B7F");
-  static HexColor grey1 = HexColor("#CCCBCD");
+  static Color descriptionExtraLightPurple = Color(0xffDBC2FF);
+  static Color peachPink = Color(0xffFFD6D6);
+  static Color nightPurple = Color(0xff928DFF);
+  static Color lightPurple = Color(0xffC7B6FF);
+  static Color darkPurple = Color(0xff6050EA);
+  static Color candyPink = Color(0xffF4C9FE);
+  static Color modestPink = Color(0xffF17B7F);
+  static Color grey1 = Color(0xffCCCBCD);
 
-  static HexColor turtleGreen = HexColor("#1E96FC");
+  static Color turtleGreen = Color(0x1E96FC);
 
-  static HexColor descriptionLightPurple = HexColor("#B0A6C9");
-  static HexColor lightPurpleTheme = HexColor("#CFADFF");
-  static HexColor lightPurple2Theme = HexColor("#C399FF");
-  static HexColor extraLightPinkTheme = HexColor("#FBDAE5");
-  static HexColor lightPinkTheme = HexColor("#F9C8D8");
-  static HexColor medPinkTheme = HexColor("#F5A3BE");
-  static HexColor peachPinkTheme = HexColor("#FDD4D5");
-  static HexColor candyPinkTheme = HexColor("#FCDFF6");
-  static HexColor guildelineSituationBlue = HexColor("#1AC8ED");
-  static HexColor medGreenTheme = HexColor("#ABC940");
-  static HexColor extraLightGreen = HexColor("#DCE9AF");
-  static HexColor lightBlueTheme = HexColor("#98D2EB");
-  static HexColor medBlue = HexColor("#289BCC");
-  static HexColor darkBrown = HexColor("#3B341F");
-  static HexColor darkOrange = HexColor("#FF6542");
-  static HexColor lightOrange = HexColor("#FF9B85");
-  static HexColor offWhite = HexColor("#FAF2F0");
-  static HexColor lightEmerald = HexColor("#A6DDDC");
-  static HexColor emerald = HexColor("#5CC1BC");
+  static Color descriptionLightPurple = Color(0xffB0A6C9);
+  static Color lightPurpleTheme = Color(0xffCFADFF);
+  static Color lightPurple2Theme = Color(0xffC399FF);
+  static Color extraLightPinkTheme = Color(0xffFBDAE5);
+  static Color lightPinkTheme = Color(0xffF9C8D8);
+  static Color medPinkTheme = Color(0xffF5A3BE);
+  static Color peachPinkTheme = Color(0xffFDD4D5);
+  static Color candyPinkTheme = Color(0xffFCDFF6);
+  static Color guildelineSituationBlue = Color(0xff1AC8ED);
+  static Color medGreenTheme = Color(0xffABC940);
+  static Color extraLightGreen = Color(0xffDCE9AF);
+  static Color lightBlueTheme = Color(0xff98D2EB);
+  static Color medBlue = Color(0xff289BCC);
+  static Color darkBrown = Color(0xff3B341F);
+  static Color darkOrange = Color(0xffFF6542);
+  static Color lightOrange = Color(0xffFF9B85);
+  static Color offWhite = Color(0xffFAF2F0);
+  static Color lightEmerald = Color(0xffA6DDDC);
+  static Color emerald = Color(0xff5CC1BC);
 
   static const articleHeading1 =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);
@@ -86,7 +84,8 @@ class Styles {
   static const bigImpact =
       TextStyle(fontSize: 60, fontWeight: FontWeight.w500, color: Colors.black);
 
-  static const appBar = TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white);
+  static const appBar =
+      TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white);
   static const guidelineCard =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
   static const hyperlink = TextStyle(

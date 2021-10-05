@@ -379,7 +379,7 @@ class _ProfilePage extends State<ProfilePage>
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(4)),
                             borderSide:
-                                BorderSide(width: 1, color: Color(0xff54D0EB)),
+                                BorderSide(width: 1, color: Styles.blueTheme),
                           ),
                           labelText: 'Suggestion box',
                           hintText: 'Your suggestion help us',
