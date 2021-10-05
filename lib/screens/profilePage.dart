@@ -9,6 +9,7 @@ import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -65,6 +66,14 @@ class _ProfilePage extends State<ProfilePage>
     var tempBox = await Hive.openBox('mainController');
     tempBox.put('selectProfile', true);
     tempBox.close();
+  }
+
+  openRating() async {
+    final InAppReview inAppReview = InAppReview.instance;
+
+    if (await inAppReview.isAvailable()) {
+      inAppReview.requestReview();
+    }
   }
 
   submitSuggestion() {
@@ -377,7 +386,8 @@ class _ProfilePage extends State<ProfilePage>
                           helperText: 'Type your suggestion here'),
                       maxLength: 300,
                     ),
-                    TextButton(onPressed: () => null, child: Text("Rate us")),
+                    TextButton(
+                        onPressed: () => openRating(), child: Text("Rate us")),
                     TextButton(
                         onPressed: () => submitSuggestion(),
                         child: Text("Submit")),
