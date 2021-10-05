@@ -43,8 +43,8 @@ dependencies:
   drop_cap_text: ^1.1.3
   provider: ^5.0.0
   # Firebase stuff
-  firebase_core: ^1.3.0
-  firebase_analytics: ^8.1.2
+  firebase_core: ^1.7.0
+  firebase_analytics: ^8.3.3
 
 dev_dependencies:
   flutter_test:
