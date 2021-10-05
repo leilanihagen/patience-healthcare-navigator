@@ -16,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppBottomNavBarController extends StatefulWidget {
   final int currentIndex;
 
-  AppBottomNavBarController({Key key, @required this.currentIndex})
+  AppBottomNavBarController({Key? key, required this.currentIndex})
       : super(key: key);
 
   @override
@@ -26,12 +26,12 @@ class AppBottomNavBarController extends StatefulWidget {
 
 // (Below) re-implementing the state of AppBottomNavBarController
 class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
-  List<Widget> pages;
-  PageController _pageController;
-  int _selectedIndex;
+  late List<Widget> pages;
+  PageController? _pageController;
+  late int _selectedIndex;
   bool haveOpenProfile = false;
   GlobalKey<DashboardPageState> _dashBoardKey = GlobalKey();
-  Box box;
+  late Box box;
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
@@ -89,7 +89,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                               context,
                               MaterialPageRoute(
                                   builder: (c) => ProfilePage())).then(
-                              (_) => _dashBoardKey.currentState.refresh());
+                              (_) => _dashBoardKey.currentState!.refresh());
                         },
                         child: Text("Okay")),
                   ],
@@ -99,7 +99,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 
@@ -109,7 +109,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         // _selectedIndex = index;
         // _pageController.jumpToPage(index);
 
-        _pageController.animateToPage(
+        _pageController!.animateToPage(
           index,
           duration: Duration(milliseconds: 800),
           // Stick with Curves.easeIn or similar to avoid errors (https://github.com/flutter/flutter/issues/47730)
@@ -138,7 +138,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         observer.analytics.logEvent(name: 'open_profilepage');
         Navigator.push(
                 context, MaterialPageRoute(builder: (c) => ProfilePage()))
-            .then((_) => {_dashBoardKey.currentState.refresh()});
+            .then((_) => {_dashBoardKey.currentState!.refresh()});
         break;
       default:
     }
@@ -245,7 +245,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                     child: GestureDetector(
                       onTap: () => Navigator.push(context,
                               MaterialPageRoute(builder: (c) => ProfilePage()))
-                          .then((_) => _dashBoardKey.currentState.refresh()),
+                          .then((_) => _dashBoardKey.currentState!.refresh()),
                       child: Container(
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: Colors.white),

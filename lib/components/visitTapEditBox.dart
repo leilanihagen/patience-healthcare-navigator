@@ -3,15 +3,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
 class VisitTapEditBox extends StatefulWidget {
-  Visit visit;
-  String dataType, inputData, defaultText;
-  bool isEditingVisit, shouldWrap;
-  final Function updateFunction;
-  final BoxDecoration boxDecoration;
-  final TextStyle mainTextStyle, defaultTextStyle;
+  Visit? visit;
+  String? dataType, inputData, defaultText;
+  bool? isEditingVisit, shouldWrap;
+  final Function? updateFunction;
+  final BoxDecoration? boxDecoration;
+  final TextStyle? mainTextStyle, defaultTextStyle;
   final TextAlign textAlign;
-  double height, width, margin, padding;
-  int noteIndex;
+  double? height, width, margin, padding;
+  int? noteIndex;
 
   VisitTapEditBox(
       {this.visit,
@@ -30,7 +30,7 @@ class VisitTapEditBox extends StatefulWidget {
       this.padding = 5.0,
       this.shouldWrap = false,
       this.textAlign = TextAlign.center,
-      Key key,
+      Key? key,
       this.noteIndex})
       : super(key: key);
 
@@ -39,7 +39,7 @@ class VisitTapEditBox extends StatefulWidget {
 }
 
 class _VisitTapEditBoxState extends State<VisitTapEditBox> {
-  TextEditingController _editingController;
+  late TextEditingController _editingController;
   bool _isEditing = false;
   // String default_text;
   @override
@@ -64,7 +64,7 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
     if (_isEditing) {
       return Container(
           padding: EdgeInsets.all(5.0),
-          margin: EdgeInsets.all(widget.margin),
+          margin: EdgeInsets.all(widget.margin!),
           decoration: widget.boxDecoration,
           // height: widget.height,
           width: widget.width,
@@ -75,11 +75,11 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
             onFieldSubmitted: (newText) {
               setState(() {
                 widget.inputData = newText;
-                if (widget.isEditingVisit) {
-                  widget.updateFunction(
+                if (widget.isEditingVisit!) {
+                  widget.updateFunction!(
                       widget.visit, widget.dataType, widget.inputData);
                 } else {
-                  widget.updateFunction(widget.visit, widget.noteIndex,
+                  widget.updateFunction!(widget.visit, widget.noteIndex,
                       widget.dataType, widget.inputData);
                 }
                 // TODO: Add editing visit/note flag and pass noteIndex
@@ -105,15 +105,15 @@ class _VisitTapEditBoxState extends State<VisitTapEditBox> {
               width: widget.width,
               child: RichText(
                 text: TextSpan(
-                  text: widget.inputData.isEmpty
+                  text: widget.inputData!.isEmpty
                       ? widget.defaultText
                       : widget.inputData,
-                  style: widget.inputData.isEmpty
+                  style: widget.inputData!.isEmpty
                       ? widget.defaultTextStyle
                       : widget.mainTextStyle,
                 ),
                 textAlign: widget.textAlign,
-                softWrap: widget.shouldWrap,
+                softWrap: widget.shouldWrap!,
               )));
     }
   }

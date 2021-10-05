@@ -16,7 +16,7 @@ import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
 // import '../class/sharePref.dart';
 
 class VisitsTimelinePage extends StatefulWidget {
-  VisitsTimelinePage({Key key}) : super(key: key);
+  VisitsTimelinePage({Key? key}) : super(key: key);
 
   @override
   _VisitsTimelinePageState createState() => _VisitsTimelinePageState();
@@ -24,8 +24,8 @@ class VisitsTimelinePage extends StatefulWidget {
 
 class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   List<Visit> visits = [];
-  GlobalKey<AnimatedListState> listKey;
-  Box box;
+  GlobalKey<AnimatedListState>? listKey;
+  late Box box;
   // @override
   // void initState() {
   //   super.initState();
@@ -68,9 +68,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     } else {
       String _savedVisits = box.get('visits') ?? '';
       if (_savedVisits.isNotEmpty) {
-        Iterable tmp = jsonDecode(_savedVisits);
+        Iterable? tmp = jsonDecode(_savedVisits);
         setState(() {
-          visits = List<Visit>.from(tmp.map((model) => Visit.fromJson(model)));
+          visits = List<Visit>.from(tmp!.map((model) => Visit.fromJson(model)));
         });
       }
     }
@@ -86,7 +86,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   void createVisit() {
-    listKey.currentState
+    listKey!.currentState!
         .insertItem(0, duration: const Duration(milliseconds: 500));
     visits.insert(0, Visit([VisitNote()]));
     updateVisit();
@@ -95,7 +95,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
 
   void deleteVisit(int visitIndex) {
     Visit temp = visits.removeAt(visitIndex);
-    listKey.currentState?.removeItem(
+    listKey!.currentState?.removeItem(
         visitIndex,
         (_, animation) =>
             buildVisitSummary(context, temp, visitIndex, animation),
@@ -107,11 +107,11 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   void createNote(Visit visit, String type, String path) {
     if (type == 'note')
       setState(() {
-        visit.notes.insert(0, VisitNote());
+        visit.notes!.insert(0, VisitNote());
       });
     if (type == 'image')
       setState(() {
-        visit.notes.insert(0, VisitNote.fromPicture(path));
+        visit.notes!.insert(0, VisitNote.fromPicture(path));
       });
     updateVisit();
     observer.analytics
@@ -119,7 +119,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
   }
 
   VisitNote deleteNote(Visit visit, int noteIndex) {
-    VisitNote temp = visit.notes.removeAt(noteIndex);
+    VisitNote temp = visit.notes!.removeAt(noteIndex);
     updateVisit();
     observer.analytics
         .logEvent(name: 'delete_note', parameters: {'type': temp.type});
@@ -163,22 +163,22 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
       switch (type) {
         case 'title':
           {
-            visit.notes[noteIndex].title = data;
+            visit.notes![noteIndex].title = data;
           }
           break;
         case 'time':
           {
-            visit.notes[noteIndex].time = data;
+            visit.notes![noteIndex].time = data;
           }
           break;
         case 'date':
           {
-            visit.notes[noteIndex].date = data;
+            visit.notes![noteIndex].date = data;
           }
           break;
         case 'body':
           {
-            visit.notes[noteIndex].body = data;
+            visit.notes![noteIndex].body = data;
           }
           break;
       }
@@ -258,7 +258,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                           // Date text:
                           child: RichText(
                             text: TextSpan(
-                                text: visit.date.isEmpty
+                                text: visit.date!.isEmpty
                                     ? "Visit date"
                                     : '${visit.date}',
                                 style: Styles.articleBodySmall),
@@ -291,7 +291,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                           // Patient text:
                           child: RichText(
                             text: TextSpan(
-                                text: visit.patientName.isEmpty
+                                text: visit.patientName!.isEmpty
                                     ? "Patient's name"
                                     : '${visit.patientName}',
                                 style: Styles.articleBodySmall),
@@ -329,7 +329,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                         // Patient text:
                         child: RichText(
                           text: TextSpan(
-                              text: visit.healthcareProvider.isEmpty
+                              text: visit.healthcareProvider!.isEmpty
                                   ? "Healthcare provider"
                                   : '${visit.healthcareProvider}',
                               style: Styles.articleBodySmall),
@@ -338,7 +338,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   ),
 
                   // Note/Image:
-                  visit.notes[0].type == 'note'
+                  visit.notes![0].type == 'note'
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -398,10 +398,12 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                   // width: .4.sw,
                                                   child: RichText(
                                                       text: TextSpan(
-                                                          text: visit.notes[0]
-                                                                  .title.isEmpty
+                                                          text: visit
+                                                                  .notes![0]
+                                                                  .title!
+                                                                  .isEmpty
                                                               ? "Untitled note"
-                                                              : ('${visit.notes[0].title}'),
+                                                              : ('${visit.notes![0].title}'),
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -430,7 +432,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             //     width: 2),
                                             border: Border.all(
                                                 width: 1,
-                                                color: Colors.grey[600]),
+                                                color: Colors.grey[600]!),
                                           ),
                                           child: Column(
                                             children: [
@@ -442,10 +444,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                 margin: EdgeInsets.all(7.0),
                                                 child: RichText(
                                                     text: TextSpan(
-                                                  text: visit
-                                                          .notes[0].time.isEmpty
+                                                  text: visit.notes![0].time!
+                                                          .isEmpty
                                                       ? "Visit time"
-                                                      : '${visit.notes[0].time}',
+                                                      : '${visit.notes![0].time}',
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 16),
@@ -459,10 +461,10 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                 margin: EdgeInsets.all(7.0),
                                                 child: RichText(
                                                     text: TextSpan(
-                                                  text: visit
-                                                          .notes[0].date.isEmpty
+                                                  text: visit.notes![0].date!
+                                                          .isEmpty
                                                       ? "Visit date"
-                                                      : '${visit.notes[0].date}',
+                                                      : '${visit.notes![0].date}',
                                                   style:
                                                       Styles.articleBodySmall,
                                                 )),
@@ -493,9 +495,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       // Note text:
                                       child: RichText(
                                         text: TextSpan(
-                                            text: visit.notes[0].body.isEmpty
+                                            text: visit.notes![0].body!.isEmpty
                                                 ? 'Enter a description for this note...'
-                                                : '${visit.notes[0].body}',
+                                                : '${visit.notes![0].body}',
                                             style: Styles.articleBodySmall),
                                       )),
                                   // Three dots within note body:
@@ -533,8 +535,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.0),
                                     image: DecorationImage(
-                                      image:
-                                          FileImage(File(visit.notes[0].body)),
+                                      image: FileImage(
+                                          File(visit.notes![0].body!)),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -576,9 +578,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                                 // padding: EdgeInsets.all(3.0),
                                                 // margin: EdgeInsets.all(7.0),
                                                 child: Text(
-                                                  visit.notes[0].time.isEmpty
+                                                  visit.notes![0].time!.isEmpty
                                                       ? "Visit time"
-                                                      : '${visit.notes[0].time}',
+                                                      : '${visit.notes![0].time}',
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 16),
@@ -593,9 +595,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                               // padding: EdgeInsets.all(3.0),
                                               // margin: EdgeInsets.all(7.0),
                                               child: Text(
-                                                visit.notes[0].date.isEmpty
+                                                visit.notes![0].date!.isEmpty
                                                     ? "Visit date"
-                                                    : '${visit.notes[0].date}',
+                                                    : '${visit.notes![0].date}',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16),

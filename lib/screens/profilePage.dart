@@ -12,7 +12,7 @@ import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePage createState() => _ProfilePage();
@@ -24,14 +24,14 @@ class _ProfilePage extends State<ProfilePage>
   // String userState = 'CA';
   // String userProvider = 'Kaiser Permanente';
   // String userPlan = 'Gold 2000'; // this is a Kaiser plan^
-  String userState;
-  String userProvider;
-  String userPlan;
+  String? userState;
+  String? userProvider;
+  String? userPlan;
   // Not yet used:
-  double userDeductible;
-  double userDeductibleReduction;
-  TextEditingController _controller;
-  Box box;
+  double? userDeductible;
+  double? userDeductibleReduction;
+  TextEditingController? _controller;
+  late Box box;
   _loadSave() async {
     // String tempUserState =
     //     await MySharedPreferences.instance.getStringValue('user_state');
@@ -40,9 +40,9 @@ class _ProfilePage extends State<ProfilePage>
     // String tempUserPlan =
     //     await MySharedPreferences.instance.getStringValue('user_plan');
     box = await Hive.openBox('profile');
-    String tempUserState = box.get('user_state');
-    String tempUserProvider = box.get('user_provider');
-    String tempUserPlan = box.get('user_plan');
+    String? tempUserState = box.get('user_state');
+    String? tempUserProvider = box.get('user_provider');
+    String? tempUserPlan = box.get('user_plan');
     setState(() {
       userState = tempUserState;
       userProvider = tempUserProvider;
@@ -55,7 +55,7 @@ class _ProfilePage extends State<ProfilePage>
     //     .getStringValue('user_deductible_reduction');
   }
 
-  _loadProviderInfo(String provider) async {
+  _loadProviderInfo(String? provider) async {
     final String temp =
         await rootBundle.loadString('assets/data/provider.json');
     final data = await jsonDecode(temp);
@@ -77,12 +77,12 @@ class _ProfilePage extends State<ProfilePage>
   }
 
   submitSuggestion() {
-    String value = _controller.text;
+    String value = _controller!.text;
     if (value.isNotEmpty) {
       observer.analytics
           .logEvent(name: 'feedbacks', parameters: {'value': value});
-      _controller.clear();
-      rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      _controller!.clear();
+      rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
           content:
               Text("Thank you for your suggestion! We have recieved it.")));
     }
@@ -98,7 +98,7 @@ class _ProfilePage extends State<ProfilePage>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -220,7 +220,7 @@ class _ProfilePage extends State<ProfilePage>
                             items: ['CA', 'WA', 'OR', 'DC', 'VA', 'MD', 'GA'],
                             label: 'State of residence',
                             hint: 'Select state of residence',
-                            onChanged: (String s) {
+                            onChanged: (String? s) {
                               observer.analytics.logEvent(
                                   name: 'set_state', parameters: {'state': s});
                               // TO DO: Create an initialization where the default provider is
@@ -250,7 +250,7 @@ class _ProfilePage extends State<ProfilePage>
                             items: ['Kaiser Permanente', 'Pacific Source'],
                             label: 'Insurance Provider',
                             hint: 'Select your insurance provider',
-                            onChanged: (String s) {
+                            onChanged: (String? s) {
                               observer.analytics.logEvent(
                                   name: 'set_provider',
                                   parameters: {'provider': s});

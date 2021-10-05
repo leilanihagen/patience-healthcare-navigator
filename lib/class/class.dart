@@ -13,8 +13,8 @@ class Search {
 
 class ProceduresController {
   List<Procedure> procedures = [];
-  String provider, state, stateCode;
-  int totalLowerPrice, totalUpperPrice, numSection, numGroup;
+  String? provider, state, stateCode;
+  int? totalLowerPrice, totalUpperPrice, numSection, numGroup;
   ProceduresController();
   void add(Procedure p) {
     // if (procedures.contains(p)) if (this.procedures.firstWhere(
@@ -34,8 +34,8 @@ class ProceduresController {
     var numSec = Set();
     var numG = Set();
     procedures.forEach((element) {
-      low += element.lowerPrice;
-      upper += element.upperPrice;
+      low += element.lowerPrice!;
+      upper += element.upperPrice!;
       numSec.add(element.section);
       numG.add(element.group);
     });
@@ -46,9 +46,7 @@ class ProceduresController {
   }
 
   Map toJson() {
-    List<Map> p = this.procedures != null
-        ? this.procedures.map((e) => e.toJson()).toList()
-        : null;
+    List<Map> p = this.procedures.map((e) => e.toJson()).toList();
     return {
       'provider': provider,
       'state': state,
@@ -75,8 +73,8 @@ class ProceduresController {
 }
 
 class Procedure {
-  final String name, codeUrl, priceUrl, section, group;
-  final int lowerCpt, upperCpt, lowerPrice, upperPrice;
+  final String? name, codeUrl, priceUrl, section, group;
+  final int? lowerCpt, upperCpt, lowerPrice, upperPrice;
 
   // Procedure.fromSearch(Search search)
   //     : name = search.name,
@@ -122,9 +120,9 @@ class Procedure {
 }
 
 class Top3 {
-  String name, street, state;
+  String? name, street, state;
   double distance;
-  bool er, ur;
+  bool? er, ur;
   Top3(this.name, this.distance);
   Top3.fromJson(Map<String, dynamic> json)
       : distance = json['distance'] ?? 0,
@@ -144,9 +142,9 @@ class Top3 {
 }
 
 class HospitalPage {
-  int check;
-  String name, address, status;
-  List<Top3> top3;
+  int? check;
+  String? name, address, status;
+  List<Top3>? top3;
   HospitalPage() {
     this.name = "";
     this.address = "";
@@ -162,8 +160,8 @@ class HospitalPage {
     top3 = List<Top3>.from(tmp.map((e) => Top3.fromJson(e)));
   }
   Map toJson() {
-    List<Map> t3 =
-        this.top3 != null ? this.top3.map((e) => e.toJson()).toList() : null;
+    List<Map>? t3 =
+        this.top3 != null ? this.top3!.map((e) => e.toJson()).toList() : null;
     return {
       'name': name,
       'address': address,
@@ -175,7 +173,7 @@ class HospitalPage {
 }
 
 class SearchResult {
-  String name, address;
+  String? name, address;
   SearchResult(this.name, this.address);
   SearchResult.fromJson(Map<String, dynamic> json) {
     name = json['name'] ?? '';

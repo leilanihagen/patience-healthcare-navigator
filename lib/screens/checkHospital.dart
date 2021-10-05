@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,14 +12,15 @@ import 'package:hospital_stay_helper/components/textIcon.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
-  final Function openPage;
+  final Function? openPage;
 
-  HospitalSearchPage({Key key, this.openPage}) : super(key: key);
+  HospitalSearchPage({Key? key, this.openPage}) : super(key: key);
 
   @override
   _CheckHospitalPage createState() => _CheckHospitalPage();
@@ -30,9 +30,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
   final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false, ur = false, er = false, isSearching = false;
-  HospitalPage _hospitalPage;
+  late HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
-  Box box;
+  late Box box;
   @override
   void initState() {
     super.initState();
@@ -53,13 +53,13 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   showError(error) {
-    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+    rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       content: Text(error),
     ));
   }
 
   showProviderError() {
-    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+    rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       content: Text("You haven't selected a provider"),
       action: SnackBarAction(
         label: 'SETTINGS',
@@ -77,7 +77,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
-        bool connection = await DataConnectionChecker().hasConnection;
+        bool connection = await InternetConnectionChecker().hasConnection;
         if (connection) {
           http.Response response = await http.post(
             Uri.parse(
@@ -122,7 +122,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         setState(() {
           _hospitalPage.status = "Checking...";
         });
-        bool connection = await DataConnectionChecker().hasConnection;
+        bool connection = await InternetConnectionChecker().hasConnection;
         if (connection) {
           http.Response response = await http.post(
             Uri.parse(
@@ -168,7 +168,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   showSnackBar(String content) {
-    rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+    rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       content: Text(content),
     ));
   }
@@ -259,7 +259,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             ),
           ),
           Text(
-            _hospitalPage.status,
+            _hospitalPage.status!,
             textAlign: TextAlign.center,
             style: Styles.statusButton,
           )
@@ -286,7 +286,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.check_rounded, size: 80.w, color: Colors.white),
           Text(
-            _hospitalPage.status,
+            _hospitalPage.status!,
             textAlign: TextAlign.center,
             style: Styles.statusButton,
           )
@@ -296,7 +296,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.clear_rounded, size: 80.w, color: Colors.white),
           Text(
-            _hospitalPage.status,
+            _hospitalPage.status!,
             textAlign: TextAlign.center,
             style: Styles.statusButton,
           )
@@ -306,7 +306,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.error_rounded, size: 80.w, color: Colors.white),
           Text(
-            _hospitalPage.status,
+            _hospitalPage.status!,
             textAlign: TextAlign.center,
             style: Styles.statusButton,
           )
@@ -320,10 +320,10 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   getTop3() {
     if (_hospitalPage.top3 == null) return SizedBox.shrink();
     return Column(
-        children: _hospitalPage.top3
+        children: _hospitalPage.top3!
             .map((e) => ListTop(
                   top3: e,
-                  callback: () => openMap(e.name, e.street),
+                  callback: () => openMap(e.name!, e.street!),
                 ))
             .toList());
   }
@@ -441,14 +441,14 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               itemBuilder: (context, index) {
                 return Container(
                   child: ListTile(
-                      title: Text(listSearch[index].name),
-                      subtitle: Text(listSearch[index].address),
+                      title: Text(listSearch[index].name!),
+                      subtitle: Text(listSearch[index].address!),
                       trailing: Icon(
                         Icons.check,
                         color: Colors.green[800],
                       ),
                       onTap: () => openMap(
-                          listSearch[index].name, listSearch[index].address)),
+                          listSearch[index].name!, listSearch[index].address!)),
                 );
               }),
         ],
@@ -550,7 +550,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                         ),
                       ),
                     ),
-                    _hospitalPage.name == null || _hospitalPage.name.isEmpty
+                    _hospitalPage.name == null || _hospitalPage.name!.isEmpty
                         ? SizedBox.shrink()
                         : getHeader(),
                     _hospitalPage.top3 == null

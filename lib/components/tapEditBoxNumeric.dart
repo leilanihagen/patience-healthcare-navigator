@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 
 class TapEditBoxNumeric extends StatefulWidget {
-  num inputData;
+  num? inputData;
   TextInputType keyboardType;
-  String defaultText;
+  String? defaultText;
   bool shouldWrap;
-  final Function updateFunction, parseFunction;
-  final BoxDecoration boxDecoration;
+  final Function? updateFunction, parseFunction;
+  final BoxDecoration? boxDecoration;
   final TextStyle textStyle;
   final TextAlign textAlign;
-  double height, width, margin, padding;
-  int noteIndex;
+  double? height, width, margin, padding;
+  int? noteIndex;
 
   TapEditBoxNumeric(
       {this.inputData,
@@ -27,7 +27,7 @@ class TapEditBoxNumeric extends StatefulWidget {
       this.padding = 5.0,
       this.shouldWrap = false,
       this.textAlign = TextAlign.center,
-      Key key,
+      Key? key,
       this.noteIndex})
       : super(key: key);
 
@@ -36,9 +36,9 @@ class TapEditBoxNumeric extends StatefulWidget {
 }
 
 class _TapEditBoxNumericState extends State<TapEditBoxNumeric> {
-  TextEditingController _editingController;
+  late TextEditingController _editingController;
   bool _isEditing = false;
-  String stringData;
+  String? stringData;
   // String default_text;
   @override
   void initState() {
@@ -63,7 +63,7 @@ class _TapEditBoxNumericState extends State<TapEditBoxNumeric> {
     if (_isEditing) {
       return Container(
           padding: EdgeInsets.all(5.0),
-          margin: EdgeInsets.all(widget.margin),
+          margin: EdgeInsets.all(widget.margin!),
           decoration: widget.boxDecoration,
           height: widget.height,
           width: widget.width,
@@ -75,8 +75,8 @@ class _TapEditBoxNumericState extends State<TapEditBoxNumeric> {
             onFieldSubmitted: (newText) {
               setState(() {
                 stringData = newText;
-                widget.inputData = num.parse(stringData);
-                widget.updateFunction(widget.inputData);
+                widget.inputData = num.parse(stringData!);
+                widget.updateFunction!(widget.inputData);
                 // TODO: Add editing visit/note flag and pass noteIndex
                 _isEditing = false;
               });

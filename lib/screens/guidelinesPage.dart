@@ -60,32 +60,38 @@ RichText renderClickableLinkPassage(String text, String urlText, String url) {
 }
 
 class CustomPageRouteBuilder<T> extends PageRoute<T> {
-  final RoutePageBuilder pageBuilder;
-  final PageTransitionsBuilder matchingBuilder = const FadeUpwardsPageTransitionsBuilder(); // Default Android/Linux/Windows
+  final RoutePageBuilder? pageBuilder;
+  final PageTransitionsBuilder matchingBuilder =
+      const FadeUpwardsPageTransitionsBuilder(); // Default Android/Linux/Windows
   // final PageTransitionsBuilder matchingBuilder = const CupertinoPageTransitionsBuilder(); // Default iOS/macOS (to get the swipe right to go back gesture)
 
   CustomPageRouteBuilder({this.pageBuilder});
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    return pageBuilder(context, animation, secondaryAnimation);
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return pageBuilder!(context, animation, secondaryAnimation);
   }
 
   @override
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 900); // Can give custom Duration, unlike in MaterialPageRoute
+  Duration get transitionDuration => Duration(
+      milliseconds:
+          900); // Can give custom Duration, unlike in MaterialPageRoute
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-    return matchingBuilder.buildTransitions<T>(this, context, animation, secondaryAnimation, child);
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return matchingBuilder.buildTransitions<T>(
+        this, context, animation, secondaryAnimation, child);
   }
 }
 
@@ -107,18 +113,18 @@ Widget renderClickableSituationCard(
 }
 
 class _CustomRectTween extends RectTween {
-  _CustomRectTween({Rect begin, Rect end})
-      : super(begin: begin, end: end);
+  _CustomRectTween({Rect? begin, Rect? end}) : super(begin: begin, end: end);
 
   @override
   Rect lerp(double t) {
     t = Curves.easeOut.transform(t);
-    double animatedLeft = begin.left + t * (end.left-begin.left);
-    double animatedTop = begin.top + t * (end.top-begin.top);
-    double animatedRight = begin.right + t * (end.right-begin.right);
-    double animatedBottom = begin.bottom + t * (end.bottom-begin.bottom);
+    double animatedLeft = begin!.left + t * (end!.left - begin!.left);
+    double animatedTop = begin!.top + t * (end!.top - begin!.top);
+    double animatedRight = begin!.right + t * (end!.right - begin!.right);
+    double animatedBottom = begin!.bottom + t * (end!.bottom - begin!.bottom);
 
-    return Rect.fromLTRB(animatedLeft, animatedTop, animatedRight, animatedBottom);
+    return Rect.fromLTRB(
+        animatedLeft, animatedTop, animatedRight, animatedBottom);
   }
 }
 
@@ -129,7 +135,10 @@ Widget renderSituationBox(String text, Icon icon,
     createRectTween: (begin, end) => _CustomRectTween(begin: begin, end: end),
     flightShuttleBuilder: (flightContext, animation, flightDirection,
         fromHeroContext, toHeroContext) {
-      animation = CurvedAnimation(parent: animation, curve: Curves.easeOut, reverseCurve: Curves.easeOut);
+      animation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOut,
+          reverseCurve: Curves.easeOut);
 
       return AnimatedBuilder(
         animation: animation,
@@ -156,31 +165,31 @@ class _SituationBoxTile extends StatelessWidget {
   final double opacity;
 
   const _SituationBoxTile({
-    @required this.icon,
-    @required this.text,
-    @required this.opacity,
+    required this.icon,
+    required this.text,
+    required this.opacity,
   });
 
   @override
   Widget build(BuildContext context) {
-    double animProgress = 1-opacity;
+    double animProgress = 1 - opacity;
 
     return Material(
       color: Colors.transparent,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
+        margin: EdgeInsets.symmetric(
+            horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
         decoration: BoxDecoration(
             color: Styles.modestPink,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5 * animProgress),
-              spreadRadius: 4,
-              blurRadius: 6,
-              offset: Offset(0, 3),
-            )
-          ],
-          borderRadius: BorderRadius.circular(5.0 * animProgress)
-        ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5 * animProgress),
+                spreadRadius: 4,
+                blurRadius: 6,
+                offset: Offset(0, 3),
+              )
+            ],
+            borderRadius: BorderRadius.circular(5.0 * animProgress)),
         child: Row(
           children: [
             Container(
@@ -229,7 +238,7 @@ Widget renderGuideline(
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           collapsed: (linesShownCollapsed == 0)
-              ? null
+              ? SizedBox.shrink()
               : Padding(
                   child: Text(
                     text,
@@ -263,7 +272,7 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
             style: Styles.headerGuildline,
           ),
           collapsed: (linesShownCollapsed == 0)
-              ? null
+              ? SizedBox.shrink()
               : Padding(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +323,7 @@ Widget renderGuidelineCustomWidgetText(
             style: Styles.headerGuildline,
           ),
           collapsed: (linesShownCollapsed == 0)
-              ? null
+              ? SizedBox.shrink()
               : Padding(
                   child: text,
                   padding: EdgeInsets.fromLTRB(4, 12, 4, 4),
@@ -329,8 +338,8 @@ Widget renderGuidelineCustomWidgetText(
 class RootCategoriesPage extends StatelessWidget {
   RootCategoriesPage({this.context, this.beforeStayPage});
 
-  final BuildContext context;
-  final BeforeStayPage beforeStayPage;
+  final BuildContext? context;
+  final BeforeStayPage? beforeStayPage;
   final Color icons = Colors.white;
 
   @override
@@ -397,8 +406,8 @@ class RootCategoriesPage extends StatelessWidget {
 class TermsPage extends StatelessWidget {
   TermsPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Provider",
     "Deductible",
@@ -450,7 +459,10 @@ class TermsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -550,8 +562,8 @@ class TermsPage extends StatelessWidget {
 class BeforeStayPage extends StatelessWidget {
   BeforeStayPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Make a detailed visit-plan with your provider",
     "Create a file or one place to store all information related to your hospital visit",
@@ -578,7 +590,10 @@ class BeforeStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -626,8 +641,8 @@ class BeforeStayPage extends StatelessWidget {
 class DuringStayPage extends StatelessWidget {
   DuringStayPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Ask if you will be treated by in-network physicians/providers",
     "Call your insurance provider to ask about costs and what is covered",
@@ -659,7 +674,10 @@ class DuringStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -712,8 +730,8 @@ class DuringStayPage extends StatelessWidget {
 class AfterStayPage extends StatelessWidget {
   AfterStayPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Do not pay any portion of your bill until disputing it",
     "Ask the hospital if they offer financial assistance/aid or charity care",
@@ -727,7 +745,10 @@ class AfterStayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -771,8 +792,8 @@ class AfterStayPage extends StatelessWidget {
 class ReceivedBillPage extends StatelessWidget {
   ReceivedBillPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Don’t run from the bill",
     "Apply for financial aid through the hospital",
@@ -850,7 +871,10 @@ class ReceivedBillPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [
@@ -897,8 +921,8 @@ class ReceivedBillPage extends StatelessWidget {
 class CollectionsPage extends StatelessWidget {
   CollectionsPage({this.context, this.rootCategoriesPage});
 
-  final BuildContext context;
-  final RootCategoriesPage rootCategoriesPage;
+  final BuildContext? context;
+  final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Remember that you have time",
     "You may want to ask for the debt to be sent back to the hospital’s billing agency",
@@ -983,7 +1007,10 @@ class CollectionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(toolbarHeight: 0.0, backgroundColor: Styles.modestPink,),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Styles.modestPink,
+        ),
         body: GestureDetector(
           child: ListView(
             children: [

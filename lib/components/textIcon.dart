@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ERIcon extends StatelessWidget {
-  const ERIcon({Key key}) : super(key: key);
+  const ERIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ERIcon extends StatelessWidget {
 }
 
 class URIcon extends StatelessWidget {
-  const URIcon({Key key}) : super(key: key);
+  const URIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

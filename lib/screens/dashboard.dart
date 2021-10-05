@@ -12,9 +12,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:hive/hive.dart';
 
 class DashboardPage extends StatefulWidget {
-  final Function openPage;
+  final Function? openPage;
 
-  DashboardPage({Key key, this.openPage}) : super(key: key);
+  DashboardPage({Key? key, this.openPage}) : super(key: key);
 
   @override
   DashboardPageState createState() => DashboardPageState();
@@ -24,7 +24,7 @@ class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
   String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
-  Box box;
+  late Box box;
   // double amountDeductiblePaid;
 
   // _loadSaved() async {
@@ -215,7 +215,7 @@ class DashboardPageState extends State<DashboardPage>
                 padding: EdgeInsets.symmetric(vertical: .005.sw),
                 child: TextButton(
                     onPressed: () {
-                      widget.openPage(targetPageIndex);
+                      widget.openPage!(targetPageIndex);
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
@@ -521,8 +521,12 @@ class DashboardPageState extends State<DashboardPage>
         slivers: [
           // Header:
           SliverPersistentHeader(
-            delegate: CustomSliverDelegate(insuranceProvider, widget.openPage,
-                buildIconButton, buildStateButton, _callProvider),
+            delegate: CustomSliverDelegate(
+                insuranceProvider,
+                widget.openPage as dynamic Function(int)?,
+                buildIconButton,
+                buildStateButton,
+                _callProvider),
             floating: true,
           ),
           SliverList(
@@ -703,7 +707,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double height = double.infinity;
 
   final String insuranceProvider;
-  final Function(int) openPage;
+  final Function(int)? openPage;
   final Function buildIconButton;
   final Function buildStateButton;
   final Function callProvider;
@@ -719,8 +723,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         builder: (c, cd) {
           c.watch<_Rebuild>();
           WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-            if (c?.size != null && height != c.size.height) {
-              height = c.size.height;
+            if (c.size != null && height != c.size!.height) {
+              height = c.size!.height;
               c.read<_Rebuild>().notifyListeners();
             }
           });

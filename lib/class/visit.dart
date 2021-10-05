@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 
 class Visit {
-  String date, patientName, healthcareProvider;
-  List<VisitNote> notes;
+  String? date, patientName, healthcareProvider;
+  List<VisitNote>? notes;
 
   Visit(List<VisitNote> notes) {
     this.date = DateFormat.yMd().format(DateTime.now());
@@ -20,8 +20,8 @@ class Visit {
   }
 
   Map toJson() {
-    List<Map> notesJson =
-        notes == null ? null : notes.map((e) => e.toJson()).toList();
+    List<Map>? notesJson =
+        notes == null ? null : notes!.map((e) => e.toJson()).toList();
     return {
       'date': date,
       'patientName': patientName,
@@ -68,7 +68,7 @@ class Visit {
 }
 
 class VisitNote {
-  String title, time, date, body, type;
+  String? title, time, date, body, type;
 
   VisitNote() {
     DateTime now = DateTime.now();

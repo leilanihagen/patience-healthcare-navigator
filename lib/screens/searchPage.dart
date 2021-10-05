@@ -550,7 +550,7 @@ import 'package:hospital_stay_helper/config/styles.dart';
 // }
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key key}) : super(key: key);
+  SearchPage({Key? key}) : super(key: key);
   @override
   _SearchPage createState() => _SearchPage();
 }

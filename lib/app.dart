@@ -9,7 +9,7 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
 class App extends StatefulWidget {
-  const App({Key key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
   // static void setLocale(BuildContext context, Locale newLocale) {
   //   _AppState state = context.findAncestorStateOfType<_AppState>();
   //   state.setLocale(newLocale);

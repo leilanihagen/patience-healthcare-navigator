@@ -11,7 +11,7 @@ import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageFullScreenView extends StatelessWidget {
-  final Image image;
+  final Image? image;
 
   ImageFullScreenView({this.image});
 
@@ -31,7 +31,7 @@ class ImageFullScreenView extends StatelessWidget {
         ),
       ),
       body: InteractiveViewer(
-        child: Center(child: Hero(tag: 'imageView', child: image)),
+        child: Center(child: Hero(tag: 'imageView', child: image!)),
         // onTap: () {
         //   Navigator.pop(context);
         // },
@@ -41,15 +41,15 @@ class ImageFullScreenView extends StatelessWidget {
 }
 
 class VisitDetailPage extends StatefulWidget {
-  final Visit visit;
-  final int visitIndex;
-  final Function createNewNote,
+  final Visit? visit;
+  final int? visitIndex;
+  final Function? createNewNote,
       deleteNoteFunction,
       updateVisitFunction,
       updateNoteFunction,
       deleteVisit;
   VisitDetailPage(
-      {Key key,
+      {Key? key,
       this.visit,
       this.visitIndex,
       this.createNewNote,
@@ -87,7 +87,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   }
 
   getImage() async {
-    PickedFile imageFile = await picker.getImage(source: ImageSource.gallery);
+    PickedFile? imageFile = await picker.getImage(source: ImageSource.gallery);
     if (imageFile == null) return;
     File tmpFile = File(imageFile.path);
     final appDir = await getApplicationDocumentsDirectory();
@@ -98,7 +98,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
 
   Future<Null> _selectDate(
       BuildContext context, String selectedDate, int index) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateFormat.yMd().parse(selectedDate),
         initialDatePickerMode: DatePickerMode.day,
@@ -106,7 +106,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         lastDate: DateTime(2025));
     if (picked != null) {
       setState(() {
-        widget.updateNoteFunction(
+        widget.updateNoteFunction!(
             widget.visit, index, 'date', DateFormat.yMd().format(picked));
       });
     }
@@ -114,7 +114,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
 
   Future<Null> _selectVisitDate(
       BuildContext context, String selectedDate) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateFormat.yMd().parse(selectedDate),
         initialDatePickerMode: DatePickerMode.day,
@@ -122,21 +122,21 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         lastDate: DateTime(2025));
     if (picked != null)
       setState(() {
-        widget.updateVisitFunction(
+        widget.updateVisitFunction!(
             widget.visit, 'date', DateFormat.yMd().format(picked));
       });
   }
 
   Future<Null> _selectTime(
       BuildContext context, String selectedTime, int index) async {
-    final TimeOfDay picked = await showTimePicker(
+    final TimeOfDay? picked = await showTimePicker(
         context: context,
         initialTime:
             TimeOfDay.fromDateTime(DateFormat.Hm().parse(selectedTime)),
         initialEntryMode: TimePickerEntryMode.dial);
     if (picked != null)
       setState(() {
-        widget.updateNoteFunction(
+        widget.updateNoteFunction!(
             widget.visit, index, 'time', picked.format(context));
       });
   }
@@ -145,29 +145,29 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
     setState(() {
       // widget.visit.date = inputData;
     });
-    widget.updateVisitFunction(visit, dataType, inputData);
+    widget.updateVisitFunction!(visit, dataType, inputData);
     // widget.updateVisitFunction(visit, dataType, inputData);
   }
 
   deleteNote(int index) async {
-    if (await showConfirm()) {
-      if (widget.visit.notes.length == 1) {
-        widget.deleteVisit(widget.visitIndex);
+    if (await (showConfirm() as Future<bool>)) {
+      if (widget.visit!.notes!.length == 1) {
+        widget.deleteVisit!(widget.visitIndex);
         Navigator.pop(context);
       } else {
-        VisitNote temp = widget.deleteNoteFunction(widget.visit, index);
+        VisitNote? temp = widget.deleteNoteFunction!(widget.visit, index);
 
-        listKey.currentState.removeItem(index,
-            (_, animation) => noteWidget(context, temp, index, animation),
+        listKey.currentState!.removeItem(index,
+            (_, animation) => noteWidget(context, temp!, index, animation),
             duration: const Duration(milliseconds: 200));
       }
     }
   }
 
   createNewNote(String type, String path) {
-    listKey.currentState
+    listKey.currentState!
         .insertItem(0, duration: const Duration(milliseconds: 500));
-    widget.createNewNote(widget.visit, type, path);
+    widget.createNewNote!(widget.visit, type, path);
   }
 
   noteWidget(BuildContext context, VisitNote note, int index, animation) {
@@ -190,7 +190,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     blurRadius: 7,
                     offset: Offset(0, 3))
               ],
-              border: Border.all(width: 1, color: Colors.grey[600]),
+              border: Border.all(width: 1, color: Colors.grey[600]!),
             ),
             // Title and note body:
             child: Column(
@@ -264,7 +264,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topRight,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey[600]),
+                        border: Border.all(color: Colors.grey[600]!),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: Column(
@@ -272,17 +272,19 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         children: [
                           // TODO: Replace placeholders:
                           GestureDetector(
-                            onTap: () => _selectTime(context, note.time, index),
+                            onTap: () =>
+                                _selectTime(context, note.time!, index),
                             child: Text(
-                              note.time,
+                              note.time!,
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Divider(thickness: 10, color: Colors.white),
                           GestureDetector(
-                            onTap: () => _selectDate(context, note.date, index),
+                            onTap: () =>
+                                _selectDate(context, note.date!, index),
                             child: Container(
-                              child: Text(note.date,
+                              child: Text(note.date!,
                                   style: TextStyle(fontSize: 16)),
                             ),
                           )
@@ -347,7 +349,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return ImageFullScreenView(
-                        image: Image.file((File(note.body))));
+                        image: Image.file((File(note.body!))));
                   }));
                 },
                 child: Hero(
@@ -357,7 +359,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
-                        image: FileImage(File(note.body)),
+                        image: FileImage(File(note.body!)),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -385,17 +387,18 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 14),
                           child: GestureDetector(
-                            onTap: () => _selectTime(context, note.time, index),
-                            child:
-                                Text(note.time, style: TextStyle(fontSize: 16)),
+                            onTap: () =>
+                                _selectTime(context, note.time!, index),
+                            child: Text(note.time!,
+                                style: TextStyle(fontSize: 16)),
                           ),
                         ),
                         // Divider(thickness: 50, color: Colors.red),
                         GestureDetector(
-                          onTap: () => _selectDate(context, note.date, index),
+                          onTap: () => _selectDate(context, note.date!, index),
                           child: Container(
-                            child:
-                                Text(note.date, style: TextStyle(fontSize: 16)),
+                            child: Text(note.date!,
+                                style: TextStyle(fontSize: 16)),
                           ),
                         )
                       ],
@@ -433,10 +436,10 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   Widget getNotes() {
     return AnimatedList(
         key: listKey,
-        initialItemCount: widget.visit.notes.length,
+        initialItemCount: widget.visit!.notes!.length,
         itemBuilder: (context, index, animation) {
           return noteWidget(
-              context, widget.visit.notes[index], index, animation);
+              context, widget.visit!.notes![index], index, animation);
         });
   }
 
@@ -482,9 +485,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 padding: const EdgeInsets.fromLTRB(6.0, 25.0, 2.0, 10.0),
                 child: RichText(
                     text: TextSpan(
-                        text: widget.visit.date.isEmpty
+                        text: widget.visit!.date!.isEmpty
                             ? "New Visit"
-                            : "${widget.visit.date}'s Visit",
+                            : "${widget.visit!.date}'s Visit",
                         style: TextStyle(
                             fontSize: 34, fontWeight: FontWeight.w700))),
               ),
@@ -496,7 +499,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     child: Icon(Icons.delete),
                     onPressed: () async {
                       if (await showConfirm()) {
-                        widget.deleteVisit(widget.visitIndex);
+                        widget.deleteVisit!(widget.visitIndex);
                         Navigator.pop(context);
                       }
                     }),
@@ -525,9 +528,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 // onTap: () => _selectDate(
                 //     context, widget.visit.date, index),
                 child: GestureDetector(
-                  onTap: () => _selectVisitDate(context, widget.visit.date),
+                  onTap: () => _selectVisitDate(context, widget.visit!.date!),
                   child: Text(
-                    widget.visit.date,
+                    widget.visit!.date!,
                     style: Styles.articleBodySmall,
                   ),
                 ),
@@ -545,7 +548,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 child: VisitTapEditBox(
                   visit: widget.visit,
                   dataType: 'patientName',
-                  inputData: widget.visit.patientName,
+                  inputData: widget.visit!.patientName,
                   defaultText: "Patient's name...",
                   isEditingVisit: true,
                   updateFunction: widget.updateVisitFunction,
@@ -576,7 +579,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             child: VisitTapEditBox(
               visit: widget.visit,
               dataType: 'healthcareProvider',
-              inputData: widget.visit.healthcareProvider,
+              inputData: widget.visit!.healthcareProvider,
               defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
               isEditingVisit: true,
               updateFunction: widget.updateVisitFunction,

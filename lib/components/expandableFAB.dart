@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab(
-      {Key key,
+      {Key? key,
       this.initialOpen,
       this.distance,
       this.children,
@@ -13,10 +13,10 @@ class ExpandableFab extends StatefulWidget {
       this.iconOpen = const Icon(Icons.add)})
       : super(key: key);
 
-  final bool initialOpen;
-  final double distance;
-  final List<Widget> children;
-  final Color backgroundColor, foregroundColor;
+  final bool? initialOpen;
+  final double? distance;
+  final List<Widget>? children;
+  final Color? backgroundColor, foregroundColor;
   final Icon iconClose, iconOpen;
 
   @override
@@ -25,8 +25,8 @@ class ExpandableFab extends StatefulWidget {
 
 class _ExpandableFabState extends State<ExpandableFab>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _expandAnimation;
+  late AnimationController _controller;
+  Animation<double>? _expandAnimation;
   bool _open = false;
 
   @override
@@ -98,7 +98,7 @@ class _ExpandableFabState extends State<ExpandableFab>
 
   List<Widget> _buildExpandingActionButtons() {
     final children = <Widget>[];
-    final count = widget.children.length;
+    final count = widget.children!.length;
     final step = 90.0 / (count - 1);
     for (var i = 0, angleInDegrees = 0.0;
         i < count;
@@ -108,7 +108,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           directionInDegrees: angleInDegrees,
           maxDistance: widget.distance,
           progress: _expandAnimation,
-          child: widget.children[i],
+          child: widget.children![i],
         ),
       );
     }
@@ -146,38 +146,38 @@ class _ExpandableFabState extends State<ExpandableFab>
 @immutable
 class _ExpandingActionButton extends StatelessWidget {
   const _ExpandingActionButton({
-    Key key,
+    Key? key,
     this.directionInDegrees,
     this.maxDistance,
     this.progress,
     this.child,
   }) : super(key: key);
 
-  final double directionInDegrees;
-  final double maxDistance;
-  final Animation<double> progress;
-  final Widget child;
+  final double? directionInDegrees;
+  final double? maxDistance;
+  final Animation<double>? progress;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: progress,
+      animation: progress!,
       builder: (context, child) {
         final offset = Offset.fromDirection(
-          directionInDegrees * (math.pi / 180.0),
-          progress.value * maxDistance,
+          directionInDegrees! * (math.pi / 180.0),
+          progress!.value * maxDistance!,
         );
         return Positioned(
           right: 4.0 + offset.dx,
           bottom: 4.0 + offset.dy,
           child: Transform.rotate(
-            angle: (1.0 - progress.value) * math.pi / 2,
+            angle: (1.0 - progress!.value) * math.pi / 2,
             child: child,
           ),
         );
       },
       child: FadeTransition(
-        opacity: progress,
+        opacity: progress!,
         child: child,
       ),
     );
@@ -187,15 +187,15 @@ class _ExpandingActionButton extends StatelessWidget {
 @immutable
 class ActionButton extends StatelessWidget {
   const ActionButton(
-      {Key key,
+      {Key? key,
       this.onPressed,
       this.icon,
       this.backgroundColor = Colors.white,
       this.iconSize = 24})
       : super(key: key);
 
-  final VoidCallback onPressed;
-  final Widget icon;
+  final VoidCallback? onPressed;
+  final Widget? icon;
   final Color backgroundColor;
   final double iconSize;
   @override
@@ -208,7 +208,7 @@ class ActionButton extends StatelessWidget {
       child: IconButton(
         iconSize: iconSize,
         onPressed: onPressed,
-        icon: icon,
+        icon: icon!,
       ),
     );
   }
@@ -217,17 +217,17 @@ class ActionButton extends StatelessWidget {
 @immutable
 class FakeItem extends StatelessWidget {
   const FakeItem({
-    Key key,
+    Key? key,
     this.isBig,
   }) : super(key: key);
 
-  final bool isBig;
+  final bool? isBig;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-      height: isBig ? 128.0 : 36.0,
+      height: isBig! ? 128.0 : 36.0,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         color: Colors.grey.shade300,
