@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
+import 'package:hospital_stay_helper/app.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hive/hive.dart';
@@ -28,6 +29,7 @@ class _ProfilePage extends State<ProfilePage>
   // Not yet used:
   double userDeductible;
   double userDeductibleReduction;
+  TextEditingController _controller;
   Box box;
   _loadSave() async {
     // String tempUserState =
@@ -65,39 +67,61 @@ class _ProfilePage extends State<ProfilePage>
     tempBox.close();
   }
 
+  submitSuggestion() {
+    String value = _controller.text;
+    if (value.isNotEmpty) {
+      observer.analytics
+          .logEvent(name: 'feedbacks', parameters: {'value': value});
+      _controller.clear();
+      rootScaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+          content:
+              Text("Thank you for your suggestion! We have recieved it.")));
+    }
+  }
+
   @override
   initState() {
     super.initState();
     _loadSave();
     _check();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      // backgroundColor: Colors.deepPurple[600],
-      appBar: AppBar(
-        backgroundColor: Styles.blueTheme,
-        leading: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Hero(
-              tag: 'settings_icon',
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  width: 165.w,
-                  height: 165.w,
-                  child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.grey,
-                        size: 75.w,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        // backgroundColor: Colors.deepPurple[600],
+        appBar: AppBar(
+          backgroundColor: Styles.blueTheme,
+          leading: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Hero(
+                tag: 'settings_icon',
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 165.w,
+                    height: 165.w,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.white),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.grey,
+                          size: 75.w,
+                        ),
                       ),
                     ),
                   ),
@@ -105,228 +129,264 @@ class _ProfilePage extends State<ProfilePage>
               ),
             ),
           ),
-        ),
-        title: Hero(
-          tag: 'app_bar_title',
-          child: Container(
-            width: double.infinity,
-            child: Material(
-              color: Colors.transparent,
-              child: Text(
-                'User Settings',
-                style: Styles.appBar,
+          title: Hero(
+            tag: 'app_bar_title',
+            child: Container(
+              width: double.infinity,
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  'User Settings',
+                  style: Styles.appBar,
+                ),
               ),
             ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          // Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-          // Text(
-          //   "Your Information",
-          //   textAlign: TextAlign.left,
-          //   style: TextStyle(
-          //       fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
-          // ),
-          buildPageDescriptionColor(
-            "Welcome to Your Settings",
-            "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
-            Colors.white,
-          ),
-          // Padding(
-          //     child: Card(
-          //       color: Colors.white,
-          //       child: Padding(
-          //           child: Column(
-          //             mainAxisAlignment: MainAxisAlignment.end,
-          //             children: [
-          //               Text(
-          //                 ,
-          //                 textAlign: TextAlign.left,
-          //                 style: Styles.instruction,
-          //               ),
-          //             ],
-          //           ),
-          //           padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
-          //     ),
-          //     padding: EdgeInsets.fromLTRB(0, 0, 0, 12)),
+        body: SingleChildScrollView(
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            // Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
+            // Text(
+            //   "Your Information",
+            //   textAlign: TextAlign.left,
+            //   style: TextStyle(
+            //       fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white),
+            // ),
+            buildPageDescriptionColor(
+              "Welcome to Your Settings",
+              "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
+              Colors.white,
+            ),
+            // Padding(
+            //     child: Card(
+            //       color: Colors.white,
+            //       child: Padding(
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.end,
+            //             children: [
+            //               Text(
+            //                 ,
+            //                 textAlign: TextAlign.left,
+            //                 style: Styles.instruction,
+            //               ),
+            //             ],
+            //           ),
+            //           padding: EdgeInsets.fromLTRB(15, 11, 15, 11)),
+            //     ),
+            //     padding: EdgeInsets.fromLTRB(0, 0, 0, 12)),
 
-          // SizedBox(
-          //   width: double.infinity,
-          //   child: Padding(
-          //     child: Text(
-          //       'State of residence (USA):',
-          //       textAlign: TextAlign.left,
-          //       style: TextStyle(fontSize: 15),
-          //     ),
-          //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-          //   ),
-          // ),
-          //   DropdownButton<String>(
-          //     value: dropdownVal,
-          //     icon: Icon(Icons.arrow_downward),
-          //     iconSize: 13,
-          //     style: TextStyle(color: Colors.blue),
-          //     items: <String>['CA', 'WA', 'OR']
-          //     .map<DropdownMenuItem<String>>((String val){
-          //       return DropdownMenuItem<String>(
-          //         value: val,
-          //         child: Text(val),
-          //       );
-          //     }).toList(),
-          // ])
-          Card(
-            color: Colors.white,
-            child: Padding(
-                child: Column(
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: Padding(
+            //     child: Text(
+            //       'State of residence (USA):',
+            //       textAlign: TextAlign.left,
+            //       style: TextStyle(fontSize: 15),
+            //     ),
+            //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+            //   ),
+            // ),
+            //   DropdownButton<String>(
+            //     value: dropdownVal,
+            //     icon: Icon(Icons.arrow_downward),
+            //     iconSize: 13,
+            //     style: TextStyle(color: Colors.blue),
+            //     items: <String>['CA', 'WA', 'OR']
+            //     .map<DropdownMenuItem<String>>((String val){
+            //       return DropdownMenuItem<String>(
+            //         value: val,
+            //         child: Text(val),
+            //       );
+            //     }).toList(),
+            // ])
+            Card(
+              color: Colors.white,
+              child: Padding(
+                  child: Column(
+                    children: [
+                      Padding(
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            showSelectedItem: true,
+                            items: ['CA', 'WA', 'OR', 'DC', 'VA', 'MD', 'GA'],
+                            label: 'State of residence',
+                            hint: 'Select state of residence',
+                            onChanged: (String s) {
+                              observer.analytics.logEvent(
+                                  name: 'set_state', parameters: {'state': s});
+                              // TO DO: Create an initialization where the default provider is
+                              // saved if the user never changes this dropdown
+                              // MySharedPreferences.instance
+                              //     .setStringValue('user_state', s);
+                              box.put('user_state', s);
+                            },
+                            selectedItem: userState,
+                          ),
+                          padding: Styles.dropdownPadding),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: Padding(
+                      //     child: Text(
+                      //       'Insurance provider:',
+                      //       textAlign: TextAlign.left,
+                      //       style: TextStyle(fontSize: 15),
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      //   ),
+                      // ),
+                      Padding(
+                          child: DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            showSelectedItem: true,
+                            items: ['Kaiser Permanente', 'Pacific Source'],
+                            label: 'Insurance Provider',
+                            hint: 'Select your insurance provider',
+                            onChanged: (String s) {
+                              observer.analytics.logEvent(
+                                  name: 'set_provider',
+                                  parameters: {'provider': s});
+                              // TO DO: Create an initialization where the default provider is
+                              // saved if the user never changes this dropdown
+                              // MySharedPreferences.instance
+                              //     .setStringValue('user_provider', s);
+                              box.put('user_provider', s);
+                              _loadProviderInfo(s);
+                            },
+                            selectedItem: userProvider,
+                          ),
+                          padding: Styles.dropdownPadding),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: Padding(
+                      //     child: Text(
+                      //       'Insurance plan:',
+                      //       textAlign: TextAlign.left,
+                      //       style: TextStyle(fontSize: 15),
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      //   ),
+                      // ),
+
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: DropdownSearch<String>(
+                      //       mode: Mode.MENU,
+                      //       showSelectedItem: true,
+                      //       items: [
+                      //         'Gold 2000',
+                      //         'Silver 3500',
+                      //         'Silver 5000',
+                      //         'Bronze 7000',
+                      //         'Deductible Bronze',
+                      //         'HSA Bronze'
+                      //       ],
+                      //       label: 'Insurance Plan',
+                      //       hint: 'Select your insurance plan',
+                      //       onChanged: (String s) => {
+                      //         // TO DO: Create an initialization where the default provider is
+                      //         // saved if the user never changes this dropdown
+                      //         MySharedPreferences.instance
+                      //             .setStringValue('user_plan', s),
+                      //       },
+                      //       selectedItem: userPlan,
+                      //     ),
+                      //     padding: Styles.dropdownPadding),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: Padding(
+                      //     child: Text(
+                      //       'Your plans deductible:',
+                      //       textAlign: TextAlign.left,
+                      //       style: TextStyle(fontSize: 15),
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      //   ),
+                      // ),
+                      // ******REMOVE if adding text labels above each item again:
+                      // Padding(
+                      //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                      // ),
+                      // *********************************************************
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: TextField(
+                      //       decoration: InputDecoration(
+                      //           hintText: 'Your plan\'s deductible amount'),
+                      //       keyboardType: TextInputType.number,
+                      //       // onChanged: (String s) => {
+                      //       //       MySharedPreferences.instance
+                      //       //           .setStringValue('user_deductible', s),
+                      //       //     }
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 8)),
+
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: Padding(
+                      //     child: Text(
+                      //       'Amount of deductible you have paid so far:',
+                      //       textAlign: TextAlign.left,
+                      //       style: TextStyle(fontSize: 15),
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 8, 20, 5),
+                      //   ),
+                      // ),
+
+                      // CURRENT version (temporarily disabled):
+                      // Padding(
+                      //     child: TextField(
+                      //       decoration: InputDecoration(
+                      //           hintText:
+                      //               'Amount of your deductible you have paid'),
+                      //       keyboardType: TextInputType.number,
+                      //       // onChanged: (String s) => {
+                      //       //   MySharedPreferences.instance
+                      //       //       .setStringValue('user_deductible_reduction', s),
+                      //       // },
+                      //     ),
+                      //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+                    ],
+                  ),
+                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
                   children: [
-                    Padding(
-                        child: DropdownSearch<String>(
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
-                          items: ['CA', 'WA', 'OR', 'DC', 'VA', 'MD', 'GA'],
-                          label: 'State of residence',
-                          hint: 'Select state of residence',
-                          onChanged: (String s) {
-                            observer.analytics.logEvent(
-                                name: 'set_state', parameters: {'state': s});
-                            // TO DO: Create an initialization where the default provider is
-                            // saved if the user never changes this dropdown
-                            // MySharedPreferences.instance
-                            //     .setStringValue('user_state', s);
-                            box.put('user_state', s);
-                          },
-                          selectedItem: userState,
-                        ),
-                        padding: Styles.dropdownPadding),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     child: Text(
-                    //       'Insurance provider:',
-                    //       textAlign: TextAlign.left,
-                    //       style: TextStyle(fontSize: 15),
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                    //   ),
-                    // ),
-                    Padding(
-                        child: DropdownSearch<String>(
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
-                          items: ['Kaiser Permanente', 'Pacific Source'],
-                          label: 'Insurance Provider',
-                          hint: 'Select your insurance provider',
-                          onChanged: (String s) {
-                            observer.analytics.logEvent(
-                                name: 'set_provider',
-                                parameters: {'provider': s});
-                            // TO DO: Create an initialization where the default provider is
-                            // saved if the user never changes this dropdown
-                            // MySharedPreferences.instance
-                            //     .setStringValue('user_provider', s);
-                            box.put('user_provider', s);
-                            _loadProviderInfo(s);
-                          },
-                          selectedItem: userProvider,
-                        ),
-                        padding: Styles.dropdownPadding),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     child: Text(
-                    //       'Insurance plan:',
-                    //       textAlign: TextAlign.left,
-                    //       style: TextStyle(fontSize: 15),
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                    //   ),
-                    // ),
-
-                    // CURRENT version (temporarily disabled):
-                    // Padding(
-                    //     child: DropdownSearch<String>(
-                    //       mode: Mode.MENU,
-                    //       showSelectedItem: true,
-                    //       items: [
-                    //         'Gold 2000',
-                    //         'Silver 3500',
-                    //         'Silver 5000',
-                    //         'Bronze 7000',
-                    //         'Deductible Bronze',
-                    //         'HSA Bronze'
-                    //       ],
-                    //       label: 'Insurance Plan',
-                    //       hint: 'Select your insurance plan',
-                    //       onChanged: (String s) => {
-                    //         // TO DO: Create an initialization where the default provider is
-                    //         // saved if the user never changes this dropdown
-                    //         MySharedPreferences.instance
-                    //             .setStringValue('user_plan', s),
-                    //       },
-                    //       selectedItem: userPlan,
-                    //     ),
-                    //     padding: Styles.dropdownPadding),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     child: Text(
-                    //       'Your plans deductible:',
-                    //       textAlign: TextAlign.left,
-                    //       style: TextStyle(fontSize: 15),
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                    //   ),
-                    // ),
-                    // ******REMOVE if adding text labels above each item again:
-                    // Padding(
-                    //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    // ),
-                    // *********************************************************
-                    // CURRENT version (temporarily disabled):
-                    // Padding(
-                    //     child: TextField(
-                    //       decoration: InputDecoration(
-                    //           hintText: 'Your plan\'s deductible amount'),
-                    //       keyboardType: TextInputType.number,
-                    //       // onChanged: (String s) => {
-                    //       //       MySharedPreferences.instance
-                    //       //           .setStringValue('user_deductible', s),
-                    //       //     }
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 5, 20, 8)),
-
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: Padding(
-                    //     child: Text(
-                    //       'Amount of deductible you have paid so far:',
-                    //       textAlign: TextAlign.left,
-                    //       style: TextStyle(fontSize: 15),
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 8, 20, 5),
-                    //   ),
-                    // ),
-
-                    // CURRENT version (temporarily disabled):
-                    // Padding(
-                    //     child: TextField(
-                    //       decoration: InputDecoration(
-                    //           hintText:
-                    //               'Amount of your deductible you have paid'),
-                    //       keyboardType: TextInputType.number,
-                    //       // onChanged: (String s) => {
-                    //       //   MySharedPreferences.instance
-                    //       //       .setStringValue('user_deductible_reduction', s),
-                    //       // },
-                    //     ),
-                    //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
+                    TextField(
+                      controller: _controller,
+                      minLines: 3,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.feedback_rounded),
+                          labelStyle: TextStyle(color: Colors.black),
+                          // border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                            borderSide:
+                                BorderSide(width: 1, color: Color(0xff54D0EB)),
+                          ),
+                          labelText: 'Suggestion box',
+                          hintText: 'Your suggestion help us',
+                          helperText: 'Type your suggestion here'),
+                      maxLength: 300,
+                    ),
+                    TextButton(onPressed: () => null, child: Text("Rate us")),
+                    TextButton(
+                        onPressed: () => submitSuggestion(),
+                        child: Text("Submit")),
                   ],
                 ),
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
-          )
-        ]),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
