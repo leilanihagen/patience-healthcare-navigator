@@ -39,7 +39,7 @@ dependencies:
   path_provider: ^2.0.2
   path: ^1.8.0
   
-  percent_indicator: "^2.1.7+2"
+  percent_indicator: ^3.4.0
   drop_cap_text: ^1.1.3
   provider: ^5.0.0
   # Firebase stuff

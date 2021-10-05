@@ -7,6 +7,7 @@ import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hive/hive.dart';
@@ -356,7 +357,7 @@ class DashboardPageState extends State<DashboardPage>
   //       ));
   // }
 
-  Widget buildStatisticButton(String impactText, String title, String url) {
+  Widget buildStatisticButton(Widget impact, String title, String url) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 4.0),
       child: GestureDetector(
@@ -368,10 +369,11 @@ class DashboardPageState extends State<DashboardPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              impactText,
-              style: Styles.bigImpact,
-            ),
+            impact,
+            // Text(
+            //   impactText,
+            //   style: Styles.bigImpact,
+            // ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 5),
               width: .25.sh,
@@ -663,23 +665,55 @@ class DashboardPageState extends State<DashboardPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildStatisticButton(
-                          '80%',
+                          CircularPercentIndicator(
+                            animation: true,
+                            progressColor: Colors.redAccent,
+                            lineWidth: 15,
+                            radius: 90,
+                            percent: 0.8,
+                            center: const Text("80%",
+                                style: Styles.articleBodyBold),
+                          ),
                           'Up to 4/5 of medical bills contain errors',
                           'https://www.hcinnovationgroup.com/finance-revenue-cycle/article/21080693/medical-billing-errors-are-alarmingly-commonand-patients-are-paying-the-price'),
                       buildStatisticButton(
-                          '35%',
+                          CircularPercentIndicator(
+                            progressColor: Colors.yellow[800],
+                            animation: true,
+                            lineWidth: 15,
+                            radius: 90,
+                            percent: 0.35,
+                            center: const Text(
+                              "35%",
+                              style: Styles.articleBodyBold,
+                            ),
+                          ),
                           'Of Americans avoid or delay healthcare due to financial barriers',
                           'https://www.commonwealthfund.org/publications/issue-briefs/2020/aug/looming-crisis-health-coverage-2020-biennial'),
                       buildStatisticButton(
-                          '27.2%',
+                          CircularPercentIndicator(
+                            progressColor: Styles.dogYellow,
+                            lineWidth: 15,
+                            radius: 90,
+                            percent: 0.272,
+                            center: const Text("27.2%",
+                                style: Styles.articleBodyBold),
+                          ),
                           'Of Americans avoided healthcare because they were unsure what their insurance covered',
                           'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
                       buildStatisticButton(
-                          '2×',
+                          Text('2×', style: Styles.bigImpact),
                           'We spend avg. 2× as much as other developed nations on healthcare',
                           'https://youtu.be/tNla9nyRMmQ'),
                       buildStatisticButton(
-                          '31%',
+                          CircularPercentIndicator(
+                            progressColor: Styles.dogYellow,
+                            lineWidth: 15,
+                            radius: 90,
+                            percent: 0.31,
+                            center: const Text("31%",
+                                style: Styles.articleBodyBold),
+                          ),
                           'Higher disease burden (measure of health outcome) than other developed nations',
                           'https://www.healthsystemtracker.org/chart-collection/quality-u-s-healthcare-system-compare-countries/#item-age-standardized-disability-adjusted-life-year-daly-rate-per-100000-population-2017'),
                     ]),

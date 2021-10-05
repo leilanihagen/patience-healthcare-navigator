@@ -207,16 +207,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     switch (_hospitalPage.check) {
       case 0:
         return Colors.blue;
-        break;
       case 1:
         return Colors.green;
-        break;
       case 2:
         return Colors.redAccent;
-        break;
       case 3:
         return Colors.yellow[800];
-        break;
       default:
         return Colors.blue;
     }
@@ -227,16 +223,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     switch (_hospitalPage.check) {
       case 0:
         return Colors.blue.withOpacity(0.2);
-        break;
       case 1:
         return Colors.greenAccent.withOpacity(0.2);
-        break;
       case 2:
         return Colors.redAccent.withOpacity(0.2);
-        break;
       case 3:
         return Colors.yellowAccent.withOpacity(0.2);
-        break;
       default:
         return Colors.white.withOpacity(0.5);
     }
@@ -281,7 +273,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             )
           ],
         );
-        break;
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.check_rounded, size: 80.w, color: Colors.white),
@@ -291,7 +282,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             style: Styles.statusButton,
           )
         ]);
-        break;
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.clear_rounded, size: 80.w, color: Colors.white),
@@ -301,7 +291,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             style: Styles.statusButton,
           )
         ]);
-        break;
       case 3:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(Icons.error_rounded, size: 80.w, color: Colors.white),
@@ -311,7 +300,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             style: Styles.statusButton,
           )
         ]);
-        break;
       default:
         return Icon(Icons.location_on_rounded, size: 80.w);
     }
