@@ -373,10 +373,10 @@ class _ProfilePage extends State<ProfilePage>
                       //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
                     ],
                   ),
-                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15)),
+                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 15)),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
                 padding: EdgeInsets.only(top: 10),
                 decoration: BoxDecoration(
