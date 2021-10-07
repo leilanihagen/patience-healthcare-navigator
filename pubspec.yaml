@@ -81,3 +81,6 @@ flutter:
           weight: 300
         - asset: assets/fonts/OpenSans-Regular.ttf
           weight: 400
+    - family: MyFlutterApp
+      fonts:
+        - asset: assets/icons/MyFlutterApp.ttf

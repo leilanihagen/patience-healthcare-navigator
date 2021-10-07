@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/app.dart';
+import 'package:hospital_stay_helper/components/icons.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
+import 'package:hospital_stay_helper/plugins/feedbacks.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,14 @@ class ProfilePage extends StatefulWidget {
   _ProfilePage createState() => _ProfilePage();
 }
 
+List<String> listScreen = [
+  "Dashboard",
+  "Guidelines",
+  "Visit Timeline",
+  "Find In-Network Hospitals",
+  "Search Medical Services"
+];
+
 class _ProfilePage extends State<ProfilePage>
     with AutomaticKeepAliveClientMixin<ProfilePage> {
   // Dropdown default values:
@@ -28,9 +38,10 @@ class _ProfilePage extends State<ProfilePage>
   String? userProvider;
   String? userPlan;
   // Not yet used:
-  double? userDeductible;
-  double? userDeductibleReduction;
+  // double? userDeductible;
+  // double? userDeductibleReduction;
   TextEditingController? _controller;
+  String? _chosenScreen;
   late Box box;
   _loadSave() async {
     // String tempUserState =
@@ -79,12 +90,18 @@ class _ProfilePage extends State<ProfilePage>
   submitSuggestion() {
     String value = _controller!.text;
     if (value.isNotEmpty) {
-      observer.analytics
-          .logEvent(name: 'feedbacks', parameters: {'value': value});
-      _controller!.clear();
-      rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
-          content:
-              Text("Thank you for your suggestion! We have recieved it.")));
+      FeedbackForm feedbackForm = FeedbackForm(_chosenScreen!, value);
+      FormController formController = FormController();
+      formController.submitForm(feedbackForm, (String response) {
+        if (response == FormController.STATUS_SUCCESS) {
+          _controller!.clear();
+          rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
+              content:
+                  Text("Thank you for your suggestion! We have recieved it.")));
+        } else
+          rootScaffoldMessengerKey.currentState!
+              .showSnackBar(SnackBar(content: Text("Error Occured")));
+      });
     }
   }
 
@@ -373,7 +390,10 @@ class _ProfilePage extends State<ProfilePage>
                       minLines: 3,
                       maxLines: 5,
                       decoration: InputDecoration(
-                          icon: Icon(Icons.feedback_rounded),
+                          icon: Icon(
+                            CustomIcon.lightbulb,
+                            color: Colors.yellow,
+                          ),
                           labelStyle: TextStyle(color: Colors.black),
                           // border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -381,16 +401,44 @@ class _ProfilePage extends State<ProfilePage>
                             borderSide:
                                 BorderSide(width: 1, color: Styles.blueTheme),
                           ),
-                          labelText: 'Suggestion box',
+                          labelText: 'Feedback & Suggestion',
                           hintText: 'Your suggestion help us',
-                          helperText: 'Type your suggestion here'),
+                          helperText: 'Type your feedback & suggestion here'),
                       maxLength: 300,
                     ),
-                    TextButton(
-                        onPressed: () => openRating(), child: Text("Rate us")),
-                    TextButton(
-                        onPressed: () => submitSuggestion(),
-                        child: Text("Submit")),
+                    Center(
+                      child: DropdownButton<String>(
+                        value: _chosenScreen,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _chosenScreen = value;
+                          });
+                        },
+                        items: listScreen
+                            .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem(
+                                      child: Text(value),
+                                      value: value,
+                                    ))
+                            .toList(),
+                        hint: Text(
+                          "Choose a screen for feedback",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: () => openRating(),
+                            child: Text("Rate us")),
+                        TextButton(
+                            onPressed: () => submitSuggestion(),
+                            child: Text("Submit")),
+                      ],
+                    )
                   ],
                 ),
               ),
