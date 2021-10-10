@@ -17,7 +17,6 @@ class FormController {
   // Google App Script Web URL.
   static const String URL =
       "https://script.google.com/macros/s/AKfycbwi8TywfWGfq0wOVC6JqC6_u0JeIrPlb7r6V228Wa7CQFuMdWrsx-mTybsySz6bkfTNzg/exec";
-
   // Success Status Message
   static const STATUS_SUCCESS = "SUCCESS";
 

@@ -90,7 +90,7 @@ class _ProfilePage extends State<ProfilePage>
   submitSuggestion() {
     String value = _controller!.text;
     if (value.isNotEmpty) {
-      FeedbackForm feedbackForm = FeedbackForm(_chosenScreen!, value);
+      FeedbackForm feedbackForm = FeedbackForm(_chosenScreen ?? "", value);
       FormController formController = FormController();
       formController.submitForm(feedbackForm, (String response) {
         if (response == FormController.STATUS_SUCCESS) {
