@@ -42,6 +42,7 @@ class _ProfilePage extends State<ProfilePage>
   // double? userDeductibleReduction;
   TextEditingController? _controller;
   String? _chosenScreen;
+  bool _temp = false;
   late Box box;
   _loadSave() async {
     // String tempUserState =
@@ -98,6 +99,9 @@ class _ProfilePage extends State<ProfilePage>
           rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
               content:
                   Text("Thank you for your suggestion! We have recieved it.")));
+          setState(() {
+            _temp = false;
+          });
         } else
           rootScaffoldMessengerKey.currentState!
               .showSnackBar(SnackBar(content: Text("Error Occured")));
@@ -386,13 +390,16 @@ class _ProfilePage extends State<ProfilePage>
                   alignment: WrapAlignment.spaceBetween,
                   children: [
                     TextField(
+                      onTap: () => setState(() {
+                        _temp = true;
+                      }),
                       controller: _controller,
                       minLines: 3,
                       maxLines: 5,
                       decoration: InputDecoration(
                           icon: Icon(
                             CustomIcon.lightbulb,
-                            color: Colors.yellow,
+                            color: _temp ? Colors.yellow : Colors.grey,
                           ),
                           labelStyle: TextStyle(color: Colors.black),
                           // border: OutlineInputBorder(),

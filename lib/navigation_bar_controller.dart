@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hospital_stay_helper/components/icons.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hospital_stay_helper/screens/checkHospital.dart';
@@ -161,7 +162,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             currentIndex: selectedIndex,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(CustomIcon.patienceIcon),
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
