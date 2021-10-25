@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/alert_dialog.dart';
 import 'package:hospital_stay_helper/components/expandableFAB.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
@@ -66,25 +67,25 @@ class VisitDetailPage extends StatefulWidget {
 class _VisitDetailPageState extends State<VisitDetailPage> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final picker = ImagePicker();
-  Future<bool> showConfirm() async {
-    bool result = await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirm delete?"),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancel")),
-              TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text("Yes")),
-            ],
-          );
-        });
-    return result;
-  }
+  // Future<bool> showConfirm() async {
+  //   bool result = await showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text("Confirm delete?"),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, false),
+  //                 child: Text("Cancel")),
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, true),
+  //                 child: Text("Yes")),
+  //           ],
+  //         );
+  //       });
+  //   return result;
+  // }
 
   getImage() async {
     PickedFile? imageFile = await picker.getImage(source: ImageSource.gallery);
@@ -150,7 +151,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   }
 
   deleteNote(int index) async {
-    if (await (showConfirm())) {
+    if (await (showConfirm(context))) {
       if (widget.visit!.notes!.length == 1) {
         widget.deleteVisit!(widget.visitIndex);
         Navigator.pop(context);
@@ -498,7 +499,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     // Icon(Icons.add),
                     child: Icon(Icons.delete),
                     onPressed: () async {
-                      if (await showConfirm()) {
+                      if (await showConfirm(context)) {
                         widget.deleteVisit!(widget.visitIndex);
                         Navigator.pop(context);
                       }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
+import 'package:hospital_stay_helper/components/alert_dialog.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -35,24 +36,24 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     _loadSaved();
   }
 
-  Future<bool> showConfirm() async {
-    return await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirm delete?"),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancel")),
-              TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text("YES")),
-            ],
-          );
-        });
-  }
+  // Future<bool> showConfirm() async {
+  //   return await showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text("Confirm delete?"),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, false),
+  //                 child: Text("Cancel")),
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, true),
+  //                 child: Text("YES")),
+  //           ],
+  //         );
+  //       });
+  // }
 
   _loadSaved() async {
     box = await Hive.openBox('visitsTimeline');
@@ -634,7 +635,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                             // Icon(Icons.add),
                             child: Icon(Icons.delete),
                             onPressed: () async {
-                              if (await showConfirm()) deleteVisit(index);
+                              if (await showConfirm(context))
+                                deleteVisit(index);
                             }),
                       ),
                     ],

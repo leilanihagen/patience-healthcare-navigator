@@ -262,20 +262,20 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.location_on_rounded, size: 80.w, color: Colors.white),
+            Icon(Icons.location_on_rounded, size: 120.w, color: Colors.white),
             Text(
-              "Tap to find/verify\n hospitals",
+              "Tap to find/verify hospitals",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
-                  fontSize: 15.sp),
+                  fontSize: 32.sp),
             )
           ],
         );
       case 1:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.check_rounded, size: 80.w, color: Colors.white),
+          Icon(Icons.check_rounded, size: 120.w, color: Colors.white),
           Text(
             _hospitalPage.status!,
             textAlign: TextAlign.center,
@@ -284,7 +284,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         ]);
       case 2:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.clear_rounded, size: 80.w, color: Colors.white),
+          Icon(Icons.clear_rounded, size: 120.w, color: Colors.white),
           Text(
             _hospitalPage.status!,
             textAlign: TextAlign.center,
@@ -293,7 +293,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         ]);
       case 3:
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Icon(Icons.error_rounded, size: 80.w, color: Colors.white),
+          Icon(Icons.error_rounded, size: 120.w, color: Colors.white),
           Text(
             _hospitalPage.status!,
             textAlign: TextAlign.center,
@@ -301,7 +301,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           )
         ]);
       default:
-        return Icon(Icons.location_on_rounded, size: 80.w);
+        return Icon(Icons.location_on_rounded, size: 120.w);
     }
   }
 

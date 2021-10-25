@@ -8,7 +8,7 @@ import 'package:hospital_stay_helper/screens/checkHospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
 import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
 import 'package:hospital_stay_helper/screens/profilePage.dart';
-import 'package:hospital_stay_helper/screens/searchPage.dart';
+// import 'package:hospital_stay_helper/screens/searchPage.dart';
 import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
 import 'screens/guidelinesPage.dart';
 import 'screens/visitsTimelinePage.dart';
@@ -49,7 +49,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         key: PageStorageKey('hospitalsearch'),
         openPage: openPage,
       ),
-      SearchPage(key: PageStorageKey('searchservices')),
+      // SearchPage(key: PageStorageKey('searchservices')),
     ];
 
     // TODO: If page state lost when changing page in bottom nav bar, then try keepPage = True
@@ -179,10 +179,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                 icon: Icon(Icons.map),
                 label: 'Find Hospitals',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Services',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.search),
+              //   label: 'Services',
+              // ),
             ]),
       );
 
@@ -191,7 +191,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     'Guidelines',
     'Visits Timeline',
     'Find In-Network Hospitals',
-    'Search Medical Services'
+    // 'Search Medical Services'
   ];
 
   @override
