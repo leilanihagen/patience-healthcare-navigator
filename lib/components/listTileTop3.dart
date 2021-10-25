@@ -17,17 +17,18 @@ class ListTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
+      margin: EdgeInsets.only(bottom: 5),
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 4,
-            blurRadius: 6,
-            offset: Offset(0, 3))
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: Offset(0, 1))
       ]),
-      padding: EdgeInsets.all(5),
+      // padding: EdgeInsets.all(5),
       child: ListTile(
         onTap: callback,
-        tileColor: Colors.white,
+        // tileColor: Colors.white,
         title: Text(top3.name!),
         subtitle: Text(top3.street! + ', ' + top3.state!),
         trailing: Wrap(

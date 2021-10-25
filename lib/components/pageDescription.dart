@@ -74,22 +74,32 @@ Widget buildPageDescriptionColor(
       //     //   width: .7.sw,
       //     // child:
       //     child:
-      ExpansionTile(
-    key: PageStorageKey(title),
-    backgroundColor: color,
-    collapsedBackgroundColor: color,
-    children: [
-      Padding(
-          child: Text(
-            description,
-            textAlign: TextAlign.left,
-            style: Styles.articleBodySmall,
-          ),
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
-    ],
-    title: Text(title, style: Styles.articleBodyBold),
-    initiallyExpanded: true,
-    // )
+      Container(
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.5),
+        spreadRadius: 3,
+        blurRadius: 3,
+        offset: Offset(0, 2), // changes position of shadow
+      ),
+    ]),
+    child: ExpansionTile(
+      key: PageStorageKey(title),
+      backgroundColor: color,
+      collapsedBackgroundColor: color,
+      children: [
+        Padding(
+            child: Text(
+              description,
+              textAlign: TextAlign.left,
+              style: Styles.articleBodySmall,
+            ),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
+      ],
+      title: Text(title, style: Styles.articleBodyBold),
+      initiallyExpanded: true,
+      // )
+    ),
   );
   // Container(
   //   decoration: BoxDecoration(boxShadow: [

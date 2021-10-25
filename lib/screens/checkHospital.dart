@@ -219,19 +219,20 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   getShadow() {
-    if (isLoading) return Colors.grey.withOpacity(0.2);
-    switch (_hospitalPage.check) {
-      case 0:
-        return Colors.blue.withOpacity(0.2);
-      case 1:
-        return Colors.greenAccent.withOpacity(0.2);
-      case 2:
-        return Colors.redAccent.withOpacity(0.2);
-      case 3:
-        return Colors.yellowAccent.withOpacity(0.2);
-      default:
-        return Colors.white.withOpacity(0.5);
-    }
+    // if (isLoading) return Colors.grey.withOpacity(0.2);
+    // switch (_hospitalPage.check) {
+    //   case 0:
+    //     return Colors.blue.withOpacity(0.2);
+    //   case 1:
+    //     return Colors.greenAccent.withOpacity(0.2);
+    //   case 2:
+    //     return Colors.redAccent.withOpacity(0.2);
+    //   case 3:
+    //     return Colors.yellowAccent.withOpacity(0.2);
+    //   default:
+    //     return Colors.white.withOpacity(0.5);
+    // }
+    return Colors.grey.withOpacity(0.2);
   }
 
   getStatus() {
@@ -308,6 +309,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   getTop3() {
     if (_hospitalPage.top3 == null) return SizedBox.shrink();
     return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: _hospitalPage.top3!
             .map((e) => ListTop(
                   top3: e,
@@ -357,7 +359,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               const Text("Emergency services",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontSize: 15)),
               Switch.adaptive(
                   value: er,
@@ -384,7 +386,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               const Text("Urgent care services",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontSize: 15)),
               Switch.adaptive(
                   value: ur,
@@ -482,6 +484,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+        backgroundColor: Styles.shadowWhite,
         key: _hospitalKey,
         // backgroundColor: Colors.deepPurple[600],
         body: Stack(
@@ -548,9 +551,10 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                             child: Text(
                               'TOP 3 NEARBY IN-NETWORK HOSPITALS',
                               style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                // color: Colors.white,
+                              ),
                             ),
                           ),
                     getTop3(),
