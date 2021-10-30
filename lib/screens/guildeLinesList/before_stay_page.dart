@@ -47,23 +47,41 @@ class BeforeStayPage extends StatelessWidget {
       child: ListView(
         children: [
           SituationBox(
-              text: "I'm preparing for a hospital visit", icon: Icons.laptop),
+            text: "I'm preparing for a hospital visit",
+            icon: Icons.laptop,
+          ),
           GuidelineText(
-              title: "1. " + guidelinesTitles[0], text: subGuidelinesText[0]),
+            title: "1. " + guidelinesTitles[0],
+            text: subGuidelinesText[0],
+          ),
           GuidelineText(
-              title: "2. " + guidelinesTitles[1], text: subGuidelinesText[1]),
+            title: "2. " + guidelinesTitles[1],
+            text: subGuidelinesText[1],
+          ),
           GuidelineText(
-              title: "3. " + guidelinesTitles[2], text: subGuidelinesText[2]),
+            title: "3. " + guidelinesTitles[2],
+            text: subGuidelinesText[2],
+          ),
           GuidelineText(
-              title: "4. " + guidelinesTitles[3], text: subGuidelinesText[3]),
+            title: "4. " + guidelinesTitles[3],
+            text: subGuidelinesText[3],
+          ),
           GuidelineText(
-              title: "5. " + guidelinesTitles[4], text: subGuidelinesText[4]),
+            title: "5. " + guidelinesTitles[4],
+            text: subGuidelinesText[4],
+          ),
           GuidelineText(
-              title: "6. " + guidelinesTitles[5], text: subGuidelinesText[5]),
+            title: "6. " + guidelinesTitles[5],
+            text: subGuidelinesText[5],
+          ),
           GuidelineText(
-              title: "7. " + guidelinesTitles[6], text: subGuidelinesText[6]),
+            title: "7. " + guidelinesTitles[6],
+            text: subGuidelinesText[6],
+          ),
           GuidelineText(
-              title: "8. " + guidelinesTitles[7], text: subGuidelinesText[7]),
+            title: "8. " + guidelinesTitles[7],
+            text: subGuidelinesText[7],
+          ),
           PatienceBackButton(
             callback: () => Navigator.pop(context),
           ),
