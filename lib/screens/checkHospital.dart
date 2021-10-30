@@ -483,11 +483,10 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-        backgroundColor: Styles.shadowWhite,
+    return Container(
         key: _hospitalKey,
         // backgroundColor: Colors.deepPurple[600],
-        body: Stack(
+        child: Stack(
             fit: StackFit.loose,
             alignment: Alignment.topCenter,
             children: [
@@ -505,9 +504,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: .025.sw),
                       child: buildPageDescriptionColor(
-                        "Welcome to Check Hospitals",
+                        "How to use Check Hospitals",
                         'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                        Colors.white,
+                        Theme.of(context).scaffoldBackgroundColor,
                       ),
                     ),
                     Center(
@@ -520,24 +519,29 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
                             return FadeTransition(
                                 child: child, opacity: animation);
                           },
-                          child: Container(
-                              // margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
-                              key: UniqueKey(),
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: getShadow(),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: Offset(0, 3)),
-                                  ],
-                                  border: Border.all(width: 0.5),
-                                  color: getColor(),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              width: 375.w,
-                              height: 375.w,
-                              child: getStatus()),
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 5,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: Container(
+                                // margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
+                                key: UniqueKey(),
+                                decoration: BoxDecoration(
+                                    // boxShadow: [
+                                    //   BoxShadow(
+                                    //       color: getShadow(),
+                                    //       spreadRadius: 5,
+                                    //       blurRadius: 7,
+                                    //       offset: Offset(0, 3)),
+                                    // ],
+                                    border: Border.all(width: 0.5),
+                                    color: getColor(),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                width: 375.w,
+                                height: 375.w,
+                                child: getStatus()),
+                          ),
                         ),
                       ),
                     ),

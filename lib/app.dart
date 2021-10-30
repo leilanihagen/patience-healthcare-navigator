@@ -61,12 +61,60 @@ class App extends StatelessWidget {
             title: 'Flutter Demo',
             theme: ThemeData(
               // primarySwatch: Colors.blue,
-              scaffoldBackgroundColor: Color(0xff66558E),
+              // scaffoldBackgroundColor: Color(0xff66558E),
+              scaffoldBackgroundColor: Colors.white,
+              brightness: Brightness.light,
+              primaryColor: Styles.blueTheme,
+              // colorScheme: ColorScheme.fromSwatch()
+              //     .copyWith(secondary: Styles.modestPink),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Styles.modestPink,
+                foregroundColor: Styles.shadowWhite,
+              ),
+              textTheme: TextTheme(),
+              appBarTheme: AppBarTheme(
+                  backgroundColor: Colors.white,
+                  titleTextStyle: Styles.appBarNew,
+                  actionsIconTheme:
+                      IconThemeData(color: Styles.blueTheme, size: 35),
+                  iconTheme: IconThemeData(color: Styles.blueTheme, size: 35)),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Colors.white,
+                selectedItemColor: Styles.blueTheme,
+                unselectedItemColor: Colors.grey[400],
+                selectedLabelStyle: TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              toggleableActiveColor: Styles.blueTheme,
+
+              iconTheme: IconThemeData(color: Colors.blue),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Open Sans',
               // accentColor: Styles
               //     .blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
             ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primaryColor: Styles.blueTheme,
+              appBarTheme: AppBarTheme(
+                  titleTextStyle: Styles.appBarNew,
+                  actionsIconTheme:
+                      IconThemeData(color: Styles.blueTheme, size: 35),
+                  iconTheme: IconThemeData(color: Styles.blueTheme, size: 35)),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                  selectedItemColor: Styles.blueTheme,
+                  // unselectedItemColor: Colors.grey[400],
+                  selectedLabelStyle: TextStyle(
+                    fontWeight: FontWeight.w700,
+                  )),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Styles.modestPink,
+                foregroundColor: Styles.shadowWhite,
+              ),
+              toggleableActiveColor: Styles.blueTheme,
+            ),
+            themeMode: ThemeMode.system,
             // locale: _locale,
             // supportedLocales: [
             //   Locale("en", "US"),

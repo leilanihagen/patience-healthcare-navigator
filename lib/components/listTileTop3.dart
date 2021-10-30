@@ -16,33 +16,30 @@ class ListTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 5),
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 3,
-            offset: Offset(0, 1))
-      ]),
-      // padding: EdgeInsets.all(5),
-      child: ListTile(
-        onTap: callback,
-        // tileColor: Colors.white,
-        title: Text(top3.name!),
-        subtitle: Text(top3.street! + ', ' + top3.state!),
-        trailing: Wrap(
-          spacing: 5,
-          children: [
-            Text(
-              "${top3.distance} mile",
-              style: TextStyle(
-                color: getDistanceColor(top3.distance),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Material(
+        elevation: 10,
+
+        // padding: EdgeInsets.all(5),
+        child: ListTile(
+          onTap: callback,
+          // tileColor: Colors.white,
+          title: Text(top3.name!),
+          subtitle: Text(top3.street! + ', ' + top3.state!),
+          trailing: Wrap(
+            spacing: 5,
+            children: [
+              Text(
+                "${top3.distance} mile",
+                style: TextStyle(
+                  color: getDistanceColor(top3.distance),
+                ),
               ),
-            ),
-            top3.er! ? ERIcon() : SizedBox(width: 40.h),
-            top3.ur! ? URIcon() : SizedBox(width: 40.h),
-          ],
+              top3.er! ? ERIcon() : SizedBox(width: 40.h),
+              top3.ur! ? URIcon() : SizedBox(width: 40.h),
+            ],
+          ),
         ),
       ),
     );

@@ -22,7 +22,6 @@ class ImageFullScreenView extends StatelessWidget {
       backgroundColor: Styles.purpleTheme,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white24,
         onPressed: () {
           Navigator.pop(context);
         },
@@ -260,7 +259,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     //   flex: 2,
                     //   child:
                     Container(
-                      width: 112,
+                      width: 120,
                       margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topRight,
@@ -277,7 +276,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                 _selectTime(context, note.time!, index),
                             child: Text(
                               note.time!,
-                              style: TextStyle(fontSize: 16),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
                             ),
                           ),
                           Divider(thickness: 10, color: Colors.white),
@@ -286,7 +286,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                 _selectDate(context, note.date!, index),
                             child: Container(
                               child: Text(note.date!,
-                                  style: TextStyle(fontSize: 16)),
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.black)),
                             ),
                           )
                         ],
@@ -328,7 +329,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     onPressed: () => deleteNote(index),
-                    icon: Icon(Icons.delete, size: 22),
+                    icon: Icon(Icons.delete, size: 22, color: Colors.black),
                   ),
                 )
               ],
@@ -374,7 +375,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 children: [
                   // Date/time container:
                   Container(
-                    width: 112,
+                    width: 120,
                     margin: EdgeInsets.all(13.0),
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -391,7 +392,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                             onTap: () =>
                                 _selectTime(context, note.time!, index),
                             child: Text(note.time!,
-                                style: TextStyle(fontSize: 16)),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black)),
                           ),
                         ),
                         // Divider(thickness: 50, color: Colors.red),
@@ -399,7 +401,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                           onTap: () => _selectDate(context, note.date!, index),
                           child: Container(
                             child: Text(note.date!,
-                                style: TextStyle(fontSize: 16)),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black)),
                           ),
                         )
                       ],
@@ -421,6 +424,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                           child: Icon(
                             Icons.delete,
                             size: 22.0,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -455,8 +459,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
       //     onPressed: () => createNewNote('note', '')),
       floatingActionButton: ExpandableFab(
         distance: 100,
-        backgroundColor: Styles.modestPink,
-        foregroundColor: Styles.shadowWhite,
         children: [
           ActionButton(
               iconSize: 30,
@@ -475,6 +477,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           )
         ],
       ),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -532,7 +535,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   onTap: () => _selectVisitDate(context, widget.visit!.date!),
                   child: Text(
                     widget.visit!.date!,
-                    style: Styles.articleBodySmall,
+                    style: Styles.articleBodySmallBlack,
                   ),
                 ),
               ),

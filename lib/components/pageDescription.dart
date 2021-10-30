@@ -74,15 +74,8 @@ Widget buildPageDescriptionColor(
       //     //   width: .7.sw,
       //     // child:
       //     child:
-      Container(
-    decoration: BoxDecoration(boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.5),
-        spreadRadius: 3,
-        blurRadius: 3,
-        offset: Offset(0, 2), // changes position of shadow
-      ),
-    ]),
+      Material(
+    elevation: 7,
     child: ExpansionTile(
       key: PageStorageKey(title),
       backgroundColor: color,
@@ -97,7 +90,7 @@ Widget buildPageDescriptionColor(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
       ],
       title: Text(title, style: Styles.articleBodyBold),
-      initiallyExpanded: true,
+      initiallyExpanded: false,
       // )
     ),
   );

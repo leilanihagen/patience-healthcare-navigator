@@ -118,7 +118,7 @@ class DashboardPageState extends State<DashboardPage>
         alignment: Alignment.topRight,
         child: ClipOval(
           child: Material(
-            color: Colors.blue, // Button color
+            color: Styles.blueTheme, // Button color
             child: InkWell(
               splashColor: Colors.red, // Splash color
               onTap: () {
@@ -142,100 +142,111 @@ class DashboardPageState extends State<DashboardPage>
         ),
       ),
       child: Stack(children: [
-        Container(
-          width: .97.sw,
-          margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
-          padding: EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
-          decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 4,
-                    blurRadius: 6,
-                    offset: Offset(0, 3))
-              ],
-              gradient: gradient,
-              color: Styles.lightGreenTheme,
-              borderRadius: BorderRadius.circular(20.0)),
-          child: Column(
-            children: [
-              // Title + close button:
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              Container(
-                width: .8.sw,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-                  // alignment: Alignment.topCenter,
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: Styles.articleHeading1,
-                    softWrap: true,
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
+          child: Material(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(20.0),
+            elevation: 5,
+            child: Container(
+              width: .97.sw,
+              // margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
+              padding:
+                  EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
+              decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       color: Colors.grey.withOpacity(0.5),
+                  //       spreadRadius: 4,
+                  //       blurRadius: 6,
+                  //       offset: Offset(0, 3))
+                  // ],
+                  gradient: gradient,
+                  color: Styles.lightGreenTheme,
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Column(
+                children: [
+                  // Title + close button:
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  Container(
+                    width: .8.sw,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 0),
+                      // alignment: Alignment.topCenter,
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: Styles.articleBodyBold
+                            .copyWith(color: Colors.black),
+                        softWrap: true,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              // Container(
-              //   width: .1.sw,
-              //   child: Align(
-              //     alignment: Alignment.topRight,
-              //     child: IconButton(
-              //       icon: Icon(Icons.close),
-              //       onPressed: () {},
-              //     ),
-              //   ),
-              // ),
-              //   ],
-              // ),
-              // Text + image:
-              Container(
-                  width: .4.sh,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: DropCapText(
-                          body,
-                          style: Styles.articleBody,
-                          dropCap: DropCap(
-                            height: .33.sw,
-                            width: .33.sw,
-                            child: // Image:
-                                Padding(
-                              padding:
-                                  EdgeInsets.fromLTRB(0, 0, .007.sw, .007.sw),
-                              child: Image.asset(imagePath,
-                                  height: .33.sw, width: .33.sw),
-                            ),
-                          ),
+                  // Container(
+                  //   width: .1.sw,
+                  //   child: Align(
+                  //     alignment: Alignment.topRight,
+                  //     child: IconButton(
+                  //       icon: Icon(Icons.close),
+                  //       onPressed: () {},
+                  //     ),
+                  //   ),
+                  // ),
+                  //   ],
+                  // ),
+                  // Text + image:
+                  Container(
+                      width: .4.sh,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: DropCapText(
+                              body,
+                              style: Styles.articleBody
+                                  .copyWith(color: Colors.black),
+                              dropCap: DropCap(
+                                height: .33.sw,
+                                width: .33.sw,
+                                child: // Image:
+                                    Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      0, 0, .007.sw, .007.sw),
+                                  child: Image.asset(imagePath,
+                                      height: .33.sw, width: .33.sw),
+                                ),
+                              ),
+                            )),
+                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: .005.sw),
+                    child: TextButton(
+                        onPressed: () {
+                          widget.openPage!(targetPageIndex);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AppBottomNavBarController(
+                          //             currentIndex: targetPageIndex)));
+                        },
+                        child: Text(
+                          buttonText,
+                          style: Styles.medButtonNew,
                         )),
-                  )),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: .005.sw),
-                child: TextButton(
-                    onPressed: () {
-                      widget.openPage!(targetPageIndex);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => AppBottomNavBarController(
-                      //             currentIndex: targetPageIndex)));
-                    },
-                    child: Text(
-                      buttonText,
-                      style: Styles.medButton,
-                    )),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
         Align(
           alignment: Alignment.topRight,
           child: ClipOval(
             child: Material(
-              color: Colors.blue, // Button color
+              color: Styles.blueTheme, // Button color
               child: InkWell(
                 splashColor: Colors.red, // Splash color
                 onTap: () {
@@ -518,7 +529,7 @@ class DashboardPageState extends State<DashboardPage>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: CustomScrollView(
         slivers: [
           // Header:
@@ -540,8 +551,8 @@ class DashboardPageState extends State<DashboardPage>
               buildWalkthroughCard(
                   'assets/images/study_guidelines.png',
                   'Learn about healthcare, bills and insurance',
-                  'Tap to explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
-                  'Tap to explore Guidelines',
+                  'Explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
+                  'Explore Guidelines',
                   LinearGradient(
                     colors: [Styles.extraLightGreen, Styles.medGreenTheme],
                     stops: [.1, .7],
@@ -551,7 +562,7 @@ class DashboardPageState extends State<DashboardPage>
                   'assets/images/setup_settings.png',
                   'Setup your user settings',
                   'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
-                  'Tap to open User Settings',
+                  'Open User Settings',
                   LinearGradient(
                     colors: [
                       Styles.extraLightPurpleTheme,
@@ -622,7 +633,7 @@ class DashboardPageState extends State<DashboardPage>
                   'assets/images/medical_records.png',
                   'Keep detailed records of your regularly scheduled medical visits',
                   'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
-                  'Tap to explore your Visits Timeline',
+                  'Explore your Visits Timeline',
                   LinearGradient(
                     colors: [Styles.extraLightPinkTheme, Styles.medPinkTheme],
                     // begin: Alignment.topLeft,
@@ -634,7 +645,7 @@ class DashboardPageState extends State<DashboardPage>
                   'assets/images/find_hospitals.png',
                   'Use our Hospital Finder to get to know the in-network hospitals in your area',
                   'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
-                  'Tap to explore Find Hospitals',
+                  'Explore Find Hospitals',
                   LinearGradient(
                     colors: [Styles.lightEmerald, Styles.emerald],
                     // begin: Alignment.topLeft,
@@ -766,14 +777,17 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           return Container(
             padding: EdgeInsets.symmetric(vertical: .02.sh),
             decoration: BoxDecoration(
-              color: Styles.purpleTheme,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 4,
-                    blurRadius: 6,
-                    offset: Offset(0, 3))
-              ],
+              color: (Theme.of(context).brightness == Brightness.dark)
+                  ? null
+                  : Styles.purpleTheme,
+              // boxShadow: [
+              //   BoxShadow(
+              //       color: Colors.grey.withOpacity(0.5),
+              //       spreadRadius: 4,
+              //       blurRadius: 6,
+              //       offset: Offset(0, 3))
+              // ],
+              border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(.1.sw),
                 bottomRight: Radius.circular(.1.sw),
@@ -784,8 +798,11 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, .015.sw),
-                  child: Text('Your Information',
-                      style: Styles.articleHeading1White),
+                  child: Text(
+                    'Your Information',
+                    // style: Styles.articleHeading1White,
+                    style: Styles.articleBodyBold.copyWith(color: Colors.white),
+                  ),
                 ),
                 // Provider + state text hints:
                 Row(
@@ -809,7 +826,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                       margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
                       decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: Styles.darkerBlueTheme,
                           borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         children: [

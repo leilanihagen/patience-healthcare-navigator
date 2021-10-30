@@ -13,7 +13,8 @@ void main() async {
   Hive.init(directory.path);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Styles.blueTheme,
+      // systemNavigationBarColor: Styles.blueTheme,
+      systemNavigationBarColor: Colors.transparent,
       statusBarColor: Colors.transparent));
   runApp(App());
 }

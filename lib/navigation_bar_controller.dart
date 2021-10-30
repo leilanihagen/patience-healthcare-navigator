@@ -145,46 +145,48 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     }
   }
 
-  Widget _bottomNavBar(int selectedIndex) => Theme(
-        data: Theme.of(context).copyWith(canvasColor: Styles.blueTheme),
-        child: BottomNavigationBar(
-            // showSelectedLabels: false,
-            // showUnselectedLabels: true,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white,
-            backgroundColor: Styles.blueTheme,
-            selectedLabelStyle: TextStyle(
-                fontWeight: FontWeight.w700, color: Styles.darkPinkTheme),
-            onTap: (int index) {
-              openPage(index);
-            },
-            // rebuild this widget
-            currentIndex: selectedIndex,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(CustomIcon.patienceIcon),
-                label: 'Dashboard',
+  Widget _bottomNavBar(int selectedIndex) => BottomNavigationBar(
+          // showSelectedLabels: false,
+          // showUnselectedLabels: true,
+          // selectedItemColor: Colors.white,
+          // unselectedItemColor: Colors.white,
+          // backgroundColor: Styles.blueTheme,
+          // backgroundColor: Colors.white,
+
+          onTap: (int index) {
+            openPage(index);
+          },
+          // rebuild this widget
+          currentIndex: selectedIndex,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CustomIcon.patienceIcon),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.question_answer_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.question_answer),
-                label: 'Guidelines',
+              label: 'Guidelines',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.event_note_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.event_note,
-                ),
-                label: 'Visits',
+              label: 'Visits',
+            ),
+            BottomNavigationBarItem(
+              // icon: Icon(Icons.map),
+              icon: Icon(
+                Icons.location_on_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.map),
-                label: 'Find Hospitals',
-              ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.search),
-              //   label: 'Services',
-              // ),
-            ]),
-      );
+              label: 'Find Hospitals',
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.search),
+            //   label: 'Services',
+            // ),
+          ]);
 
   List<String> _pageTitles = [
     'Dashboard',
@@ -198,66 +200,76 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Styles.blueTheme,
+        // backgroundColor: Styles.blueTheme,
+        // backgroundColor: Colors.white,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: Badge(
-              position: BadgePosition.topStart(),
-              // badgeColor: Colors.white,
-              showBadge: !haveOpenProfile,
-              badgeContent: Text(
-                "1",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+          Badge(
+            position: BadgePosition.topStart(),
+            showBadge: !haveOpenProfile,
+            badgeContent: Text(
+              "!",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
               ),
-              child: Hero(
-                tag: 'settings_icon',
+            ),
+            child: Hero(
+              tag: 'settings_icon',
 
-                // Not doing the flightShuttleBuilder approach to have the left arrow rotation animation
-                // This is because the duration is too less, so the animation won't even be seen.
-                // Thus, no point in increasing complexity that'll decrease performance
-                // So sticking only with the usual Hero animation (no rotation animation)
+              // Not doing the flightShuttleBuilder approach to have the left arrow rotation animation
+              // This is because the duration is too less, so the animation won't even be seen.
+              // Thus, no point in increasing complexity that'll decrease performance
+              // So sticking only with the usual Hero animation (no rotation animation)
 
-                // flightShuttleBuilder: (context, anim, dir, _, __) {
-                //   print(anim.value);
-                //   ColorTween tween = ColorTween(begin: Colors.red, end: Colors.green);
-                //   return Container(width: 20.0 * anim.value, height: 20.0, color: tween.transform(anim.value),);
-                // },
-                // flightShuttleBuilder: (
-                //     BuildContext flightContext,
-                //     Animation<double> animation,
-                //     HeroFlightDirection flightDirection,
-                //     BuildContext fromHeroContext,
-                //     BuildContext toHeroContext,
-                //     ) {
-                //   print(animation.value);
-                //   final Hero toHero = toHeroContext.widget;
-                //   return RotationTransition(
-                //     turns: animation,
-                //     child: toHero.child,
-                //   );
-                // },
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    width: 125.w,
-                    height: 125.w,
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(context,
-                              MaterialPageRoute(builder: (c) => ProfilePage()))
-                          .then((_) => _dashBoardKey.currentState!.refresh()),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.white),
-                        child: Icon(
-                          Icons.settings,
-                          color: Colors.grey,
-                          size: 75.w,
-                        ),
-                      ),
-                    ),
-                  ),
+              // flightShuttleBuilder: (context, anim, dir, _, __) {
+              //   print(anim.value);
+              //   ColorTween tween = ColorTween(begin: Colors.red, end: Colors.green);
+              //   return Container(width: 20.0 * anim.value, height: 20.0, color: tween.transform(anim.value),);
+              // },
+              // flightShuttleBuilder: (
+              //     BuildContext flightContext,
+              //     Animation<double> animation,
+              //     HeroFlightDirection flightDirection,
+              //     BuildContext fromHeroContext,
+              //     BuildContext toHeroContext,
+              //     ) {
+              //   print(animation.value);
+              //   final Hero toHero = toHeroContext.widget;
+              //   return RotationTransition(
+              //     turns: animation,
+              //     child: toHero.child,
+              //   );
+              // },
+              child:
+                  // Material(
+                  //   color: Colors.transparent,
+                  //   child: Container(
+                  //     width: 125.w,
+                  //     height: 125.w,
+                  //     child: GestureDetector(
+                  //       onTap: () => Navigator.push(context,
+                  //               MaterialPageRoute(builder: (c) => ProfilePage()))
+                  //           .then((_) => _dashBoardKey.currentState!.refresh()),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //             shape: BoxShape.circle, color: Colors.white),
+                  //         child: Icon(
+                  //           Icons.settings,
+                  //           color: Colors.grey,
+                  //           size: 75.w,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Material(
+                color: Colors.transparent,
+                child: IconButton(
+                  iconSize: 35,
+                  onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (c) => ProfilePage()))
+                      .then((_) => _dashBoardKey.currentState!.refresh()),
+                  icon: Icon(Icons.settings),
                 ),
               ),
             ),
@@ -265,16 +277,14 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
         ],
         title: Hero(
           tag: 'app_bar_title',
-          child: Container(
-            width: double.infinity,
-            child: Material(
-              color: Colors.transparent,
-              child: Text(
-                _pageTitles[_selectedIndex],
-                style: Styles.appBar,
-              ),
+          child: Material(
+            color: Colors.transparent,
+            child: Text(
+              _pageTitles[_selectedIndex],
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
           ),
+          // ),
         ),
       ),
       bottomNavigationBar: _bottomNavBar(_selectedIndex),

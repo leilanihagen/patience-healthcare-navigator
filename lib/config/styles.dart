@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 class Styles {
   // Original theme:
   Styles._();
+  static const Color purpleThemeNew = Color(0xff603eab);
   static const Color purpleTheme = Color(0xff66558E);
   static const Color extraLightPurpleTheme = Color(0xffE7D6FF);
   static const Color blueTheme = Color(0xff44B5CD); // 55D0EB 44B5CD
@@ -58,7 +59,7 @@ class Styles {
   static const Color emerald = Color(0xff5CC1BC);
 
   static const articleHeading1 =
-      TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black);
+      TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
   static const articleSubtitleLight =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black);
   static const articleHeading1White =
@@ -70,11 +71,17 @@ class Styles {
     fontWeight: FontWeight.w600,
   );
 
-  static const articleBody = TextStyle(fontSize: 17, color: Colors.black);
+  static const articleBody = TextStyle(fontSize: 17);
   static final articleBodyOffWhite = TextStyle(fontSize: 17, color: offWhite);
-  static const articleBodyBold =
-      TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
-  static const articleBodySmall = TextStyle(fontSize: 16, color: Colors.black);
+  static const articleBodyBold = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+  );
+  static const articleBodySmall = TextStyle(
+    fontSize: 16,
+  );
+  static const articleBodySmallBlack =
+      TextStyle(fontSize: 16, color: Colors.black);
 
   static final articleBodySmallGreyed =
       TextStyle(fontSize: 16, color: Colors.grey[700]);
@@ -82,11 +89,12 @@ class Styles {
   static const subHeading =
       TextStyle(fontSize: 19, fontWeight: FontWeight.w700);
   static const hintExtraSmall = TextStyle(fontSize: 14, color: Colors.black);
-  static const bigImpact =
-      TextStyle(fontSize: 60, fontWeight: FontWeight.w500, color: Colors.black);
+  static const bigImpact = TextStyle(fontSize: 60, fontWeight: FontWeight.w500);
 
   static const appBar =
       TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white);
+  static const appBarNew = TextStyle(
+      fontSize: 22, fontWeight: FontWeight.w800, color: Color(0xff44B5CD));
   static const guidelineCard =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
   static const hyperlink = TextStyle(
@@ -96,8 +104,14 @@ class Styles {
   static const instruction =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black);
 
+  static const medButtonNew = TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+      decoration: TextDecoration.underline);
   static const medButton =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.black);
+
   static const medButtonGrey =
       TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.grey);
   static const smallButtonWhite =

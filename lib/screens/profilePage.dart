@@ -131,44 +131,52 @@ class _ProfilePage extends State<ProfilePage>
       child: Scaffold(
         // backgroundColor: Colors.deepPurple[600],
         appBar: AppBar(
-          backgroundColor: Styles.blueTheme,
-          leading: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Hero(
-                tag: 'settings_icon',
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    width: 165.w,
-                    height: 165.w,
-                    child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.white),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.grey,
-                          size: 75.w,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+          // backgroundColor: Styles.blueTheme,
+          // leading: Center(
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(left: 5),
+          //     child: Hero(
+          //       tag: 'settings_icon',
+          //       child: Material(
+          //         color: Colors.transparent,
+          //         child: Container(
+          //           width: 165.w,
+          //           height: 165.w,
+          //           child: GestureDetector(
+          //             onTap: () => Navigator.pop(context),
+          //             child: Container(
+          //               decoration: BoxDecoration(
+          //                   shape: BoxShape.circle, color: Colors.white),
+          //               child: Icon(
+          //                 Icons.arrow_back,
+          //                 color: Colors.grey,
+          //                 size: 75.w,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          leading: Hero(
+            tag: 'settings_icon',
+            child: Material(
+              color: Colors.transparent,
+              child: IconButton(
+                iconSize: 35,
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
               ),
             ),
           ),
           title: Hero(
             tag: 'app_bar_title',
-            child: Container(
-              width: double.infinity,
-              child: Material(
-                color: Colors.transparent,
-                child: Text(
-                  'User Settings',
-                  style: Styles.appBar,
-                ),
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                'User Settings',
+                style: Theme.of(context).appBarTheme.titleTextStyle,
               ),
             ),
           ),
@@ -185,7 +193,7 @@ class _ProfilePage extends State<ProfilePage>
             buildPageDescriptionColor(
               "Welcome to Your Settings",
               "Your settings are used to provide you with personalized tips and info to navigate your healthcare, such as finding in-network hospitals on the Find In-Network Hospital page.\n\n*NOTE: We are actively working to add more states and insurance providers to the app!",
-              Colors.white,
+              Theme.of(context).scaffoldBackgroundColor,
             ),
             // Padding(
             //     child: Card(
@@ -230,7 +238,8 @@ class _ProfilePage extends State<ProfilePage>
             //     }).toList(),
             // ])
             Card(
-              color: Colors.white,
+              elevation: 5,
+              // color: Colors.white,
               child: Padding(
                   child: Column(
                     children: [
@@ -379,74 +388,79 @@ class _ProfilePage extends State<ProfilePage>
                   ),
                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 15)),
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Container(
-                padding: EdgeInsets.only(top: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  children: [
-                    TextField(
-                      onTap: () => setState(() {
-                        _temp = true;
-                      }),
-                      controller: _controller,
-                      minLines: 3,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                          icon: Icon(
-                            CustomIcon.lightbulb,
-                            color: _temp ? Colors.yellow : Colors.grey,
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  padding: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                      // color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    children: [
+                      TextField(
+                        onTap: () => setState(() {
+                          _temp = true;
+                        }),
+                        controller: _controller,
+                        minLines: 3,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            icon: Icon(
+                              CustomIcon.lightbulb,
+                              color: _temp ? Colors.yellow : Colors.grey,
+                            ),
+                            // labelStyle: TextStyle(color: Colors.black),
+                            // border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4)),
+                              borderSide:
+                                  BorderSide(width: 1, color: Styles.blueTheme),
+                            ),
+                            labelText: 'Feedback & Suggestion',
+                            hintText: 'Your suggestion help us',
+                            helperText: 'Type your feedback & suggestion here'),
+                        maxLength: 300,
+                      ),
+                      Center(
+                        child: DropdownButton<String>(
+                          value: _chosenScreen,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _chosenScreen = value;
+                            });
+                          },
+                          items: listScreen
+                              .map<DropdownMenuItem<String>>(
+                                  (String value) => DropdownMenuItem(
+                                        child: Text(value),
+                                        value: value,
+                                      ))
+                              .toList(),
+                          hint: Text(
+                            "Choose a screen for feedback",
+                            style: TextStyle(
+                                // color: Colors.black,
+                                fontWeight: FontWeight.w600),
                           ),
-                          labelStyle: TextStyle(color: Colors.black),
-                          // border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                            borderSide:
-                                BorderSide(width: 1, color: Styles.blueTheme),
-                          ),
-                          labelText: 'Feedback & Suggestion',
-                          hintText: 'Your suggestion help us',
-                          helperText: 'Type your feedback & suggestion here'),
-                      maxLength: 300,
-                    ),
-                    Center(
-                      child: DropdownButton<String>(
-                        value: _chosenScreen,
-                        onChanged: (String? value) {
-                          setState(() {
-                            _chosenScreen = value;
-                          });
-                        },
-                        items: listScreen
-                            .map<DropdownMenuItem<String>>(
-                                (String value) => DropdownMenuItem(
-                                      child: Text(value),
-                                      value: value,
-                                    ))
-                            .toList(),
-                        hint: Text(
-                          "Choose a screen for feedback",
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w600),
                         ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () => openRating(),
-                            child: Text("Rate us")),
-                        TextButton(
-                            onPressed: () => submitSuggestion(),
-                            child: Text("Submit")),
-                      ],
-                    )
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                              onPressed: () => openRating(),
+                              child: Text("Rate us")),
+                          TextButton(
+                              onPressed: () => submitSuggestion(),
+                              child: Text("Submit")),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

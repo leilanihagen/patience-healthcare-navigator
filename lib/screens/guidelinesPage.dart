@@ -174,52 +174,62 @@ class _SituationBoxTile extends StatelessWidget {
   Widget build(BuildContext context) {
     double animProgress = 1 - opacity;
 
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
-        decoration: BoxDecoration(
-            color: Styles.modestPink,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5 * animProgress),
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: Offset(0, 3),
-              )
-            ],
-            borderRadius: BorderRadius.circular(5.0 * animProgress)),
-        child: Row(
-          children: [
-            Container(
-              width: opacity * max(24.0, Material.defaultSplashRadius),
-              child: Opacity(
-                opacity: opacity,
-                child: IconButton(
-                  iconSize: 24.0,
-                  splashRadius: Material.defaultSplashRadius,
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
+    return
+        // Material(
+        //   color: Colors.transparent,
+        //   child:
+
+        Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
+      child: Material(
+        elevation: 10,
+        child: Container(
+          // margin: EdgeInsets.symmetric(
+          //     horizontal: 15.0 * animProgress, vertical: 8 * animProgress),
+          decoration: BoxDecoration(
+              color: Styles.modestPink,
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.grey.withOpacity(0.5 * animProgress),
+              //     spreadRadius: 4,
+              //     blurRadius: 6,
+              //     offset: Offset(0, 3),
+              //   )
+              // ],
+              borderRadius: BorderRadius.circular(5.0 * animProgress)),
+          child: Row(
+            children: [
+              Container(
+                width: opacity * max(24.0, Material.defaultSplashRadius),
+                child: Opacity(
+                  opacity: opacity,
+                  child: IconButton(
+                    iconSize: 24.0,
+                    splashRadius: Material.defaultSplashRadius,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  onPressed: () => Navigator.pop(context),
                 ),
               ),
-            ),
-            Expanded(
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(60),
-                ),
-                leading: icon,
-                title: Text(
-                  text,
-                  style: Styles.guidelineCard,
+              Expanded(
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  leading: icon,
+                  title: Text(
+                    text,
+                    style: Styles.guidelineCard,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+          // ),
         ),
       ),
     );
@@ -235,7 +245,8 @@ Widget renderGuideline(
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
           ),
           collapsed: (linesShownCollapsed == 0)
               ? SizedBox.shrink()
@@ -251,7 +262,7 @@ Widget renderGuideline(
           expanded: Padding(
               child: Text(
                 text,
-                style: Styles.articleBody,
+                style: Styles.articleBody.copyWith(color: Colors.black),
                 softWrap: true,
               ),
               padding: EdgeInsets.fromLTRB(4, 12, 4, 4)),
@@ -269,7 +280,7 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: Styles.headerGuildline,
+            style: Styles.headerGuildline.copyWith(color: Colors.black),
           ),
           collapsed: (linesShownCollapsed == 0)
               ? SizedBox.shrink()
@@ -279,7 +290,8 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
                       children: [
                         Text(
                           (text + "\n"),
-                          style: Styles.articleBody,
+                          style:
+                              Styles.articleBody.copyWith(color: Colors.black),
                         ),
                         InkWell(
                             child: Text(
@@ -296,7 +308,7 @@ Widget renderGuidelineHyperlink(String title, String text, String hyperlinkText,
                   children: [
                     Text(
                       (text + "\n"),
-                      style: Styles.articleBody,
+                      style: Styles.articleBody.copyWith(color: Colors.black),
                     ),
                     InkWell(
                         child: Text(
@@ -320,7 +332,7 @@ Widget renderGuidelineCustomWidgetText(
           // theme: ThemeData(backgroundColor: Colors.white),
           header: Text(
             "$guidelineNum. " + title,
-            style: Styles.headerGuildline,
+            style: Styles.headerGuildline.copyWith(color: Colors.black),
           ),
           collapsed: (linesShownCollapsed == 0)
               ? SizedBox.shrink()
@@ -345,7 +357,7 @@ class RootCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Styles.shadowWhite,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -362,9 +374,9 @@ class RootCategoriesPage extends StatelessWidget {
               //   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
               // ),
               buildPageDescriptionColor(
-                "Welcome to your Guidelines",
+                "How to use Guidelines",
                 "Learn things you can do before, during and after your hospital visit to help avoid surprise medical bills, and what to do if you recieve one.\n\nStart by choosing a category below that best fits your situation.",
-                Colors.white,
+                Theme.of(context).scaffoldBackgroundColor,
               ),
               //renderClickableSituationCard("I'm preparing for a hospital visit"),
               renderClickableSituationCard(
@@ -824,7 +836,7 @@ class ReceivedBillPage extends StatelessWidget {
     Text(
       ("Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed." +
           "\n"),
-      style: Styles.articleBody,
+      style: Styles.articleBody.copyWith(color: Colors.black),
     ),
     InkWell(
         child: Text(
@@ -962,7 +974,7 @@ class CollectionsPage extends StatelessWidget {
           "\n\nIn your letter/email, simply state that you will need to validate the debt before you can pay, and ask for documentation bearing your signature and dates of services you are being billed for. Either send the letter via certified mail or via email, so that you can record the date when the agency receives it." +
           "\n\nWhat you will do next depends on how the agency responds." +
           "\n\n(a) They do not respond within 30 days of receiving your request. If they do not respond, you can file a complaint with the Consumer Financial Protection Bureau "),
-      style: Styles.articleBody,
+      style: Styles.articleBody.copyWith(color: Colors.black),
     ),
     InkWell(
         child: Text(
@@ -973,7 +985,7 @@ class CollectionsPage extends StatelessWidget {
             "https://www.consumerfinance.gov/complaint/getting-started/")),
     Text(
       "After filing your complaint, send a Failure to Validate letter/email to the collection agency explaining that they have violated your rights as a consumer to have your debt violated, and that you have the right to sue them for damages to your credit score if the debt is not validated, or if the unvalidated debt is not removed from your credit report.",
-      style: Styles.articleBody,
+      style: Styles.articleBody.copyWith(color: Colors.black),
     ),
     InkWell(
         child: Text(
@@ -985,7 +997,7 @@ class CollectionsPage extends StatelessWidget {
     Text(
       "\n\n(b) They send you a bill. If they do not send you the explanation of charges and proof that the debt belongs to you, you can also report them to the CFPB and send a Failure to Validate email/letter, because they did not provide sufficient documentation to validate the debt. If they respond within 30 days of receiving your request, do not report them to CFPB yet, but inform them that if they do not send you evidence to validate the debt, you will report them. See (a) and the source blog and video linked below." +
           "\n\n (c) They send you documentation containing your medical records, (information about procedures you received, doctors you were seen by, etc.). If they do this, immediately file a complaint with the Consumer Financial Protection Bureau for violating your rights under HIPAA. You never signed any agreement authorizing them to access your medical records, so if they obtain this information, they have violated your privacy rights under HIPAA. At this point, you have the option to sue them if you wish, but at the very least, they must remove the debt and cease collection of the debt if they have violated your HIPAA rights. Ask the collections agency to delete your private medical information immediately and to cease all collection activities.",
-      style: Styles.articleBody,
+      style: Styles.articleBody.copyWith(color: Colors.black),
     ),
     InkWell(
         child: Text(
