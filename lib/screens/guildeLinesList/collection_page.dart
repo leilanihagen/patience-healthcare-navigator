@@ -4,14 +4,18 @@ import 'package:hospital_stay_helper/components/buttons.dart';
 import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/screens/guidelines_page.dart';
-import 'package:hospital_stay_helper/screens/guildeLinesList/guildeline_widgets.dart';
+import 'package:hospital_stay_helper/components/guildeline_component/guildeline_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CollectionsPage extends StatelessWidget {
-  CollectionsPage({this.context, this.rootCategoriesPage});
+  CollectionsPage({Key? key
+      // this.context,
+      // this.rootCategoriesPage,
+      })
+      : super(key: key);
 
-  final BuildContext? context;
-  final RootCategoriesPage? rootCategoriesPage;
+  // final BuildContext? context;
+  // final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
     "Remember that you have time",
     "You may want to ask for the debt to be sent back to the hospital’s billing agency",
