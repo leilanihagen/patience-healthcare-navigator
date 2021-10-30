@@ -94,45 +94,46 @@ class ReceivedBillPage extends StatelessWidget {
       ),
     );
     return Material(
-        // backgroundColor: Styles.shadowWhite,
-        // appBar: AppBar(
-        //   toolbarHeight: 0.0,
-        //   backgroundColor: Styles.modestPink,
-        // ),
-        child: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-            text: "I've received a surprise medical bill",
-            icon: Icons.attach_money_rounded,
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[0],
-            text: subGuidelinesText[0],
-          ),
-          GuidelineText(
-            title: "2. " + guidelinesTitles[1],
-            text: subGuidelinesText[1],
-          ),
-          GuidelineText(
-            title: "3. " + guidelinesTitles[2],
-            text: subGuidelinesText[2],
-          ),
-          GuidelineCustomWidget(
-            title: "4. " + guidelinesTitles[3],
-            child: guideline4Text,
-          ),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          ),
-        ],
+      // backgroundColor: Styles.shadowWhite,
+      // appBar: AppBar(
+      //   toolbarHeight: 0.0,
+      //   backgroundColor: Styles.modestPink,
+      // ),
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+              text: "I've received a surprise medical bill",
+              icon: Icons.attach_money_rounded,
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
+            ),
+            GuidelineText(
+              title: "2. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+            ),
+            GuidelineText(
+              title: "3. " + guidelinesTitles[2],
+              text: subGuidelinesText[2],
+            ),
+            GuidelineCustomWidget(
+              title: "4. " + guidelinesTitles[3],
+              child: guideline4Text,
+            ),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dy > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }

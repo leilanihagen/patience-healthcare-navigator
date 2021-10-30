@@ -61,72 +61,69 @@ class TermsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // backgroundColor: Styles.shadowWhite,
-        // appBar: AppBar(
-        //   toolbarHeight: 0.0,
-        //   backgroundColor: Styles.modestPink,
-        // ),
-        body: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-              text: "I want to learn healthcare terms and definitions",
-              icon: Icons.menu_book_rounded),
-          // renderGuidelineRichText(
-          //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[0],
-              text: subGuidelinesText[0],
-              hyperLinkText: hyperlinkHintsText[0],
-              hyperLink: hyperlinks[0]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[1],
-              text: subGuidelinesText[1],
-              hyperLinkText: hyperlinkHintsText[1],
-              hyperLink: hyperlinks[1]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[2],
-              text: subGuidelinesText[2],
-              hyperLinkText: hyperlinkHintsText[2],
-              hyperLink: hyperlinks[2]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[3],
-              text: subGuidelinesText[3],
-              hyperLinkText: hyperlinkHintsText[3],
-              hyperLink: hyperlinks[3]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[4],
-              text: subGuidelinesText[4],
-              hyperLinkText: hyperlinkHintsText[4],
-              hyperLink: hyperlinks[4]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[5],
-              text: subGuidelinesText[5],
-              hyperLinkText: hyperlinkHintsText[5],
-              hyperLink: hyperlinks[5]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[6],
-              text: subGuidelinesText[6],
-              hyperLinkText: hyperlinkHintsText[6],
-              hyperLink: hyperlinks[6]),
-          GuidelineText(title: guidelinesTitles[7], text: subGuidelinesText[7]),
-          GuidelineHyperLinkText(
-              title: guidelinesTitles[8],
-              text: subGuidelinesText[8],
-              hyperLinkText: hyperlinkHintsText[7],
-              hyperLink: hyperlinks[7]),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          ),
-        ],
+    return Material(
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+                text: "I want to learn healthcare terms and definitions",
+                icon: Icons.menu_book_rounded),
+            // renderGuidelineRichText(
+            //     guidelinesTitles[0], subGuidelinesText[0], 1, 0),
+            GuidelineHyperLinkText(
+                title: "1. " + guidelinesTitles[0],
+                text: subGuidelinesText[0],
+                hyperLinkText: hyperlinkHintsText[0],
+                hyperLink: hyperlinks[0]),
+            GuidelineHyperLinkText(
+                title: "2. " + guidelinesTitles[1],
+                text: subGuidelinesText[1],
+                hyperLinkText: hyperlinkHintsText[1],
+                hyperLink: hyperlinks[1]),
+            GuidelineHyperLinkText(
+                title: "3. " + guidelinesTitles[2],
+                text: subGuidelinesText[2],
+                hyperLinkText: hyperlinkHintsText[2],
+                hyperLink: hyperlinks[2]),
+            GuidelineHyperLinkText(
+                title: "4. " + guidelinesTitles[3],
+                text: subGuidelinesText[3],
+                hyperLinkText: hyperlinkHintsText[3],
+                hyperLink: hyperlinks[3]),
+            GuidelineHyperLinkText(
+                title: "5. " + guidelinesTitles[4],
+                text: subGuidelinesText[4],
+                hyperLinkText: hyperlinkHintsText[4],
+                hyperLink: hyperlinks[4]),
+            GuidelineHyperLinkText(
+                title: "6. " + guidelinesTitles[5],
+                text: subGuidelinesText[5],
+                hyperLinkText: hyperlinkHintsText[5],
+                hyperLink: hyperlinks[5]),
+            GuidelineHyperLinkText(
+                title: "7. " + guidelinesTitles[6],
+                text: subGuidelinesText[6],
+                hyperLinkText: hyperlinkHintsText[6],
+                hyperLink: hyperlinks[6]),
+            GuidelineText(
+                title: "8. " + guidelinesTitles[7], text: subGuidelinesText[7]),
+            GuidelineHyperLinkText(
+                title: "9. " + guidelinesTitles[8],
+                text: subGuidelinesText[8],
+                hyperLinkText: hyperlinkHintsText[7],
+                hyperLink: hyperlinks[7]),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dy > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }

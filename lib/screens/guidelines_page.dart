@@ -6,7 +6,7 @@ import 'package:hospital_stay_helper/screens/guildeLinesList/after_stay_page.dar
 import 'package:hospital_stay_helper/screens/guildeLinesList/before_stay_page.dart';
 import 'package:hospital_stay_helper/screens/guildeLinesList/collection_page.dart';
 import 'package:hospital_stay_helper/screens/guildeLinesList/during_stay_page.dart';
-import 'package:hospital_stay_helper/screens/guildeLinesList/receive_bill_page.dart';
+import 'package:hospital_stay_helper/screens/guildeLinesList/received_bill_page.dart';
 import 'package:hospital_stay_helper/screens/guildeLinesList/terms_page.dart';
 
 // Src: https://medium.com/flutter-community/everything-you-need-to-know-about-flutter-page-route-transition-9ef5c1b32823

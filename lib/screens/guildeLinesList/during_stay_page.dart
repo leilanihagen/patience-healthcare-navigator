@@ -41,60 +41,61 @@ class DuringStayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // backgroundColor: Styles.shadowWhite,
-        // appBar: AppBar(
-        //   toolbarHeight: 0.0,
-        //   backgroundColor: Styles.modestPink,
-        // ),
-        body: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-            text: "I'm at the hospital now",
-            icon: Icons.sick_rounded,
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[0],
-            text: subGuidelinesText[0],
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[1],
-            text: subGuidelinesText[1],
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[2],
-            text: subGuidelinesText[2],
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[3],
-            text: subGuidelinesText[3],
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[4],
-            text: subGuidelinesText[4],
-          ),
-          GuidelineHyperLinkText(
-            title: "1. " + guidelinesTitles[5],
-            text: subGuidelinesText[5],
-            hyperLinkText: hyperlinkHintsText[0],
-            hyperLink: hyperlinks[0],
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[6],
-            text: subGuidelinesText[6],
-          ),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          ),
-        ],
+    return Material(
+      // backgroundColor: Styles.shadowWhite,
+      // appBar: AppBar(
+      //   toolbarHeight: 0.0,
+      //   backgroundColor: Styles.modestPink,
+      // ),
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+              text: "I'm at the hospital now",
+              icon: Icons.sick_rounded,
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[2],
+              text: subGuidelinesText[2],
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[3],
+              text: subGuidelinesText[3],
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[4],
+              text: subGuidelinesText[4],
+            ),
+            GuidelineHyperLinkText(
+              title: "1. " + guidelinesTitles[5],
+              text: subGuidelinesText[5],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0],
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[6],
+              text: subGuidelinesText[6],
+            ),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dy > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }

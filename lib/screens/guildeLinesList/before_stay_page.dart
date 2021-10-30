@@ -37,62 +37,63 @@ class BeforeStayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // backgroundColor: Styles.shadowWhite,
-        // appBar: AppBar(
-        //   toolbarHeight: 0.0,
-        //   backgroundColor: Styles.modestPink,
-        // ),
-        body: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-            text: "I'm preparing for a hospital visit",
-            icon: Icons.laptop,
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[0],
-            text: subGuidelinesText[0],
-          ),
-          GuidelineText(
-            title: "2. " + guidelinesTitles[1],
-            text: subGuidelinesText[1],
-          ),
-          GuidelineText(
-            title: "3. " + guidelinesTitles[2],
-            text: subGuidelinesText[2],
-          ),
-          GuidelineText(
-            title: "4. " + guidelinesTitles[3],
-            text: subGuidelinesText[3],
-          ),
-          GuidelineText(
-            title: "5. " + guidelinesTitles[4],
-            text: subGuidelinesText[4],
-          ),
-          GuidelineText(
-            title: "6. " + guidelinesTitles[5],
-            text: subGuidelinesText[5],
-          ),
-          GuidelineText(
-            title: "7. " + guidelinesTitles[6],
-            text: subGuidelinesText[6],
-          ),
-          GuidelineText(
-            title: "8. " + guidelinesTitles[7],
-            text: subGuidelinesText[7],
-          ),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          ),
-        ],
+    return Material(
+      // backgroundColor: Styles.shadowWhite,
+      // appBar: AppBar(
+      //   toolbarHeight: 0.0,
+      //   backgroundColor: Styles.modestPink,
+      // ),
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+              text: "I'm preparing for a hospital visit",
+              icon: Icons.laptop,
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
+            ),
+            GuidelineText(
+              title: "2. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+            ),
+            GuidelineText(
+              title: "3. " + guidelinesTitles[2],
+              text: subGuidelinesText[2],
+            ),
+            GuidelineText(
+              title: "4. " + guidelinesTitles[3],
+              text: subGuidelinesText[3],
+            ),
+            GuidelineText(
+              title: "5. " + guidelinesTitles[4],
+              text: subGuidelinesText[4],
+            ),
+            GuidelineText(
+              title: "6. " + guidelinesTitles[5],
+              text: subGuidelinesText[5],
+            ),
+            GuidelineText(
+              title: "7. " + guidelinesTitles[6],
+              text: subGuidelinesText[6],
+            ),
+            GuidelineText(
+              title: "8. " + guidelinesTitles[7],
+              text: subGuidelinesText[7],
+            ),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dx > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dx > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }

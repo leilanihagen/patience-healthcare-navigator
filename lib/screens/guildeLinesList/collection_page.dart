@@ -146,58 +146,56 @@ class CollectionsPage extends StatelessWidget {
         )
       ]),
     );
-    return Scaffold(
-        body: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-              text: "My medical bill/debt has been sent to collections",
-              icon: Icons.priority_high_rounded),
-          GuidelineHyperLinkText(
-            title: "1. " + guidelinesTitles[0],
-            text: subGuidelinesText[0],
-            hyperLinkText: hyperlinkHintsText[0],
-            hyperLink: hyperlinks[0],
-          ),
-          GuidelineHyperLinkText(
-            title: "2. " + guidelinesTitles[1],
-            text: subGuidelinesText[1],
-            hyperLinkText: hyperlinkHintsText[0],
-            hyperLink: hyperlinks[0],
-          ),
-          GuidelineCustomWidget(
-            title: "3. " + guidelinesTitles[2],
-            child: guideline3Text,
-          ),
-          GuidelineText(
-            title: "4. " + guidelinesTitles[3],
-            text: subGuidelinesText[2],
-          ),
-          GuidelineHyperLinkText(
-            title: "5. " + guidelinesTitles[4],
-            text: subGuidelinesText[3],
-            hyperLinkText: hyperlinkHintsText[0],
-            hyperLink: hyperlinks[0],
-          ),
-          GuidelineHyperLinkText(
-              title: "6. " + guidelinesTitles[5],
-              text: subGuidelinesText[4],
+    return Material(
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+                text: "My medical bill/debt has been sent to collections",
+                icon: Icons.priority_high_rounded),
+            GuidelineHyperLinkText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
               hyperLinkText: hyperlinkHintsText[0],
-              hyperLink: hyperlinks[0]),
-          // renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
-          // renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
-          // renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          ),
-        ],
+              hyperLink: hyperlinks[0],
+            ),
+            GuidelineHyperLinkText(
+              title: "2. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0],
+            ),
+            GuidelineCustomWidget(
+              title: "3. " + guidelinesTitles[2],
+              child: guideline3Text,
+            ),
+            GuidelineText(
+              title: "4. " + guidelinesTitles[3],
+              text: subGuidelinesText[2],
+            ),
+            GuidelineHyperLinkText(
+              title: "5. " + guidelinesTitles[4],
+              text: subGuidelinesText[3],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0],
+            ),
+            GuidelineHyperLinkText(
+                title: "6. " + guidelinesTitles[5],
+                text: subGuidelinesText[4],
+                hyperLinkText: hyperlinkHintsText[0],
+                hyperLink: hyperlinks[0]),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dy > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }

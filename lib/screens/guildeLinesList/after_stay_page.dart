@@ -23,38 +23,39 @@ class AfterStayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // backgroundColor: Styles.shadowWhite,
-        // appBar: AppBar(
-        //   toolbarHeight: 0.0,
-        //   backgroundColor: Styles.modestPink,
-        // ),
-        body: GestureDetector(
-      child: ListView(
-        children: [
-          SituationBox(
-            text: "I recently visited the hospital",
-            icon: Icons.medical_services_rounded,
-          ),
-          GuidelineText(
-            title: "1. " + guidelinesTitles[0],
-            text: subGuidelinesText[0],
-          ),
-          GuidelineText(
-            title: "2. " + guidelinesTitles[1],
-            text: subGuidelinesText[1],
-          ),
-          PatienceBackButton(
-            callback: () => Navigator.pop(context),
-          )
-        ],
+    return Material(
+      // backgroundColor: Styles.shadowWhite,
+      // appBar: AppBar(
+      //   toolbarHeight: 0.0,
+      //   backgroundColor: Styles.modestPink,
+      // ),
+      child: GestureDetector(
+        child: ListView(
+          children: [
+            SituationBox(
+              text: "I recently visited the hospital",
+              icon: Icons.medical_services_rounded,
+            ),
+            GuidelineText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
+            ),
+            GuidelineText(
+              title: "2. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+            ),
+            PatienceBackButton(
+              callback: () => Navigator.pop(context),
+            )
+          ],
+        ),
+        onPanUpdate: (details) {
+          if (details.delta.dy > 0) {
+            //  User swiped left
+            Navigator.pop(context);
+          }
+        },
       ),
-      onPanUpdate: (details) {
-        if (details.delta.dy > 0) {
-          //  User swiped left
-          Navigator.pop(context);
-        }
-      },
-    ));
+    );
   }
 }
