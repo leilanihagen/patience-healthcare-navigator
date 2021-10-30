@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/components/buttons.dart';
-import 'package:hospital_stay_helper/components/pageDescription.dart';
+import 'package:hospital_stay_helper/components/page_description.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 // import 'package:hospital_stay_helper/localizations/language_constants.dart';
 // import 'package:hospital_stay_helper/main.dart';

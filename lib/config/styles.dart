@@ -129,10 +129,10 @@ class Styles {
       color: Colors.black,
       fontStyle: FontStyle.italic);
 
-  static const backButton = Text(
-    "Back",
-    style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),
-  );
+  // static const backButton = Text(
+  //   "Back",
+  //   style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),
+  // );
   static const dropdownPadding = EdgeInsets.fromLTRB(20, 8, 20, 8);
   static const statusButton =
       TextStyle(color: Colors.white, fontWeight: FontWeight.w700);
