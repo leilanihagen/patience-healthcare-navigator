@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 
-class BackButton extends StatelessWidget {
+class PatienceBackButton extends StatelessWidget {
   final VoidCallback callback;
-  const BackButton({required this.callback, Key? key}) : super(key: key);
+  const PatienceBackButton({required this.callback, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
