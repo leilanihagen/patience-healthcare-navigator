@@ -778,7 +778,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             padding: EdgeInsets.symmetric(vertical: .02.sh),
             decoration: BoxDecoration(
               color: (Theme.of(context).brightness == Brightness.dark)
-                  ? null
+                  ? Colors.grey[850]
                   : Styles.purpleTheme,
               // boxShadow: [
               //   BoxShadow(

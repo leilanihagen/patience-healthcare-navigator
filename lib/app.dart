@@ -115,7 +115,7 @@ class App extends StatelessWidget {
                 toggleableActiveColor: Styles.blueTheme,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 fontFamily: 'Open Sans'),
-            themeMode: ThemeMode.light,
+            themeMode: ThemeMode.dark,
             // locale: _locale,
             // supportedLocales: [
             //   Locale("en", "US"),
