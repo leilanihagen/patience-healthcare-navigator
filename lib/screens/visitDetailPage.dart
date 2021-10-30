@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/alert_dialog.dart';
+import 'package:hospital_stay_helper/components/buttons.dart';
 import 'package:hospital_stay_helper/components/expandableFAB.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
@@ -639,24 +640,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               ),
             ],
           )),
-          ElevatedButton(
-            child: ListTile(
-                leading: Icon(Icons.arrow_back_ios_rounded,
-                    color: Colors.white, size: 27),
-                title: Padding(
-                  child: Styles.backButton,
-                  padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                )),
-            onPressed: () => Navigator.pop(context),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.pressed))
-                    return Styles.blueTheme;
-                  return Styles.blueTheme; // Use the component's default.
-                },
-              ),
-            ),
+          PatienceBackButton(
+            callback: () => Navigator.pop(context),
           ), // Use Expanded to take up remaining space on screen
         ],
       ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hospital_stay_helper/components/buttons.dart';
 import 'package:hospital_stay_helper/components/pageDescription.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 // import 'package:hospital_stay_helper/localizations/language_constants.dart';
@@ -540,24 +541,8 @@ class TermsPage extends StatelessWidget {
                   hyperlinks[7],
                   9,
                   0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
               ),
             ],
           ),
@@ -619,24 +604,8 @@ class BeforeStayPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
               renderGuideline(guidelinesTitles[7], subGuidelinesText[7], 8, 0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
               ),
             ],
           ),
@@ -708,25 +677,9 @@ class DuringStayPage extends StatelessWidget {
                   6,
                   0),
               renderGuideline(guidelinesTitles[6], subGuidelinesText[6], 7, 0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
-              )
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
+              ),
             ],
           ),
           onPanUpdate: (details) {
@@ -770,24 +723,8 @@ class AfterStayPage extends StatelessWidget {
                       color: Colors.white, size: 33)),
               renderGuideline(guidelinesTitles[0], subGuidelinesText[0], 1, 0),
               renderGuideline(guidelinesTitles[1], subGuidelinesText[1], 2, 0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
               )
             ],
           ),
@@ -899,25 +836,9 @@ class ReceivedBillPage extends StatelessWidget {
               renderGuideline(guidelinesTitles[2], subGuidelinesText[2], 3, 0),
               renderGuidelineCustomWidgetText(
                   guidelinesTitles[3], guideline4Text, 4, 0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
-              )
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
+              ),
             ],
           ),
           onPanUpdate: (details) {
@@ -1064,24 +985,8 @@ class CollectionsPage extends StatelessWidget {
               // renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
               // renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
               // renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
-              ElevatedButton(
-                child: ListTile(
-                    leading: Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white, size: 27),
-                    title: Padding(
-                      child: Styles.backButton,
-                      padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                    )),
-                onPressed: () => Navigator.pop(context),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
-                        return Styles.blueTheme;
-                      return Styles.blueTheme; // Use the component's default.
-                    },
-                  ),
-                ),
+              PatienceBackButton(
+                callback: () => Navigator.pop(context),
               ),
             ],
           ),
