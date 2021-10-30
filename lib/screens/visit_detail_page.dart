@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/alert_dialog.dart';
 import 'package:hospital_stay_helper/components/buttons.dart';
-import 'package:hospital_stay_helper/components/expandableFAB.dart';
+import 'package:hospital_stay_helper/components/expandable_FAB.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
+import 'package:hospital_stay_helper/components/visit_tap_edit_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageFullScreenView extends StatelessWidget {

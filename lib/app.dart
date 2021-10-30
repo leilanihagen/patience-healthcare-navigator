@@ -71,7 +71,7 @@ class App extends StatelessWidget {
                 backgroundColor: Styles.modestPink,
                 foregroundColor: Styles.shadowWhite,
               ),
-              textTheme: TextTheme(),
+              textTheme: TextTheme(bodyText1: Styles.articleBody),
               appBarTheme: AppBarTheme(
                   backgroundColor: Colors.white,
                   titleTextStyle: Styles.appBarNew,
@@ -115,7 +115,7 @@ class App extends StatelessWidget {
                 toggleableActiveColor: Styles.blueTheme,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 fontFamily: 'Open Sans'),
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.dark,
             // locale: _locale,
             // supportedLocales: [
             //   Locale("en", "US"),

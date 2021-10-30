@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/class.dart';
-import 'package:hospital_stay_helper/components/textIcon.dart';
+import 'package:hospital_stay_helper/components/text_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListTop extends StatelessWidget {

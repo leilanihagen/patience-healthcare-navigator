@@ -4,14 +4,14 @@ import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/components/icons.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-import 'package:hospital_stay_helper/screens/checkHospital.dart';
+import 'package:hospital_stay_helper/screens/check_hospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
-import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
-import 'package:hospital_stay_helper/screens/profilePage.dart';
+import 'package:hospital_stay_helper/screens/guidelines_page.dart';
+import 'package:hospital_stay_helper/screens/profile_page.dart';
 // import 'package:hospital_stay_helper/screens/searchPage.dart';
-import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
-import 'screens/guidelinesPage.dart';
-import 'screens/visitsTimelinePage.dart';
+import 'package:hospital_stay_helper/screens/visits_timeline_page.dart';
+import 'screens/guidelines_page.dart';
+import 'screens/visits_timeline_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBottomNavBarController extends StatefulWidget {

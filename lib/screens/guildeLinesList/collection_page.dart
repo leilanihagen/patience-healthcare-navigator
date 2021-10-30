@@ -1,4 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_stay_helper/components/buttons.dart';
+import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
+import 'package:hospital_stay_helper/config/styles.dart';
+import 'package:hospital_stay_helper/screens/guidelines_page.dart';
+import 'package:hospital_stay_helper/screens/guildeLinesList/guildeline_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CollectionsPage extends StatelessWidget {
   CollectionsPage({this.context, this.rootCategoriesPage});
@@ -37,114 +44,149 @@ class CollectionsPage extends StatelessWidget {
     "https://www.aarp.org/money/credit-loans-debt/info-2019/medical-bills-affect-credit-score.html",
   ];
 
-  final Column guideline3Text =
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    Text(
-      ("You have the right to send a debt validation letter/email to the collection agency under the FDCPA asking them to provide you with evidence that the debt you are being asked to pay is in fact yours." +
-          "\n\nIn your letter/email, simply state that you will need to validate the debt before you can pay, and ask for documentation bearing your signature and dates of services you are being billed for. Either send the letter via certified mail or via email, so that you can record the date when the agency receives it." +
-          "\n\nWhat you will do next depends on how the agency responds." +
-          "\n\n(a) They do not respond within 30 days of receiving your request. If they do not respond, you can file a complaint with the Consumer Financial Protection Bureau "),
-      style: Styles.articleBody.copyWith(color: Colors.black),
-    ),
-    InkWell(
-        child: Text(
-          "here (consumerfinance.gov complaint submission).\n\n",
-          style: Styles.hyperlink,
-        ),
-        onTap: () => launch(
-            "https://www.consumerfinance.gov/complaint/getting-started/")),
-    Text(
-      "After filing your complaint, send a Failure to Validate letter/email to the collection agency explaining that they have violated your rights as a consumer to have your debt violated, and that you have the right to sue them for damages to your credit score if the debt is not validated, or if the unvalidated debt is not removed from your credit report.",
-      style: Styles.articleBody.copyWith(color: Colors.black),
-    ),
-    InkWell(
-        child: Text(
-          "\n\nHere is a template Failure to Validate letter (from the achievingcreditexcellence.com blog).",
-          style: Styles.hyperlink,
-        ),
-        onTap: () =>
-            launch("https://www.achievingcreditexcellence.com/freebies")),
-    Text(
-      "\n\n(b) They send you a bill. If they do not send you the explanation of charges and proof that the debt belongs to you, you can also report them to the CFPB and send a Failure to Validate email/letter, because they did not provide sufficient documentation to validate the debt. If they respond within 30 days of receiving your request, do not report them to CFPB yet, but inform them that if they do not send you evidence to validate the debt, you will report them. See (a) and the source blog and video linked below." +
-          "\n\n (c) They send you documentation containing your medical records, (information about procedures you received, doctors you were seen by, etc.). If they do this, immediately file a complaint with the Consumer Financial Protection Bureau for violating your rights under HIPAA. You never signed any agreement authorizing them to access your medical records, so if they obtain this information, they have violated your privacy rights under HIPAA. At this point, you have the option to sue them if you wish, but at the very least, they must remove the debt and cease collection of the debt if they have violated your HIPAA rights. Ask the collections agency to delete your private medical information immediately and to cease all collection activities.",
-      style: Styles.articleBody.copyWith(color: Colors.black),
-    ),
-    InkWell(
-        child: Text(
-          "\n\nSource (from the achievingcreditexcellence.com blog).",
-          style: Styles.hyperlink,
-        ),
-        onTap: () =>
-            launch("https://www.achievingcreditexcellence.com/freebies")),
-    InkWell(
-        child: Text(
-          "\n\nSource (YouTube Video explaining how to dispute the debt).",
-          style: Styles.hyperlink,
-        ),
-        onTap: () => launch(
-            "https://www.youtube.com/watch?v=3xVGZ4QOCmk&ab_channel=LifeWithMC")),
-  ]);
+  // final Widget guideline3Text =
+  //     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  //   Text(
+  //     ("You have the right to send a debt validation letter/email to the collection agency under the FDCPA asking them to provide you with evidence that the debt you are being asked to pay is in fact yours." +
+  //         "\n\nIn your letter/email, simply state that you will need to validate the debt before you can pay, and ask for documentation bearing your signature and dates of services you are being billed for. Either send the letter via certified mail or via email, so that you can record the date when the agency receives it." +
+  //         "\n\nWhat you will do next depends on how the agency responds." +
+  //         "\n\n(a) They do not respond within 30 days of receiving your request. If they do not respond, you can file a complaint with the Consumer Financial Protection Bureau "),
+  //     style: Styles.articleBody.copyWith(color: Colors.black),
+  //   ),
+  //   InkWell(
+  //       child: Text(
+  //         "here (consumerfinance.gov complaint submission).\n\n",
+  //         style: Styles.hyperlink,
+  //       ),
+  //       onTap: () => launch(
+  //           "https://www.consumerfinance.gov/complaint/getting-started/")),
+  //   Text(
+  //     "After filing your complaint, send a Failure to Validate letter/email to the collection agency explaining that they have violated your rights as a consumer to have your debt violated, and that you have the right to sue them for damages to your credit score if the debt is not validated, or if the unvalidated debt is not removed from your credit report.",
+  //     style: Styles.articleBody.copyWith(color: Colors.black),
+  //   ),
+  //   InkWell(
+  //       child: Text(
+  //         "\n\nHere is a template Failure to Validate letter (from the achievingcreditexcellence.com blog).",
+  //         style: Styles.hyperlink,
+  //       ),
+  //       onTap: () =>
+  //           launch("https://www.achievingcreditexcellence.com/freebies")),
+  //   Text(
+  //     "\n\n(b) They send you a bill. If they do not send you the explanation of charges and proof that the debt belongs to you, you can also report them to the CFPB and send a Failure to Validate email/letter, because they did not provide sufficient documentation to validate the debt. If they respond within 30 days of receiving your request, do not report them to CFPB yet, but inform them that if they do not send you evidence to validate the debt, you will report them. See (a) and the source blog and video linked below." +
+  //         "\n\n (c) They send you documentation containing your medical records, (information about procedures you received, doctors you were seen by, etc.). If they do this, immediately file a complaint with the Consumer Financial Protection Bureau for violating your rights under HIPAA. You never signed any agreement authorizing them to access your medical records, so if they obtain this information, they have violated your privacy rights under HIPAA. At this point, you have the option to sue them if you wish, but at the very least, they must remove the debt and cease collection of the debt if they have violated your HIPAA rights. Ask the collections agency to delete your private medical information immediately and to cease all collection activities.",
+  //     style: Styles.articleBody.copyWith(color: Colors.black),
+  //   ),
+  //   InkWell(
+  //       child: Text(
+  //         "\n\nSource (from the achievingcreditexcellence.com blog).",
+  //         style: Styles.hyperlink,
+  //       ),
+  //       onTap: () =>
+  //           launch("https://www.achievingcreditexcellence.com/freebies")),
+  //   InkWell(
+  //       child: Text(
+  //         "\n\nSource (YouTube Video explaining how to dispute the debt).",
+  //         style: Styles.hyperlink,
+  //       ),
+  //       onTap: () => launch(
+  //           "https://www.youtube.com/watch?v=3xVGZ4QOCmk&ab_channel=LifeWithMC")),
+  // ]);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Styles.shadowWhite,
-        appBar: AppBar(
-          toolbarHeight: 0.0,
-          backgroundColor: Styles.modestPink,
+    Widget guideline3Text = RichText(
+      text: TextSpan(style: Theme.of(context).textTheme.bodyText1, children: [
+        TextSpan(
+          text: ("You have the right to send a debt validation letter/email to the collection agency under the FDCPA asking them to provide you with evidence that the debt you are being asked to pay is in fact yours." +
+              "\n\nIn your letter/email, simply state that you will need to validate the debt before you can pay, and ask for documentation bearing your signature and dates of services you are being billed for. Either send the letter via certified mail or via email, so that you can record the date when the agency receives it." +
+              "\n\nWhat you will do next depends on how the agency responds." +
+              "\n\n(a) They do not respond within 30 days of receiving your request. If they do not respond, you can file a complaint with the Consumer Financial Protection Bureau "),
         ),
+        TextSpan(
+          text: "here (consumerfinance.gov complaint submission).\n\n",
+          style: Styles.hyperlink,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () => launch(
+                "https://www.consumerfinance.gov/complaint/getting-started/"),
+        ),
+        TextSpan(
+          text:
+              "After filing your complaint, send a Failure to Validate letter/email to the collection agency explaining that they have violated your rights as a consumer to have your debt violated, and that you have the right to sue them for damages to your credit score if the debt is not validated, or if the unvalidated debt is not removed from your credit report.",
+        ),
+        TextSpan(
+          text:
+              "\n\nHere is a template Failure to Validate letter (from the achievingcreditexcellence.com blog).",
+          style: Styles.hyperlink,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () =>
+                launch("https://www.achievingcreditexcellence.com/freebies"),
+        ),
+        TextSpan(
+          text: "\n\n(b) They send you a bill. If they do not send you the explanation of charges and proof that the debt belongs to you, you can also report them to the CFPB and send a Failure to Validate email/letter, because they did not provide sufficient documentation to validate the debt. If they respond within 30 days of receiving your request, do not report them to CFPB yet, but inform them that if they do not send you evidence to validate the debt, you will report them. See (a) and the source blog and video linked below." +
+              "\n\n (c) They send you documentation containing your medical records, (information about procedures you received, doctors you were seen by, etc.). If they do this, immediately file a complaint with the Consumer Financial Protection Bureau for violating your rights under HIPAA. You never signed any agreement authorizing them to access your medical records, so if they obtain this information, they have violated your privacy rights under HIPAA. At this point, you have the option to sue them if you wish, but at the very least, they must remove the debt and cease collection of the debt if they have violated your HIPAA rights. Ask the collections agency to delete your private medical information immediately and to cease all collection activities.",
+        ),
+        TextSpan(
+          text: "\n\nSource (from the achievingcreditexcellence.com blog).",
+          style: Styles.hyperlink,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () =>
+                launch("https://www.achievingcreditexcellence.com/freebies"),
+        ),
+        TextSpan(
+          text:
+              "\n\nSource (YouTube Video explaining how to dispute the debt).",
+          style: Styles.hyperlink,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () => launch(
+                "https://www.youtube.com/watch?v=3xVGZ4QOCmk&ab_channel=LifeWithMC"),
+        )
+      ]),
+    );
+    return Scaffold(
         body: GestureDetector(
-          child: ListView(
-            children: [
-              renderSituationBox(
-                  "My medical bill/debt has been sent to collections",
-                  Icon(Icons.priority_high_rounded,
-                      color: Colors.white, size: 33)),
-              renderGuidelineHyperlink(
-                  guidelinesTitles[0],
-                  subGuidelinesText[0],
-                  hyperlinkHintsText[0],
-                  hyperlinks[0],
-                  1,
-                  0),
-              renderGuidelineHyperlink(
-                  guidelinesTitles[1],
-                  subGuidelinesText[1],
-                  hyperlinkHintsText[0],
-                  hyperlinks[0],
-                  2,
-                  0),
-              renderGuidelineCustomWidgetText(
-                  guidelinesTitles[2], guideline3Text, 3, 0),
-              renderGuideline(guidelinesTitles[3], subGuidelinesText[2], 4, 0),
-              renderGuidelineHyperlink(
-                  guidelinesTitles[4],
-                  subGuidelinesText[3],
-                  hyperlinkHintsText[0],
-                  hyperlinks[0],
-                  5,
-                  0),
-              renderGuidelineHyperlink(
-                  guidelinesTitles[5],
-                  subGuidelinesText[4],
-                  hyperlinkHintsText[0],
-                  hyperlinks[0],
-                  6,
-                  0),
-              // renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
-              // renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
-              // renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
-              PatienceBackButton(
-                callback: () => Navigator.pop(context),
-              ),
-            ],
+      child: ListView(
+        children: [
+          SituationBox(
+              text: "My medical bill/debt has been sent to collections",
+              icon: Icons.priority_high_rounded),
+          GuidelineHyperLinkText(
+              title: "1. " + guidelinesTitles[0],
+              text: subGuidelinesText[0],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0]),
+          GuidelineHyperLinkText(
+              title: "2. " + guidelinesTitles[1],
+              text: subGuidelinesText[1],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0]),
+          GuidelineCustomWidget(
+              title: "3. " + guidelinesTitles[2], child: guideline3Text),
+          GuidelineText(
+              title: "4. " + guidelinesTitles[3], text: subGuidelinesText[2]),
+          GuidelineHyperLinkText(
+              title: "5. " + guidelinesTitles[4],
+              text: subGuidelinesText[3],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0]),
+          GuidelineHyperLinkText(
+              title: "5. " + guidelinesTitles[5],
+              text: subGuidelinesText[4],
+              hyperLinkText: hyperlinkHintsText[0],
+              hyperLink: hyperlinks[0]),
+          // renderGuideline(guidelinesTitles[3], subGuidelinesText[3], 4, 0),
+          // renderGuideline(guidelinesTitles[4], subGuidelinesText[4], 5, 0),
+          // renderGuideline(guidelinesTitles[5], subGuidelinesText[5], 6, 0),
+          PatienceBackButton(
+            callback: () => Navigator.pop(context),
           ),
-          onPanUpdate: (details) {
-            if (details.delta.dy > 0) {
-              //  User swiped left
-              Navigator.pop(context);
-            }
-          },
-        ));
+        ],
+      ),
+      onPanUpdate: (details) {
+        if (details.delta.dy > 0) {
+          //  User swiped left
+          Navigator.pop(context);
+        }
+      },
+    ));
   }
 }
