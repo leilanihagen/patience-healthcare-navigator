@@ -5,13 +5,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
 import 'package:hospital_stay_helper/components/alert_dialog.dart';
-import 'package:hospital_stay_helper/components/pageDescription.dart';
+import 'package:hospital_stay_helper/components/page_description.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 
-import 'package:hospital_stay_helper/screens/visitDetailPage.dart';
+import 'package:hospital_stay_helper/screens/visit_detail_page.dart';
 // import '../class/sharePref.dart';
 
 class VisitsTimelinePage extends StatefulWidget {

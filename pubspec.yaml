@@ -15,7 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl:
-  shared_preferences: 2.0.6
+  # shared_preferences: 2.0.6
   hive: ^2.0.4
   cupertino_icons:
   geolocator: 7.0.3
@@ -54,6 +54,7 @@ dev_dependencies:
 flutter_native_splash:
   color: "#FFFFFF"                   #"#FDEBF1"
   image: assets/splash_512_new.png
+  color_dark: "#121212"
   android: true
   ios: true
 

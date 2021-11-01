@@ -5,7 +5,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/services.dart';
 import 'package:hospital_stay_helper/app.dart';
 import 'package:hospital_stay_helper/components/icons.dart';
-import 'package:hospital_stay_helper/components/pageDescription.dart';
+import 'package:hospital_stay_helper/components/page_description.dart';
 import 'package:hospital_stay_helper/plugins/feedbacks.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
 import 'package:hive/hive.dart';

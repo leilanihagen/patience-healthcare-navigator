@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-import 'package:hospital_stay_helper/screens/profilePage.dart';
+import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -778,7 +778,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             padding: EdgeInsets.symmetric(vertical: .02.sh),
             decoration: BoxDecoration(
               color: (Theme.of(context).brightness == Brightness.dark)
-                  ? null
+                  ? Colors.grey[850]
                   : Styles.purpleTheme,
               // boxShadow: [
               //   BoxShadow(

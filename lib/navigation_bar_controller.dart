@@ -2,16 +2,17 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/components/icons.dart';
+import 'package:hospital_stay_helper/components/settting_dialog.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-import 'package:hospital_stay_helper/screens/checkHospital.dart';
+import 'package:hospital_stay_helper/screens/check_hospital.dart';
 import 'package:hospital_stay_helper/screens/dashboard.dart';
-import 'package:hospital_stay_helper/screens/guidelinesPage.dart';
-import 'package:hospital_stay_helper/screens/profilePage.dart';
+import 'package:hospital_stay_helper/screens/guidelines_page.dart';
+import 'package:hospital_stay_helper/screens/profile_page.dart';
 // import 'package:hospital_stay_helper/screens/searchPage.dart';
-import 'package:hospital_stay_helper/screens/visitsTimelinePage.dart';
-import 'screens/guidelinesPage.dart';
-import 'screens/visitsTimelinePage.dart';
+import 'package:hospital_stay_helper/screens/visits_timeline_page.dart';
+import 'screens/guidelines_page.dart';
+import 'screens/visits_timeline_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBottomNavBarController extends StatefulWidget {
@@ -66,36 +67,18 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
     });
     if (!temp)
       Future.delayed(
-          const Duration(seconds: 3),
-          () => showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  contentPadding: EdgeInsets.all(0),
-                  elevation: 10,
-                  title: Text("Set your profile at User Settings"),
-                  content: Image.asset(
-                    'assets/images/setup_settings_crop.png',
-                    width: .30.sw,
-                    height: .30.sw,
-                  ),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text("Later")),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (c) => ProfilePage())).then(
-                              (_) => _dashBoardKey.currentState!.refresh());
-                        },
-                        child: Text("Okay")),
-                  ],
-                );
-              }));
+        const Duration(seconds: 3),
+        () => showSettingDialog(
+          context,
+          () {
+            Navigator.pop(context);
+            Navigator.push(
+                    context, MaterialPageRoute(builder: (c) => ProfilePage()))
+                .then((_) => _dashBoardKey.currentState!.refresh());
+          },
+          () => Navigator.pop(context),
+        ),
+      );
   }
 
   @override
@@ -240,29 +223,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               //     child: toHero.child,
               //   );
               // },
-              child:
-                  // Material(
-                  //   color: Colors.transparent,
-                  //   child: Container(
-                  //     width: 125.w,
-                  //     height: 125.w,
-                  //     child: GestureDetector(
-                  //       onTap: () => Navigator.push(context,
-                  //               MaterialPageRoute(builder: (c) => ProfilePage()))
-                  //           .then((_) => _dashBoardKey.currentState!.refresh()),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             shape: BoxShape.circle, color: Colors.white),
-                  //         child: Icon(
-                  //           Icons.settings,
-                  //           color: Colors.grey,
-                  //           size: 75.w,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  Material(
+              child: Material(
                 color: Colors.transparent,
                 child: IconButton(
                   iconSize: 35,
