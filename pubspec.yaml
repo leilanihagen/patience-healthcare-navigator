@@ -18,7 +18,7 @@ dependencies:
   # shared_preferences: 2.0.6
   hive: ^2.0.4
   cupertino_icons:
-  geolocator: 7.0.3
+  geolocator: ^7.7.1
   dropdown_search: 0.6.1
   # reorderables: 0.4.1
   # hexcolor: 2.0.3

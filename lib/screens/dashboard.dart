@@ -409,14 +409,14 @@ class DashboardPageState extends State<DashboardPage>
         children: [
           Text(
             text,
-            textAlign: TextAlign.left,
+            //textAlign: TextAlign.left,
             style: Styles.articleHeading1,
           ),
           subtitle == ''
               ? SizedBox.shrink()
               : Text(
                   subtitle,
-                  textAlign: TextAlign.left,
+                  //textAlign: TextAlign.left,
                   style: Styles.articleBody,
                 ),
         ],
@@ -749,7 +749,7 @@ class _Rebuild extends ChangeNotifier {
 }
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
-  double height = double.infinity;
+  double height = 500;
 
   final String insuranceProvider;
   final Function(int)? openPage;
@@ -797,7 +797,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, .015.sw),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, .20),
                   child: Text(
                     'Your Information',
                     // style: Styles.articleHeading1White,

@@ -53,8 +53,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   showError(error) {
+    print(error.toString());
     rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
-      content: Text(error),
+      content: Text(error.toString()),
     ));
   }
 
@@ -119,6 +120,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           _hospitalPage.status = "Getting your position";
         });
         Position position = await _determinePosition();
+        print(position.altitude);
         setState(() {
           _hospitalPage.status = "Checking...";
         });
@@ -410,7 +412,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               "The below hospitals are in your network:",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 15.sp,
+                  fontSize: 15,
                   color: Colors.green[800]),
             ),
           ),
@@ -464,7 +466,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           return ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Material(
-              color: Colors.white,
               child: isSearching
                   ? Container(
                       width: 20,
