@@ -53,8 +53,9 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   showError(error) {
+    print(error.toString());
     rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
-      content: Text(error),
+      content: Text(error.toString()),
     ));
   }
 
@@ -119,6 +120,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           _hospitalPage.status = "Getting your position";
         });
         Position position = await _determinePosition();
+        print(position.altitude);
         setState(() {
           _hospitalPage.status = "Checking...";
         });
