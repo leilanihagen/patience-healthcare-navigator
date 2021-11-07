@@ -749,8 +749,8 @@ class _Rebuild extends ChangeNotifier {
 }
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
-  double height = double.infinity;
-
+  // double height = double.infinity;
+  double height = 400;
   final String insuranceProvider;
   final Function(int)? openPage;
   final Function buildIconButton;
