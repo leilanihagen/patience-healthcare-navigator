@@ -412,7 +412,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
               "The below hospitals are in your network:",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                  fontSize: 14,
                   color: Colors.green[800]),
             ),
           ),
