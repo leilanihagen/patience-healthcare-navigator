@@ -11,7 +11,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
+  await Hive.openBox('mainController');
+  await Hive.openBox('profile');
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // systemNavigationBarColor: Styles.blueTheme,
       systemNavigationBarColor: Colors.transparent,
