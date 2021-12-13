@@ -24,93 +24,7 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
-  // String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
-  late Box box;
-  // double amountDeductiblePaid;
-
-  // _loadSaved() async {
-  //   double temp = await MySharedPreferences.instance
-  //       .getDoubleValue('user_deductible_paid');
-  //   print(temp);
-  //   setState(() {
-  //     amountDeductiblePaid = temp;
-  //   });
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-    // _loadSaved();
-    // load();
-    // getInsuranceProvider();
-    // getStateOfResidence();
-  }
-
-  // load() async {
-  //   if (await Hive.boxExists("profile")) {
-  //     box = await Hive.openBox("profile");
-  //     String temp_1 = box.get('user_provider') ?? '';
-  //     String temp_2 = box.get('user_state') ?? '';
-  //     setState(() {
-  //       insuranceProvider = temp_1;
-  //       stateOfResidence = temp_2;
-  //     });
-  //   } else {
-  //     box = await Hive.openBox("profile");
-  //     setState(() {
-  //       insuranceProvider = '';
-  //       stateOfResidence = '';
-  //     });
-  //   }
-  // }
-
-  // refresh() {
-  //   load();
-  // }
-  // void updateAmountDeductiblePaid(num updatedAmount) {
-  //   setState(() {
-  //     amountDeductiblePaid = updatedAmount;
-  //   });
-  //   MySharedPreferences.instance
-  //       .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
-  // }
-
-  //  Call your provider function is here
-  _callProvider() async {
-    // // String _tel = 'tel:' +
-    // //     await MySharedPreferences.instance.getStringValue('provider_phone');
-    // String _tel = 'tel:' + box.get('provider_phone');
-    // await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
-    // observer.analytics.logEvent(
-    //     name: 'call_provider',
-    //     parameters: {'provider': insuranceProvider, 'state': stateOfResidence});
-  }
-
-  // void getInsuranceProvider() async {
-  //   // setState(() async {
-  //   // String temp =
-  //   //     await MySharedPreferences.instance.getStringValue('user_provider');
-  //   String temp = box.get('user_provider') ?? '';
-  //   print(temp);
-  //   setState(() {
-  //     insuranceProvider = temp;
-  //   });
-  //   // });
-  // }
-
-  // void getStateOfResidence() async {
-  //   // setState(() async {
-  //   // String temp =
-  //   //     await MySharedPreferences.instance.getStringValue('user_state');
-  //   String temp = box.get('user_state') ?? '';
-  //   print(temp);
-  //   setState(() {
-  //     stateOfResidence = temp;
-  //   });
-  //   // });
-  // }
-
   Widget buildWalkthroughCard(String imagePath, String title, String body,
       String buttonText, Gradient gradient, int targetPageIndex) {
     return Visibility(
@@ -145,9 +59,11 @@ class DashboardPageState extends State<DashboardPage>
       child: Stack(children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
-          child: Material(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(20.0),
+          child: Card(
+            // color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
             elevation: 5,
             child: Container(
               width: .97.sw,
@@ -155,16 +71,17 @@ class DashboardPageState extends State<DashboardPage>
               padding:
                   EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
               decoration: BoxDecoration(
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //       color: Colors.grey.withOpacity(0.5),
-                  //       spreadRadius: 4,
-                  //       blurRadius: 6,
-                  //       offset: Offset(0, 3))
-                  // ],
-                  gradient: gradient,
-                  color: Styles.lightGreenTheme,
-                  borderRadius: BorderRadius.circular(20.0)),
+                // boxShadow: [
+                //   BoxShadow(
+                //       color: Colors.grey.withOpacity(0.5),
+                //       spreadRadius: 4,
+                //       blurRadius: 6,
+                //       offset: Offset(0, 3))
+                // ],
+                gradient: gradient,
+                color: Styles.lightGreenTheme,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
               child: Column(
                 children: [
                   // Title + close button:
@@ -425,25 +342,6 @@ class DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget buildIconButton(Color backgroundColor, Color foregroundColor,
-      Icon icon, String text, Function function) {
-    return ElevatedButton.icon(
-      onPressed: () => {function()},
-      style: ElevatedButton.styleFrom(
-        primary: backgroundColor,
-        onPrimary: foregroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-      ),
-      icon: icon,
-      label: Text(
-        text,
-        style: Styles.buttonTextStyle,
-      ),
-    );
-  }
-
   Widget stateNotSelectedButton() {
     return GestureDetector(
       onTap: () {},
@@ -685,11 +583,6 @@ class _Rebuild extends ChangeNotifier {
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double height = 400;
-  // final Function(int)? openPage;
-  // final Function buildIconButton;
-  // final Function buildStateButton;
-  // final Function callProvider;
-
   CustomSliverDelegate();
 
   @override
@@ -712,13 +605,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               color: (Theme.of(context).brightness == Brightness.dark)
                   ? Colors.grey[850]
                   : Styles.purpleTheme,
-              // boxShadow: [
-              //   BoxShadow(
-              //       color: Colors.grey.withOpacity(0.5),
-              //       spreadRadius: 4,
-              //       blurRadius: 6,
-              //       offset: Offset(0, 3))
-              // ],
               border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(.1.sw),
