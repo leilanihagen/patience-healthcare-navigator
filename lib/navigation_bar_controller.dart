@@ -167,14 +167,6 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
             // ),
           ]);
 
-  List<String> _pageTitles = [
-    'Dashboard',
-    'Guidelines',
-    'Visits Timeline',
-    'Find In-Network Hospitals',
-    // 'Search Medical Services'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<MainNavigationProvider>(

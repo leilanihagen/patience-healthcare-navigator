@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/provider/user_provider.dart';
 import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
-  String insuranceProvider = '', stateOfResidence = '';
+  // String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
   late Box box;
   // double amountDeductiblePaid;
@@ -41,32 +42,32 @@ class DashboardPageState extends State<DashboardPage>
   void initState() {
     super.initState();
     // _loadSaved();
-    load();
+    // load();
     // getInsuranceProvider();
     // getStateOfResidence();
   }
 
-  load() async {
-    if (await Hive.boxExists("profile")) {
-      box = await Hive.openBox("profile");
-      String temp_1 = box.get('user_provider') ?? '';
-      String temp_2 = box.get('user_state') ?? '';
-      setState(() {
-        insuranceProvider = temp_1;
-        stateOfResidence = temp_2;
-      });
-    } else {
-      box = await Hive.openBox("profile");
-      setState(() {
-        insuranceProvider = '';
-        stateOfResidence = '';
-      });
-    }
-  }
+  // load() async {
+  //   if (await Hive.boxExists("profile")) {
+  //     box = await Hive.openBox("profile");
+  //     String temp_1 = box.get('user_provider') ?? '';
+  //     String temp_2 = box.get('user_state') ?? '';
+  //     setState(() {
+  //       insuranceProvider = temp_1;
+  //       stateOfResidence = temp_2;
+  //     });
+  //   } else {
+  //     box = await Hive.openBox("profile");
+  //     setState(() {
+  //       insuranceProvider = '';
+  //       stateOfResidence = '';
+  //     });
+  //   }
+  // }
 
-  refresh() {
-    load();
-  }
+  // refresh() {
+  //   load();
+  // }
   // void updateAmountDeductiblePaid(num updatedAmount) {
   //   setState(() {
   //     amountDeductiblePaid = updatedAmount;
@@ -77,38 +78,38 @@ class DashboardPageState extends State<DashboardPage>
 
   //  Call your provider function is here
   _callProvider() async {
-    // String _tel = 'tel:' +
-    //     await MySharedPreferences.instance.getStringValue('provider_phone');
-    String _tel = 'tel:' + box.get('provider_phone');
-    await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
-    observer.analytics.logEvent(
-        name: 'call_provider',
-        parameters: {'provider': insuranceProvider, 'state': stateOfResidence});
+    // // String _tel = 'tel:' +
+    // //     await MySharedPreferences.instance.getStringValue('provider_phone');
+    // String _tel = 'tel:' + box.get('provider_phone');
+    // await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+    // observer.analytics.logEvent(
+    //     name: 'call_provider',
+    //     parameters: {'provider': insuranceProvider, 'state': stateOfResidence});
   }
 
-  void getInsuranceProvider() async {
-    // setState(() async {
-    // String temp =
-    //     await MySharedPreferences.instance.getStringValue('user_provider');
-    String temp = box.get('user_provider') ?? '';
-    print(temp);
-    setState(() {
-      insuranceProvider = temp;
-    });
-    // });
-  }
+  // void getInsuranceProvider() async {
+  //   // setState(() async {
+  //   // String temp =
+  //   //     await MySharedPreferences.instance.getStringValue('user_provider');
+  //   String temp = box.get('user_provider') ?? '';
+  //   print(temp);
+  //   setState(() {
+  //     insuranceProvider = temp;
+  //   });
+  //   // });
+  // }
 
-  void getStateOfResidence() async {
-    // setState(() async {
-    // String temp =
-    //     await MySharedPreferences.instance.getStringValue('user_state');
-    String temp = box.get('user_state') ?? '';
-    print(temp);
-    setState(() {
-      stateOfResidence = temp;
-    });
-    // });
-  }
+  // void getStateOfResidence() async {
+  //   // setState(() async {
+  //   // String temp =
+  //   //     await MySharedPreferences.instance.getStringValue('user_state');
+  //   String temp = box.get('user_state') ?? '';
+  //   print(temp);
+  //   setState(() {
+  //     stateOfResidence = temp;
+  //   });
+  //   // });
+  // }
 
   Widget buildWalkthroughCard(String imagePath, String title, String body,
       String buttonText, Gradient gradient, int targetPageIndex) {
@@ -465,67 +466,6 @@ class DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget buildStateButton() {
-    // String image = '';
-    // switch (stateOfResidence) {
-    //   case 'WA':
-    //     image = 'wa.png';
-    //     break;
-    //   case 'OR':
-    //     image = 'or.png';
-    //     break;
-    //   case 'CA':
-    //     image = 'ca.png';
-    //     break;
-    //   case 'MD':
-    //     image = 'md.png';
-    //     break;
-    //   case 'VA':
-    //     image = 'va.png';
-    //     break;
-    //   case 'DC':
-    //     image = 'dc.png';
-    //     break;
-    //   case 'GA':
-    //     image = 'ga.png';
-    //     break;
-    //   default:
-    //     image = 'nostate.png';
-    // }
-
-    return GestureDetector(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (c) => ProfilePage())),
-      child: Container(
-        decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.modestPink),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: stateOfResidence == ''
-              ? Text(
-                  'Select\n state',
-                  textAlign: TextAlign.center,
-                  style: Styles.medButtonWhite,
-                )
-              : Text(
-                  stateOfResidence,
-                  textAlign: TextAlign.center,
-                  style: Styles.largeButtonWhite,
-                ),
-          // Column(
-          //   children: [
-          //     // Image.asset(
-          //     //   'assets/images/' + image,
-          //     //   height: 80,`
-          //     //   width: 50,
-          //     // ),
-          //   ],
-          // ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -534,12 +474,7 @@ class DashboardPageState extends State<DashboardPage>
         slivers: [
           // Header:
           SliverPersistentHeader(
-            delegate: CustomSliverDelegate(
-                insuranceProvider,
-                widget.openPage as dynamic Function(int)?,
-                buildIconButton,
-                buildStateButton,
-                _callProvider),
+            delegate: CustomSliverDelegate(),
             floating: true,
           ),
           SliverList(
@@ -750,14 +685,12 @@ class _Rebuild extends ChangeNotifier {
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double height = 400;
-  final String insuranceProvider;
-  final Function(int)? openPage;
-  final Function buildIconButton;
-  final Function buildStateButton;
-  final Function callProvider;
+  // final Function(int)? openPage;
+  // final Function buildIconButton;
+  // final Function buildStateButton;
+  // final Function callProvider;
 
-  CustomSliverDelegate(this.insuranceProvider, this.openPage,
-      this.buildIconButton, this.buildStateButton, this.callProvider);
+  CustomSliverDelegate();
 
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
@@ -804,94 +737,130 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   ),
                 ),
                 // Provider + state text hints:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Padding(
-                    //   padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
-                    //   child: Text('Your state:',
-                    //       style:
-                    //           TextStyle(color: Colors.white, fontSize: 16)),
-                    // ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     // Padding(
+                //     //   padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
+                //     //   child: Text('Your state:',
+                //     //       style:
+                //     //           TextStyle(color: Colors.white, fontSize: 16)),
+                //     // ),
+                //   ],
+                // ),
                 // Ins. provider + state displays:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Insurance provider disp:
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                      margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
-                      decoration: BoxDecoration(
-                          color: Styles.darkerBlueTheme,
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => ProfilePage())),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text('Insurance:',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 16)),
-                                  ),
-                                  Text(
-                                      insuranceProvider == ''
-                                          ? 'Tap to choose'
-                                          : insuranceProvider,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700)),
-                                ]),
+                Consumer<UserProvider>(
+                  builder: (context, model, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Insurance provider disp:
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                          margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
+                          decoration: BoxDecoration(
+                              color: Styles.darkerBlueTheme,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () =>
+                                    Navigator.pushNamed(context, '/profile'),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text('Insurance:',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16)),
+                                      ),
+                                      Text(
+                                          model.insuranceProvider == ''
+                                              ? 'Tap to choose'
+                                              : model.insuranceProvider!,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700)),
+                                    ]),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () => model.callPRovider(),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      onPrimary: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                    icon: Icon(
+                                      Icons.phone,
+                                      color: Colors.white,
+                                    ),
+                                    label: Text(
+                                      "Call",
+                                      style: Styles.buttonTextStyle,
+                                    ),
+                                  ))
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
-                            child: buildIconButton(
-                                Colors.red,
-                                Colors.white,
-                                Icon(
-                                  Icons.phone,
-                                  color: Colors.white,
-                                ),
-                                'Call',
-                                callProvider),
-                          )
-                        ],
-                      ),
-                    ),
-                    // State disp:
-                    buildStateButton(),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                    //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.green,
-                    //       borderRadius: BorderRadius.circular(10.0)),
-                    //   child: Column(children: [
-                    //     Text('Your state:',
-                    //         style: TextStyle(color: Colors.white, fontSize: 16)),
-                    //     Text(
-                    //         stateOfResidence == null
-                    //             ? 'Tap to choose'
-                    //             : stateOfResidence,
-                    //         style: TextStyle(
-                    //             color: Colors.white,
-                    //             fontSize: 17,
-                    //             fontWeight: FontWeight.w700)),
-                    //   ]),
-                    // ),
-                  ],
-                ),
+                        ),
+                        // State disp:
+                        GestureDetector(
+                          onTap: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (c) => ProfilePage())),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Styles.modestPink),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: model.state == ''
+                                  ? Text(
+                                      'Select\n state',
+                                      textAlign: TextAlign.center,
+                                      style: Styles.medButtonWhite,
+                                    )
+                                  : Text(
+                                      model.state!,
+                                      textAlign: TextAlign.center,
+                                      style: Styles.largeButtonWhite,
+                                    ),
+                            ),
+                          ),
+                        )
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                        //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.green,
+                        //       borderRadius: BorderRadius.circular(10.0)),
+                        //   child: Column(children: [
+                        //     Text('Your state:',
+                        //         style: TextStyle(color: Colors.white, fontSize: 16)),
+                        //     Text(
+                        //         stateOfResidence == null
+                        //             ? 'Tap to choose'
+                        //             : stateOfResidence,
+                        //         style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: 17,
+                        //             fontWeight: FontWeight.w700)),
+                        //   ]),
+                        // ),
+                      ],
+                    );
+                  },
+                )
               ],
             ),
           );

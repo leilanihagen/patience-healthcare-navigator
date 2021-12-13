@@ -92,9 +92,7 @@ class App extends StatelessWidget {
                 ),
             '/profile': (context) => ProfilePage()
           },
-          home: AppBottomNavBarController(
-            currentIndex: 0,
-          ),
+          initialRoute: '/',
         ),
       ),
     );

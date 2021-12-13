@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserProvider extends ChangeNotifier {
   String? _insuranceProvider;
@@ -16,10 +17,10 @@ class UserProvider extends ChangeNotifier {
   late Box box;
   UserProvider() {
     box = Hive.box('profile');
-    _insuranceProvider = box.get('user_provider');
-    _state = box.get('user_state');
-    _plan = box.get('user_plan');
-    _phoneNumber = box.get('provider_phone');
+    _insuranceProvider = box.get('user_provider', defaultValue: "");
+    _state = box.get('user_state', defaultValue: "");
+    _plan = box.get('user_plan', defaultValue: "");
+    _phoneNumber = box.get('provider_phone', defaultValue: "");
   }
   void changeInsuranceProvider(String? value) {
     _insuranceProvider = value;
@@ -44,5 +45,13 @@ class UserProvider extends ChangeNotifier {
     final data = await jsonDecode(temp);
     _phoneNumber = data[provider]['phone'];
     box.put('provider_phone', _phoneNumber);
+  }
+
+  void callPRovider() async {
+    String _tel = 'tel:' + _phoneNumber!;
+    await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
+    observer.analytics.logEvent(
+        name: 'call_provider',
+        parameters: {'provider': _insuranceProvider, 'state': _state});
   }
 }
