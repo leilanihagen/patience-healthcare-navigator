@@ -1,8 +1,5 @@
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
-import 'package:flutter/cupertino.dart';
-// import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -11,7 +8,6 @@ import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:hive/hive.dart';
 
 class DashboardPage extends StatefulWidget {
   final Function? openPage;
@@ -67,17 +63,9 @@ class DashboardPageState extends State<DashboardPage>
             elevation: 5,
             child: Container(
               width: .97.sw,
-              // margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
               padding:
                   EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
               decoration: BoxDecoration(
-                // boxShadow: [
-                //   BoxShadow(
-                //       color: Colors.grey.withOpacity(0.5),
-                //       spreadRadius: 4,
-                //       blurRadius: 6,
-                //       offset: Offset(0, 3))
-                // ],
                 gradient: gradient,
                 color: Styles.lightGreenTheme,
                 borderRadius: BorderRadius.circular(20.0),
@@ -618,23 +606,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   padding: EdgeInsets.fromLTRB(0, 0, 0, .20),
                   child: Text(
                     'Your Information',
-                    // style: Styles.articleHeading1White,
                     style: Styles.articleBodyBold.copyWith(color: Colors.white),
                   ),
                 ),
-                // Provider + state text hints:
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     // Padding(
-                //     //   padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
-                //     //   child: Text('Your state:',
-                //     //       style:
-                //     //           TextStyle(color: Colors.white, fontSize: 16)),
-                //     // ),
-                //   ],
-                // ),
-                // Ins. provider + state displays:
                 Consumer<UserProvider>(
                   builder: (context, model, child) {
                     return Row(

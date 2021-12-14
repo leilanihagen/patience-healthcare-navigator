@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_stay_helper/config/styles.dart';
 
 class PatienceBackButton extends StatelessWidget {
   final VoidCallback callback;

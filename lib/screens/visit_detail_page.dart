@@ -106,10 +106,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         firstDate: DateTime(2015),
         lastDate: DateTime(2025));
     if (picked != null) {
-      setState(() {
-        widget.updateNoteFunction!(
-            widget.visit, index, 'date', DateFormat.yMd().format(picked));
-      });
+      widget.updateNoteFunction!(
+          widget.visit, index, 'date', DateFormat.yMd().format(picked));
     }
   }
 
@@ -136,16 +134,11 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             TimeOfDay.fromDateTime(DateFormat.Hm().parse(selectedTime)),
         initialEntryMode: TimePickerEntryMode.dial);
     if (picked != null)
-      setState(() {
-        widget.updateNoteFunction!(
-            widget.visit, index, 'time', picked.format(context));
-      });
+      widget.updateNoteFunction!(
+          widget.visit, index, 'time', picked.format(context));
   }
 
   updatVisitDate(Visit visit, String dataType, String inputData) {
-    setState(() {
-      // widget.visit.date = inputData;
-    });
     widget.updateVisitFunction!(visit, dataType, inputData);
     // widget.updateVisitFunction(visit, dataType, inputData);
   }
@@ -178,22 +171,13 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           begin: const Offset(-1, 0),
           end: Offset(0, 0),
         ).animate(animation),
-        child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
-            padding: const EdgeInsets.all(7.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
+        child: Card(
+            elevation: 5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3))
-              ],
-              border: Border.all(width: 1, color: Colors.grey[600]!),
             ),
-            // Title and note body:
+            margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -217,7 +201,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                             isEditingVisit: false,
                             updateFunction: widget.updateNoteFunction,
                             boxDecoration: BoxDecoration(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 // border: Border.all(),
                                 borderRadius: BorderRadius.circular(8.0)),
                             mainTextStyle: Theme.of(context)
@@ -515,41 +499,34 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                padding: EdgeInsets.all(5),
-                alignment: Alignment.centerRight,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    // border: Border.all(),
+              GestureDetector(
+                onTap: () => _selectVisitDate(context, widget.visit!.date!),
+                child: Card(
+                  elevation: 5,
+                  margin: EdgeInsets.only(left: 8),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 6,
-                          offset: Offset(6, 2))
-                    ]),
-                // onTap: () => _selectDate(
-                //     context, widget.visit.date, index),
-                child: GestureDetector(
-                  onTap: () => _selectVisitDate(context, widget.visit!.date!),
-                  child: Text(
-                    widget.visit!.date!,
-                    style: Styles.articleBodySmallBlack,
+                  ),
+                  color: Colors.white,
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    alignment: Alignment.center,
+                    height: 45,
+                    child: Text(
+                      widget.visit!.date!,
+                      style: Styles.articleBodySmallBlack,
+                    ),
                   ),
                 ),
               ),
               // Visit patientName
-              Container(
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: Offset(1, 2))
-                ]),
-                alignment: Alignment.centerRight,
+              Card(
+                elevation: 5,
+                margin: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                color: Colors.white,
                 child: VisitTapEditBox(
                   visit: widget.visit,
                   dataType: 'patientName',
@@ -557,10 +534,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   defaultText: "Patient's name...",
                   isEditingVisit: true,
                   updateFunction: widget.updateVisitFunction,
-                  boxDecoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(8.0)),
+
                   defaultTextStyle: Styles.articleBodySmallGreyed,
                   // height: 32.0,
                   width: .5.sw,
@@ -571,16 +545,13 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             ],
           ),
           // Healthcare provider line:
-          Container(
-            // height: 50,
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 6,
-                  offset: Offset(0, 3))
-            ]),
-            alignment: Alignment.topLeft,
+          Card(
+            elevation: 5,
+            margin: EdgeInsets.only(left: 8, right: 8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            color: Colors.white,
             child: VisitTapEditBox(
               visit: widget.visit,
               dataType: 'healthcareProvider',
@@ -588,10 +559,10 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
               isEditingVisit: true,
               updateFunction: widget.updateVisitFunction,
-              boxDecoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(),
-                  borderRadius: BorderRadius.circular(8.0)),
+              // boxDecoration: BoxDecoration(
+              //     color: Colors.white,
+              //     // border: Border.all(),
+              //     borderRadius: BorderRadius.circular(8.0)),
               defaultTextStyle: Styles.articleBodySmallGreyed,
               // height: 32.0,
               width: .97.sw,
@@ -599,39 +570,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               textAlign: TextAlign.left,
             ),
           ),
-
-          // Add media buttons:
-          // TODO (after first release): Enable Add media buttons:
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     ElevatedButton(
-          //       onPressed: () => createNewNote('note', ''),
-          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-
-          //       // Icon(Icons.add),
-          //       child: Icon(Icons.note_add),
-          //     ),
-          //     Container(
-          //       width: 50,
-          //     ),
-          //     ElevatedButton(
-          //       onPressed: () => getImage(),
-          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-          //       // Icon(Icons.add),
-          //       child: Icon(Icons.image),
-          //     )
-          //     //     IconButton(
-          //     //         icon: Icon(Icons.camera_alt),
-          //     //         color: Colors.white,
-          //     //         onPressed: () => {}),
-          //     //     IconButton(
-          //     //         icon: Icon(Icons.mic),
-          //     //         color: Colors.white,
-          //     //         onPressed: () => {})
-          //   ],
-          // ),
-
           Expanded(
               child: Column(
             children: [
