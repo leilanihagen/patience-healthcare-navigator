@@ -4,11 +4,7 @@ import 'package:hospital_stay_helper/components/guildeline_component/guildeline_
 import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
 
 class TermsPage extends StatelessWidget {
-  TermsPage({Key? key
-      // this.context,
-      // this.rootCategoriesPage,
-      })
-      : super(key: key);
+  TermsPage({Key? key}) : super(key: key);
 
   // final BuildContext? context;
   // final RootCategoriesPage? rootCategoriesPage;

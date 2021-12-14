@@ -7,11 +7,7 @@ import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReceivedBillPage extends StatelessWidget {
-  ReceivedBillPage({
-    Key? key,
-    // this.context,
-    // this.rootCategoriesPage,
-  });
+  ReceivedBillPage({Key? key}) : super(key: key);
 
   // final BuildContext? context;
   // final RootCategoriesPage? rootCategoriesPage;
@@ -71,7 +67,7 @@ class ReceivedBillPage extends StatelessWidget {
       text: TextSpan(
         style: Theme.of(context).textTheme.bodyText1,
         children: [
-          TextSpan(
+          const TextSpan(
               text:
                   "Many medical bills sent to patients are confusing and lack sufficient detail for the charges to be well-understood by the patient.\n\nHave a close friend or family member help you write an email (preferred, if possible) or letter to the hospital explaining that you will need more detailed information describing your charges and how they were calculated before you can pay. Try not to worry about sounding professional, just describe what you need from the hospital in simple language.\n\nElements to include in your letter:\n\n(a) Ask in your letter that the billing agency and/or hospital explain to you how each individual charge was determined.\n\n(b) Ask that they provide you with an itemized bill for each date of service they are charging you for.\n\n(c) Once you receive the itemized bill and an explanation of the hospitals charges, you will want to compare this information to the information in your insurance plan’s Explanation of Benefits form.\n\n(d) Ask that they show you evidence that they complied with federal and state pricing laws (in your state).\n\n(e) State that you will pay the correct amount according to your insurance plan’s Explanation of Benefits form after the hospital provides you with all requested information. You may state that it is your right as a consumer to have detailed knowledge about what exactly you are paying for.\n\n(f) Finally, state that you are disputing your bill and that you wish to have your account marked as disputed. State that if your bill is sent to a collections agency, you wish that the hospital/billing agency include a copy of all correspondence between yourself and the hospital, and that the hospital marks your file as disputed." +
                       "\n"),

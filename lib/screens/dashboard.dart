@@ -1,21 +1,17 @@
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
-import 'package:flutter/cupertino.dart';
-// import 'package:hospital_stay_helper/class/sharePref.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/provider/navigation_provider.dart';
+import 'package:hospital_stay_helper/provider/user_provider.dart';
 import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:hive/hive.dart';
 
 class DashboardPage extends StatefulWidget {
-  final Function? openPage;
-
-  DashboardPage({Key? key, this.openPage}) : super(key: key);
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
   DashboardPageState createState() => DashboardPageState();
@@ -23,93 +19,7 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
-  String insuranceProvider = '', stateOfResidence = '';
   List<bool> walkthrough = [true, true, true, true, true];
-  late Box box;
-  // double amountDeductiblePaid;
-
-  // _loadSaved() async {
-  //   double temp = await MySharedPreferences.instance
-  //       .getDoubleValue('user_deductible_paid');
-  //   print(temp);
-  //   setState(() {
-  //     amountDeductiblePaid = temp;
-  //   });
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-    // _loadSaved();
-    load();
-    // getInsuranceProvider();
-    // getStateOfResidence();
-  }
-
-  load() async {
-    if (await Hive.boxExists("profile")) {
-      box = await Hive.openBox("profile");
-      String temp_1 = box.get('user_provider') ?? '';
-      String temp_2 = box.get('user_state') ?? '';
-      setState(() {
-        insuranceProvider = temp_1;
-        stateOfResidence = temp_2;
-      });
-    } else {
-      box = await Hive.openBox("profile");
-      setState(() {
-        insuranceProvider = '';
-        stateOfResidence = '';
-      });
-    }
-  }
-
-  refresh() {
-    load();
-  }
-  // void updateAmountDeductiblePaid(num updatedAmount) {
-  //   setState(() {
-  //     amountDeductiblePaid = updatedAmount;
-  //   });
-  //   MySharedPreferences.instance
-  //       .setDoubleValue('user_deductible_paid', amountDeductiblePaid);
-  // }
-
-  //  Call your provider function is here
-  _callProvider() async {
-    // String _tel = 'tel:' +
-    //     await MySharedPreferences.instance.getStringValue('provider_phone');
-    String _tel = 'tel:' + box.get('provider_phone');
-    await canLaunch(_tel) ? await launch(_tel) : throw 'Could not launch $_tel';
-    observer.analytics.logEvent(
-        name: 'call_provider',
-        parameters: {'provider': insuranceProvider, 'state': stateOfResidence});
-  }
-
-  void getInsuranceProvider() async {
-    // setState(() async {
-    // String temp =
-    //     await MySharedPreferences.instance.getStringValue('user_provider');
-    String temp = box.get('user_provider') ?? '';
-    print(temp);
-    setState(() {
-      insuranceProvider = temp;
-    });
-    // });
-  }
-
-  void getStateOfResidence() async {
-    // setState(() async {
-    // String temp =
-    //     await MySharedPreferences.instance.getStringValue('user_state');
-    String temp = box.get('user_state') ?? '';
-    print(temp);
-    setState(() {
-      stateOfResidence = temp;
-    });
-    // });
-  }
-
   Widget buildWalkthroughCard(String imagePath, String title, String body,
       String buttonText, Gradient gradient, int targetPageIndex) {
     return Visibility(
@@ -126,7 +36,7 @@ class DashboardPageState extends State<DashboardPage>
                   walkthrough[targetPageIndex - 1] = true;
                 });
               },
-              child: SizedBox(
+              child: const SizedBox(
                 width: 40,
                 height: 40,
                 child: RotatedBox(
@@ -144,33 +54,28 @@ class DashboardPageState extends State<DashboardPage>
       child: Stack(children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
-          child: Material(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(20.0),
+          child: Card(
+            // color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
             elevation: 5,
             child: Container(
               width: .97.sw,
-              // margin: EdgeInsets.symmetric(vertical: .03.sw, horizontal: .03.sw),
               padding:
                   EdgeInsets.symmetric(vertical: .01.sh, horizontal: .05.sw),
               decoration: BoxDecoration(
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //       color: Colors.grey.withOpacity(0.5),
-                  //       spreadRadius: 4,
-                  //       blurRadius: 6,
-                  //       offset: Offset(0, 3))
-                  // ],
-                  gradient: gradient,
-                  color: Styles.lightGreenTheme,
-                  borderRadius: BorderRadius.circular(20.0)),
+                gradient: gradient,
+                color: Styles.lightGreenTheme,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
               child: Column(
                 children: [
                   // Title + close button:
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.center,
                   //   children: [
-                  Container(
+                  SizedBox(
                     width: .8.sw,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -198,10 +103,10 @@ class DashboardPageState extends State<DashboardPage>
                   //   ],
                   // ),
                   // Text + image:
-                  Container(
+                  SizedBox(
                       width: .4.sh,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Align(
                             alignment: Alignment.bottomCenter,
                             child: DropCapText(
@@ -225,12 +130,8 @@ class DashboardPageState extends State<DashboardPage>
                     padding: EdgeInsets.symmetric(vertical: .005.sw),
                     child: TextButton(
                         onPressed: () {
-                          widget.openPage!(targetPageIndex);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AppBottomNavBarController(
-                          //             currentIndex: targetPageIndex)));
+                          Provider.of<MainNavigationProvider>(context)
+                              .openPage(targetPageIndex, context);
                         },
                         child: Text(
                           buttonText,
@@ -254,7 +155,7 @@ class DashboardPageState extends State<DashboardPage>
                     walkthrough[targetPageIndex - 1] = false;
                   });
                 },
-                child: SizedBox(
+                child: const SizedBox(
                   width: 40,
                   height: 40,
                   child: RotatedBox(
@@ -276,7 +177,7 @@ class DashboardPageState extends State<DashboardPage>
   Widget buildArticleButton(
       Color color, String title, Image image, String url) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: GestureDetector(
         onTap: () {
           observer.analytics
@@ -293,7 +194,7 @@ class DashboardPageState extends State<DashboardPage>
               child: image,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               width: .25.sh,
               child: Text(
                 title,
@@ -370,7 +271,7 @@ class DashboardPageState extends State<DashboardPage>
 
   Widget buildStatisticButton(Widget impact, String title, String url) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: GestureDetector(
         onTap: () {
           observer.analytics.logEvent(
@@ -386,7 +287,7 @@ class DashboardPageState extends State<DashboardPage>
             //   style: Styles.bigImpact,
             // ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               width: .25.sh,
               child: Text(
                 title,
@@ -413,7 +314,7 @@ class DashboardPageState extends State<DashboardPage>
             style: Styles.articleHeading1,
           ),
           subtitle == ''
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : Text(
                   subtitle,
                   //textAlign: TextAlign.left,
@@ -424,30 +325,11 @@ class DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget buildIconButton(Color backgroundColor, Color foregroundColor,
-      Icon icon, String text, Function function) {
-    return ElevatedButton.icon(
-      onPressed: () => {function()},
-      style: ElevatedButton.styleFrom(
-        primary: backgroundColor,
-        onPrimary: foregroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-      ),
-      icon: icon,
-      label: Text(
-        text,
-        style: Styles.buttonTextStyle,
-      ),
-    );
-  }
-
   Widget stateNotSelectedButton() {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             shape: BoxShape.circle, color: Styles.extraLightPinkTheme),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -465,67 +347,6 @@ class DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget buildStateButton() {
-    // String image = '';
-    // switch (stateOfResidence) {
-    //   case 'WA':
-    //     image = 'wa.png';
-    //     break;
-    //   case 'OR':
-    //     image = 'or.png';
-    //     break;
-    //   case 'CA':
-    //     image = 'ca.png';
-    //     break;
-    //   case 'MD':
-    //     image = 'md.png';
-    //     break;
-    //   case 'VA':
-    //     image = 'va.png';
-    //     break;
-    //   case 'DC':
-    //     image = 'dc.png';
-    //     break;
-    //   case 'GA':
-    //     image = 'ga.png';
-    //     break;
-    //   default:
-    //     image = 'nostate.png';
-    // }
-
-    return GestureDetector(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (c) => ProfilePage())),
-      child: Container(
-        decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Styles.modestPink),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: stateOfResidence == ''
-              ? Text(
-                  'Select\n state',
-                  textAlign: TextAlign.center,
-                  style: Styles.medButtonWhite,
-                )
-              : Text(
-                  stateOfResidence,
-                  textAlign: TextAlign.center,
-                  style: Styles.largeButtonWhite,
-                ),
-          // Column(
-          //   children: [
-          //     // Image.asset(
-          //     //   'assets/images/' + image,
-          //     //   height: 80,`
-          //     //   width: 50,
-          //     // ),
-          //   ],
-          // ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -534,12 +355,7 @@ class DashboardPageState extends State<DashboardPage>
         slivers: [
           // Header:
           SliverPersistentHeader(
-            delegate: CustomSliverDelegate(
-                insuranceProvider,
-                widget.openPage as dynamic Function(int)?,
-                buildIconButton,
-                buildStateButton,
-                _callProvider),
+            delegate: CustomSliverDelegate(),
             floating: true,
           ),
           SliverList(
@@ -549,30 +365,32 @@ class DashboardPageState extends State<DashboardPage>
               // Header:
               buildTitle("Welcome to Patience!", ''),
               buildWalkthroughCard(
-                  'assets/images/study_guidelines.png',
-                  'Learn about healthcare, bills and insurance',
-                  'Explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
-                  'Explore Guidelines',
-                  LinearGradient(
-                    colors: [Styles.extraLightGreen, Styles.medGreenTheme],
-                    stops: [.1, .7],
-                  ),
-                  1),
+                'assets/images/study_guidelines.png',
+                'Learn about healthcare, bills and insurance',
+                'Explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
+                'Explore Guidelines',
+                const LinearGradient(
+                  colors: [Styles.extraLightGreen, Styles.medGreenTheme],
+                  stops: [.1, .7],
+                ),
+                1,
+              ),
               buildWalkthroughCard(
-                  'assets/images/setup_settings.png',
-                  'Setup your user settings',
-                  'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
-                  'Open User Settings',
-                  LinearGradient(
-                    colors: [
-                      Styles.extraLightPurpleTheme,
-                      Styles.lightPurple2Theme
-                    ],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  5),
+                'assets/images/setup_settings.png',
+                'Setup your user settings',
+                'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
+                'Open User Settings',
+                const LinearGradient(
+                  colors: [
+                    Styles.extraLightPurpleTheme,
+                    Styles.lightPurple2Theme
+                  ],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                5,
+              ),
               // buildTitle("My Tools"),s
               // TO DO (if time): implement simple tracker
               // buildDeductibleTracker(),
@@ -580,7 +398,7 @@ class DashboardPageState extends State<DashboardPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildTitle("Stay Informed", ''),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: Icon(Icons.arrow_forward)),
                 ],
@@ -630,34 +448,36 @@ class DashboardPageState extends State<DashboardPage>
               buildTitle("What Can I Do with Patience?", ''),
               // TODO: add "you can record audio" to the description once this feature is added:
               buildWalkthroughCard(
-                  'assets/images/medical_records.png',
-                  'Keep detailed records of your regularly scheduled medical visits',
-                  'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
-                  'Explore your Visits Timeline',
-                  LinearGradient(
-                    colors: [Styles.extraLightPinkTheme, Styles.medPinkTheme],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  2),
+                'assets/images/medical_records.png',
+                'Keep detailed records of your regularly scheduled medical visits',
+                'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
+                'Explore your Visits Timeline',
+                const LinearGradient(
+                  colors: [Styles.extraLightPinkTheme, Styles.medPinkTheme],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                2,
+              ),
               buildWalkthroughCard(
-                  'assets/images/find_hospitals.png',
-                  'Use our Hospital Finder to get to know the in-network hospitals in your area',
-                  'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
-                  'Explore Find Hospitals',
-                  LinearGradient(
-                    colors: [Styles.lightEmerald, Styles.emerald],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  3),
+                'assets/images/find_hospitals.png',
+                'Use our Hospital Finder to get to know the in-network hospitals in your area',
+                'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
+                'Explore Find Hospitals',
+                const LinearGradient(
+                  colors: [Styles.lightEmerald, Styles.emerald],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                3,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildTitle("US Healthcare Statistics", '(Tap to read more)'),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: Icon(Icons.arrow_forward)),
                 ],
@@ -713,7 +533,7 @@ class DashboardPageState extends State<DashboardPage>
                           'Of Americans avoided healthcare because they were unsure what their insurance covered',
                           'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
                       buildStatisticButton(
-                          Text('2×', style: Styles.bigImpact),
+                          const Text('2×', style: Styles.bigImpact),
                           'We spend avg. 2× as much as other developed nations on healthcare',
                           'https://youtu.be/tNla9nyRMmQ'),
                       buildStatisticButton(
@@ -750,14 +570,7 @@ class _Rebuild extends ChangeNotifier {
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double height = 400;
-  final String insuranceProvider;
-  final Function(int)? openPage;
-  final Function buildIconButton;
-  final Function buildStateButton;
-  final Function callProvider;
-
-  CustomSliverDelegate(this.insuranceProvider, this.openPage,
-      this.buildIconButton, this.buildStateButton, this.callProvider);
+  CustomSliverDelegate();
 
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
@@ -779,13 +592,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               color: (Theme.of(context).brightness == Brightness.dark)
                   ? Colors.grey[850]
                   : Styles.purpleTheme,
-              // boxShadow: [
-              //   BoxShadow(
-              //       color: Colors.grey.withOpacity(0.5),
-              //       spreadRadius: 4,
-              //       blurRadius: 6,
-              //       offset: Offset(0, 3))
-              // ],
               border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(.1.sw),
@@ -796,102 +602,125 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, .20),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, .20),
                   child: Text(
                     'Your Information',
-                    // style: Styles.articleHeading1White,
                     style: Styles.articleBodyBold.copyWith(color: Colors.white),
                   ),
                 ),
-                // Provider + state text hints:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Padding(
-                    //   padding: EdgeInsets.fromLTRB(0, 10, 100, 0),
-                    //   child: Text('Your state:',
-                    //       style:
-                    //           TextStyle(color: Colors.white, fontSize: 16)),
-                    // ),
-                  ],
-                ),
-                // Ins. provider + state displays:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Insurance provider disp:
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                      margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
-                      decoration: BoxDecoration(
-                          color: Styles.darkerBlueTheme,
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => ProfilePage())),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text('Insurance:',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 16)),
-                                  ),
-                                  Text(
-                                      insuranceProvider == ''
-                                          ? 'Tap to choose'
-                                          : insuranceProvider,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700)),
-                                ]),
+                Consumer<UserProvider>(
+                  builder: (context, model, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Insurance provider disp:
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 5),
+                          margin: const EdgeInsets.fromLTRB(15, 4, 5, 4),
+                          decoration: BoxDecoration(
+                              color: Styles.darkerBlueTheme,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () =>
+                                    Navigator.pushNamed(context, '/profile'),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text('Insurance:',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16)),
+                                      ),
+                                      Text(
+                                          model.insuranceProvider == ''
+                                              ? 'Tap to choose'
+                                              : model.insuranceProvider!,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700)),
+                                    ]),
+                              ),
+                              Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(3, 0, 0, 0),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () => model.callPRovider(),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      onPrimary: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                    icon: const Icon(
+                                      Icons.phone,
+                                      color: Colors.white,
+                                    ),
+                                    label: const Text(
+                                      "Call",
+                                      style: Styles.buttonTextStyle,
+                                    ),
+                                  ))
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
-                            child: buildIconButton(
-                                Colors.red,
-                                Colors.white,
-                                Icon(
-                                  Icons.phone,
-                                  color: Colors.white,
-                                ),
-                                'Call',
-                                callProvider),
-                          )
-                        ],
-                      ),
-                    ),
-                    // State disp:
-                    buildStateButton(),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                    //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.green,
-                    //       borderRadius: BorderRadius.circular(10.0)),
-                    //   child: Column(children: [
-                    //     Text('Your state:',
-                    //         style: TextStyle(color: Colors.white, fontSize: 16)),
-                    //     Text(
-                    //         stateOfResidence == null
-                    //             ? 'Tap to choose'
-                    //             : stateOfResidence,
-                    //         style: TextStyle(
-                    //             color: Colors.white,
-                    //             fontSize: 17,
-                    //             fontWeight: FontWeight.w700)),
-                    //   ]),
-                    // ),
-                  ],
-                ),
+                        ),
+                        // State disp:
+                        GestureDetector(
+                          onTap: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (c) => ProfilePage())),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Styles.modestPink),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: model.state == ''
+                                  ? const Text(
+                                      'Select\n state',
+                                      textAlign: TextAlign.center,
+                                      style: Styles.medButtonWhite,
+                                    )
+                                  : Text(
+                                      model.state!,
+                                      textAlign: TextAlign.center,
+                                      style: Styles.largeButtonWhite,
+                                    ),
+                            ),
+                          ),
+                        )
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                        //   margin: EdgeInsets.fromLTRB(3, 10, 15, 10),
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.green,
+                        //       borderRadius: BorderRadius.circular(10.0)),
+                        //   child: Column(children: [
+                        //     Text('Your state:',
+                        //         style: TextStyle(color: Colors.white, fontSize: 16)),
+                        //     Text(
+                        //         stateOfResidence == null
+                        //             ? 'Tap to choose'
+                        //             : stateOfResidence,
+                        //         style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: 17,
+                        //             fontWeight: FontWeight.w700)),
+                        //   ]),
+                        // ),
+                      ],
+                    );
+                  },
+                )
               ],
             ),
           );

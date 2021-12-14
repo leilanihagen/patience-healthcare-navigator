@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Padding buildPageDescriptionGradient(String description, List<Color> colors) {
   return Padding(

@@ -550,7 +550,7 @@ import 'package:hospital_stay_helper/config/styles.dart';
 // }
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
   @override
   _SearchPage createState() => _SearchPage();
 }
@@ -569,7 +569,7 @@ class _SearchPage extends State<SearchPage>
         children: [
           MaterialBanner(
             leading: const CircleAvatar(
-              child: const Icon(
+              child: Icon(
                 Icons.settings_applications_sharp,
                 color: Colors.white,
               ),
@@ -578,14 +578,14 @@ class _SearchPage extends State<SearchPage>
               padding: const EdgeInsets.all(4.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     'Hello from the dev team!',
                     style: Styles.articleBody,
                   ),
-                  const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: const Text(
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Text(
                       '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the dev team is currently working on it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (10-5-2021)''',
                       style: Styles.articleBody,
                     ),
@@ -593,7 +593,7 @@ class _SearchPage extends State<SearchPage>
                 ],
               ),
             ),
-            actions: [
+            actions: const [
               TextButton(
                 child: Text(
                   'Thanks',
