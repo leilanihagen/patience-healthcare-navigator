@@ -4,14 +4,7 @@ import 'package:hospital_stay_helper/components/guildeline_component/guildeline_
 import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
 
 class DuringStayPage extends StatelessWidget {
-  DuringStayPage({
-    Key? key,
-    // this.context,
-    // this.rootCategoriesPage,
-  });
-
-  // final BuildContext? context;
-  // final RootCategoriesPage? rootCategoriesPage;
+  DuringStayPage({Key? key}) : super(key: key);
   final List<String> guidelinesTitles = [
     "Ask if you will be treated by in-network physicians/providers",
     "Call your insurance provider to ask about costs and what is covered",

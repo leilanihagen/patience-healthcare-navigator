@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class AppBottomNavBarController extends StatefulWidget {
   final int currentIndex;
 
-  AppBottomNavBarController({Key? key, required this.currentIndex})
+  const AppBottomNavBarController({Key? key, required this.currentIndex})
       : super(key: key);
 
   @override
@@ -77,7 +77,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
               Badge(
                 position: BadgePosition.topStart(),
                 showBadge: model.haveOpenProfile,
-                badgeContent: Text(
+                badgeContent: const Text(
                   "!",
                   style: TextStyle(
                     color: Colors.white,
@@ -92,7 +92,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                       iconSize: 35,
                       onPressed: () => Navigator.push(context,
                           MaterialPageRoute(builder: (c) => ProfilePage())),
-                      icon: Icon(Icons.settings),
+                      icon: const Icon(Icons.settings),
                     ),
                   ),
                 ),
@@ -112,7 +112,7 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           bottomNavigationBar: _bottomNavBar(model.pageIndex),
           body: PageView(
             controller: model.pageController,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: model.pages,
             // onPageChanged: (index) => model.openPage(index, context),
           ),

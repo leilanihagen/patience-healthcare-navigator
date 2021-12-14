@@ -4,12 +4,6 @@ import 'package:hospital_stay_helper/components/guildeline_component/guildeline_
 import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
 
 class AfterStayPage extends StatelessWidget {
-  AfterStayPage({
-    Key? key,
-    // this.context,
-    // this.rootCategoriesPage,
-  });
-
   // final BuildContext? context;
   // final RootCategoriesPage? rootCategoriesPage;
   final List<String> guidelinesTitles = [
@@ -20,6 +14,8 @@ class AfterStayPage extends StatelessWidget {
     "If you have received a large bill, do not pay even a small part of it until you have disputed the bill first. You can dispute the bill directly with the hospital or the hospital's billing agency (depending on if your hospital uses one), with the collections agency, if your bill has been sent to collections, or both. You may be able to write a simple letter to stop collections agencies from contacting you.\n\nPlease read more disputing bills in the \"I've received a surprise medical bill\" and \"My medical bill/debt has been sent to collections\" categories.",
     "Many hospitals, including all non-profit hospitals, offer financial assistance to help you pay for your medical bills. Ask the hospital if they offer any of these programs to help you pay off your bill.",
   ];
+
+  AfterStayPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

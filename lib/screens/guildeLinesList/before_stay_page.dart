@@ -4,12 +4,7 @@ import 'package:hospital_stay_helper/components/guildeline_component/guildeline_
 import 'package:hospital_stay_helper/components/guildeline_component/situation_box.dart';
 
 class BeforeStayPage extends StatelessWidget {
-  BeforeStayPage(
-      {
-      // this.context,
-      // this.rootCategoriesPage,
-      Key? key})
-      : super(key: key);
+  BeforeStayPage({Key? key}) : super(key: key);
 
   // final BuildContext? context;
   // final RootCategoriesPage? rootCategoriesPage;

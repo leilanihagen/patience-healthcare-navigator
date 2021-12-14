@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/provider/navigation_provider.dart';
 import 'package:hospital_stay_helper/provider/user_provider.dart';
 import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -10,9 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
-  final Function? openPage;
-
-  DashboardPage({Key? key, this.openPage}) : super(key: key);
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
   DashboardPageState createState() => DashboardPageState();
@@ -37,7 +36,7 @@ class DashboardPageState extends State<DashboardPage>
                   walkthrough[targetPageIndex - 1] = true;
                 });
               },
-              child: SizedBox(
+              child: const SizedBox(
                 width: 40,
                 height: 40,
                 child: RotatedBox(
@@ -76,7 +75,7 @@ class DashboardPageState extends State<DashboardPage>
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.center,
                   //   children: [
-                  Container(
+                  SizedBox(
                     width: .8.sw,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -104,10 +103,10 @@ class DashboardPageState extends State<DashboardPage>
                   //   ],
                   // ),
                   // Text + image:
-                  Container(
+                  SizedBox(
                       width: .4.sh,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Align(
                             alignment: Alignment.bottomCenter,
                             child: DropCapText(
@@ -131,12 +130,8 @@ class DashboardPageState extends State<DashboardPage>
                     padding: EdgeInsets.symmetric(vertical: .005.sw),
                     child: TextButton(
                         onPressed: () {
-                          widget.openPage!(targetPageIndex);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AppBottomNavBarController(
-                          //             currentIndex: targetPageIndex)));
+                          Provider.of<MainNavigationProvider>(context)
+                              .openPage(targetPageIndex, context);
                         },
                         child: Text(
                           buttonText,
@@ -160,7 +155,7 @@ class DashboardPageState extends State<DashboardPage>
                     walkthrough[targetPageIndex - 1] = false;
                   });
                 },
-                child: SizedBox(
+                child: const SizedBox(
                   width: 40,
                   height: 40,
                   child: RotatedBox(
@@ -182,7 +177,7 @@ class DashboardPageState extends State<DashboardPage>
   Widget buildArticleButton(
       Color color, String title, Image image, String url) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: GestureDetector(
         onTap: () {
           observer.analytics
@@ -199,7 +194,7 @@ class DashboardPageState extends State<DashboardPage>
               child: image,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               width: .25.sh,
               child: Text(
                 title,
@@ -276,7 +271,7 @@ class DashboardPageState extends State<DashboardPage>
 
   Widget buildStatisticButton(Widget impact, String title, String url) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: GestureDetector(
         onTap: () {
           observer.analytics.logEvent(
@@ -292,7 +287,7 @@ class DashboardPageState extends State<DashboardPage>
             //   style: Styles.bigImpact,
             // ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               width: .25.sh,
               child: Text(
                 title,
@@ -319,7 +314,7 @@ class DashboardPageState extends State<DashboardPage>
             style: Styles.articleHeading1,
           ),
           subtitle == ''
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : Text(
                   subtitle,
                   //textAlign: TextAlign.left,
@@ -334,7 +329,7 @@ class DashboardPageState extends State<DashboardPage>
     return GestureDetector(
       onTap: () {},
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             shape: BoxShape.circle, color: Styles.extraLightPinkTheme),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -370,30 +365,32 @@ class DashboardPageState extends State<DashboardPage>
               // Header:
               buildTitle("Welcome to Patience!", ''),
               buildWalkthroughCard(
-                  'assets/images/study_guidelines.png',
-                  'Learn about healthcare, bills and insurance',
-                  'Explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
-                  'Explore Guidelines',
-                  LinearGradient(
-                    colors: [Styles.extraLightGreen, Styles.medGreenTheme],
-                    stops: [.1, .7],
-                  ),
-                  1),
+                'assets/images/study_guidelines.png',
+                'Learn about healthcare, bills and insurance',
+                'Explore healthcare terms and definitions, and learn how to save time and money if you end up at the hospital, receive a surprise medical bill, or if you have medical debt.',
+                'Explore Guidelines',
+                const LinearGradient(
+                  colors: [Styles.extraLightGreen, Styles.medGreenTheme],
+                  stops: [.1, .7],
+                ),
+                1,
+              ),
               buildWalkthroughCard(
-                  'assets/images/setup_settings.png',
-                  'Setup your user settings',
-                  'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
-                  'Open User Settings',
-                  LinearGradient(
-                    colors: [
-                      Styles.extraLightPurpleTheme,
-                      Styles.lightPurple2Theme
-                    ],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  5),
+                'assets/images/setup_settings.png',
+                'Setup your user settings',
+                'Get started with Patience by entering some basic information so we can help you better navigate your healthcare (optional). Your data is never shared outside the app.',
+                'Open User Settings',
+                const LinearGradient(
+                  colors: [
+                    Styles.extraLightPurpleTheme,
+                    Styles.lightPurple2Theme
+                  ],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                5,
+              ),
               // buildTitle("My Tools"),s
               // TO DO (if time): implement simple tracker
               // buildDeductibleTracker(),
@@ -401,7 +398,7 @@ class DashboardPageState extends State<DashboardPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildTitle("Stay Informed", ''),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: Icon(Icons.arrow_forward)),
                 ],
@@ -451,34 +448,36 @@ class DashboardPageState extends State<DashboardPage>
               buildTitle("What Can I Do with Patience?", ''),
               // TODO: add "you can record audio" to the description once this feature is added:
               buildWalkthroughCard(
-                  'assets/images/medical_records.png',
-                  'Keep detailed records of your regularly scheduled medical visits',
-                  'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
-                  'Explore your Visits Timeline',
-                  LinearGradient(
-                    colors: [Styles.extraLightPinkTheme, Styles.medPinkTheme],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  2),
+                'assets/images/medical_records.png',
+                'Keep detailed records of your regularly scheduled medical visits',
+                'Using our Visits Timeline page, you can keep detailed records of visits with your primary care physician, dentist, physical therapist, you name it! You can take notes and upload photos of documents or other information during your visit, all with automatic timestamps.\n\nKeeping these records not only helps you manage your healthcare for better health outcomes but also helps you track and record your medical bills and expenses. It is especially helpful if you choose to dispute a medical bill.',
+                'Explore your Visits Timeline',
+                const LinearGradient(
+                  colors: [Styles.extraLightPinkTheme, Styles.medPinkTheme],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                2,
+              ),
               buildWalkthroughCard(
-                  'assets/images/find_hospitals.png',
-                  'Use our Hospital Finder to get to know the in-network hospitals in your area',
-                  'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
-                  'Explore Find Hospitals',
-                  LinearGradient(
-                    colors: [Styles.lightEmerald, Styles.emerald],
-                    // begin: Alignment.topLeft,
-                    // end: Alignment.bottomRight,
-                    stops: [.1, .7],
-                  ),
-                  3),
+                'assets/images/find_hospitals.png',
+                'Use our Hospital Finder to get to know the in-network hospitals in your area',
+                'You never know when an emergency might happen, so it\'s best to be prepared by knowing which hospitals in your area are in-network with your insurance provider. This will help you save critical time and money, and know exactly where to go in an emergency.\n\nWe designed our In-Network Hospital Finder for use in emergency situations, but it is also perfect for preparing for emergencies.\n\nSimply go to the Find Hospitals page and tap "Tap to find/verify hospitals" to see a list of the top 3 in-network hospitals nearby your current location. Tap each hospital name to get directions in Maps.',
+                'Explore Find Hospitals',
+                const LinearGradient(
+                  colors: [Styles.lightEmerald, Styles.emerald],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                  stops: [.1, .7],
+                ),
+                3,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildTitle("US Healthcare Statistics", '(Tap to read more)'),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: Icon(Icons.arrow_forward)),
                 ],
@@ -534,7 +533,7 @@ class DashboardPageState extends State<DashboardPage>
                           'Of Americans avoided healthcare because they were unsure what their insurance covered',
                           'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
                       buildStatisticButton(
-                          Text('2×', style: Styles.bigImpact),
+                          const Text('2×', style: Styles.bigImpact),
                           'We spend avg. 2× as much as other developed nations on healthcare',
                           'https://youtu.be/tNla9nyRMmQ'),
                       buildStatisticButton(
@@ -603,7 +602,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, .20),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, .20),
                   child: Text(
                     'Your Information',
                     style: Styles.articleBodyBold.copyWith(color: Colors.white),
@@ -617,9 +616,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                       children: [
                         // Insurance provider disp:
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-                          margin: EdgeInsets.fromLTRB(15, 4, 5, 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 5),
+                          margin: const EdgeInsets.fromLTRB(15, 4, 5, 4),
                           decoration: BoxDecoration(
                               color: Styles.darkerBlueTheme,
                               borderRadius: BorderRadius.circular(10.0)),
@@ -633,7 +632,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Align(
+                                      const Align(
                                         alignment: Alignment.topLeft,
                                         child: Text('Insurance:',
                                             style: TextStyle(
@@ -644,14 +643,15 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                           model.insuranceProvider == ''
                                               ? 'Tap to choose'
                                               : model.insuranceProvider!,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w700)),
                                     ]),
                               ),
                               Padding(
-                                  padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(3, 0, 0, 0),
                                   child: ElevatedButton.icon(
                                     onPressed: () => model.callPRovider(),
                                     style: ElevatedButton.styleFrom(
@@ -662,11 +662,11 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                             BorderRadius.circular(30.0),
                                       ),
                                     ),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.phone,
                                       color: Colors.white,
                                     ),
-                                    label: Text(
+                                    label: const Text(
                                       "Call",
                                       style: Styles.buttonTextStyle,
                                     ),
@@ -679,13 +679,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                           onTap: () => Navigator.push(context,
                               MaterialPageRoute(builder: (c) => ProfilePage())),
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Styles.modestPink),
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: model.state == ''
-                                  ? Text(
+                                  ? const Text(
                                       'Select\n state',
                                       textAlign: TextAlign.center,
                                       style: Styles.medButtonWhite,

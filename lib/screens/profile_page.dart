@@ -11,7 +11,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePage createState() => _ProfilePage();
@@ -41,34 +41,6 @@ class _ProfilePage extends State<ProfilePage>
   String? _chosenScreen;
   bool _temp = false;
   late Box box;
-  _loadSave() async {
-    // String tempUserState =
-    //     await MySharedPreferences.instance.getStringValue('user_state');
-    // String tempUserProvider =
-    //     await MySharedPreferences.instance.getStringValue('user_provider');
-    // String tempUserPlan =
-    //     await MySharedPreferences.instance.getStringValue('user_plan');
-    // box = await Hive.openBox('profile');
-    // String? tempUserState = box.get('user_state');
-    // String? tempUserProvider = box.get('user_provider');
-    // String? tempUserPlan = box.get('user_plan');
-    // setState(() {
-    //   userState = tempUserState;
-    //   userProvider = tempUserProvider;
-    //   userPlan = tempUserPlan;
-    // });
-    // Implement later:
-    // userDeductible =
-    //     await MySharedPreferences.instance.getStringValue('user_deductible');
-    // userDeductibleReduction = await MySharedPreferences.instance
-    //     .getStringValue('user_deductible_reduction');
-  }
-
-  _check() async {
-    var tempBox = await Hive.openBox('mainController');
-    tempBox.put('selectProfile', true);
-    tempBox.close();
-  }
 
   openRating() async {
     final InAppReview inAppReview = InAppReview.instance;
@@ -86,15 +58,16 @@ class _ProfilePage extends State<ProfilePage>
       formController.submitForm(feedbackForm, (String response) {
         if (response == FormController.STATUS_SUCCESS) {
           _controller!.clear();
-          rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
+          rootScaffoldMessengerKey.currentState!.showSnackBar(const SnackBar(
               content:
                   Text("Thank you for your suggestion! We have recieved it.")));
           setState(() {
             _temp = false;
           });
-        } else
+        } else {
           rootScaffoldMessengerKey.currentState!
-              .showSnackBar(SnackBar(content: Text("Error Occured")));
+              .showSnackBar(const SnackBar(content: Text("Error Occured")));
+        }
       });
     }
   }
@@ -103,7 +76,6 @@ class _ProfilePage extends State<ProfilePage>
   initState() {
     super.initState();
     // _loadSave();
-    _check();
     _controller = TextEditingController();
   }
 
@@ -128,7 +100,7 @@ class _ProfilePage extends State<ProfilePage>
                     color: Colors.transparent,
                     child: IconButton(
                       iconSize: 35,
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),
@@ -212,7 +184,7 @@ class _ProfilePage extends State<ProfilePage>
                                     child: DropdownSearch<String>(
                                       mode: Mode.MENU,
                                       showSelectedItem: true,
-                                      items: [
+                                      items: const [
                                         'CA',
                                         'WA',
                                         'OR',
@@ -243,7 +215,7 @@ class _ProfilePage extends State<ProfilePage>
                                     child: DropdownSearch<String>(
                                       mode: Mode.MENU,
                                       showSelectedItem: true,
-                                      items: [
+                                      items: const [
                                         'Kaiser Permanente',
                                         'Pacific Source'
                                       ],
@@ -353,11 +325,13 @@ class _ProfilePage extends State<ProfilePage>
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Container(
-                            padding: EdgeInsets.only(top: 10),
-                            decoration: BoxDecoration(
-                                // color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0))),
+                            padding: const EdgeInsets.only(top: 10),
+                            decoration: const BoxDecoration(
+                              // color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                            ),
                             child: Wrap(
                               alignment: WrapAlignment.spaceBetween,
                               children: [
@@ -376,7 +350,7 @@ class _ProfilePage extends State<ProfilePage>
                                       ),
                                       // labelStyle: TextStyle(color: Colors.black),
                                       // border: OutlineInputBorder(),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(4)),
                                         borderSide: BorderSide(
@@ -403,7 +377,7 @@ class _ProfilePage extends State<ProfilePage>
                                                   value: value,
                                                 ))
                                         .toList(),
-                                    hint: Text(
+                                    hint: const Text(
                                       "Choose a screen for feedback",
                                       style: TextStyle(
                                           // color: Colors.black,
@@ -417,10 +391,10 @@ class _ProfilePage extends State<ProfilePage>
                                   children: [
                                     TextButton(
                                         onPressed: () => openRating(),
-                                        child: Text("Rate us")),
+                                        child: const Text("Rate us")),
                                     TextButton(
                                         onPressed: () => submitSuggestion(),
-                                        child: Text("Submit")),
+                                        child: const Text("Submit")),
                                   ],
                                 )
                               ],

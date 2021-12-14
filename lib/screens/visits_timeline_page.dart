@@ -11,7 +11,7 @@ import 'package:hospital_stay_helper/screens/visit_detail_page.dart';
 import 'package:provider/provider.dart';
 
 class VisitsTimelinePage extends StatefulWidget {
-  VisitsTimelinePage({Key? key}) : super(key: key);
+  const VisitsTimelinePage({Key? key}) : super(key: key);
 
   @override
   _VisitsTimelinePageState createState() => _VisitsTimelinePageState();
@@ -55,14 +55,14 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(-1, 0),
-        end: Offset(0, 0),
+        end: const Offset(0, 0),
       ).animate(animation),
       child: GestureDetector(
         onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => VisitDetailPage(
-                      key: PageStorageKey('visitdetailpage'),
+                      key: const PageStorageKey('visitdetailpage'),
                       visitIndex: index,
                       updateVisitFunction: Provider.of<VisitTimelineProvider>(
                               context,
@@ -83,7 +83,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                           .deleteNote,
                     ))),
         child: Card(
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Styles.purpleTheme,
@@ -99,8 +99,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   // Visit date:
                   Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(5.0),
-                      margin: EdgeInsets.all(7.0),
+                      padding: const EdgeInsets.all(5.0),
+                      margin: const EdgeInsets.all(7.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         // border: Border.all(),
@@ -134,8 +134,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   // Patient name:
                   Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(5.0),
-                      margin: EdgeInsets.all(7.0),
+                      padding: const EdgeInsets.all(5.0),
+                      margin: const EdgeInsets.all(7.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         // border: Border.all(),
@@ -171,8 +171,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
               Container(
                   height: 31,
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(5.0),
-                  margin: EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(5.0),
+                  margin: const EdgeInsets.all(7.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     // border: Border.all(),
@@ -251,26 +251,29 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   //     flex: 2,
                                   // child:
                                   Container(
-                                      padding: EdgeInsets.fromLTRB(9, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(9, 0, 0, 0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                              height: 57,
-                                              // width: .4.sw,
-                                              child: RichText(
-                                                  text: TextSpan(
-                                                      text: visit.notes![0]
-                                                              .title!.isEmpty
-                                                          ? "Untitled note"
-                                                          : ('${visit.notes![0].title}'),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headline6!
-                                                          .copyWith(
-                                                              color: Colors
-                                                                  .black)))),
+                                          SizedBox(
+                                            height: 57,
+                                            // width: .4.sw,
+                                            child: RichText(
+                                              text: TextSpan(
+                                                text: visit.notes![0].title!
+                                                        .isEmpty
+                                                    ? "Untitled note"
+                                                    : ('${visit.notes![0].title}'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6!
+                                                    .copyWith(
+                                                        color: Colors.black),
+                                              ),
+                                            ),
+                                          ),
                                           Text('...',
                                               style: Theme.of(context)
                                                   .textTheme
@@ -302,15 +305,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                           Container(
                                             alignment: Alignment.center,
                                             height: 26.0,
-                                            padding: EdgeInsets.all(3.0),
-                                            margin: EdgeInsets.all(7.0),
+                                            padding: const EdgeInsets.all(3.0),
+                                            margin: const EdgeInsets.all(7.0),
                                             child: RichText(
                                                 text: TextSpan(
                                               text: visit
                                                       .notes![0].time!.isEmpty
                                                   ? "Visit time"
                                                   : '${visit.notes![0].time}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16),
                                             )),
@@ -319,8 +322,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             alignment: Alignment.center,
                                             height: 26.0,
                                             width: 100.0,
-                                            padding: EdgeInsets.all(3.0),
-                                            margin: EdgeInsets.all(7.0),
+                                            padding: const EdgeInsets.all(3.0),
+                                            margin: const EdgeInsets.all(7.0),
                                             child: RichText(
                                                 text: TextSpan(
                                               text: visit
@@ -346,9 +349,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                               Container(
                                   height: 58,
                                   alignment: Alignment.centerLeft,
-                                  margin: EdgeInsets.symmetric(
+                                  margin: const EdgeInsets.symmetric(
                                       horizontal: 1.0, vertical: 7.0),
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       // border: Border.all(),
@@ -366,15 +369,15 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                   alignment: Alignment.centerLeft,
                                   // margin: EdgeInsets.symmetric(
                                   //     horizontal: 1.0, vertical: 8.0),
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 9.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 9.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       // border: Border.all(),
                                       borderRadius: BorderRadius.circular(5.0)),
                                   // Note text:
                                   child: RichText(
-                                    text: TextSpan(
+                                    text: const TextSpan(
                                         text: '...',
                                         style: Styles.articleBodySmallBlack),
                                   ))
@@ -387,7 +390,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                   : Column(children: [
                       // NOTE whitespace:
                       Container(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           width: MediaQuery.of(context).size.width,
                           height: 250.0,
                           child: Stack(children: [
@@ -416,8 +419,9 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                 children: [
                                   // Date/time container:
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                    padding: EdgeInsets.all(10.0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                                    padding: const EdgeInsets.all(10.0),
                                     decoration: BoxDecoration(
                                         border: Border.all(),
                                         borderRadius:
@@ -427,8 +431,8 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                       children: [
                                         // TODO: Replace placeholders:
                                         Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(0, 0, 0, 14),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 14),
                                           child: Container(
                                             alignment: Alignment.center,
                                             height: 26.0,
@@ -439,7 +443,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                               visit.notes![0].time!.isEmpty
                                                   ? "Visit time"
                                                   : '${visit.notes![0].time}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16),
                                             ),
@@ -456,7 +460,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                                             visit.notes![0].date!.isEmpty
                                                 ? "Visit date"
                                                 : '${visit.notes![0].date}',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 16),
                                           ),
@@ -480,7 +484,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Icon(
+                    child: const Icon(
                       Icons.more_horiz,
                       color: Colors.white,
                       size: 35,
@@ -491,7 +495,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.red),
                         // Icon(Icons.add),
-                        child: Icon(Icons.delete),
+                        child: const Icon(Icons.delete),
                         onPressed: () async {
                           if (await showConfirm(context)) deleteVisit(index);
                         }),
@@ -536,7 +540,7 @@ class _VisitsTimelinePageState extends State<VisitsTimelinePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FloatingActionButton(
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                     onPressed: () => createVisit(),
                   ),
                 ),

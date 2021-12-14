@@ -13,10 +13,12 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(1080, 1920),
+      designSize: const Size(1080, 1920),
       builder: () => MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -41,12 +43,12 @@ class App extends StatelessWidget {
             primaryColor: Styles.blueTheme,
             // colorScheme: ColorScheme.fromSwatch()
             //     .copyWith(secondary: Styles.modestPink),
-            floatingActionButtonTheme: FloatingActionButtonThemeData(
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Styles.modestPink,
               foregroundColor: Styles.shadowWhite,
             ),
-            textTheme: TextTheme(bodyText1: Styles.articleBody),
-            appBarTheme: AppBarTheme(
+            textTheme: const TextTheme(bodyText1: Styles.articleBody),
+            appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 titleTextStyle: Styles.appBarNew,
                 actionsIconTheme:
@@ -56,12 +58,12 @@ class App extends StatelessWidget {
               backgroundColor: Colors.white,
               selectedItemColor: Styles.blueTheme,
               unselectedItemColor: Colors.grey[400],
-              selectedLabelStyle: TextStyle(
+              selectedLabelStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
               ),
             ),
             toggleableActiveColor: Styles.blueTheme,
-            iconTheme: IconThemeData(color: Colors.blue),
+            iconTheme: const IconThemeData(color: Colors.blue),
             visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: 'Open Sans',
             // accentColor: Styles
@@ -70,18 +72,18 @@ class App extends StatelessWidget {
           darkTheme: ThemeData(
               brightness: Brightness.dark,
               primaryColor: Styles.blueTheme,
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                   titleTextStyle: Styles.appBarNew,
                   actionsIconTheme:
                       IconThemeData(color: Styles.blueTheme, size: 35),
                   iconTheme: IconThemeData(color: Styles.blueTheme, size: 35)),
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                   selectedItemColor: Styles.blueTheme,
                   // unselectedItemColor: Colors.grey[400],
                   selectedLabelStyle: TextStyle(
                     fontWeight: FontWeight.w700,
                   )),
-              floatingActionButtonTheme: FloatingActionButtonThemeData(
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
                 backgroundColor: Styles.modestPink,
                 foregroundColor: Styles.shadowWhite,
               ),

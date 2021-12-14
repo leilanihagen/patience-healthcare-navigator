@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
@@ -30,10 +29,10 @@ class MainNavigationProvider extends ChangeNotifier {
     _pages = [
       DashboardPage(),
       RootCategoriesPage(),
-      VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
+      VisitsTimelinePage(key: const PageStorageKey('visitstimeline')),
       HospitalSearchPage(
-        key: PageStorageKey('hospitalsearch'),
-        openPage: openPage,
+        key: const PageStorageKey('hospitalsearch'),
+        // openPage: openPage,
       ),
     ];
     _pageIndex = 0;

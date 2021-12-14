@@ -10,7 +10,6 @@ import 'package:hospital_stay_helper/components/page_description.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/components/text_icon.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
-import 'package:hospital_stay_helper/screens/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -18,9 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../app.dart';
 
 class HospitalSearchPage extends StatefulWidget {
-  final Function? openPage;
-
-  HospitalSearchPage({Key? key, this.openPage}) : super(key: key);
+  const HospitalSearchPage({Key? key}) : super(key: key);
 
   @override
   _CheckHospitalPage createState() => _CheckHospitalPage();
@@ -28,7 +25,7 @@ class HospitalSearchPage extends StatefulWidget {
 
 class _CheckHospitalPage extends State<HospitalSearchPage>
     with AutomaticKeepAliveClientMixin<HospitalSearchPage> {
-  final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _hospitalKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false, ur = false, er = false, isSearching = false;
   late HospitalPage _hospitalPage;
   List<SearchResult> listSearch = [];
@@ -64,8 +61,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
       content: Text("You haven't selected a provider"),
       action: SnackBarAction(
         label: 'SETTINGS',
-        onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (c) => ProfilePage())),
+        onPressed: () => Navigator.pushNamed(context, '/profile'),
       ),
     ));
   }
@@ -220,19 +216,6 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   getShadow() {
-    // if (isLoading) return Colors.grey.withOpacity(0.2);
-    // switch (_hospitalPage.check) {
-    //   case 0:
-    //     return Colors.blue.withOpacity(0.2);
-    //   case 1:
-    //     return Colors.greenAccent.withOpacity(0.2);
-    //   case 2:
-    //     return Colors.redAccent.withOpacity(0.2);
-    //   case 3:
-    //     return Colors.yellowAccent.withOpacity(0.2);
-    //   default:
-    //     return Colors.white.withOpacity(0.5);
-    // }
     return Colors.grey.withOpacity(0.2);
   }
 
@@ -484,7 +467,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      key: _hospitalKey,
+      // key: _hospitalKey,
       // backgroundColor: Colors.deepPurple[600],
       child: Stack(
         fit: StackFit.loose,
