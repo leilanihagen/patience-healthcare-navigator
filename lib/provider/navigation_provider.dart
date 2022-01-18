@@ -25,13 +25,19 @@ class MainNavigationProvider extends ChangeNotifier {
   String get title => _title;
   PageController? get pageController => _pageController;
   List<Widget> get pages => _pages;
+
+  set pageIndex(int index) {
+    _pageIndex = index;
+    notifyListeners();
+  }
+
   MainNavigationProvider() {
-    _pages = [
+    _pages = const [
       DashboardPage(),
       RootCategoriesPage(),
-      VisitsTimelinePage(key: const PageStorageKey('visitstimeline')),
+      VisitsTimelinePage(key: PageStorageKey('visitstimeline')),
       HospitalSearchPage(
-        key: const PageStorageKey('hospitalsearch'),
+        key: PageStorageKey('hospitalsearch'),
         // openPage: openPage,
       ),
     ];
@@ -45,7 +51,7 @@ class MainNavigationProvider extends ChangeNotifier {
     if (0 <= index && index < pages.length) {
       _pageController!.animateToPage(
         index,
-        duration: Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 800),
         // Stick with Curves.easeIn or similar to avoid errors (https://github.com/flutter/flutter/issues/47730)
         curve: Curves.ease,
       );

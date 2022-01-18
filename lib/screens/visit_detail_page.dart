@@ -15,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ImageFullScreenView extends StatelessWidget {
   final Image? image;
 
-  ImageFullScreenView({this.image});
+  const ImageFullScreenView({this.image, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
       return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
-          end: Offset(0, 0),
+          end: const Offset(0, 0),
         ).animate(animation),
         child: Card(
             elevation: 5,

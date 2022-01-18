@@ -90,8 +90,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
                     color: Colors.transparent,
                     child: IconButton(
                       iconSize: 35,
-                      onPressed: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => ProfilePage())),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (c) => const ProfilePage())),
                       icon: const Icon(Icons.settings),
                     ),
                   ),
@@ -111,11 +113,10 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           ),
           bottomNavigationBar: _bottomNavBar(model.pageIndex),
           body: PageView(
-            controller: model.pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: model.pages,
-            // onPageChanged: (index) => model.openPage(index, context),
-          ),
+              controller: model.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: model.pages,
+              onPageChanged: (index) => model.pageIndex = index),
         );
       },
     );

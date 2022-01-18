@@ -93,10 +93,10 @@ class App extends StatelessWidget {
           themeMode: ThemeMode.system,
           navigatorObservers: [observer],
           routes: {
-            '/': (context) => AppBottomNavBarController(
+            '/': (context) => const AppBottomNavBarController(
                   currentIndex: 0,
                 ),
-            '/profile': (context) => ProfilePage()
+            '/profile': (context) => const ProfilePage()
           },
           initialRoute: '/',
         ),
