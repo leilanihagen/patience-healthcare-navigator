@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -38,19 +39,23 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   openMap(String name, String street) async {
-    Uri googleUrl = Uri.https('www.google.com', '/maps/search/',
-        {'api': '1', 'query': name + ' ' + street});
-    if (await canLaunch(googleUrl.toString())) {
-      await launch(googleUrl.toString());
+    Uri uri;
+    if (Platform.isIOS) {
+      uri = Uri.https("maps.apple.com", "", {'q': name + ' ' + street});
+    } else {
+      uri = Uri.https('www.google.com', '/maps/search/',
+          {'api': '1', 'query': name + ' ' + street});
+    }
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
       observer.analytics.logEvent(
           name: 'open_map', parameters: {'name': name, 'street': street});
     } else {
-      throw 'Could not launch $googleUrl';
+      throw 'Could not launch $uri';
     }
   }
 
   showError(error) {
-    print(error.toString());
     rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       content: Text(error.toString()),
     ));
@@ -58,7 +63,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
 
   showProviderError() {
     rootScaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
-      content: Text("You haven't selected a provider"),
+      content: const Text("You haven't selected a provider"),
       action: SnackBarAction(
         label: 'SETTINGS',
         onPressed: () => Navigator.pushNamed(context, '/profile'),
@@ -70,7 +75,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isSearching = true;
     });
-    var tbox = await Hive.openBox('profile');
+    var tbox = Hive.box('profile');
     String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
@@ -84,16 +89,19 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             },
             body: jsonEncode({'keyword': keyword, 'provider': provider}),
           );
-          if (response.statusCode == 200)
+          if (response.statusCode == 200) {
             setState(() {
               Iterable tmp = jsonDecode(response.body)['body'];
               listSearch = List<SearchResult>.from(
                   tmp.map((e) => SearchResult.fromJson(e)));
             });
-        } else
+          }
+        } else {
           showError("No internet connection");
-      } else
+        }
+      } else {
         showProviderError();
+      }
     } catch (e) {
       showError(e);
     }
@@ -108,7 +116,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     setState(() {
       isLoading = true;
     });
-    var tbox = await Hive.openBox('profile');
+    var tbox = Hive.box('profile');
     String provider = tbox.get('user_provider') ?? '';
     try {
       if (provider.isNotEmpty) {
@@ -141,10 +149,12 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             });
             box.put('checkHospital', response.body);
           }
-        } else
+        } else {
           showError("No internet connection");
-      } else
+        }
+      } else {
         showProviderError();
+      }
     } catch (e) {
       showError(e);
     }
@@ -158,10 +168,11 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   _loadLastSaved() async {
     box = await Hive.openBox('checkHospitalPage');
     String tmp = box.get('checkHospital') ?? '';
-    if (tmp.isNotEmpty)
+    if (tmp.isNotEmpty) {
       setState(() {
         _hospitalPage = HospitalPage.fromJson(jsonDecode(tmp));
       });
+    }
   }
 
   showSnackBar(String content) {
@@ -195,7 +206,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     }
 
     return await Geolocator.getCurrentPosition(
-        timeLimit: Duration(seconds: 10),
+        timeLimit: const Duration(seconds: 20),
         desiredAccuracy: LocationAccuracy.high);
   }
 
@@ -220,7 +231,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   getStatus() {
-    if (isLoading)
+    if (isLoading) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -229,7 +240,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             height: 80.w,
             child: Padding(
               padding: EdgeInsets.all(5.w),
-              child: CircularProgressIndicator.adaptive(
+              child: const CircularProgressIndicator.adaptive(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 strokeWidth: 10,
               ),
@@ -242,6 +253,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           )
         ],
       );
+    }
     switch (_hospitalPage.check) {
       case 0:
         return Column(
@@ -290,8 +302,8 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
     }
   }
 
-  getTop3() {
-    if (_hospitalPage.top3 == null) return SizedBox.shrink();
+  Widget getTop3(List<Top3>? top3) {
+    if (top3 == null) return const SizedBox.shrink();
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: _hospitalPage.top3!
@@ -308,7 +320,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         Text(
           _hospitalPage.name ?? "",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
               backgroundColor: Colors.white),
@@ -316,7 +328,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         Text(
           _hospitalPage.address ?? "",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, backgroundColor: Colors.white),
+          style: const TextStyle(fontSize: 20, backgroundColor: Colors.white),
         ),
       ]),
     );
@@ -385,7 +397,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   }
 
   _showResult() {
-    if (listSearch.isNotEmpty)
+    if (listSearch.isNotEmpty) {
       return Column(
         children: [
           Padding(
@@ -409,24 +421,23 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
           //   ),
           // ),
           ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: listSearch.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Container(
-                  child: ListTile(
-                      title: Text(listSearch[index].name!),
-                      subtitle: Text(listSearch[index].address!),
-                      trailing: Icon(
-                        Icons.check,
-                        color: Colors.green[800],
-                      ),
-                      onTap: () => openMap(
-                          listSearch[index].name!, listSearch[index].address!)),
-                );
+                return ListTile(
+                    title: Text(listSearch[index].name!),
+                    subtitle: Text(listSearch[index].address!),
+                    trailing: Icon(
+                      Icons.check,
+                      color: Colors.green[800],
+                    ),
+                    onTap: () => openMap(
+                        listSearch[index].name!, listSearch[index].address!));
               }),
         ],
       );
+    }
   }
 
   _buildSearchHospital() {
@@ -435,7 +446,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
         transitionCurve: Curves.easeInOut,
         physics: const BouncingScrollPhysics(),
         actions: [
-          FloatingSearchBarAction(
+          const FloatingSearchBarAction(
             showIfOpened: false,
             child: Icon(Icons.search),
           ),
@@ -449,7 +460,7 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
             borderRadius: BorderRadius.circular(8),
             child: Material(
               child: isSearching
-                  ? Container(
+                  ? const SizedBox(
                       width: 20,
                       height: 20,
                       child: Padding(
@@ -466,91 +477,87 @@ class _CheckHospitalPage extends State<HospitalSearchPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      // key: _hospitalKey,
-      // backgroundColor: Colors.deepPurple[600],
-      child: Stack(
-        fit: StackFit.loose,
-        alignment: Alignment.topCenter,
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Hint text:
-                // Find-hospital square:
-                SizedBox(
-                  height: 50,
-                ),
+    return Stack(
+      fit: StackFit.loose,
+      alignment: Alignment.topCenter,
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // Hint text:
+              // Find-hospital square:
+              const SizedBox(
+                height: 50,
+              ),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: .025.sw),
-                  child: buildPageDescriptionColor(
-                    "How to use Check Hospitals",
-                    'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
-                    Theme.of(context).scaffoldBackgroundColor,
-                  ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: .025.sw),
+                child: buildPageDescriptionColor(
+                  "How to use Check Hospitals",
+                  'With one tap, find nearby in-network hospitals or verify in-network status of a hospital you are at based on your location. Tap the locator at any time to refresh.\n\nTap any hospital search result to open in Maps.',
+                  Theme.of(context).scaffoldBackgroundColor,
                 ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () => isLoading ? null : _checkHospital(),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(child: child, opacity: animation);
-                      },
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 5,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        child: Container(
-                            // margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
-                            key: UniqueKey(),
-                            decoration: BoxDecoration(
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //       color: getShadow(),
-                                //       spreadRadius: 5,
-                                //       blurRadius: 7,
-                                //       offset: Offset(0, 3)),
-                                // ],
-                                border: Border.all(width: 0.5),
-                                color: getColor(),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            width: 375.w,
-                            height: 375.w,
-                            child: getStatus()),
-                      ),
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () => isLoading ? null : _checkHospital(),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return FadeTransition(child: child, opacity: animation);
+                    },
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 5,
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      child: Container(
+                          // margin: EdgeInsets.fromLTRB(0, 0, 0, .025.sw),
+                          key: UniqueKey(),
+                          decoration: BoxDecoration(
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: getShadow(),
+                              //       spreadRadius: 5,
+                              //       blurRadius: 7,
+                              //       offset: Offset(0, 3)),
+                              // ],
+                              border: Border.all(width: 0.5),
+                              color: getColor(),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                          width: 375.w,
+                          height: 375.w,
+                          child: getStatus()),
                     ),
                   ),
                 ),
-                _hospitalPage.name == null || _hospitalPage.name!.isEmpty
-                    ? SizedBox.shrink()
-                    : getHeader(),
-                _hospitalPage.top3 == null
-                    ? SizedBox.shrink()
-                    : Padding(
-                        padding: EdgeInsets.fromLTRB(4, 26, 4, 10),
-                        child: Text(
-                          'TOP 3 NEARBY IN-NETWORK HOSPITALS',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            // color: Colors.white,
-                          ),
+              ),
+              _hospitalPage.name == null || _hospitalPage.name!.isEmpty
+                  ? const SizedBox.shrink()
+                  : getHeader(),
+              _hospitalPage.top3 == null
+                  ? const SizedBox.shrink()
+                  : const Padding(
+                      padding: EdgeInsets.fromLTRB(4, 26, 4, 10),
+                      child: Text(
+                        'TOP 3 NEARBY IN-NETWORK HOSPITALS',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                          // color: Colors.white,
                         ),
                       ),
-                getTop3(),
-                getPageIntroduction()
-              ],
-            ),
+                    ),
+              getTop3(_hospitalPage.top3),
+              getPageIntroduction()
+            ],
           ),
-          _buildSearchHospital(),
-        ],
-      ),
+        ),
+        _buildSearchHospital(),
+      ],
     );
   }
 

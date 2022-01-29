@@ -6,7 +6,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.1+12
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -38,13 +38,13 @@ dependencies:
   image_picker: ^0.8.0+3
   path_provider: ^2.0.2
   path: ^1.8.0
-  
+
   percent_indicator: ^3.4.0
   drop_cap_text: ^1.1.3
   provider: ^5.0.0
   # Firebase stuff
   firebase_core: ^1.7.0
-  firebase_analytics: ^8.3.3
+  firebase_analytics:
 
 dev_dependencies:
   flutter_test:
@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_lints: ^1.0.4
 
 flutter_native_splash:
-  color: "#FFFFFF"                   #"#FDEBF1"
+  color: "#FFFFFF" #"#FDEBF1"
   image: assets/splash_512_new.png
   color_dark: "#121212"
   android: true
