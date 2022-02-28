@@ -4,7 +4,7 @@ A tool that help patients navigate their healthcare, specifically their hospital
 
 ## Installation
 
-This flutter app using Flutter 2.5.0, Dart 2.14.0
+This flutter app using Flutter 2.10.0, Dart 2.16.0
 To clone the app, use this command line
 
 Please clone the main branch to experience our latest updates and working app version:
