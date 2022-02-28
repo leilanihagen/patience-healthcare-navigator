@@ -13,6 +13,8 @@ void main() async {
   await Hive.openBox('mainController');
   await Hive.openBox('profile');
   await Hive.openBox('visitsTimeline');
+  await Hive.openBox('checkHospitalPage');
+
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   SystemChrome.setSystemUIOverlayStyle(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/provider/check_hospital_provider.dart';
 import 'package:hospital_stay_helper/provider/navigation_provider.dart';
 import 'package:hospital_stay_helper/provider/timeline_provider.dart';
 import 'package:hospital_stay_helper/provider/user_provider.dart';
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => VisitTimelineProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CheckHospitalProvider(),
           ),
         ],
         child: MaterialApp(
