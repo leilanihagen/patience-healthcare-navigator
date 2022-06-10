@@ -4,39 +4,41 @@ import 'dart:io' show Platform;
 
 Future<bool> showConfirm(BuildContext context) async {
   bool? result;
-  if (Platform.isAndroid)
+  if (Platform.isAndroid) {
     result = await showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (_) {
+        builder: (ctx) {
           return AlertDialog(
-            title: Text("Confirm delete?"),
+            title: const Text("Confirm delete?"),
             actions: [
               TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancel")),
+                  onPressed: () => Navigator.pop(ctx, false),
+                  child: const Text("Cancel")),
               TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text("Yes")),
+                  onPressed: () => Navigator.pop(ctx, true),
+                  child: const Text("Yes")),
             ],
           );
         });
-  if (Platform.isIOS)
+  }
+  if (Platform.isIOS) {
     result = await showCupertinoDialog(
         barrierDismissible: true,
         context: context,
-        builder: (_) {
+        builder: (ctx) {
           return CupertinoAlertDialog(
-            title: Text("Confirm delete?"),
+            title: const Text("Confirm delete?"),
             actions: [
               CupertinoDialogAction(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancel")),
+                  onPressed: () => Navigator.pop(ctx, false),
+                  child: const Text("Cancel")),
               CupertinoDialogAction(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text("Yes")),
+                  onPressed: () => Navigator.pop(ctx, true),
+                  child: const Text("Yes")),
             ],
           );
         });
+  }
   return result ?? false;
 }
