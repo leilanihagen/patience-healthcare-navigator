@@ -43,10 +43,10 @@ class CheckHospitalProvider extends ChangeNotifier {
   void openMap(String name, String street) async {
     Uri uri;
     if (Platform.isIOS) {
-      uri = Uri.https("maps.apple.com", "", {'q': name + ' ' + street});
+      uri = Uri.https("maps.apple.com", "", {'q': '$name $street'});
     } else {
       uri = Uri.https('www.google.com', '/maps/search/',
-          {'api': '1', 'query': name + ' ' + street});
+          {'api': '1', 'query': '$name $street'});
     }
     if (await canLaunch(uri.toString())) {
       await launch(uri.toString());

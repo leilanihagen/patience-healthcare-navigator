@@ -182,7 +182,7 @@ class DashboardPageState extends State<DashboardPage>
         onTap: () {
           observer.analytics
               .logEvent(name: 'launch_article', parameters: {'url': url});
-          launch(url);
+          launchUrl(Uri.parse(url));
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -276,9 +276,10 @@ class DashboardPageState extends State<DashboardPage>
         onTap: () {
           observer.analytics.logEvent(
               name: 'launch_statistic_article', parameters: {'url': url});
-          launch(url);
+          launchUrl(Uri.parse(url));
         },
         child: Column(
+          // mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             impact,
@@ -500,10 +501,12 @@ class DashboardPageState extends State<DashboardPage>
                             animation: true,
                             progressColor: Colors.redAccent,
                             lineWidth: 15,
-                            radius: 90,
+                            radius: 60,
                             percent: 0.8,
-                            center: const Text("80%",
-                                style: Styles.articleBodyBold),
+                            center: const Text(
+                              "80%",
+                              style: Styles.articleBodyBold,
+                            ),
                           ),
                           'Up to 4/5 of medical bills contain errors',
                           'https://www.hcinnovationgroup.com/finance-revenue-cycle/article/21080693/medical-billing-errors-are-alarmingly-commonand-patients-are-paying-the-price'),
@@ -512,7 +515,7 @@ class DashboardPageState extends State<DashboardPage>
                             progressColor: Colors.yellow[800],
                             animation: true,
                             lineWidth: 15,
-                            radius: 90,
+                            radius: 60,
                             percent: 0.35,
                             center: const Text(
                               "35%",
@@ -525,25 +528,34 @@ class DashboardPageState extends State<DashboardPage>
                           CircularPercentIndicator(
                             progressColor: Styles.dogYellow,
                             lineWidth: 15,
-                            radius: 90,
+                            radius: 60,
                             percent: 0.272,
-                            center: const Text("27.2%",
-                                style: Styles.articleBodyBold),
+                            center: const Text(
+                              "27.2%",
+                              style: Styles.articleBodyBold,
+                            ),
                           ),
                           'Of Americans avoided healthcare because they were unsure what their insurance covered',
                           'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
                       buildStatisticButton(
-                          const Text('2×', style: Styles.bigImpact),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 19,
+                            ),
+                            child: Text('2×', style: Styles.bigImpact),
+                          ),
                           'We spend avg. 2× as much as other developed nations on healthcare',
                           'https://youtu.be/tNla9nyRMmQ'),
                       buildStatisticButton(
                           CircularPercentIndicator(
                             progressColor: Styles.dogYellow,
                             lineWidth: 15,
-                            radius: 90,
+                            radius: 60,
                             percent: 0.31,
-                            center: const Text("31%",
-                                style: Styles.articleBodyBold),
+                            center: const Text(
+                              "31%",
+                              style: Styles.articleBodyBold,
+                            ),
                           ),
                           'Higher disease burden (measure of health outcome) than other developed nations',
                           'https://www.healthsystemtracker.org/chart-collection/quality-u-s-healthcare-system-compare-countries/#item-age-standardized-disability-adjusted-life-year-daly-rate-per-100000-population-2017'),
@@ -561,12 +573,7 @@ class DashboardPageState extends State<DashboardPage>
 }
 
 /// Small helper ChangeNotifier just to manually trigger a rebuild (when height changes)
-class _Rebuild extends ChangeNotifier {
-  @override
-  void notifyListeners() {
-    super.notifyListeners();
-  }
-}
+class _Rebuild extends ChangeNotifier {}
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double height = 400;
@@ -579,7 +586,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       child: LayoutBuilder(
         builder: (c, cd) {
           c.watch<_Rebuild>();
-          WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             if (c.size != null && height != c.size!.height) {
               height = c.size!.height;
               c.read<_Rebuild>().notifyListeners();
@@ -676,8 +683,10 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         ),
                         // State disp:
                         GestureDetector(
-                          onTap: () => Navigator.push(context,
-                              MaterialPageRoute(builder: (c) => ProfilePage())),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => const ProfilePage())),
                           child: Container(
                             decoration: const BoxDecoration(
                                 shape: BoxShape.circle,

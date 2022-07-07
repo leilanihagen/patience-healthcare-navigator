@@ -114,9 +114,9 @@ class _AppBottomNavBarControllerState extends State<AppBottomNavBarController> {
           bottomNavigationBar: _bottomNavBar(model.pageIndex),
           body: PageView(
               controller: model.pageController,
-              physics: const NeverScrollableScrollPhysics(),
+              // physics: const NeverScrollableScrollPhysics(),
               children: model.pages,
-              onPageChanged: (index) => model.pageIndex = index),
+              onPageChanged: (index) => model.pageChanged(index)),
         );
       },
     );

@@ -47,6 +47,12 @@ class MainNavigationProvider extends ChangeNotifier {
     box = Hive.box('mainController');
     _haveOpenProfile = box.get('selecteProfile') ?? false;
   }
+  void pageChanged(int index) {
+    _pageIndex = index;
+    _title = listTitle[index];
+    notifyListeners();
+  }
+
   void openPage(int index, BuildContext context) {
     if (0 <= index && index < pages.length) {
       _pageController!.animateToPage(
@@ -55,8 +61,8 @@ class MainNavigationProvider extends ChangeNotifier {
         // Stick with Curves.easeIn or similar to avoid errors (https://github.com/flutter/flutter/issues/47730)
         curve: Curves.ease,
       );
-      _pageIndex = index;
-      _title = listTitle[index];
+      // _pageIndex = index;
+      // _title = listTitle[index];
       notifyListeners();
     }
     switch (index) {

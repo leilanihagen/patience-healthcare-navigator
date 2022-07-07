@@ -178,28 +178,37 @@ class _ProfilePage extends State<ProfilePage>
                         elevation: 5,
                         // color: Colors.white,
                         child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                             child: Column(
                               children: [
                                 Padding(
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      showSelectedItem: true,
-                                      items: const [
-                                        'CA',
-                                        'WA',
-                                        'OR',
-                                        'DC',
-                                        'VA',
-                                        'MD',
-                                        'GA'
-                                      ],
-                                      label: 'State of residence',
-                                      hint: 'Select state of residence',
-                                      onChanged: (String? s) =>
-                                          model.changeState(s),
-                                      selectedItem: model.state,
+                                  padding: Styles.dropdownPadding,
+                                  child: DropdownSearch<String>(
+                                    popupProps: const PopupProps.menu(
+                                      showSelectedItems: true,
+                                      showSearchBox: true,
                                     ),
-                                    padding: Styles.dropdownPadding),
+                                    items: const [
+                                      'CA',
+                                      'WA',
+                                      'OR',
+                                      'DC',
+                                      'VA',
+                                      'MD',
+                                      'GA'
+                                    ],
+                                    dropdownDecoratorProps:
+                                        const DropDownDecoratorProps(
+                                      dropdownSearchDecoration: InputDecoration(
+                                          label: Text('State of residence'),
+                                          hintText:
+                                              'Select state of residence'),
+                                    ),
+                                    onChanged: (String? s) =>
+                                        model.changeState(s),
+                                    selectedItem: model.state,
+                                  ),
+                                ),
                                 // SizedBox(
                                 //   width: double.infinity,
                                 //   child: Padding(
@@ -212,20 +221,28 @@ class _ProfilePage extends State<ProfilePage>
                                 //   ),
                                 // ),
                                 Padding(
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      showSelectedItem: true,
-                                      items: const [
-                                        'Kaiser Permanente',
-                                        'Pacific Source'
-                                      ],
-                                      label: 'Insurance Provider',
-                                      hint: 'Select your insurance provider',
-                                      onChanged: (String? s) =>
-                                          model.changeInsuranceProvider(s),
-                                      selectedItem: model.insuranceProvider,
+                                  padding: Styles.dropdownPadding,
+                                  child: DropdownSearch<String>(
+                                    popupProps: const PopupProps.menu(
+                                      showSearchBox: true,
+                                      showSelectedItems: true,
                                     ),
-                                    padding: Styles.dropdownPadding),
+                                    items: const [
+                                      'Kaiser Permanente',
+                                      'Pacific Source'
+                                    ],
+                                    dropdownDecoratorProps:
+                                        const DropDownDecoratorProps(
+                                      dropdownSearchDecoration: InputDecoration(
+                                          label: Text('Insurance Provider'),
+                                          hintText:
+                                              'Select your insurance provider'),
+                                    ),
+                                    onChanged: (String? s) =>
+                                        model.changeInsuranceProvider(s),
+                                    selectedItem: model.insuranceProvider,
+                                  ),
+                                ),
                                 // SizedBox(
                                 //   width: double.infinity,
                                 //   child: Padding(
@@ -317,8 +334,7 @@ class _ProfilePage extends State<ProfilePage>
                                 //     ),
                                 //     padding: EdgeInsets.fromLTRB(20, 5, 20, 5)),
                               ],
-                            ),
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15)),
+                            )),
                       ),
                       Card(
                         elevation: 5,
@@ -373,8 +389,8 @@ class _ProfilePage extends State<ProfilePage>
                                     items: listScreen
                                         .map<DropdownMenuItem<String>>(
                                             (String value) => DropdownMenuItem(
-                                                  child: Text(value),
                                                   value: value,
+                                                  child: Text(value),
                                                 ))
                                         .toList(),
                                     hint: const Text(
