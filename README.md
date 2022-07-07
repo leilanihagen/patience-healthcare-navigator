@@ -8,7 +8,7 @@ Tuan Nguyen and Leilani Hagen
 
 ## Installation
 
-This flutter app using Flutter 2.10.0, Dart 2.16.0
+This flutter app using Flutter 3.0.2, Dart 2.17.3
 To clone the app, use this command line
 
 Please clone the main branch to experience our latest updates and working app version:
