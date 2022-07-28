@@ -269,39 +269,39 @@ class DashboardPageState extends State<DashboardPage>
   //       ));
   // }
 
-  Widget buildStatisticButton(Widget impact, String title, String url) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: GestureDetector(
-        onTap: () {
-          observer.analytics.logEvent(
-              name: 'launch_statistic_article', parameters: {'url': url});
-          launchUrl(Uri.parse(url));
-        },
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            impact,
-            // Text(
-            //   impactText,
-            //   style: Styles.bigImpact,
-            // ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              width: .25.sh,
-              child: Text(
-                title,
-                style: Styles.articleBodySmall,
-                softWrap: true,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget buildStatisticButton(Widget impact, String title, String url) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 4.0),
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         observer.analytics.logEvent(
+  //             name: 'launch_statistic_article', parameters: {'url': url});
+  //         launchUrl(Uri.parse(url));
+  //       },
+  //       child: Column(
+  //         // mainAxisSize: MainAxisSize.min,
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           impact,
+  //           // Text(
+  //           //   impactText,
+  //           //   style: Styles.bigImpact,
+  //           // ),
+  //           Container(
+  //             padding: const EdgeInsets.symmetric(vertical: 5),
+  //             width: .25.sh,
+  //             child: Text(
+  //               title,
+  //               style: Styles.articleBodySmall,
+  //               softWrap: true,
+  //               textAlign: TextAlign.center,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Padding buildTitle(String text, String subtitle) {
     return Padding(
@@ -420,6 +420,12 @@ class DashboardPageState extends State<DashboardPage>
                       'https://www.medibid.com/cost-calculator/',
                     ),
                     buildArticleButton(
+                      Styles.grey1,
+                      'CostPlus Drug Company is a online pharmacy, by removing the middle man, you can save a lot of money while buying your essential medicine.',
+                      Image.asset('assets/images/cost_plus.png'),
+                      "https://costplusdrugs.com/",
+                    ),
+                    buildArticleButton(
                       Styles.lightBlueTheme,
                       'Knowledge is power: more resources on BrokenHealthcare.org',
                       Image.asset(
@@ -496,8 +502,11 @@ class DashboardPageState extends State<DashboardPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildStatisticButton(
-                          CircularPercentIndicator(
+                      StatisticButton(
+                          content: 'Up to 4/5 of medical bills contain errors',
+                          url:
+                              'https://www.hcinnovationgroup.com/finance-revenue-cycle/article/21080693/medical-billing-errors-are-alarmingly-commonand-patients-are-paying-the-price',
+                          child: CircularPercentIndicator(
                             animation: true,
                             progressColor: Colors.redAccent,
                             lineWidth: 15,
@@ -507,11 +516,13 @@ class DashboardPageState extends State<DashboardPage>
                               "80%",
                               style: Styles.articleBodyBold,
                             ),
-                          ),
-                          'Up to 4/5 of medical bills contain errors',
-                          'https://www.hcinnovationgroup.com/finance-revenue-cycle/article/21080693/medical-billing-errors-are-alarmingly-commonand-patients-are-paying-the-price'),
-                      buildStatisticButton(
-                          CircularPercentIndicator(
+                          )),
+                      StatisticButton(
+                          content:
+                              'Of Americans avoid or delay healthcare due to financial barriers',
+                          url:
+                              'https://www.commonwealthfund.org/publications/issue-briefs/2020/aug/looming-crisis-health-coverage-2020-biennial',
+                          child: CircularPercentIndicator(
                             progressColor: Colors.yellow[800],
                             animation: true,
                             lineWidth: 15,
@@ -521,11 +532,13 @@ class DashboardPageState extends State<DashboardPage>
                               "35%",
                               style: Styles.articleBodyBold,
                             ),
-                          ),
-                          'Of Americans avoid or delay healthcare due to financial barriers',
-                          'https://www.commonwealthfund.org/publications/issue-briefs/2020/aug/looming-crisis-health-coverage-2020-biennial'),
-                      buildStatisticButton(
-                          CircularPercentIndicator(
+                          )),
+                      StatisticButton(
+                          content:
+                              'Of Americans avoided healthcare because they were unsure what their insurance covered',
+                          url:
+                              'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html',
+                          child: CircularPercentIndicator(
                             progressColor: Styles.dogYellow,
                             lineWidth: 15,
                             radius: 60,
@@ -534,20 +547,23 @@ class DashboardPageState extends State<DashboardPage>
                               "27.2%",
                               style: Styles.articleBodyBold,
                             ),
-                          ),
-                          'Of Americans avoided healthcare because they were unsure what their insurance covered',
-                          'https://www.prnewswire.com/news-releases/health-insurance-confusion-is-growing-in-america-policygenius-annual-survey-finds-300945209.html'),
-                      buildStatisticButton(
-                          const Padding(
+                          )),
+                      const StatisticButton(
+                          content:
+                              'We spend avg. 2× as much as other developed nations on healthcare',
+                          url: 'https://youtu.be/tNla9nyRMmQ',
+                          child: Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 19,
                             ),
                             child: Text('2×', style: Styles.bigImpact),
-                          ),
-                          'We spend avg. 2× as much as other developed nations on healthcare',
-                          'https://youtu.be/tNla9nyRMmQ'),
-                      buildStatisticButton(
-                          CircularPercentIndicator(
+                          )),
+                      StatisticButton(
+                          content:
+                              'Higher disease burden (measure of health outcome) than other developed nations',
+                          url:
+                              'https://www.healthsystemtracker.org/chart-collection/quality-u-s-healthcare-system-compare-countries/#item-age-standardized-disability-adjusted-life-year-daly-rate-per-100000-population-2017',
+                          child: CircularPercentIndicator(
                             progressColor: Styles.dogYellow,
                             lineWidth: 15,
                             radius: 60,
@@ -556,9 +572,7 @@ class DashboardPageState extends State<DashboardPage>
                               "31%",
                               style: Styles.articleBodyBold,
                             ),
-                          ),
-                          'Higher disease burden (measure of health outcome) than other developed nations',
-                          'https://www.healthsystemtracker.org/chart-collection/quality-u-s-healthcare-system-compare-countries/#item-age-standardized-disability-adjusted-life-year-daly-rate-per-100000-population-2017'),
+                          )),
                     ]),
               ),
             ]),
@@ -747,4 +761,47 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   // TODO: If something doesn't work in the future, try returning true
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
+}
+
+class StatisticButton extends StatelessWidget {
+  final Widget child;
+  final String content, url;
+  const StatisticButton(
+      {Key? key, required this.child, this.content = "", this.url = ""})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: GestureDetector(
+        onTap: () {
+          observer.analytics.logEvent(
+              name: 'launch_statistic_article', parameters: {'url': url});
+          launchUrl(Uri.parse(url));
+        },
+        child: Column(
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            child,
+            // Text(
+            //   impactText,
+            //   style: Styles.bigImpact,
+            // ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: .25.sh,
+              child: Text(
+                content,
+                style: Styles.articleBodySmall,
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

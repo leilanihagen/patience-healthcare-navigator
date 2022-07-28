@@ -549,15 +549,11 @@ import 'package:hospital_stay_helper/config/styles.dart';
 //   bool get wantKeepAlive => true;
 // }
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
-  @override
-  _SearchPage createState() => _SearchPage();
-}
+class SearchPage extends StatelessWidget {
+  SearchPage({Key? key}) : super(key: key);
 
-class _SearchPage extends State<SearchPage>
-    with AutomaticKeepAliveClientMixin<SearchPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -565,49 +561,47 @@ class _SearchPage extends State<SearchPage>
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-          child: Column(
-        children: [
-          MaterialBanner(
-            leading: const CircleAvatar(
-              child: Icon(
-                Icons.settings_applications_sharp,
-                color: Colors.white,
+        child: Column(
+          children: [
+            MaterialBanner(
+              leading: const CircleAvatar(
+                child: Icon(
+                  Icons.settings_applications_sharp,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            content: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Hello from the dev team!',
-                    style: Styles.articleBody,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: Text(
-                      '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the dev team is currently working on it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (10-5-2021)''',
+              content: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Hello from the dev team!',
                       style: Styles.articleBody,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            actions: const [
-              TextButton(
-                child: Text(
-                  'Thanks',
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        '''Thank you for your interest in our app Patience - Your Healthcare Navigator. This feature is not finished yet, as the dev team is currently working on it. We will release in the near future. Once again, our deep appreciate and be Patient with us. (07-28-2022)''',
+                        style: Styles.articleBody,
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: null,
               ),
-            ],
-          ),
-          const Spacer(),
-        ],
-      )),
+              actions: const [
+                TextButton(
+                  onPressed: null,
+                  child: Text(
+                    'Thanks',
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

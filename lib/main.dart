@@ -21,7 +21,6 @@ void main() async {
   await Hive.openBox('checkHospitalPage');
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         // systemNavigationBarColor: Styles.blueTheme,
