@@ -1,7 +1,4 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:hospital_stay_helper/main.dart';
 
 // DEPRECATED
 

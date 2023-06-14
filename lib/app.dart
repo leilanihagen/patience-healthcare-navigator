@@ -2,98 +2,110 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:hospital_stay_helper/plugins/firebase_analytics.dart';
+import 'package:hospital_stay_helper/provider/check_hospital_provider.dart';
+import 'package:hospital_stay_helper/provider/navigation_provider.dart';
+import 'package:hospital_stay_helper/provider/timeline_provider.dart';
+import 'package:hospital_stay_helper/provider/user_provider.dart';
+import 'package:hospital_stay_helper/screens/profile_page.dart';
+import 'package:provider/provider.dart';
 import 'navigation_bar_controller.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
-  // static void setLocale(BuildContext context, Locale newLocale) {
-  //   _AppState state = context.findAncestorStateOfType<_AppState>();
-  //   state.setLocale(newLocale);
-  // }
-
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  String purpleTheme = "#66558E";
-  String lightPinkTheme = "#FDEBF1";
-  String darkPinkTheme = "#ED558C";
-  String blueTheme = "#54D0EB";
-  String darkGreenTheme = "#758C20";
-  String lightGreenTheme = "#A1BF36";
-
-  // Locale _locale;
-  // setLocale(Locale locale) {
-  //   setState(() {
-  //     _locale = locale;
-  //   });
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   getLocale().then((locale) {
-  //     setState(() {
-  //       this._locale = locale;
-  //     });
-  //   });
-  //   super.didChangeDependencies();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // if (this._locale == null) {
-    //   return Container(
-    //     child: Center(
-    //       child: CircularProgressIndicator(
-    //           valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[800])),
-    //     ),
-    //   );
-    // } else {
     return ScreenUtilInit(
-        designSize: Size(1080, 1920),
-        builder: () => MaterialApp(
-            scaffoldMessengerKey: rootScaffoldMessengerKey,
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              // primarySwatch: Colors.blue,
-              scaffoldBackgroundColor: HexColor(purpleTheme),
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              fontFamily: 'Open Sans',
-              accentColor: Styles
-                  .blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
+      designSize: const Size(1080, 1920),
+      builder: (context, child) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MainNavigationProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => UserProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => VisitTimelineProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CheckHospitalProvider(),
+          ),
+        ],
+        child: MaterialApp(
+          scaffoldMessengerKey: rootScaffoldMessengerKey,
+          debugShowCheckedModeBanner: false,
+          title: 'Patience Healthcare Navigator',
+          theme: ThemeData(
+            // primarySwatch: Colors.blue,
+            // scaffoldBackgroundColor: Color(0xff66558E),
+            scaffoldBackgroundColor: Colors.white,
+            brightness: Brightness.light,
+            primaryColor: Styles.blueTheme,
+            // colorScheme: ColorScheme.fromSwatch()
+            //     .copyWith(secondary: Styles.modestPink),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Styles.modestPink,
+              foregroundColor: Styles.shadowWhite,
             ),
-            // locale: _locale,
-            // supportedLocales: [
-            //   Locale("en", "US"),
-            //   Locale("es", "MX"),
-            //   Locale("kr", "KR"),
-            //   Locale("vi", "VN")
-            // ],
-            // localizationsDelegates: [
-            //   Localization.delegate,
-            //   GlobalMaterialLocalizations.delegate,
-            //   GlobalWidgetsLocalizations.delegate,
-            //   GlobalCupertinoLocalizations.delegate,
-            // ],
-            navigatorObservers: [observer],
-            // localeResolutionCallback: (locale, supportedLocales) {
-            //   for (var supportedLocale in supportedLocales) {
-            //     if (supportedLocale.languageCode == locale.languageCode &&
-            //         supportedLocale.countryCode == locale.countryCode) {
-            //       return supportedLocale;
-            //     }
-            //   }
-            //   return supportedLocales.first;
-            // },
-            home: AppBottomNavBarController(
-              currentIndex: 0,
-            )));
+            textTheme: const TextTheme(bodyText1: Styles.articleBody),
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.white,
+                titleTextStyle: Styles.appBarNew,
+                actionsIconTheme:
+                    IconThemeData(color: Styles.blueTheme, size: 35),
+                iconTheme: IconThemeData(color: Styles.blueTheme, size: 35)),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: Colors.white,
+              selectedItemColor: Styles.blueTheme,
+              unselectedItemColor: Colors.grey[400],
+              selectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            toggleableActiveColor: Styles.blueTheme,
+            iconTheme: const IconThemeData(color: Colors.blue),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'Open Sans',
+            // accentColor: Styles
+            //     .blueTheme, // Mainly for overscroll color (in Android). ie. instead of the default blue
+          ),
+          darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primaryColor: Styles.blueTheme,
+              appBarTheme: const AppBarTheme(
+                  titleTextStyle: Styles.appBarNew,
+                  actionsIconTheme:
+                      IconThemeData(color: Styles.blueTheme, size: 35),
+                  iconTheme: IconThemeData(color: Styles.blueTheme, size: 35)),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                  selectedItemColor: Styles.blueTheme,
+                  // unselectedItemColor: Colors.grey[400],
+                  selectedLabelStyle: TextStyle(
+                    fontWeight: FontWeight.w700,
+                  )),
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Styles.modestPink,
+                foregroundColor: Styles.shadowWhite,
+              ),
+              toggleableActiveColor: Styles.blueTheme,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              fontFamily: 'Open Sans'),
+          themeMode: ThemeMode.system,
+          navigatorObservers: [observer],
+          routes: {
+            '/': (context) => const AppBottomNavBarController(
+                  currentIndex: 0,
+                ),
+            '/profile': (context) => const ProfilePage()
+          },
+          initialRoute: '/',
+        ),
+      ),
+    );
   }
   // }
 }

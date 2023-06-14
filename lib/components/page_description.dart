@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Padding buildPageDescriptionGradient(String description, List<Color> colors) {
   return Padding(
@@ -74,22 +71,25 @@ Widget buildPageDescriptionColor(
       //     //   width: .7.sw,
       //     // child:
       //     child:
-      ExpansionTile(
-    key: PageStorageKey(title),
-    backgroundColor: color,
-    collapsedBackgroundColor: color,
-    children: [
-      Padding(
-          child: Text(
-            description,
-            textAlign: TextAlign.left,
-            style: Styles.articleBodySmall,
-          ),
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
-    ],
-    title: Text(title, style: Styles.articleBodyBold),
-    initiallyExpanded: true,
-    // )
+      Material(
+    elevation: 7,
+    child: ExpansionTile(
+      key: PageStorageKey(title),
+      backgroundColor: color,
+      collapsedBackgroundColor: color,
+      children: [
+        Padding(
+            child: Text(
+              description,
+              textAlign: TextAlign.left,
+              style: Styles.articleBodySmall,
+            ),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 11)),
+      ],
+      title: Text(title, style: Styles.articleBodyBold),
+      initiallyExpanded: false,
+      // )
+    ),
   );
   // Container(
   //   decoration: BoxDecoration(boxShadow: [

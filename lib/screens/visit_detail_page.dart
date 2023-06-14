@@ -1,19 +1,21 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hospital_stay_helper/class/visit.dart';
-import 'package:hospital_stay_helper/components/expandableFAB.dart';
+import 'package:hospital_stay_helper/components/alert_dialog.dart';
+import 'package:hospital_stay_helper/components/buttons.dart';
+import 'package:hospital_stay_helper/components/expandable_FAB.dart';
 import 'package:hospital_stay_helper/config/styles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:hospital_stay_helper/components/visitTapEditBox.dart';
+import 'package:hospital_stay_helper/components/visit_tap_edit_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageFullScreenView extends StatelessWidget {
   final Image? image;
 
-  ImageFullScreenView({this.image});
+  const ImageFullScreenView({this.image, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,10 @@ class ImageFullScreenView extends StatelessWidget {
       backgroundColor: Styles.purpleTheme,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white24,
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Icon(
+        child: const Icon(
           Icons.close,
           color: Colors.white,
         ),
@@ -48,7 +49,7 @@ class VisitDetailPage extends StatefulWidget {
       updateVisitFunction,
       updateNoteFunction,
       deleteVisit;
-  VisitDetailPage(
+  const VisitDetailPage(
       {Key? key,
       this.visit,
       this.visitIndex,
@@ -66,28 +67,28 @@ class VisitDetailPage extends StatefulWidget {
 class _VisitDetailPageState extends State<VisitDetailPage> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final picker = ImagePicker();
-  Future<bool> showConfirm() async {
-    bool result = await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirm delete?"),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text("Cancel")),
-              TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text("Yes")),
-            ],
-          );
-        });
-    return result;
-  }
+  // Future<bool> showConfirm() async {
+  //   bool result = await showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text("Confirm delete?"),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, false),
+  //                 child: Text("Cancel")),
+  //             TextButton(
+  //                 onPressed: () => Navigator.pop(context, true),
+  //                 child: Text("Yes")),
+  //           ],
+  //         );
+  //       });
+  //   return result;
+  // }
 
   getImage() async {
-    PickedFile? imageFile = await picker.getImage(source: ImageSource.gallery);
+    XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
     if (imageFile == null) return;
     File tmpFile = File(imageFile.path);
     final appDir = await getApplicationDocumentsDirectory();
@@ -96,7 +97,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
     createNewNote('image', newImage.path);
   }
 
-  Future<Null> _selectDate(
+  Future<void> _selectDate(
       BuildContext context, String selectedDate, int index) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -105,14 +106,12 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         firstDate: DateTime(2015),
         lastDate: DateTime(2025));
     if (picked != null) {
-      setState(() {
-        widget.updateNoteFunction!(
-            widget.visit, index, 'date', DateFormat.yMd().format(picked));
-      });
+      widget.updateNoteFunction!(
+          widget.visit, index, 'date', DateFormat.yMd().format(picked));
     }
   }
 
-  Future<Null> _selectVisitDate(
+  Future<void> _selectVisitDate(
       BuildContext context, String selectedDate) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -120,37 +119,36 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2025));
-    if (picked != null)
+    if (picked != null) {
       setState(() {
         widget.updateVisitFunction!(
             widget.visit, 'date', DateFormat.yMd().format(picked));
       });
+    }
   }
 
-  Future<Null> _selectTime(
+  Future<void> _selectTime(
       BuildContext context, String selectedTime, int index) async {
     final TimeOfDay? picked = await showTimePicker(
         context: context,
         initialTime:
             TimeOfDay.fromDateTime(DateFormat.Hm().parse(selectedTime)),
         initialEntryMode: TimePickerEntryMode.dial);
-    if (picked != null)
+    if (picked != null) {
       setState(() {
         widget.updateNoteFunction!(
             widget.visit, index, 'time', picked.format(context));
       });
+    }
   }
 
   updatVisitDate(Visit visit, String dataType, String inputData) {
-    setState(() {
-      // widget.visit.date = inputData;
-    });
     widget.updateVisitFunction!(visit, dataType, inputData);
     // widget.updateVisitFunction(visit, dataType, inputData);
   }
 
   deleteNote(int index) async {
-    if (await (showConfirm() as Future<bool>)) {
+    if (await (showConfirm(context))) {
       if (widget.visit!.notes!.length == 1) {
         widget.deleteVisit!(widget.visitIndex);
         Navigator.pop(context);
@@ -171,28 +169,19 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
   }
 
   noteWidget(BuildContext context, VisitNote note, int index, animation) {
-    if (note.type == 'note')
+    if (note.type == 'note') {
       return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
-          end: Offset(0, 0),
+          end: const Offset(0, 0),
         ).animate(animation),
-        child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
-            padding: const EdgeInsets.all(7.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
+        child: Card(
+            elevation: 5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3))
-              ],
-              border: Border.all(width: 1, color: Colors.grey[600]!),
             ),
-            // Title and note body:
+            margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -216,7 +205,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                             isEditingVisit: false,
                             updateFunction: widget.updateNoteFunction,
                             boxDecoration: BoxDecoration(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 // border: Border.all(),
                                 borderRadius: BorderRadius.circular(8.0)),
                             mainTextStyle: Theme.of(context)
@@ -259,9 +248,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                     //   flex: 2,
                     //   child:
                     Container(
-                      width: 112,
-                      margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                      padding: EdgeInsets.all(10),
+                      width: 120,
+                      margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                      padding: const EdgeInsets.all(10),
                       alignment: Alignment.topRight,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey[600]!),
@@ -276,17 +265,17 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                                 _selectTime(context, note.time!, index),
                             child: Text(
                               note.time!,
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.black),
                             ),
                           ),
-                          Divider(thickness: 10, color: Colors.white),
+                          const Divider(thickness: 10, color: Colors.white),
                           GestureDetector(
                             onTap: () =>
                                 _selectDate(context, note.date!, index),
-                            child: Container(
-                              child: Text(note.date!,
-                                  style: TextStyle(fontSize: 16)),
-                            ),
+                            child: Text(note.date!,
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black)),
                           )
                         ],
                       ),
@@ -305,16 +294,17 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   updateFunction: widget.updateNoteFunction,
                   noteIndex: index,
                   boxDecoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        // BoxShadow(
-                        //     color: Colors.grey.withOpacity(0.5),
-                        //     spreadRadius: 5,
-                        //     blurRadius: 7,
-                        //     offset: Offset(0, 3))
-                      ]),
+                    color: Colors.white,
+                    // border: Border.all(),
+                    borderRadius: BorderRadius.circular(8.0),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //       color: Colors.grey.withOpacity(0.5),
+                    //       spreadRadius: 5,
+                    //       blurRadius: 7,
+                    //       offset:const Offset(0, 3))
+                    // ],
+                  ),
                   // height: 100.0,
                   width: .87.sw,
                   margin: 1.0,
@@ -327,20 +317,21 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     onPressed: () => deleteNote(index),
-                    icon: Icon(Icons.delete, size: 22),
+                    icon:
+                        const Icon(Icons.delete, size: 22, color: Colors.black),
                   ),
                 )
               ],
             )),
       );
-    else if (note.type == 'image')
+    } else if (note.type == 'image') {
       return SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1, 0),
-          end: Offset(0, 0),
+          end: const Offset(0, 0),
         ).animate(animation),
         child: Container(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           width: MediaQuery.of(context).size.width, //
           height: 250.0,
           child: Stack(
@@ -373,9 +364,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 children: [
                   // Date/time container:
                   Container(
-                    width: 112,
-                    margin: EdgeInsets.all(13.0),
-                    padding: EdgeInsets.all(10.0),
+                    width: 120,
+                    margin: const EdgeInsets.all(13.0),
+                    padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       border: Border.all(),
                       borderRadius: BorderRadius.circular(20.0),
@@ -385,21 +376,21 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                       children: [
                         // TODO: Replace placeholders:
                         Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 14),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 14),
                           child: GestureDetector(
                             onTap: () =>
                                 _selectTime(context, note.time!, index),
                             child: Text(note.time!,
-                                style: TextStyle(fontSize: 16)),
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black)),
                           ),
                         ),
                         // Divider(thickness: 50, color: Colors.red),
                         GestureDetector(
                           onTap: () => _selectDate(context, note.date!, index),
-                          child: Container(
-                            child: Text(note.date!,
-                                style: TextStyle(fontSize: 16)),
-                          ),
+                          child: Text(note.date!,
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.black)),
                         )
                       ],
                     ),
@@ -407,19 +398,20 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Container(
                         height: 30.0,
                         width: 30.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
                         child: InkWell(
                           onTap: () => deleteNote(index),
-                          child: Icon(
+                          child: const Icon(
                             Icons.delete,
                             size: 22.0,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -431,6 +423,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           ),
         ),
       );
+    }
   }
 
   Widget getNotes() {
@@ -454,26 +447,25 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
       //     onPressed: () => createNewNote('note', '')),
       floatingActionButton: ExpandableFab(
         distance: 100,
-        backgroundColor: Styles.modestPink,
-        foregroundColor: Styles.shadowWhite,
         children: [
           ActionButton(
               iconSize: 30,
               onPressed: () => createNewNote('note', ''),
-              icon: Icon(
+              icon: const Icon(
                 Icons.note_add,
                 color: Styles.blueTheme,
               )),
           ActionButton(
             iconSize: 30,
             onPressed: () => getImage(),
-            icon: Icon(
+            icon: const Icon(
               Icons.image,
               color: Styles.blueTheme,
             ),
           )
         ],
       ),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -488,7 +480,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                         text: widget.visit!.date!.isEmpty
                             ? "New Visit"
                             : "${widget.visit!.date}'s Visit",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 34, fontWeight: FontWeight.w700))),
               ),
               Padding(
@@ -496,9 +488,9 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Colors.red),
                     // Icon(Icons.add),
-                    child: Icon(Icons.delete),
+                    child: const Icon(Icons.delete),
                     onPressed: () async {
-                      if (await showConfirm()) {
+                      if (await showConfirm(context)) {
                         widget.deleteVisit!(widget.visitIndex);
                         Navigator.pop(context);
                       }
@@ -510,41 +502,34 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                padding: EdgeInsets.all(5),
-                alignment: Alignment.centerRight,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    // border: Border.all(),
+              GestureDetector(
+                onTap: () => _selectVisitDate(context, widget.visit!.date!),
+                child: Card(
+                  elevation: 5,
+                  margin: const EdgeInsets.only(left: 8),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 6,
-                          offset: Offset(6, 2))
-                    ]),
-                // onTap: () => _selectDate(
-                //     context, widget.visit.date, index),
-                child: GestureDetector(
-                  onTap: () => _selectVisitDate(context, widget.visit!.date!),
-                  child: Text(
-                    widget.visit!.date!,
-                    style: Styles.articleBodySmall,
+                  ),
+                  color: Colors.white,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    alignment: Alignment.center,
+                    height: 45,
+                    child: Text(
+                      widget.visit!.date!,
+                      style: Styles.articleBodySmallBlack,
+                    ),
                   ),
                 ),
               ),
               // Visit patientName
-              Container(
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: Offset(1, 2))
-                ]),
-                alignment: Alignment.centerRight,
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                color: Colors.white,
                 child: VisitTapEditBox(
                   visit: widget.visit,
                   dataType: 'patientName',
@@ -552,10 +537,7 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
                   defaultText: "Patient's name...",
                   isEditingVisit: true,
                   updateFunction: widget.updateVisitFunction,
-                  boxDecoration: BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(8.0)),
+
                   defaultTextStyle: Styles.articleBodySmallGreyed,
                   // height: 32.0,
                   width: .5.sw,
@@ -566,16 +548,13 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
             ],
           ),
           // Healthcare provider line:
-          Container(
-            // height: 50,
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 6,
-                  offset: Offset(0, 3))
-            ]),
-            alignment: Alignment.topLeft,
+          Card(
+            elevation: 5,
+            margin: const EdgeInsets.only(left: 8, right: 8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            color: Colors.white,
             child: VisitTapEditBox(
               visit: widget.visit,
               dataType: 'healthcareProvider',
@@ -583,10 +562,10 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               defaultText: "Healthcare provider (e.g. Legacy Hospital)...",
               isEditingVisit: true,
               updateFunction: widget.updateVisitFunction,
-              boxDecoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border.all(),
-                  borderRadius: BorderRadius.circular(8.0)),
+              // boxDecoration: BoxDecoration(
+              //     color: Colors.white,
+              //     // border: Border.all(),
+              //     borderRadius: BorderRadius.circular(8.0)),
               defaultTextStyle: Styles.articleBodySmallGreyed,
               // height: 32.0,
               width: .97.sw,
@@ -594,39 +573,6 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               textAlign: TextAlign.left,
             ),
           ),
-
-          // Add media buttons:
-          // TODO (after first release): Enable Add media buttons:
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     ElevatedButton(
-          //       onPressed: () => createNewNote('note', ''),
-          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-
-          //       // Icon(Icons.add),
-          //       child: Icon(Icons.note_add),
-          //     ),
-          //     Container(
-          //       width: 50,
-          //     ),
-          //     ElevatedButton(
-          //       onPressed: () => getImage(),
-          //       style: ElevatedButton.styleFrom(primary: Styles.blueTheme),
-          //       // Icon(Icons.add),
-          //       child: Icon(Icons.image),
-          //     )
-          //     //     IconButton(
-          //     //         icon: Icon(Icons.camera_alt),
-          //     //         color: Colors.white,
-          //     //         onPressed: () => {}),
-          //     //     IconButton(
-          //     //         icon: Icon(Icons.mic),
-          //     //         color: Colors.white,
-          //     //         onPressed: () => {})
-          //   ],
-          // ),
-
           Expanded(
               child: Column(
             children: [
@@ -635,24 +581,8 @@ class _VisitDetailPageState extends State<VisitDetailPage> {
               ),
             ],
           )),
-          ElevatedButton(
-            child: ListTile(
-                leading: Icon(Icons.arrow_back_ios_rounded,
-                    color: Colors.white, size: 27),
-                title: Padding(
-                  child: Styles.backButton,
-                  padding: EdgeInsets.fromLTRB(80, 0, 50, 0),
-                )),
-            onPressed: () => Navigator.pop(context),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.pressed))
-                    return Styles.blueTheme;
-                  return Styles.blueTheme; // Use the component's default.
-                },
-              ),
-            ),
+          PatienceBackButton(
+            callback: () => Navigator.pop(context),
           ), // Use Expanded to take up remaining space on screen
         ],
       ),

@@ -2,9 +2,13 @@
 
 A tool that help patients navigate their healthcare, specifically their hospital visit (as of right now) in order to avoid medical surprise bills.
 
+## Author
+
+Tuan Nguyen and Leilani Hagen
+
 ## Installation
 
-This flutter app using Flutter 2.0.3, Dart 2.12.2
+This flutter app using Flutter 3.0.2, Dart 2.17.3
 To clone the app, use this command line
 
 Please clone the main branch to experience our latest updates and working app version:
