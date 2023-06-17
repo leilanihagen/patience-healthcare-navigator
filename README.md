@@ -9,6 +9,7 @@ Tuan Nguyen and Leilani Hagen
 ## App
 
 [Playstore](https://play.google.com/store/apps/details?id=com.patienceteam.healthcarenavigator)
+
 [Appstore](https://apps.apple.com/us/app/patience-healthcare-navigator/id1593948581)
 
 ## Installation
